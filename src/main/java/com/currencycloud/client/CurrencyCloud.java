@@ -21,8 +21,7 @@ public interface CurrencyCloud {
             @FormParam("api_key") String apiKey
     ) throws CurrencyCloudException;
 
-    /** End API session
-     * @param authToken*/
+    /** End API session */
     @POST
     @Path("authenticate/close_session")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
