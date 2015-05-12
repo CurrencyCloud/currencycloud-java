@@ -9,5 +9,5 @@
         <appender-ref ref="CONSOLE_APPENDER"/>
     </root>
     <!-- todo: remove when testing is done -->
-    <logger name="si.mazi.rescu" level="debug"/>
+    <logger name="si.mazi.rescu" level="trace"/>
 </configuration>
