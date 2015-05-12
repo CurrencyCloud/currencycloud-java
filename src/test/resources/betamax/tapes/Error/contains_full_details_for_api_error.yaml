@@ -1,0 +1,26 @@
+name: contains_full_details_for_api_error
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/authenticate/api
+    body: login_id=non-existent-login-id&api_key=ef0fd50fca1fb14c1fab3a8436b9ecb57528f0
+    headers: {}
+  response:
+    status: 400
+    headers:
+      Server:
+      - nginx
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 29 Apr 2015 22:46:53 GMT
+      X-Request-Id:
+      - '2775253392756800903'
+      X-Content-Type-Options:
+      - nosniff
+      Connection:
+      - close
+      Content-Length:
+      - '190'
+    body: '{"error_code":"auth_invalid_user_login_details","error_messages":{"api_key":[{"code":"api_key_length_is_invalid","message":"api_key
+        should be 64 character(s) long","params":{"length":64}}]}}'

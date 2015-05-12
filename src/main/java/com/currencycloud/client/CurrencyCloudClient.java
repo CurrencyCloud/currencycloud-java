@@ -13,7 +13,11 @@ public class CurrencyCloudClient {
     }
 
     public CurrencyCloudClient(Environment environment) {
-        api = RestProxyFactory.createProxy(CurrencyCloud.class, environment.url);
+        this(environment.url);
+    }
+
+    CurrencyCloudClient(String url) {
+        api = RestProxyFactory.createProxy(CurrencyCloud.class, url);
     }
 
     public void authenticate(String loginId, String apiKey) throws CurrencyCloudException {

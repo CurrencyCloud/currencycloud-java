@@ -1,0 +1,26 @@
+name: is_raised_on_a_forbidden_request
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/authenticate/api
+    body: login_id=rjnienaber%40gmail.com&api_key=ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0
+    headers: {}
+  response:
+    status: 403
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sat, 25 Apr 2015 07:04:11 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '49'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2771879819392580288'
+      X-Content-Type-Options:
+      - nosniff
+    body: ! '{"error_code":"auth_failed","error_messages":{"username":[{"code":"invalid_supplied_credentials","message":"Authentication
+        failed with the supplied credentials","params":{}}]}}'

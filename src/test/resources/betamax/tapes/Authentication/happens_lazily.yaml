@@ -1,0 +1,25 @@
+name: happens lazily
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/authenticate/api
+    body: login_id=rjnienaber%40gmail.com&api_key=ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0
+    headers: {}
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sat, 25 Apr 2015 08:44:14 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '49'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2771930174889333914'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"auth_token":"57ef449f6316f2f54dfec37c2006fe50"}'
