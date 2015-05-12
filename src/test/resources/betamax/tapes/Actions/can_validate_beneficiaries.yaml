@@ -1,0 +1,29 @@
+name: can_validate_beneficiaries
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/beneficiaries/validate
+    body: bank_country=GB&currency=GBP&account_number=12345678&routing_code_type_1=sort_code&routing_code_value_1=123456&payment_types[]=regular
+    headers:
+      X-Auth-Token:
+      - bbdd421bdda373ea69670c9101fa9197
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 03 May 2015 16:55:03 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '732'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2777975414238700878'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"payment_types":["regular"],"bank_country":"GB","bank_name":"HSBC
+        BANK PLC","bank_account_type":null,"currency":"GBP","account_number":"12345678","routing_code_type_1":"sort_code","beneficiary_address":[],"beneficiary_country":null,"beneficiary_entity_type":null,"beneficiary_company_name":null,"beneficiary_first_name":null,"beneficiary_last_name":null,"beneficiary_city":null,"beneficiary_postcode":null,"beneficiary_state_or_province":null,"beneficiary_date_of_birth":null,"beneficiary_identification_type":null,"beneficiary_identification_value":null,"routing_code_value_1":"123456","routing_code_type_2":null,"routing_code_value_2":null,"bic_swift":null,"iban":null,"bank_address":["5
+        Wimbledon Hill Rd","Wimbledon","London"]}'
