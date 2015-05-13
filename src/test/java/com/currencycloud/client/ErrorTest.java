@@ -91,7 +91,25 @@ public class ErrorTest extends BetamaxTestSupport {
 
     // todo: handling of timout errors
 
-    // todo: handling of "resource not found"
+    @Test
+    @Betamax(tape = "is_raised_when_a_resource_is_not_found", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testIsRaisedWhenAResourceIsNotFound() throws Exception {
+        client.setAuthToken("656485646b068f6e9c81e3d885fa54f5");
+
+        try {
+            client.retrieveBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
+            Assert.assertTrue(false, "Should fail");
+        } catch (CurrencyCloudException error) {
+            assertThat(error.getErrorCode(), equalTo("beneficiary_not_found"));
+            assertThat(error.getHttpStatusCode(), equalTo(404));
+            assertThat(error.getErrorMessages().size(), equalTo(1));
+
+            ErrorMessage errorMessage = error.getErrorMessages().get("id").get(0);
+            assertThat(errorMessage.getCode(), equalTo("beneficiary_not_found"));
+            assertThat(errorMessage.getMessage(), equalTo("Beneficiary was not found for this id"));
+            assertThat(errorMessage.getParams(), is(anEmptyMap()));
+        }
+    }
 
     private CurrencyCloudException testFailedLogin(String errorCode, int httpStatusCode) {
         try {
