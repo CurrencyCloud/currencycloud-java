@@ -3,7 +3,7 @@ interactions:
 - request:
     method: POST
     uri: http://localhost:5555/v2/beneficiaries/081596c9-02de-483e-9f2a-4cf55dcdf98c
-    body: bank_account_holder_name=Test%20User%202
+    body: bank_account_holder_name=Test+User+2
     headers:
       X-Auth-Token:
       - 4df5b3e5882a412f148dcd08fa4e5b73

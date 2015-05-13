@@ -3,7 +3,7 @@ interactions:
 - request:
     method: POST
     uri: http://localhost:5555/v2/beneficiaries/create
-    body: bank_account_holder_name=Test%20User&bank_country=GB&currency=GBP&name=Test%20User&account_number=12345678&routing_code_type_1=sort_code&routing_code_value_1=123456&payment_types[]=regular
+    body: bank_account_holder_name=Test+User&bank_country=GB&currency=GBP&name=Test+User&account_number=12345678&routing_code_type_1=sort_code&routing_code_value_1=123456&payment_types[]=regular
     headers:
       X-Auth-Token:
       - e5070d4a16c5ffe4ed9fb268a2a716be
