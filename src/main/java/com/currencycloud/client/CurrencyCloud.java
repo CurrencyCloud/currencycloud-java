@@ -136,6 +136,42 @@ public interface CurrencyCloud {
     ) throws CurrencyCloudException;
 
     /** Update a Beneficiary */
+    @POST
+    @Path("beneficiaries/{id}")
+    Beneficiary updateBeneficiary(
+            @HeaderParam("X-Auth-Token") String authToken, @PathParam("id") String beneficiaryId,
+            @Nullable @FormParam("bank_account_holder_name") String bankAccountHolderName,
+            @Nullable @FormParam("bank_country") String bankCountry,
+            @Nullable @FormParam("currency") String currency,
+            @Nullable @FormParam("name") String name,
+            @Nullable @FormParam("email") String email,
+            @Nullable @FormParam("beneficiary_address") String beneficiaryAddress,
+            @Nullable @FormParam("beneficiary_country") String beneficiaryCountry,
+            @Nullable @FormParam("account_number") String accountNumber,
+            @Nullable @FormParam("routing_code_type_1") String routingCodeType1,
+            @Nullable @FormParam("routing_code_value_1") String routingCodeValue1,
+            @Nullable @FormParam("routing_code_type_2") String routingCodeType2,
+            @Nullable @FormParam("routing_code_value_2") String routingCodeValue2,
+            @Nullable @FormParam("bic_swift") String bicSwift,
+            @Nullable @FormParam("iban") String iban,
+            @Nullable @FormParam("default_beneficiary") Boolean defaultBeneficiary,
+            @Nullable @FormParam("bank_address") List<String> bankAddress,
+            @Nullable @FormParam("bank_name") String bankName,
+            @Nullable @FormParam("bank_account_type") String bankAccountType,
+            @Nullable @FormParam("beneficiary_entity_type") String beneficiaryEntityType,
+            @Nullable @FormParam("beneficiary_company_name") String beneficiaryCompanyName,
+            @Nullable @FormParam("beneficiary_first_name") String beneficiaryFirstName,
+            @Nullable @FormParam("beneficiary_last_name") String beneficiaryLastName,
+            @Nullable @FormParam("beneficiary_city") String beneficiaryCity,
+            @Nullable @FormParam("beneficiary_postcode") String beneficiaryPostcode,
+            @Nullable @FormParam("beneficiary_state_or_province") String beneficiaryStateOrProvince,
+            @Nullable @FormParam("beneficiary_date_of_birth	date") Date beneficiaryDateOfBirth,
+            @Nullable @FormParam("beneficiary_identification_type") String beneficiaryIdentificationType,
+            @Nullable @FormParam("beneficiary_identification_value") String beneficiaryIdentificationValue,
+            @Nullable @FormParam("payment_types") List<String> paymentTypes,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Find Beneficiaries */
     /** Delete Beneficiary */
     ///////////////////////////////////////////////////////////////////
