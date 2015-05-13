@@ -94,7 +94,6 @@ public interface CurrencyCloud {
     @Path("beneficiaries/create")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     Beneficiary createBeneficiary(
-            // todo: this is just copied from above, check with API docs.
             @HeaderParam("X-Auth-Token") String authToken,
             @FormParam("bank_account_holder_name") String bankAccountHolderName,
             @FormParam("bank_country") String bankCountry,
@@ -129,6 +128,13 @@ public interface CurrencyCloud {
     ) throws CurrencyCloudException;
 
     /** Retrieve a Beneficiary */
+    @GET
+    @Path("beneficiaries/{id}")
+    Beneficiary retrieveBeneficiary(
+            @PathParam("id") String id,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Update a Beneficiary */
     /** Find Beneficiaries */
     /** Delete Beneficiary */

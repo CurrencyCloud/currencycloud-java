@@ -59,6 +59,18 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
     }
 
+    @Test
+    @Betamax(tape = "can_retrieve")
+    public void testCanRetrieve() throws Exception {
+        Beneficiary beneficiary = client.retrieveBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
+
+        assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
+        assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
+        assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
+        assertThat(beneficiary.getCreatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
+        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
+    }
+
     private Date parseDate(String str) {
         try {
             return timeFormat.parse(str);
