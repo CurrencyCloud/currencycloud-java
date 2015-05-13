@@ -29,10 +29,12 @@ public class CurrencyCloudClient {
         this.authToken = authToken;
     }
 
+    /** Starts a logged in session */
     public void authenticate(String loginId, String apiKey) throws CurrencyCloudException {
         authToken = api.authenticate(loginId, apiKey).getAuthToken();
     }
 
+    /** Ends a logged in session */
     public void endSession() throws CurrencyCloudException {
         api.endSession(authToken);
         authToken = null;

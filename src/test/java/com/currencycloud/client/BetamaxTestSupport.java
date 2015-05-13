@@ -8,10 +8,6 @@ import java.io.File;
 public class BetamaxTestSupport {
     protected CurrencyCloudClient client = new CurrencyCloudClient("http://localhost:5555");
 
-    protected void setAuthToken(String token) {
-        client.setAuthToken(token);
-    }
-
     @Rule
     public Recorder createRecorder() {
         Recorder recorder = new Recorder();
