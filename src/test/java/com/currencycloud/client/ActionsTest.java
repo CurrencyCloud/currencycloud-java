@@ -5,16 +5,25 @@ import com.currencycloud.client.model.Beneficiary;
 import org.junit.Test;
 import org.testng.Assert;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ActionsTest extends BetamaxTestSupport {
 
+    private final SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+
     @Test
     @Betamax(tape = "can_validate_beneficiaries")
-    public void testCanBeClosed() throws Exception {
-        client.setAuthToken("bbdd421bdda373ea69670c9101fa9197");
+    public void testCanValidateBeneficiaries() throws Exception {
+        client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
         List<String> paymentTypes = Collections.singletonList("regular");
         Beneficiary beneficiary = client.validateBeneficiary(
                 "GB", "GBP", null, "12345678", "sort_code", "123456",
@@ -32,5 +41,29 @@ public class ActionsTest extends BetamaxTestSupport {
         Assert.assertEquals(beneficiary.getRoutingCodeValue1(), "123456");
         Assert.assertEquals(beneficiary.getBankAddress(), Arrays.asList("5 Wimbledon Hill Rd", "Wimbledon", "London"));
         Assert.assertNull(beneficiary.getBankAccountType());
+    }
+
+    @Test
+    @Betamax(tape = "can_create")
+    public void testCanCreate() throws Exception {
+        Beneficiary beneficiary = client.createBeneficiary(
+                "Test User", "GB", "GBP", "Test User", null, null, null, "12345678", "sort_code", "123456",
+                null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+                Collections.singletonList("regular")
+        );
+
+        assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
+        assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
+        assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
+        assertThat(beneficiary.getCreatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
+        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
+    }
+
+    private Date parseDate(String str) {
+        try {
+            return timeFormat.parse(str);
+        } catch (ParseException e) {
+            throw new RuntimeException("Cannot parse time: " + str);
+        }
     }
 }

@@ -4,10 +4,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import java.util.Date;
 import java.util.List;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 public class Beneficiary {
+
+    private String id;
+
+    private String bankAccountHolderName;
+
+    private String name;
+
+    private String email;
+
+    private Boolean defaultBeneficiary;
+
+    private String creatorContactId;
+
+    private Date createdAt;
+
+    private Date updatedAt;
 
     private List<String> paymentTypes;
 
@@ -62,6 +79,38 @@ public class Beneficiary {
     private String iban;
 
     private List<String> bankAddress;
+
+    public String getId() {
+        return id;
+    }
+
+    public String getBankAccountHolderName() {
+        return bankAccountHolderName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Boolean getDefaultBeneficiary() {
+        return defaultBeneficiary;
+    }
+
+    public String getCreatorContactId() {
+        return creatorContactId;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 
     public List<String> getPaymentTypes() {
         return paymentTypes;
@@ -163,3 +212,4 @@ public class Beneficiary {
         return bankAddress;
     }
 }
+
