@@ -1,4 +1,4 @@
-name: tape_name_placeholder
+name: can_create
 interactions:
 - request:
     method: POST
