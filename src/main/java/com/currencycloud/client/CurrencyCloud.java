@@ -125,9 +125,9 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("amount_from") BigDecimal amountFrom,
             @Nullable @QueryParam("amount_to") BigDecimal amountTo,
             @Nullable @QueryParam("as_at_date") Date asAtDate,
-            @Nullable @QueryParam("order") String order,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws CurrencyCloudException;
 

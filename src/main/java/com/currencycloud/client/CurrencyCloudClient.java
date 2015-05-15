@@ -59,8 +59,11 @@ public class CurrencyCloudClient {
         return api.updateAccount(authToken, accountId, accountName, legalEntityType, yourReference, status, street, city, stateOrProvince, postalCode, country, spreadTable, identificationType, identificationValue);
     }
     
-    public Accounts findAccounts(@Nullable String accountName, @Nullable String brand, @Nullable String yourReference, @Nullable String status, @Nullable String street, @Nullable String city, @Nullable String stateOrProvince, @Nullable String postalCode, @Nullable String country, @Nullable String spreadTable, @Nullable Integer page, @Nullable Integer perPage, @Nullable String order, @Nullable Pagination.SortOrder orderAscDesc) throws CurrencyCloudException {
-        return api.findAccounts(authToken, accountName, brand, yourReference, status, street, city, stateOrProvince, postalCode, country, spreadTable, page, perPage, order, orderAscDesc);
+    public Accounts findAccounts(@Nullable String accountName, @Nullable String brand, @Nullable String yourReference, @Nullable String status, @Nullable String street, @Nullable String city, @Nullable String stateOrProvince, @Nullable String postalCode, @Nullable String country, @Nullable String spreadTable, @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        return api.findAccounts(authToken, accountName, brand, yourReference, status, street, city, stateOrProvince, postalCode, country, spreadTable, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc());
     }
 
     public Account currentAccount() throws CurrencyCloudException {
@@ -71,8 +74,11 @@ public class CurrencyCloudClient {
     ///// BALANCES ////////////////////////////////////////////////////
 
     // todo: test
-    public Balances findBalances(BigDecimal amountFrom, BigDecimal amountTo, Date asAtDate, String order, Integer page, Integer perPage, Pagination.SortOrder orderAscDesc) throws CurrencyCloudException {
-        return api.findBalances(authToken, amountFrom, amountTo, asAtDate, order, page, perPage, orderAscDesc);
+    public Balances findBalances(BigDecimal amountFrom, BigDecimal amountTo, Date asAtDate, @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        return api.findBalances(authToken, amountFrom, amountTo, asAtDate, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc());
     }
 
     public Balance findBalance(String currency) throws CurrencyCloudException {
