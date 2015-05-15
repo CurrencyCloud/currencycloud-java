@@ -2,7 +2,9 @@ package com.currencycloud.client;
 
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
+import com.currencycloud.client.model.BeneficiariesData;
 import com.currencycloud.client.model.Beneficiary;
+import com.currencycloud.client.model.Pagination;
 import org.junit.Test;
 import org.testng.Assert;
 
@@ -13,9 +15,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.is;
 
 public class ActionsTest extends BetamaxTestSupport {
 
@@ -72,6 +75,40 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
         assertThat(beneficiary.getCreatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
         assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
+    }
+
+    @Test
+    @Betamax(tape = "can_first", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanFirst() throws Exception {
+        Beneficiary beneficiary = client.firstBeneficiary(
+                "Test User", null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null);
+
+        assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
+        assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
+        assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
+        assertThat(beneficiary.getCreatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
+        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T10:58:21+00:00")));
+    }
+
+    @Test
+    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanFind() throws Exception {
+        BeneficiariesData beneficiariesData = client.findBeneficiaries();
+
+        List<Beneficiary> beneficiaries = beneficiariesData.getBeneficiaries();
+        assertThat(beneficiaries, not(empty()));
+        assertThat(beneficiaries.size(), is(1));
+
+        Pagination pagination = beneficiariesData.getPagination();
+        assertThat(pagination.getTotalEntries(), equalTo(1));
+        assertThat(pagination.getTotalPages(), equalTo(1));
+        assertThat(pagination.getCurrentPage(), equalTo(1));
+        assertThat(pagination.getPerPage(), equalTo(25));
+        assertThat(pagination.getPreviousPage(), equalTo(-1));
+        assertThat(pagination.getNextPage(), equalTo(-1));
+        assertThat(pagination.getOrder(), equalTo("created_at"));
+        assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
     }
 
     @Test

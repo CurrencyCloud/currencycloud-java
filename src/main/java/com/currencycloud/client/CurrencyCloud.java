@@ -1,8 +1,6 @@
 package com.currencycloud.client;
 
-import com.currencycloud.client.model.AuthenticateResponse;
-import com.currencycloud.client.model.Beneficiary;
-import com.currencycloud.client.model.CurrencyCloudException;
+import com.currencycloud.client.model.*;
 
 import javax.annotation.Nullable;
 import javax.ws.rs.*;
@@ -173,6 +171,39 @@ public interface CurrencyCloud {
     ) throws CurrencyCloudException;
 
     /** Find Beneficiaries */
+    @GET
+    @Path("beneficiaries/find")
+    BeneficiariesData findBeneficiaries(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @Nullable @QueryParam("bank_account_holder_name") String bankAccountHolderName,
+            @Nullable @QueryParam("beneficiary_country") String beneficiaryCountry,
+            @Nullable @QueryParam("currency") String currency,
+            @Nullable @QueryParam("account_number") String accountNumber,
+            @Nullable @QueryParam("routing_code_type") String routingCodeType,
+            @Nullable @QueryParam("routing_code_value") String routingCodeValue,
+            @Nullable @QueryParam("payment_types") String paymentTypes,
+            @Nullable @QueryParam("bic_swift") String bicSwift,
+            @Nullable @QueryParam("iban") String iban,
+            @Nullable @QueryParam("default_beneficiary") Boolean defaultBeneficiary,
+            @Nullable @QueryParam("bank_name") String bankName,
+            @Nullable @QueryParam("bank_account_type") String bankAccountType,
+            @Nullable @QueryParam("name") String name,
+            @Nullable @QueryParam("beneficiary_entity_type") String beneficiaryEntityType,
+            @Nullable @QueryParam("beneficiary_company_name") String beneficiaryCompanyName,
+            @Nullable @QueryParam("beneficiary_first_name") String beneficiaryFirstName,
+            @Nullable @QueryParam("beneficiary_last_name") String beneficiaryLastName,
+            @Nullable @QueryParam("beneficiary_city") String beneficiaryCity,
+            @Nullable @QueryParam("beneficiary_postcode") String beneficiaryPostcode,
+            @Nullable @QueryParam("beneficiary_state_or_province") String beneficiaryStateOrProvince,
+            @Nullable @QueryParam("beneficiary_date_of_birth") Date beneficiaryDateOfBirth,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
+
     /** Delete Beneficiary */
     ///////////////////////////////////////////////////////////////////
     ///// CONTACTS API ////////////////////////////////////////////////
