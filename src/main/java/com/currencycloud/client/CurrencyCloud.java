@@ -28,7 +28,6 @@ public interface CurrencyCloud {
     /** End API session */
     @POST
     @Path("authenticate/close_session")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     Object endSession(
             @HeaderParam("X-Auth-Token") String authToken
     ) throws CurrencyCloudException;
@@ -36,15 +35,84 @@ public interface CurrencyCloud {
 
     ///////////////////////////////////////////////////////////////////
     ///// ACCOUNTS API ////////////////////////////////////////////////
-    /** Create Account */
-    /** Retrieve an Account */
-    /** Update an Account */
-    /** Find Account */
-    /** Account (logged-in Contact) */
-    /** MANDATORY_DOCUMENTS API */
-    /** Mandatory Documents */
-    /** Updates an existing Mandatory Document */
 
+    /** Create Account */
+    @POST
+    @Path("accounts/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Account createAccount(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @FormParam("account_name") String accountName,
+            @Nullable @FormParam("legal_entity_type") String legalEntityType,
+            @Nullable @FormParam("your_reference") String yourReference,
+            @Nullable @FormParam("status") String status,
+            @Nullable @FormParam("street") String street,
+            @Nullable @FormParam("city") String city,
+            @Nullable @FormParam("state_or_province") String stateOrProvince,
+            @Nullable @FormParam("postal_code") String postalCode,
+            @Nullable @FormParam("country") String country,
+            @Nullable @FormParam("spread_table") String spreadTable,
+            @Nullable @FormParam("identification_type") String identificationType,
+            @Nullable @FormParam("identification_value") String identificationValue
+    ) throws CurrencyCloudException;
+
+    /** Retrieve an Account */
+    @GET
+    @Path("accounts/{id}")
+    Account retrieveAccount(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String accountId,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
+    /** Update an Account */
+    @POST
+    @Path("accounts/{id}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Account updateAccount(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String accountId,
+            @Nullable @FormParam("account_name") String accountName,
+            @Nullable @FormParam("legal_entity_type") String legalEntityType,
+            @Nullable @FormParam("your_reference") String yourReference,
+            @Nullable @FormParam("status") String status,
+            @Nullable @FormParam("street") String street,
+            @Nullable @FormParam("city") String city,
+            @Nullable @FormParam("state_or_province") String stateOrProvince,
+            @Nullable @FormParam("postal_code") String postalCode,
+            @Nullable @FormParam("country") String country,
+            @Nullable @FormParam("spread_table") String spreadTable,
+            @Nullable @FormParam("identification_type") String identificationType,
+            @Nullable @FormParam("identification_value") String identificationValue
+    ) throws CurrencyCloudException;
+
+    /** Find Account */
+    @GET
+    @Path("accounts/find")
+    Accounts findAccounts(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @Nullable @FormParam("account_name") String accountName,
+            @Nullable @FormParam("brand") String brand,
+            @Nullable @FormParam("your_reference") String yourReference,
+            @Nullable @FormParam("status") String status,
+            @Nullable @FormParam("street") String street,
+            @Nullable @FormParam("city") String city,
+            @Nullable @FormParam("state_or_province") String stateOrProvince,
+            @Nullable @FormParam("postal_code") String postalCode,
+            @Nullable @FormParam("country") String country,
+            @Nullable @FormParam("spread_table") String spreadTable,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws CurrencyCloudException;
+
+    /** Account (logged-in Contact) */
+    @GET
+    @Path("accounts/current")
+    Account currentAccount(
+            @HeaderParam("X-Auth-Token") String authToken
+    ) throws CurrencyCloudException;
 
     ///////////////////////////////////////////////////////////////////
     ///// BALANCES API ////////////////////////////////////////////////
@@ -52,7 +120,8 @@ public interface CurrencyCloud {
     /** Find Balances */
     @GET
     @Path("balances/find")
-    BalancesResponse findBalances(
+    Balances findBalances(
+            @HeaderParam("X-Auth-Token") String authToken,
             @Nullable @QueryParam("amount_from") BigDecimal amountFrom,
             @Nullable @QueryParam("amount_to") BigDecimal amountTo,
             @Nullable @QueryParam("as_at_date") Date asAtDate,
@@ -65,8 +134,10 @@ public interface CurrencyCloud {
     /** Retrieve a Balance */
     @GET
     @Path("balances/{currency}")
-    Balance findBalance(@PathParam("currency") String currency)
-            throws CurrencyCloudException;
+    Balance findBalance(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("currency") String currency
+    ) throws CurrencyCloudException;
 
     ///////////////////////////////////////////////////////////////////
     ///// BENEFICIARIES API ///////////////////////////////////////////
@@ -146,6 +217,7 @@ public interface CurrencyCloud {
     @GET
     @Path("beneficiaries/{id}")
     Beneficiary retrieveBeneficiary(
+            @HeaderParam("X-Auth-Token") String authToken,
             @PathParam("id") String id,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws CurrencyCloudException;
@@ -191,7 +263,7 @@ public interface CurrencyCloud {
     /** Find Beneficiaries */
     @GET
     @Path("beneficiaries/find")
-    BeneficiariesData findBeneficiaries(
+    Beneficiaries findBeneficiaries(
             @HeaderParam("X-Auth-Token") String authToken,
             @Nullable @QueryParam("bank_account_holder_name") String bankAccountHolderName,
             @Nullable @QueryParam("beneficiary_country") String beneficiaryCountry,
@@ -225,6 +297,7 @@ public interface CurrencyCloud {
     @POST
     @Path("beneficiaries/{id}/delete")
     Beneficiary deleteBeneficiary(
+            @HeaderParam("X-Auth-Token") String authToken,
             @PathParam("id") String id,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws CurrencyCloudException;

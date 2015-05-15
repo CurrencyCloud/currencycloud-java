@@ -43,15 +43,40 @@ public class CurrencyCloudClient {
     }
 
     ///////////////////////////////////////////////////////////////////
+    ///// ACCOUNTS ////////////////////////////////////////////////////
+
+    // todo: test: create retrieve update find
+
+    public Account createAccount(String accountName, @Nullable String legalEntityType, @Nullable String yourReference, @Nullable String status, @Nullable String street, @Nullable String city, @Nullable String stateOrProvince, @Nullable String postalCode, @Nullable String country, @Nullable String spreadTable, @Nullable String identificationType, @Nullable String identificationValue) throws CurrencyCloudException {
+        return api.createAccount(authToken, accountName, legalEntityType, yourReference, status, street, city, stateOrProvince, postalCode, country, spreadTable, identificationType, identificationValue);
+    }
+
+    public Account retrieveAccount(String accountId) throws CurrencyCloudException {
+        return api.retrieveAccount(authToken, accountId, onBehalfOf);
+    }
+    
+    public Account updateAccount(String accountId, @Nullable String accountName, @Nullable String legalEntityType, @Nullable String yourReference, @Nullable String status, @Nullable String street, @Nullable String city, @Nullable String stateOrProvince, @Nullable String postalCode, @Nullable String country, @Nullable String spreadTable, @Nullable String identificationType, @Nullable String identificationValue) throws CurrencyCloudException {
+        return api.updateAccount(authToken, accountId, accountName, legalEntityType, yourReference, status, street, city, stateOrProvince, postalCode, country, spreadTable, identificationType, identificationValue);
+    }
+    
+    public Accounts findAccounts(@Nullable String accountName, @Nullable String brand, @Nullable String yourReference, @Nullable String status, @Nullable String street, @Nullable String city, @Nullable String stateOrProvince, @Nullable String postalCode, @Nullable String country, @Nullable String spreadTable, @Nullable Integer page, @Nullable Integer perPage, @Nullable String order, @Nullable Pagination.SortOrder orderAscDesc) throws CurrencyCloudException {
+        return api.findAccounts(authToken, accountName, brand, yourReference, status, street, city, stateOrProvince, postalCode, country, spreadTable, page, perPage, order, orderAscDesc);
+    }
+
+    public Account currentAccount() throws CurrencyCloudException {
+        return api.currentAccount(authToken);
+    }
+
+    ///////////////////////////////////////////////////////////////////
     ///// BALANCES ////////////////////////////////////////////////////
 
     // todo: test
-    public BalancesResponse findBalances(BigDecimal amountFrom, BigDecimal amountTo, Date asAtDate, String order, Integer page, Integer perPage, Pagination.SortOrder orderAscDesc) throws CurrencyCloudException {
-        return api.findBalances(amountFrom, amountTo, asAtDate, order, page, perPage, orderAscDesc);
+    public Balances findBalances(BigDecimal amountFrom, BigDecimal amountTo, Date asAtDate, String order, Integer page, Integer perPage, Pagination.SortOrder orderAscDesc) throws CurrencyCloudException {
+        return api.findBalances(authToken, amountFrom, amountTo, asAtDate, order, page, perPage, orderAscDesc);
     }
 
     public Balance findBalance(String currency) throws CurrencyCloudException {
-        return api.findBalance(currency);
+        return api.findBalance(authToken, currency);
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -68,7 +93,7 @@ public class CurrencyCloudClient {
     }
 
     public Beneficiary retrieveBeneficiary(String id) throws CurrencyCloudException {
-        return api.retrieveBeneficiary(id, onBehalfOf);
+        return api.retrieveBeneficiary(authToken, id, onBehalfOf);
     }
 
     public Beneficiary updateBeneficiary(String beneficiaryId, @Nullable String bankAccountHolderName, @Nullable String bankCountry, @Nullable String currency, @Nullable String name, @Nullable String email, @Nullable String beneficiaryAddress, @Nullable String beneficiaryCountry, @Nullable String accountNumber, @Nullable String routingCodeType1, @Nullable String routingCodeValue1, @Nullable String routingCodeType2, @Nullable String routingCodeValue2, @Nullable String bicSwift, @Nullable String iban, @Nullable Boolean defaultBeneficiary, @Nullable List<String> bankAddress, @Nullable String bankName, @Nullable String bankAccountType, @Nullable String beneficiaryEntityType, @Nullable String beneficiaryCompanyName, @Nullable String beneficiaryFirstName, @Nullable String beneficiaryLastName, @Nullable String beneficiaryCity, @Nullable String beneficiaryPostcode, @Nullable String beneficiaryStateOrProvince, @Nullable Date beneficiaryDateOfBirth, @Nullable String beneficiaryIdentificationType, @Nullable String beneficiaryIdentificationValue, @Nullable List<String> paymentTypes)
@@ -76,7 +101,7 @@ public class CurrencyCloudClient {
         return api.updateBeneficiary(authToken, beneficiaryId, bankAccountHolderName, bankCountry, currency, name, email, beneficiaryAddress, beneficiaryCountry, accountNumber, routingCodeType1, routingCodeValue1, routingCodeType2, routingCodeValue2, bicSwift, iban, defaultBeneficiary, bankAddress, bankName, bankAccountType, beneficiaryEntityType, beneficiaryCompanyName, beneficiaryFirstName, beneficiaryLastName, beneficiaryCity, beneficiaryPostcode, beneficiaryStateOrProvince, beneficiaryDateOfBirth, beneficiaryIdentificationType, beneficiaryIdentificationValue, paymentTypes, onBehalfOf);
     }
 
-    public BeneficiariesData findBeneficiaries()
+    public Beneficiaries findBeneficiaries()
             throws CurrencyCloudException {
         // todo: convert camelCase in order to underscore_case?
         return api.findBeneficiaries(
@@ -84,7 +109,7 @@ public class CurrencyCloudClient {
                 null, null, null, null, null, null, null, null, null, null, null, null, null, null, onBehalfOf);
     }
 
-    public BeneficiariesData findBeneficiaries(@Nullable String bankAccountHolderName, @Nullable String beneficiaryCountry, @Nullable String currency, @Nullable String accountNumber, @Nullable String routingCodeType, @Nullable String routingCodeValue, @Nullable String paymentTypes, @Nullable String bicSwift, @Nullable String iban, @Nullable Boolean defaultBeneficiary, @Nullable String bankName, @Nullable String bankAccountType, @Nullable String name, @Nullable String beneficiaryEntityType, @Nullable String beneficiaryCompanyName, @Nullable String beneficiaryFirstName, @Nullable String beneficiaryLastName, @Nullable String beneficiaryCity, @Nullable String beneficiaryPostcode, @Nullable String beneficiaryStateOrProvince, @Nullable Date beneficiaryDateOfBirth, @Nullable Pagination pagination)
+    public Beneficiaries findBeneficiaries(@Nullable String bankAccountHolderName, @Nullable String beneficiaryCountry, @Nullable String currency, @Nullable String accountNumber, @Nullable String routingCodeType, @Nullable String routingCodeValue, @Nullable String paymentTypes, @Nullable String bicSwift, @Nullable String iban, @Nullable Boolean defaultBeneficiary, @Nullable String bankName, @Nullable String bankAccountType, @Nullable String name, @Nullable String beneficiaryEntityType, @Nullable String beneficiaryCompanyName, @Nullable String beneficiaryFirstName, @Nullable String beneficiaryLastName, @Nullable String beneficiaryCity, @Nullable String beneficiaryPostcode, @Nullable String beneficiaryStateOrProvince, @Nullable Date beneficiaryDateOfBirth, @Nullable Pagination pagination)
             throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
@@ -97,7 +122,7 @@ public class CurrencyCloudClient {
     }
 
     public Beneficiary deleteBeneficiary(String id) throws CurrencyCloudException {
-        return api.deleteBeneficiary(id, onBehalfOf);
+        return api.deleteBeneficiary(authToken, id, onBehalfOf);
     }
 
     ///////////////////////////////////////////////////////////////////

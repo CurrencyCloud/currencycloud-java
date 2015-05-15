@@ -2,10 +2,7 @@ package com.currencycloud.client;
 
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.Balance;
-import com.currencycloud.client.model.BeneficiariesData;
-import com.currencycloud.client.model.Beneficiary;
-import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.*;
 import org.junit.Test;
 import org.testng.Assert;
 
@@ -17,10 +14,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
 public class ActionsTest extends BetamaxTestSupport {
 
@@ -96,7 +96,7 @@ public class ActionsTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFind() throws Exception {
-        BeneficiariesData beneficiariesData = client.findBeneficiaries();
+        Beneficiaries beneficiariesData = client.findBeneficiaries();
 
         List<Beneficiary> beneficiaries = beneficiariesData.getBeneficiaries();
         assertThat(beneficiaries, not(empty()));
@@ -136,6 +136,17 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
         assertThat(beneficiary.getCreatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
         assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T11:06:27+00:00")));
+    }
+
+    @Test
+    @Betamax(tape = "can_current", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanCurrent() throws Exception {
+        Account account = client.currentAccount();
+
+        assertThat(account.getId(), equalTo("8ec3a69b-02d1-4f09-9a6b-6bd54a61b3a8"));
+        assertThat(account.getPostalCode(), nullValue());
+        assertThat(account.getCreatedAt(), equalTo(parseDate("2015-04-24T15:57:55+00:00")));
+        assertThat(account.getUpdatedAt(), equalTo(parseDate("2015-04-24T15:57:55+00:00")));
     }
 
     @Test
