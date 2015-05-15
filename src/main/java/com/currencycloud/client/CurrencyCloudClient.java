@@ -1,12 +1,10 @@
 package com.currencycloud.client;
 
-import com.currencycloud.client.model.BeneficiariesData;
-import com.currencycloud.client.model.Beneficiary;
-import com.currencycloud.client.model.CurrencyCloudException;
-import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.*;
 import si.mazi.rescu.RestProxyFactory;
 
 import javax.annotation.Nullable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +41,21 @@ public class CurrencyCloudClient {
         api.endSession(authToken);
         authToken = null;
     }
+
+    ///////////////////////////////////////////////////////////////////
+    ///// BALANCES ////////////////////////////////////////////////////
+
+    // todo: test
+    public BalancesResponse findBalances(BigDecimal amountFrom, BigDecimal amountTo, Date asAtDate, String order, Integer page, Integer perPage, Pagination.SortOrder orderAscDesc) throws CurrencyCloudException {
+        return api.findBalances(amountFrom, amountTo, asAtDate, order, page, perPage, orderAscDesc);
+    }
+
+    public Balance findBalance(String currency) throws CurrencyCloudException {
+        return api.findBalance(currency);
+    }
+
+    ///////////////////////////////////////////////////////////////////
+    ///// BENEFICIARIES ///////////////////////////////////////////////
 
     public Beneficiary validateBeneficiary(String bankCountry, String currency, String beneficiaryCountry, @Nullable String accountNumber, @Nullable String routingCodeType1, @Nullable String routingCodeValue1, @Nullable String routingCodeType2, @Nullable String routingCodeValue2, @Nullable String bicSwift, @Nullable String iban, @Nullable List<String> bankAddress, @Nullable String bankName, @Nullable String bankAccountType, @Nullable String beneficiaryEntityType, @Nullable String beneficiaryCompanyName, @Nullable String beneficiaryFirstName, @Nullable String beneficiaryLastName, @Nullable String beneficiaryCity, @Nullable String beneficiaryPostcode, @Nullable String beneficiaryStateOrProvince, @Nullable Date beneficiaryDateOfBirth, @Nullable String beneficiaryIdentificationType, @Nullable String beneficiaryIdentificationValue, @Nullable List<String> paymentTypes)
             throws CurrencyCloudException {
@@ -86,6 +99,8 @@ public class CurrencyCloudClient {
     public Beneficiary deleteBeneficiary(String id) throws CurrencyCloudException {
         return api.deleteBeneficiary(id, onBehalfOf);
     }
+
+    ///////////////////////////////////////////////////////////////////
 
     public enum Environment {
         production("https://api.thecurrencycloud.com"),

@@ -2,12 +2,14 @@ package com.currencycloud.client;
 
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
+import com.currencycloud.client.model.Balance;
 import com.currencycloud.client.model.BeneficiariesData;
 import com.currencycloud.client.model.Beneficiary;
 import com.currencycloud.client.model.Pagination;
 import org.junit.Test;
 import org.testng.Assert;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -134,6 +136,17 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
         assertThat(beneficiary.getCreatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
         assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T11:06:27+00:00")));
+    }
+
+    @Test
+    @Betamax(tape = "can_use_currency_to_retrieve_balance", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanUseCurrencyToRetrieveBalance() throws Exception {
+        Balance balance = client.findBalance("GBP");
+
+        assertThat(balance.getId(), equalTo("5a998e06-3eb7-46d6-ba58-f749864159ce"));
+        assertThat(balance.getAmount(), equalTo(new BigDecimal("999866.78")));
+        assertThat(balance.getCreatedAt(), equalTo(parseDate("2014-12-04T09:50:35+00:00")));
+        assertThat(balance.getUpdatedAt(), equalTo(parseDate("2015-03-23T14:33:37+00:00")));
     }
 
     ////////////////////////////////////////////////////////////////

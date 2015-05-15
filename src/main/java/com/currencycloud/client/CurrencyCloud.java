@@ -5,6 +5,7 @@ import com.currencycloud.client.model.*;
 import javax.annotation.Nullable;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -47,9 +48,25 @@ public interface CurrencyCloud {
 
     ///////////////////////////////////////////////////////////////////
     ///// BALANCES API ////////////////////////////////////////////////
-    /** Find Balances */
-    /** Retrieve a Balance */
 
+    /** Find Balances */
+    @GET
+    @Path("balances/find")
+    BalancesResponse findBalances(
+            @Nullable @QueryParam("amount_from") BigDecimal amountFrom,
+            @Nullable @QueryParam("amount_to") BigDecimal amountTo,
+            @Nullable @QueryParam("as_at_date") Date asAtDate,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws CurrencyCloudException;
+
+    /** Retrieve a Balance */
+    @GET
+    @Path("balances/{currency}")
+    Balance findBalance(@PathParam("currency") String currency)
+            throws CurrencyCloudException;
 
     ///////////////////////////////////////////////////////////////////
     ///// BENEFICIARIES API ///////////////////////////////////////////
@@ -136,6 +153,7 @@ public interface CurrencyCloud {
     /** Update a Beneficiary */
     @POST
     @Path("beneficiaries/{id}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     Beneficiary updateBeneficiary(
             @HeaderParam("X-Auth-Token") String authToken, @PathParam("id") String beneficiaryId,
             @Nullable @FormParam("bank_account_holder_name") String bankAccountHolderName,
