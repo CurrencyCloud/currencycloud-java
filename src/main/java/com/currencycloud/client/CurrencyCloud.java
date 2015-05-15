@@ -302,14 +302,96 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws CurrencyCloudException;
 
-        ///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
     ///// CONTACTS API ////////////////////////////////////////////////
+
     /** Create reset token and send email notification */
+    @POST
+    @Path("contacts/reset_token/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Object createResetToken(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @Nullable @FormParam("login_id") String loginId
+    );
+
     /** Create Contact */
+    @POST
+    @Path("contacts/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Contact createContact(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @FormParam("account_id") String accountId,
+            @FormParam("first_name") String firstName,
+            @FormParam("last_name") String lastName,
+            @FormParam("email_address") String emailAddress,
+            @FormParam("phone_number") String phoneNumber,
+            @Nullable @FormParam("your_reference") String yourReference,
+            @Nullable @FormParam("mobile_phone_number") String mobilePhoneNumber,
+            @Nullable @FormParam("login_id") String loginId,
+            @Nullable @FormParam("status") String status,
+            @Nullable @FormParam("locale") String locale,
+            @Nullable @FormParam("timezone") String timezone,
+            @Nullable @FormParam("date_of_birth") Date dateOfBirth
+    );
+
     /** Retrieve a Contact */
+    @GET
+    @Path("contacts/{id}")
+    Contact retrieveContact(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String contactId
+    ) throws CurrencyCloudException;
+
     /** Update a Contact */
+    @POST
+    @Path("contacts/{id}")
+    Contact updateContact(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String contactId,
+            @Nullable @FormParam("first_name") String firstName,
+            @Nullable @FormParam("last_name") String lastName,
+            @Nullable @FormParam("email_address") String emailAddress,
+            @Nullable @FormParam("phone_number") String phoneNumber,
+            @Nullable @FormParam("your_reference") String yourReference,
+            @Nullable @FormParam("mobile_phone_number") String mobilePhoneNumber,
+            @Nullable @FormParam("login_id") String login_id,
+            @Nullable @FormParam("status") String status,
+            @Nullable @FormParam("locale") String locale,
+            @Nullable @FormParam("timezone") String timezone,
+            @Nullable @FormParam("date_of_birth") Date dateOfBirth
+    ) throws CurrencyCloudException;
+
     /** Find Contact */
+    @GET
+    @Path("contacts/find")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Contacts findContacts(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @Nullable @QueryParam("account_name") String accountName,
+            @Nullable @QueryParam("account_id") String accountId,
+            @Nullable @QueryParam("first_name") String firstName,
+            @Nullable @QueryParam("last_name") String lastName,
+            @Nullable @QueryParam("email_address") String emailAddress,
+            @Nullable @QueryParam("your_reference") String yourReference,
+            @Nullable @QueryParam("phone_number") String phoneNumber,
+            @Nullable @QueryParam("login_id") String loginId,
+            @Nullable @QueryParam("status") String status,
+            @Nullable @QueryParam("locale") String locale,
+            @Nullable @QueryParam("timezone") String timezone,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws CurrencyCloudException;
+
     /** Contact (logged-in Contact) */
+    @GET
+    @Path("contacts/current")
+    Contact currentContact(
+            @HeaderParam("X-Auth-Token") String authToken
+    ) throws CurrencyCloudException;
+
+
     ///////////////////////////////////////////////////////////////////
     ///// CONVERSIONS API /////////////////////////////////////////////
     /** Create a Conversion */
