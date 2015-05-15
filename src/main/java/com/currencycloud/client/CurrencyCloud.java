@@ -130,7 +130,7 @@ public interface CurrencyCloud {
     @Path("beneficiaries/{id}")
     Beneficiary retrieveBeneficiary(
             @PathParam("id") String id,
-            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws CurrencyCloudException;
 
     /** Update a Beneficiary */
@@ -203,9 +203,15 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws CurrencyCloudException;
 
-
     /** Delete Beneficiary */
-    ///////////////////////////////////////////////////////////////////
+    @POST
+    @Path("beneficiaries/{id}/delete")
+    Beneficiary deleteBeneficiary(
+            @PathParam("id") String id,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
+        ///////////////////////////////////////////////////////////////////
     ///// CONTACTS API ////////////////////////////////////////////////
     /** Create reset token and send email notification */
     /** Create Contact */

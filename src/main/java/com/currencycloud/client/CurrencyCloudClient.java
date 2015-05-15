@@ -83,6 +83,10 @@ public class CurrencyCloudClient {
         return findBeneficiaries(bankAccountHolderName, beneficiaryCountry, currency, accountNumber, routingCodeType, routingCodeValue, paymentTypes, bicSwift, iban, defaultBeneficiary, bankName, bankAccountType, name, beneficiaryEntityType, beneficiaryCompanyName, beneficiaryFirstName, beneficiaryLastName, beneficiaryCity, beneficiaryPostcode, beneficiaryStateOrProvince, beneficiaryDateOfBirth, Pagination.first()).getBeneficiaries().iterator().next();
     }
 
+    public Beneficiary deleteBeneficiary(String id) throws CurrencyCloudException {
+        return api.deleteBeneficiary(id, onBehalfOf);
+    }
+
     public enum Environment {
         production("https://api.thecurrencycloud.com"),
         demo("https://devapi.thecurrencycloud.com")

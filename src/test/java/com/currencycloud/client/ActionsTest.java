@@ -124,6 +124,20 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User 2"));
     }
 
+    @Test
+    @Betamax(tape = "can_delete", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanDelete() throws Exception {
+        Beneficiary beneficiary = client.deleteBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
+
+        assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
+        assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User 2"));
+        assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
+        assertThat(beneficiary.getCreatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
+        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T11:06:27+00:00")));
+    }
+
+    ////////////////////////////////////////////////////////////////
+
     private Date parseDate(String str) {
         try {
             return timeFormat.parse(str);
