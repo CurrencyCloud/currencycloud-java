@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Accounts extends PaginatedData {
 
-    private List<Account> beneficiaries;
+    private List<Account> accounts;
 
-    public List<Account> getBeneficiaries() {
-        return beneficiaries;
+    public List<Account> getAccounts() {
+        return accounts;
     }
 }

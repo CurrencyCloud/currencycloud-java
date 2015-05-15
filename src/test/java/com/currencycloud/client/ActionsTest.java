@@ -28,30 +28,6 @@ public class ActionsTest extends BetamaxTestSupport {
 
     // todo: serialize collections correctly in method body
     @Test
-    @Betamax(tape = "can_validate_beneficiaries", match = {MatchRule.method, MatchRule.uri/*, MatchRule.body*/})
-    public void testCanValidateBeneficiaries() throws Exception {
-        client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
-        List<String> paymentTypes = Collections.singletonList("regular");
-        Beneficiary beneficiary = client.validateBeneficiary(
-                "GB", "GBP", null, "12345678", "sort_code", "123456",
-                null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null,
-                paymentTypes
-        );
-        Assert.assertEquals(beneficiary.getPaymentTypes(), paymentTypes);
-        Assert.assertEquals(beneficiary.getBankCountry(), "GB");
-        Assert.assertEquals(beneficiary.getBankName(), "HSBC BANK PLC");
-        Assert.assertEquals(beneficiary.getCurrency(), "GBP");
-        Assert.assertEquals(beneficiary.getAccountNumber(), "12345678");
-        Assert.assertEquals(beneficiary.getRoutingCodeType1(), "sort_code");
-        Assert.assertEquals(beneficiary.getBeneficiaryAddress(), Collections.emptyList());
-        Assert.assertEquals(beneficiary.getRoutingCodeValue1(), "123456");
-        Assert.assertEquals(beneficiary.getBankAddress(), Arrays.asList("5 Wimbledon Hill Rd", "Wimbledon", "London"));
-        Assert.assertNull(beneficiary.getBankAccountType());
-    }
-
-    // todo: serialize collections correctly in method body
-    @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri/*, MatchRule.body*/})
     public void testCanCreate() throws Exception {
         Beneficiary beneficiary = client.createBeneficiary(
@@ -147,6 +123,30 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(account.getPostalCode(), nullValue());
         assertThat(account.getCreatedAt(), equalTo(parseDate("2015-04-24T15:57:55+00:00")));
         assertThat(account.getUpdatedAt(), equalTo(parseDate("2015-04-24T15:57:55+00:00")));
+    }
+
+    // todo: serialize collections correctly in method body
+    @Test
+    @Betamax(tape = "can_validate_beneficiaries", match = {MatchRule.method, MatchRule.uri/*, MatchRule.body*/})
+    public void testCanValidateBeneficiaries() throws Exception {
+        client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
+        List<String> paymentTypes = Collections.singletonList("regular");
+        Beneficiary beneficiary = client.validateBeneficiary(
+                "GB", "GBP", null, "12345678", "sort_code", "123456",
+                null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null,
+                paymentTypes
+        );
+        Assert.assertEquals(beneficiary.getPaymentTypes(), paymentTypes);
+        Assert.assertEquals(beneficiary.getBankCountry(), "GB");
+        Assert.assertEquals(beneficiary.getBankName(), "HSBC BANK PLC");
+        Assert.assertEquals(beneficiary.getCurrency(), "GBP");
+        Assert.assertEquals(beneficiary.getAccountNumber(), "12345678");
+        Assert.assertEquals(beneficiary.getRoutingCodeType1(), "sort_code");
+        Assert.assertEquals(beneficiary.getBeneficiaryAddress(), Collections.emptyList());
+        Assert.assertEquals(beneficiary.getRoutingCodeValue1(), "123456");
+        Assert.assertEquals(beneficiary.getBankAddress(), Arrays.asList("5 Wimbledon Hill Rd", "Wimbledon", "London"));
+        Assert.assertNull(beneficiary.getBankAccountType());
     }
 
     @Test
