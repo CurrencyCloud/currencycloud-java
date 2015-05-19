@@ -7,11 +7,8 @@ import org.junit.Test;
 import org.testng.Assert;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -23,8 +20,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 
 public class ActionsTest extends BetamaxTestSupport {
-
-    private final SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
 
     // todo: serialize collections correctly in method body
     @Test
@@ -162,11 +157,4 @@ public class ActionsTest extends BetamaxTestSupport {
 
     ////////////////////////////////////////////////////////////////
 
-    private Date parseDate(String str) {
-        try {
-            return timeFormat.parse(str);
-        } catch (ParseException e) {
-            throw new RuntimeException("Cannot parse time: " + str);
-        }
-    }
 }

@@ -394,9 +394,63 @@ public interface CurrencyCloud {
 
     ///////////////////////////////////////////////////////////////////
     ///// CONVERSIONS API /////////////////////////////////////////////
+
     /** Create a Conversion */
+    @POST
+    @Path("conversions/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Conversion createConversion(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @FormParam("buy_currency") String buyCurrency,
+            @FormParam("sell_currency") String sellCurrency,
+            @FormParam("fixed_side") String fixedSide,
+            @FormParam("amount") BigDecimal amount,
+            @FormParam("reason") String reason,
+            @FormParam("term_agreement") Boolean termAgreement,
+            @Nullable @FormParam("conversion_date") Date conversionDate,
+            @Nullable @FormParam("client_rate") BigDecimal clientRate,
+            @Nullable @FormParam("currency_pair") String currencyPair,
+            @Nullable @FormParam("client_buy_amount") BigDecimal clientBuyAmount,
+            @Nullable @FormParam("client_sell_amount") BigDecimal clientSellAmount,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    );
+
     /** Retrieve a Conversion */
+    @GET
+    @Path("conversions/{id}")
+    Conversion retrieveConversion(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String conversionId
+    ) throws CurrencyCloudException;
+
     /** Find a Conversion */
+    @GET
+    @Path("conversions/find")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Conversions findConversions(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @Nullable @QueryParam("short_reference") String shortReference,
+            @Nullable @QueryParam("status") String status,
+            @Nullable @QueryParam("partner_status") String partnerStatus,
+            @Nullable @QueryParam("buy_currency") String buyCurrency,
+            @Nullable @QueryParam("sell_currency") String sellCurrency,
+            @Nullable @QueryParam("conversion_ids") String conversionIds,
+            @Nullable @QueryParam("created_at_from") String createdAtFrom,
+            @Nullable @QueryParam("created_at_to") String createdAtTo,
+            @Nullable @QueryParam("updated_at_from") String updatedAtFrom,
+            @Nullable @QueryParam("updated_at_to") String updatedAtTo,
+            @Nullable @QueryParam("currency_pair") String currencyPair,
+            @Nullable @QueryParam("partner_buy_amount_from") String partnerBuyAmountFrom,
+            @Nullable @QueryParam("partner_buy_amount_to") String partnerBuyAmountTo,
+            @Nullable @QueryParam("partner_sell_amount_from") String partnerSellAmountFrom,
+            @Nullable @QueryParam("partner_sell_amount_to") String partnerSellAmountTo,
+            @Nullable @QueryParam("buy_amount_from") String buyAmountFrom,
+            @Nullable @QueryParam("buy_amount_to") String buyAmountTo,
+            @Nullable @QueryParam("sell_amount_from") String sellAmountFrom,
+            @Nullable @QueryParam("sell_amount_to") String sellAmountTo,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     ///////////////////////////////////////////////////////////////////
     ///// PAYERS API ///////////////////////////////////////////////////
     /** Retrieve a Payer */

@@ -132,6 +132,40 @@ public class CurrencyCloudClient {
     }
 
     ///////////////////////////////////////////////////////////////////
+    ///// CONVERSIONS /////////////////////////////////////////////////
+
+    public Conversions findConversions(@Nullable String shortReference, @Nullable String status, @Nullable String partnerStatus, @Nullable String buyCurrency, @Nullable String sellCurrency, @Nullable String conversionIds, @Nullable String createdAtFrom, @Nullable String createdAtTo, @Nullable String updatedAtFrom, @Nullable String updatedAtTo, @Nullable String currencyPair, @Nullable String partnerBuyAmountFrom, @Nullable String partnerBuyAmountTo, @Nullable String partnerSellAmountFrom, @Nullable String partnerSellAmountTo, @Nullable String buyAmountFrom, @Nullable String buyAmountTo, @Nullable String sellAmountFrom, @Nullable String sellAmountTo) throws CurrencyCloudException {
+        return api.findConversions(authToken, shortReference, status, partnerStatus, buyCurrency, sellCurrency, conversionIds, createdAtFrom, createdAtTo, updatedAtFrom, updatedAtTo, currencyPair, partnerBuyAmountFrom, partnerBuyAmountTo, partnerSellAmountFrom, partnerSellAmountTo, buyAmountFrom, buyAmountTo, sellAmountFrom, sellAmountTo, onBehalfOf);
+    }
+
+    public Conversion retrieveConversion(String conversionId) throws CurrencyCloudException {
+        return api.retrieveConversion(authToken, conversionId);
+    }
+
+    public Conversion createConversion(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, String reason, Boolean termAgreement, @Nullable Date conversionDate, @Nullable BigDecimal clientRate, @Nullable String currencyPair, @Nullable BigDecimal clientBuyAmount, @Nullable BigDecimal clientSellAmount) {
+        return api.createConversion(authToken, buyCurrency, sellCurrency, fixedSide, amount, reason, termAgreement, conversionDate, clientRate, currencyPair, clientBuyAmount, clientSellAmount, onBehalfOf);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////
+    ///// PAYERS ///////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////
+    ///// PAYMENTS ////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////
+    ///// RATES ///////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////
+    ///// REFERENCE ///////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////
+    ///// SETTLEMENTS /////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////
+    ///// TRANSACTIONS ////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////
 
     public enum Environment {
         production("https://api.thecurrencycloud.com"),
