@@ -34,8 +34,8 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
         assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
-        assertThat(beneficiary.getCreatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
-        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
+        assertThat(beneficiary.getCreatedAt(), equalTo(parseDateTime("2015-04-25T09:21:00+00:00")));
+        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDateTime("2015-04-25T09:21:00+00:00")));
     }
 
     @Test
@@ -46,8 +46,8 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
         assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
-        assertThat(beneficiary.getCreatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
-        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
+        assertThat(beneficiary.getCreatedAt(), equalTo(parseDateTime("2015-04-25T09:21:00+00:00")));
+        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDateTime("2015-04-25T09:21:00+00:00")));
     }
 
     @Test
@@ -60,8 +60,8 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
         assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
-        assertThat(beneficiary.getCreatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
-        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T10:58:21+00:00")));
+        assertThat(beneficiary.getCreatedAt(), equalTo(parseDateTime("2015-04-25T09:21:00+00:00")));
+        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDateTime("2015-04-25T10:58:21+00:00")));
     }
 
     @Test
@@ -105,8 +105,8 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User 2"));
         assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
-        assertThat(beneficiary.getCreatedAt(), equalTo(parseDate("2015-04-25T09:21:00+00:00")));
-        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDate("2015-04-25T11:06:27+00:00")));
+        assertThat(beneficiary.getCreatedAt(), equalTo(parseDateTime("2015-04-25T09:21:00+00:00")));
+        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDateTime("2015-04-25T11:06:27+00:00")));
     }
 
     @Test
@@ -116,8 +116,8 @@ public class ActionsTest extends BetamaxTestSupport {
 
         assertThat(account.getId(), equalTo("8ec3a69b-02d1-4f09-9a6b-6bd54a61b3a8"));
         assertThat(account.getPostalCode(), nullValue());
-        assertThat(account.getCreatedAt(), equalTo(parseDate("2015-04-24T15:57:55+00:00")));
-        assertThat(account.getUpdatedAt(), equalTo(parseDate("2015-04-24T15:57:55+00:00")));
+        assertThat(account.getCreatedAt(), equalTo(parseDateTime("2015-04-24T15:57:55+00:00")));
+        assertThat(account.getUpdatedAt(), equalTo(parseDateTime("2015-04-24T15:57:55+00:00")));
     }
 
     // todo: serialize collections correctly in method body
@@ -151,8 +151,8 @@ public class ActionsTest extends BetamaxTestSupport {
 
         assertThat(balance.getId(), equalTo("5a998e06-3eb7-46d6-ba58-f749864159ce"));
         assertThat(balance.getAmount(), equalTo(new BigDecimal("999866.78")));
-        assertThat(balance.getCreatedAt(), equalTo(parseDate("2014-12-04T09:50:35+00:00")));
-        assertThat(balance.getUpdatedAt(), equalTo(parseDate("2015-03-23T14:33:37+00:00")));
+        assertThat(balance.getCreatedAt(), equalTo(parseDateTime("2014-12-04T09:50:35+00:00")));
+        assertThat(balance.getUpdatedAt(), equalTo(parseDateTime("2015-03-23T14:33:37+00:00")));
     }
 
     ////////////////////////////////////////////////////////////////

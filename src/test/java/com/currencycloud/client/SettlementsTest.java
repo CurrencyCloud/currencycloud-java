@@ -23,8 +23,8 @@ public class SettlementsTest extends BetamaxTestSupport {
                 null, null, null, null, null);
 
         assertThat(conversion.getId(), equalTo("24d2ee7f-c7a3-4181-979e-9c58dbace992"));
-        assertThat(conversion.getSettlementDate(), equalTo(parseDate("2015-05-06T14:00:00+00:00")));
-        assertThat(conversion.getConversionDate(), equalTo(parseDate("2015-05-06T00:00:00+00:00")));
+        assertThat(conversion.getSettlementDate(), equalTo(parseDateTime("2015-05-06T14:00:00+00:00")));
+        assertThat(conversion.getConversionDate(), equalTo(parseDateTime("2015-05-06T00:00:00+00:00")));
         assertThat(conversion.getShortReference(), equalTo("20150504-PGRNVJ"));
         assertThat(conversion.getCreatorContactId(), equalTo("c4d838e8-1625-44c6-a9fb-39bcb1fe353d"));
         assertThat(conversion.getAccountId(), equalTo("8ec3a69b-02d1-4f09-9a6b-6bd54a61b3a8"));
@@ -48,8 +48,8 @@ public class SettlementsTest extends BetamaxTestSupport {
         assertThat(conversion.getDepositStatus(), equalTo("not_required"));
         assertThat(conversion.getDepositRequiredAt(), nullValue());
         assertThat(conversion.getPaymentIds(), empty());
-        assertThat(conversion.getCreatedAt(), equalTo(parseDate("2015-05-04T20:28:29+00:00")));
-        assertThat(conversion.getUpdatedAt(), equalTo(parseDate("2015-05-04T20:28:29+00:00")));
+        assertThat(conversion.getCreatedAt(), equalTo(parseDateTime("2015-05-04T20:28:29+00:00")));
+        assertThat(conversion.getUpdatedAt(), equalTo(parseDateTime("2015-05-04T20:28:29+00:00")));
 
 //        settlement = CurrencyCloud::Settlement.create
 
