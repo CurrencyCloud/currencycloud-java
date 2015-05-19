@@ -2,9 +2,11 @@ package com.currencycloud.client;
 
 import com.currencycloud.client.model.Contact;
 import com.currencycloud.client.model.Payer;
+import com.currencycloud.client.model.Payment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Arrays;
 
@@ -52,6 +54,31 @@ public class DeserialisationTest extends JsonTestSupport {
         assertThat(payer.getDateOfBirth(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
         assertThat(payer.getCreatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
         assertThat(payer.getUpdatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
+    }
+
+    @Test
+    public void testPayment() throws Exception {
+        Payment payment = readJson(Payment.class);
+
+        assertThat(payment.getId(), equalTo("543477161-91de-012f-e284-1e0030c7f3123"));
+        assertThat(payment.getShortReference(), equalTo("140416-GGJBNQ001"));
+        assertThat(payment.getBeneficiaryId(), equalTo("543477161-91de-012f-e284-1e0030c7f352"));
+        assertThat(payment.getConversionId(), equalTo("049bab6d-fe2a-42e1-be0f-531c59f838ea"));
+        assertThat(payment.getAmount(), equalTo(new BigDecimal("1250000.00")));
+        assertThat(payment.getCurrency(), equalTo("GBP"));
+        assertThat(payment.getStatus(), equalTo("ready_to_send"));
+        assertThat(payment.getPaymentType(), equalTo("regular"));
+        assertThat(payment.getReference(), equalTo("INVOICE 9876"));
+        assertThat(payment.getReason(), equalTo("Salary for March"));
+        assertThat(payment.getPaymentDate(), equalTo(parseDateTime("2014-01-12T00:00:00+00:00")));
+        assertThat(payment.getTransferredAt(), equalTo(parseDateTime("2014-01-12T13:00:00+00:00")));
+        assertThat(payment.getAuthorisationStepsRequired(), equalTo(0));
+        assertThat(payment.getCreatorContactId(), equalTo("ab3477161-91de-012f-e284-1e0030c7f35c"));
+        assertThat(payment.getLastUpdaterContactId(), equalTo("ab3477161-91de-012f-e284-1e0030c7f35c"));
+        assertThat(payment.getFailureReason(), equalTo(""));
+        assertThat(payment.getPayerId(), equalTo(""));
+        assertThat(payment.getCreatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
+        assertThat(payment.getUpdatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
     }
 
     private <T> T readJson(Class<T> type) throws java.io.IOException {

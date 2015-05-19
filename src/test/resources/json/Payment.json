@@ -1,0 +1,21 @@
+{
+  "id": "543477161-91de-012f-e284-1e0030c7f3123",
+  "short_reference": "140416-GGJBNQ001",
+  "beneficiary_id": "543477161-91de-012f-e284-1e0030c7f352",
+  "conversion_id" : "049bab6d-fe2a-42e1-be0f-531c59f838ea",
+  "amount": "1250000.00",
+  "currency": "GBP",
+  "status": "ready_to_send",
+  "payment_type": "regular",
+  "reference": "INVOICE 9876",
+  "reason": "Salary for March",
+  "payment_date": "2014-01-12T00:00:00+00:00",
+  "transferred_at": "2014-01-12T13:00:00+00:00",
+  "authorisation_steps_required": "0",
+  "creator_contact_id": "ab3477161-91de-012f-e284-1e0030c7f35c",
+  "last_updater_contact_id": "ab3477161-91de-012f-e284-1e0030c7f35c",
+  "failure_reason": "",
+  "payer_id":"",
+  "created_at": "2014-01-12T12:24:19+00:00",
+  "updated_at": "2014-01-12T12:24:19+00:00"
+}
