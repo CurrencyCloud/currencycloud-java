@@ -227,7 +227,8 @@ public interface CurrencyCloud {
     @Path("beneficiaries/{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     Beneficiary updateBeneficiary(
-            @HeaderParam("X-Auth-Token") String authToken, @PathParam("id") String beneficiaryId,
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String beneficiaryId,
             @Nullable @FormParam("bank_account_holder_name") String bankAccountHolderName,
             @Nullable @FormParam("bank_country") String bankCountry,
             @Nullable @FormParam("currency") String currency,
@@ -464,11 +465,110 @@ public interface CurrencyCloud {
 
     ///////////////////////////////////////////////////////////////////
     ///// PAYMENTS API ////////////////////////////////////////////////
+
     /** Create a Payment */
+    @POST
+    @Path("payments/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Payment createPayment(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @FormParam("currency") String currency,
+            @FormParam("beneficiary_id") String beneficiaryId,
+            @FormParam("amount") String amount,
+            @FormParam("reason") String reason,
+            @FormParam("reference") String reference,
+            @Nullable @FormParam("payment_date") String paymentDate,
+            @Nullable @FormParam("payment_type") String paymentType,
+            @Nullable @FormParam("conversion_id") String conversionId,
+            @Nullable @FormParam("payer_entity_type") String payerEntityType,
+            @Nullable @FormParam("payer_company_name") String payerCompanyName,
+            @Nullable @FormParam("payer_first_name") String payerFirstName,
+            @Nullable @FormParam("payer_last_name") String payerLastName,
+            @Nullable @FormParam("payer_city") String payerCity,
+            @Nullable @FormParam("payer_postcode") String payerPostcode,
+            @Nullable @FormParam("payer_state_or_province") String payerStateOrProvince,
+            @Nullable @FormParam("payer_date_of_birth") Date payerDateOfBirth,
+            @Nullable @FormParam("payer_identification_type") String payerIdentificationType,
+            @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Retrieve a Payment */
+    @GET
+    @Path("payments/{id}")
+    Payment retrievePayment(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String id,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Update a Payment */
-    /** Find a Payment */
+    @POST
+    @Path("payments/{id}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Payment updatePayment(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String paymentId,
+            @FormParam("currency") String currency,
+            @FormParam("beneficiary_id") String beneficiaryId,
+            @FormParam("amount") String amount,
+            @FormParam("reason") String reason,
+            @Nullable @FormParam("reference") String reference,
+            @Nullable @FormParam("payment_date") String paymentDate,
+            @Nullable @FormParam("payment_type") String paymentType,
+            @Nullable @FormParam("conversion_id") String conversionId,
+            @Nullable @FormParam("payer_entity_type") String payerEntityType,
+            @Nullable @FormParam("payer_company_name") String payerCompanyName,
+            @Nullable @FormParam("payer_first_name") String payerFirstName,
+            @Nullable @FormParam("payer_last_name") String payerLastName,
+            @Nullable @FormParam("payer_city") String payerCity,
+            @Nullable @FormParam("payer_postcode") String payerPostcode,
+            @Nullable @FormParam("payer_state_or_province") String payerStateOrProvince,
+            @Nullable @FormParam("payer_date_of_birth") Date payerDateOfBirth,
+            @Nullable @FormParam("payer_identification_type") String payerIdentificationType,
+            @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
+    /** Find Payments */
+    @GET
+    @Path("payments/find")
+    Payments findPayments(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @Nullable @QueryParam("short_reference") String shortReference,
+            @Nullable @QueryParam("currency") String currency,
+            @Nullable @QueryParam("amount") BigDecimal amount,
+            @Nullable @QueryParam("amount_from") BigDecimal amountFrom,
+            @Nullable @QueryParam("amount_to") BigDecimal amountTo,
+            @Nullable @QueryParam("status") String status,
+            @Nullable @QueryParam("reason") String reason,
+            @Nullable @QueryParam("payment_date_from") Date paymentDateFrom,
+            @Nullable @QueryParam("payment_date_to") Date paymentDateTo,
+            @Nullable @QueryParam("transferred_at_from") Date transferredAtFrom,
+            @Nullable @QueryParam("transferred_at_to") Date transferredAtTo,
+            @Nullable @QueryParam("created_at_from") Date createdAtFrom,
+            @Nullable @QueryParam("created_at_to") Date createdAtTo,
+            @Nullable @QueryParam("updated_at_from") Date updatedAtFrom,
+            @Nullable @QueryParam("updated_at_to") Date updatedAtTo,
+            @Nullable @QueryParam("beneficiary_id") String beneficiaryId,
+            @Nullable @QueryParam("conversion_id") String conversionId,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Delete a Payment */
+    @POST
+    @Path("payments/{id}/delete")
+    Payment deletePayment(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String paymentId,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES API ///////////////////////////////////////////////////
     /** Retrieve Multiple Rates */

@@ -158,6 +158,29 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// PAYMENTS ////////////////////////////////////////////////////
 
+    public Payment deletePayment(String paymentId) throws CurrencyCloudException {
+        return api.deletePayment(authToken, paymentId, onBehalfOf);
+    }
+
+    public Payments findPayments(@Nullable String shortReference, @Nullable String currency, @Nullable BigDecimal amount, @Nullable BigDecimal amountFrom, @Nullable BigDecimal amountTo, @Nullable String status, @Nullable String reason, @Nullable Date paymentDateFrom, @Nullable Date paymentDateTo, @Nullable Date transferredAtFrom, @Nullable Date transferredAtTo, @Nullable Date createdAtFrom, @Nullable Date createdAtTo, @Nullable Date updatedAtFrom, @Nullable Date updatedAtTo, @Nullable String beneficiaryId, @Nullable String conversionId, @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        return api.findPayments(authToken, shortReference, currency, amount, amountFrom, amountTo, status, reason, paymentDateFrom, paymentDateTo, transferredAtFrom, transferredAtTo, createdAtFrom, createdAtTo, updatedAtFrom, updatedAtTo, beneficiaryId, conversionId, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc(), onBehalfOf);
+    }
+
+    public Payment updatePayment(String paymentId, String currency, String beneficiaryId, String amount, String reason, String reference, String paymentDate, String paymentType, String conversionId, String payerEntityType, String payerCompanyName, String payerFirstName, String payerLastName, String payerCity, String payerPostcode, String payerStateOrProvince, Date payerDateOfBirth, String payerIdentificationType, String payerIdentificationValue, String onBehalfOf) throws CurrencyCloudException {
+        return api.updatePayment(authToken, paymentId, currency, beneficiaryId, amount, reason, reference, paymentDate, paymentType, conversionId, payerEntityType, payerCompanyName, payerFirstName, payerLastName, payerCity, payerPostcode, payerStateOrProvince, payerDateOfBirth, payerIdentificationType, payerIdentificationValue, onBehalfOf);
+    }
+
+    public Payment retrievePayment(String id) throws CurrencyCloudException {
+        return api.retrievePayment(authToken, id, onBehalfOf);
+    }
+
+    public Payment createPayment(String currency, String beneficiaryId, String amount, String reason, String reference, String paymentDate, String paymentType, String conversionId, String payerEntityType, String payerCompanyName, String payerFirstName, String payerLastName, String payerCity, String payerPostcode, String payerStateOrProvince, Date payerDateOfBirth, String payerIdentificationType, String payerIdentificationValue, String onBehalfOf) throws CurrencyCloudException {
+        return api.createPayment(authToken, currency, beneficiaryId, amount, reason, reference, paymentDate, paymentType, conversionId, payerEntityType, payerCompanyName, payerFirstName, payerLastName, payerCity, payerPostcode, payerStateOrProvince, payerDateOfBirth, payerIdentificationType, payerIdentificationValue, onBehalfOf);
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 
