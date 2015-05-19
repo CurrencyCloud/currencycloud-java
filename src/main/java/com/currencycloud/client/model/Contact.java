@@ -1,8 +1,12 @@
 package com.currencycloud.client.model;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import java.util.Date;
 
 // todo: this is entirely untested
+@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 public class Contact {
 
     private String loginId;  // john.smith
