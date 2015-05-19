@@ -1,10 +1,12 @@
 package com.currencycloud.client;
 
 import com.currencycloud.client.model.Contact;
+import com.currencycloud.client.model.Payer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.net.URL;
+import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -30,6 +32,26 @@ public class DeserialisationTest extends JsonTestSupport {
         assertThat(contact.getDateOfBirth(), equalTo(parseDate("1980-01-22")));
         assertThat(contact.getCreatedAt(), equalTo(parseDateTime("2014-01-12T00:00:00+00:00")));
         assertThat(contact.getUpdatedAt(), equalTo(parseDateTime("2014-01-12T00:00:00+00:00")));
+    }
+
+    @Test
+    public void testPayer() throws Exception {
+        Payer payer = readJson(Payer.class);
+        assertThat(payer.getId(), equalTo("543477161-91de-012f-e284-1e0030c7f3123"));
+        assertThat(payer.getLegalEntityType(), equalTo("company"));
+        assertThat(payer.getCompanyName(), equalTo("Acme Corporation"));
+        assertThat(payer.getFirstName(), equalTo(""));
+        assertThat(payer.getLastName(), equalTo(""));
+        assertThat(payer.getAddress(), equalTo(Arrays.asList("164 Bishopsgate", "London")));
+        assertThat(payer.getCity(), equalTo("London"));
+        assertThat(payer.getStateOrProvince(), equalTo(""));
+        assertThat(payer.getCountry(), equalTo("GB"));
+        assertThat(payer.getIdentificationType(), equalTo("incorporation_number"));
+        assertThat(payer.getIdentificationValue(), equalTo("123123"));
+        assertThat(payer.getPostcode(), equalTo("EC2M 4LX"));
+        assertThat(payer.getDateOfBirth(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
+        assertThat(payer.getCreatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
+        assertThat(payer.getUpdatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
     }
 
     private <T> T readJson(Class<T> type) throws java.io.IOException {

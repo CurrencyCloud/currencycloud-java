@@ -453,7 +453,15 @@ public interface CurrencyCloud {
 
     ///////////////////////////////////////////////////////////////////
     ///// PAYERS API ///////////////////////////////////////////////////
+
     /** Retrieve a Payer */
+    @GET
+    @Path("payers/{id}")
+    Payer retrievePayer(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String payerId
+    ) throws CurrencyCloudException;
+
     ///////////////////////////////////////////////////////////////////
     ///// PAYMENTS API ////////////////////////////////////////////////
     /** Create a Payment */
