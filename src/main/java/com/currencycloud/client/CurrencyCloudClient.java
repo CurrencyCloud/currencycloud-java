@@ -43,6 +43,9 @@ public class CurrencyCloudClient {
         this.authToken = authToken;
     }
 
+    ///////////////////////////////////////////////////////////////////
+    ///// AUTHENTICATE ////////////////////////////////////////////////
+
     /** Starts a logged in session */
     public void authenticate(String loginId, String apiKey) throws CurrencyCloudException {
         authToken = api.authenticate(loginId, apiKey).getAuthToken();
