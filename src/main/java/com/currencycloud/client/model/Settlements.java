@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Settlements extends PaginatedData {
 
-    private List<Conversion> settlements;
+    private List<Settlement> settlements;
 
-    public List<Conversion> getConversions() {
+    public List<Settlement> getSettlements() {
         return settlements;
     }
 }
