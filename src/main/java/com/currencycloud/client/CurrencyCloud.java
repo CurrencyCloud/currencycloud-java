@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -571,8 +572,31 @@ public interface CurrencyCloud {
 
     ///////////////////////////////////////////////////////////////////
     ///// RATES API ///////////////////////////////////////////////////
+
     /** Retrieve Multiple Rates */
+    @GET
+    @Path("rates/find")
+    Rates findRates(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @QueryParam("currency_pair") Collection<String> currencyPair,
+            @Nullable @QueryParam("ignore_invalid_pairs") Boolean ignoreInvalidPairs,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Detailed Rates */
+    @GET
+    @Path("rates/detailed")
+    DetailedRate detailedRates(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @QueryParam("buy_currency") String buyCurrency,
+            @QueryParam("sell_currency") String sellCurrency,
+            @QueryParam("fixed_side") String fixedSide,
+            @QueryParam("amount") BigDecimal amount,
+            @Nullable @QueryParam("conversion_date") Date conversionDate,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
+
     ///////////////////////////////////////////////////////////////////
     ///// REFERENCE API ///////////////////////////////////////////////
     /** Beneficiary Required Details */

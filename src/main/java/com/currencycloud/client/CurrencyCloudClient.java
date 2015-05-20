@@ -5,6 +5,7 @@ import si.mazi.rescu.RestProxyFactory;
 
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -183,6 +184,14 @@ public class CurrencyCloudClient {
 
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
+
+    public DetailedRate detailedRates(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, @Nullable Date conversionDate) throws CurrencyCloudException {
+        return api.detailedRates(authToken, buyCurrency, sellCurrency, fixedSide, amount, conversionDate, onBehalfOf);
+    }
+
+    public Rates findRates(Collection<String> currencyPair, @Nullable Boolean ignoreInvalidPairs) throws CurrencyCloudException {
+        return api.findRates(authToken, currencyPair, ignoreInvalidPairs, onBehalfOf);
+    }
 
     ///////////////////////////////////////////////////////////////////
     ///// REFERENCE ///////////////////////////////////////////////////
