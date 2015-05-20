@@ -1,7 +1,11 @@
 package com.currencycloud.client;
 
 import com.currencycloud.client.model.*;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import si.mazi.rescu.ClientConfig;
 import si.mazi.rescu.RestProxyFactory;
+import si.mazi.rescu.serialization.jackson.JacksonConfigureListener;
 
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
@@ -25,7 +29,14 @@ public class CurrencyCloudClient {
     }
 
     CurrencyCloudClient(String url) {
-        api = RestProxyFactory.createProxy(CurrencyCloud.class, url);
+        ClientConfig config = new ClientConfig();
+        config.setJacksonConfigureListener(new JacksonConfigureListener() {
+            @Override
+            public void configureObjectMapper(ObjectMapper objectMapper) {
+                objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+            }
+        });
+        api = RestProxyFactory.createProxy(CurrencyCloud.class, url, config);
     }
 
     void setAuthToken(String authToken) {
@@ -196,7 +207,23 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// REFERENCE ///////////////////////////////////////////////////
 
-    ///////////////////////////////////////////////////////////////////
+    public BeneficiaryRequiredDetails getBeneficiaryRequiredDetails(@Nullable String currency, @Nullable String bankAccountCountry, @Nullable String beneficiaryCountry) throws CurrencyCloudException {
+        return api.getBeneficiaryRequiredDetails(currency, bankAccountCountry, beneficiaryCountry);
+    }
+
+    public Currencies getCurrencies() throws CurrencyCloudException {
+        return api.getCurrencies();
+    }
+
+    public ConversionDates getConversionDates(String conversionPair, @Nullable Date start_date) throws CurrencyCloudException {
+        return api.getConversionDates(conversionPair, start_date);
+    }
+
+    public SettlementAccounts getSettlementAccounts(@Nullable String currency) throws CurrencyCloudException {
+        return api.getSettlementAccounts(currency);
+    }
+
+///////////////////////////////////////////////////////////////////
     ///// SETTLEMENTS /////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////

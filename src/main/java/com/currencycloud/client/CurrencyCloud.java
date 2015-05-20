@@ -599,10 +599,37 @@ public interface CurrencyCloud {
 
     ///////////////////////////////////////////////////////////////////
     ///// REFERENCE API ///////////////////////////////////////////////
+
     /** Beneficiary Required Details */
+    @GET
+    @Path("reference/beneficiary_required_details")
+    BeneficiaryRequiredDetails getBeneficiaryRequiredDetails(
+            @Nullable @QueryParam("currency") String currency,
+            @Nullable @QueryParam("bank_account_country") String bankAccountCountry,
+            @Nullable @QueryParam("beneficiary_country") String beneficiaryCountry
+    ) throws CurrencyCloudException;
+
     /** Available Currencies */
+    @GET
+    @Path("reference/currencies")
+    Currencies getCurrencies() throws CurrencyCloudException;
+
     /** Conversion Dates */
+    @GET
+    @Path("reference/conversion_dates")
+    ConversionDates getConversionDates(
+            @QueryParam("conversion_pair") String conversionPair,
+            @Nullable @QueryParam("start_date") Date start_date
+    ) throws CurrencyCloudException;
+
     /** Settlement Accounts */
+    @GET
+    @Path("reference/settlement_accounts")
+    SettlementAccounts getSettlementAccounts(
+            @Nullable @QueryParam("currency") String currency
+    ) throws CurrencyCloudException;
+
+
     ///////////////////////////////////////////////////////////////////
     ///// SETTLEMENTS API /////////////////////////////////////////////
     /** Create a Settlement */
