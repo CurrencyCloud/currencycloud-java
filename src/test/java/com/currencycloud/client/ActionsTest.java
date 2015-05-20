@@ -3,8 +3,9 @@ package com.currencycloud.client;
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.*;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.testng.Assert;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -132,16 +133,16 @@ public class ActionsTest extends BetamaxTestSupport {
                 null, null, null, null, null, null, null, null, null,
                 paymentTypes
         );
-        Assert.assertEquals(beneficiary.getPaymentTypes(), paymentTypes);
-        Assert.assertEquals(beneficiary.getBankCountry(), "GB");
-        Assert.assertEquals(beneficiary.getBankName(), "HSBC BANK PLC");
-        Assert.assertEquals(beneficiary.getCurrency(), "GBP");
-        Assert.assertEquals(beneficiary.getAccountNumber(), "12345678");
-        Assert.assertEquals(beneficiary.getRoutingCodeType1(), "sort_code");
-        Assert.assertEquals(beneficiary.getBeneficiaryAddress(), Collections.emptyList());
-        Assert.assertEquals(beneficiary.getRoutingCodeValue1(), "123456");
-        Assert.assertEquals(beneficiary.getBankAddress(), Arrays.asList("5 Wimbledon Hill Rd", "Wimbledon", "London"));
-        Assert.assertNull(beneficiary.getBankAccountType());
+        assertThat(beneficiary.getPaymentTypes(), Matchers.equalTo(paymentTypes));
+        assertThat(beneficiary.getBankCountry(), equalTo("GB"));
+        assertThat(beneficiary.getBankName(), equalTo("HSBC BANK PLC"));
+        assertThat(beneficiary.getCurrency(), equalTo("GBP"));
+        assertThat(beneficiary.getAccountNumber(), equalTo("12345678"));
+        assertThat(beneficiary.getRoutingCodeType1(), equalTo("sort_code"));
+        assertThat(beneficiary.getBeneficiaryAddress(), empty());
+        assertThat(beneficiary.getRoutingCodeValue1(), equalTo("123456"));
+        assertThat(beneficiary.getBankAddress(), equalTo(Arrays.asList("5 Wimbledon Hill Rd", "Wimbledon", "London")));
+        assertThat(beneficiary.getBankAccountType(), is(CoreMatchers.nullValue()));
     }
 
     @Test

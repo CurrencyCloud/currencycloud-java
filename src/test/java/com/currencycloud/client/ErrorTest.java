@@ -5,10 +5,8 @@ import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.CurrencyCloudException;
 import com.currencycloud.client.model.ErrorMessage;
 import org.junit.Test;
-import org.testng.Assert;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anEmptyMap;
 import static org.hamcrest.Matchers.hasEntry;
@@ -25,9 +23,10 @@ public class ErrorTest extends BetamaxTestSupport {
         loginId = "non-existent-login-id";
         apiKey = "ef0fd50fca1fb14c1fab3a8436b9ecb57528f0";
         CurrencyCloudException error = testFailedLogin("auth_invalid_user_login_details", 400);
-        Assert.assertEquals(error.getErrorMessages().get("api_key").get(0).getCode(), "api_key_length_is_invalid");
-        Assert.assertEquals(error.getErrorMessages().get("api_key").get(0).getMessage(), "api_key should be 64 character(s) long");
-        Assert.assertEquals(error.getErrorMessages().get("api_key").get(0).getParams().get("length"), new Integer(64));
+        assertThat(error.getErrorMessages().get("api_key").get(0).getCode(), equalTo("api_key_length_is_invalid"));
+        assertThat(error.getErrorMessages().get("api_key").get(0).getMessage(), equalTo("api_key should be 64 character(s) long"));
+        assertThat(error.getErrorMessages().get("api_key").get(0).getParams().get("length"), instanceOf(Integer.class));
+        assertThat((Integer)error.getErrorMessages().get("api_key").get(0).getParams().get("length"), equalTo(new Integer(64)));
     }
 
     @Test
@@ -37,9 +36,10 @@ public class ErrorTest extends BetamaxTestSupport {
         apiKey = "ef0fd50fca1fb14c1fab3a8436b9ecb57528f0";
         CurrencyCloudException error = testFailedLogin("auth_invalid_user_login_details", 400);
         ErrorMessage errorMessage = error.getErrorMessages().get("api_key").get(0);
-        Assert.assertEquals(errorMessage.getCode(), "api_key_length_is_invalid");
-        Assert.assertEquals(errorMessage.getMessage(), "api_key should be 64 character(s) long");
-        Assert.assertEquals(errorMessage.getParams().get("length"), new Integer(64));
+        assertThat(errorMessage.getCode(), equalTo("api_key_length_is_invalid"));
+        assertThat(errorMessage.getMessage(), equalTo("api_key should be 64 character(s) long"));
+        assertThat(errorMessage.getParams().get("length"), instanceOf(Integer.class));
+        assertThat((Integer)errorMessage.getParams().get("length"), equalTo(new Integer(64)));
     }
 
     @Test
@@ -72,10 +72,10 @@ public class ErrorTest extends BetamaxTestSupport {
         loginId = "non-existent-login-id";
         apiKey = "efb5ae2af84978b7a37f18dd61c8bbe139b403009faea83484405a3dcb64c4d8";
         CurrencyCloudException e = testFailedLogin("auth_failed", 401);
-        Assert.assertEquals(e.getErrorMessages().get("username").size(), 1);
-        Assert.assertEquals(e.getErrorMessages().get("username").get(0).getCode(), "invalid_supplied_credentials");
-        Assert.assertEquals(e.getErrorMessages().get("username").get(0).getMessage(), "Authentication failed with the supplied credentials");
-        Assert.assertTrue(e.getErrorMessages().get("username").get(0).getParams().isEmpty());
+        assertThat(e.getErrorMessages().get("username").size(), equalTo(1));
+        assertThat(e.getErrorMessages().get("username").get(0).getCode(), equalTo("invalid_supplied_credentials"));
+        assertThat(e.getErrorMessages().get("username").get(0).getMessage(), equalTo("Authentication failed with the supplied credentials"));
+        assertThat(e.getErrorMessages().get("username").get(0).getParams(), anEmptyMap());
     }
 
     @Test
@@ -98,7 +98,7 @@ public class ErrorTest extends BetamaxTestSupport {
 
         try {
             client.retrieveBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
-            Assert.assertTrue(false, "Should fail");
+            assertThat("Should fail.", false);
         } catch (CurrencyCloudException error) {
             assertThat(error.getErrorCode(), equalTo("beneficiary_not_found"));
             assertThat(error.getHttpStatusCode(), equalTo(404));
