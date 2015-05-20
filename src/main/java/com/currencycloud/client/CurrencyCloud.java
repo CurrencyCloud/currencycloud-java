@@ -722,5 +722,41 @@ public interface CurrencyCloud {
     ///////////////////////////////////////////////////////////////////
     ///// TRANSACTIONS API ////////////////////////////////////////////
     /** Retrieve a Transaction */
+    @GET
+    @Path("transactions/{id}")
+    Transaction retrieveTransaction(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String id,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Find Transactions */
+    @GET
+    @Path("transactions/find")
+    Transactions findTransactions(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @Nullable @QueryParam("currency") String currency,
+            @Nullable @QueryParam("amount") BigDecimal amount,
+            @Nullable @QueryParam("amount_from") BigDecimal amountFrom,
+            @Nullable @QueryParam("amount_to") BigDecimal amountTo,
+            @Nullable @QueryParam("action") String action,
+            @Nullable @QueryParam("related_entity_type") String relatedEntityType,
+            @Nullable @QueryParam("related_entity_id") String relatedEntityId,
+            @Nullable @QueryParam("related_entity_short_reference") String relatedEntityShortReference,
+            @Nullable @QueryParam("status") String status,
+            @Nullable @QueryParam("type") String type,
+            @Nullable @QueryParam("reason") String reason,
+            @Nullable @QueryParam("settles_at_from") String settlesAtFrom,
+            @Nullable @QueryParam("settles_at_to") String settlesAtTo,
+            @Nullable @QueryParam("created_at_from") Date createdAtFrom,
+            @Nullable @QueryParam("created_at_to") Date createdAtTo,
+            @Nullable @QueryParam("updated_at_from") Date updatedAtFrom,
+            @Nullable @QueryParam("updated_at_to") Date updatedAtTo,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
 }

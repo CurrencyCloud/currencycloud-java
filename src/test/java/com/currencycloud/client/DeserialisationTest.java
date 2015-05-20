@@ -1,17 +1,17 @@
 package com.currencycloud.client;
 
-import com.currencycloud.client.model.Contact;
-import com.currencycloud.client.model.Payer;
-import com.currencycloud.client.model.Payment;
+import com.currencycloud.client.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 
 public class DeserialisationTest extends JsonTestSupport {
 
@@ -79,6 +79,35 @@ public class DeserialisationTest extends JsonTestSupport {
         assertThat(payment.getPayerId(), equalTo(""));
         assertThat(payment.getCreatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
         assertThat(payment.getUpdatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
+    }
+
+    @Test
+    public void testTransactions() throws Exception {
+        Transactions transactions = readJson(Transactions.class);
+
+        assertThat(transactions.getPagination(), not(nullValue()));
+
+        List<Transaction> txs = transactions.getTransactions();
+        assertThat(txs, hasSize(1));
+
+        Transaction tx = txs.iterator().next();
+
+        assertThat(tx.getId(), equalTo("c5a990eb-d4d7-482f-bfb1-695261fb1e4d"));
+        assertThat(tx.getBalanceId(), equalTo("c5f1f54e-d6d8-4140-8110-f5b99bbc80c3"));
+        assertThat(tx.getAccountId(), equalTo("7b9757a8-eee9-4572-86e6-77f4d711eaa6"));
+        assertThat(tx.getCurrency(), equalTo("USD"));
+        assertThat(tx.getAmount(), equalTo(new BigDecimal("1000.00")));
+        assertThat(tx.getBalanceAmount(), equalTo(new BigDecimal("2000.00")));
+        assertThat(tx.getType(), equalTo("credit"));
+        assertThat(tx.getAction(), equalTo("conversion"));
+        assertThat(tx.getRelatedEntityType(), equalTo("conversion"));
+        assertThat(tx.getRelatedEntityId(), equalTo("e93e322f-93aa-4d31-b050-449da723db0b"));
+        assertThat(tx.getRelatedEntityShortReference(), equalTo("140416-GGJBNQ001"));
+        assertThat(tx.getStatus(), equalTo("completed"));
+        assertThat(tx.getReason(), equalTo("Reason for Transaction"));
+        assertThat(tx.getSettlesAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
+        assertThat(tx.getCreatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
+        assertThat(tx.getUpdatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
     }
 
     private <T> T readJson(Class<T> type) throws java.io.IOException {
