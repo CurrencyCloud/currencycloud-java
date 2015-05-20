@@ -1,0 +1,52 @@
+name: can_unrelease
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/settlements/51c619e0-0256-40ad-afba-ca4114b936f9
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 04 May 2015 21:50:54 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '425'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2778849099396898860'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"id":"51c619e0-0256-40ad-afba-ca4114b936f9","status":"released","short_reference":"20150504-SHKTFD","type":"bulk","conversion_ids":["9bb4a49b-f959-402f-8bb8-4463b18d93c7"],"entries":[{"USD":{"receive_amount":"0.00","send_amount":"1512.00"}},{"GBP":{"receive_amount":"1000.00","send_amount":"0.00"}}],"created_at":"2015-05-04T21:14:48+00:00","updated_at":"2015-05-04T21:44:23+00:00","released_at":"2015-05-04T21:44:23+00:00"}'
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/settlements/51c619e0-0256-40ad-afba-ca4114b936f9/unrelease
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 04 May 2015 21:51:51 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '396'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2778849575324579937'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"id":"51c619e0-0256-40ad-afba-ca4114b936f9","status":"open","short_reference":"20150504-SHKTFD","type":"bulk","conversion_ids":["9bb4a49b-f959-402f-8bb8-4463b18d93c7"],"entries":[{"USD":{"receive_amount":"0.00","send_amount":"1512.00"}},{"GBP":{"receive_amount":"1000.00","send_amount":"0.00"}}],"created_at":"2015-05-04T21:14:48+00:00","updated_at":"2015-05-04T21:51:51+00:00","released_at":""}'

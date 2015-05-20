@@ -301,7 +301,7 @@ public interface CurrencyCloud {
     Beneficiary deleteBeneficiary(
             @HeaderParam("X-Auth-Token") String authToken,
             @PathParam("id") String id,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
     ) throws CurrencyCloudException;
 
     ///////////////////////////////////////////////////////////////////
@@ -566,7 +566,7 @@ public interface CurrencyCloud {
     Payment deletePayment(
             @HeaderParam("X-Auth-Token") String authToken,
             @PathParam("id") String paymentId,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
     ) throws CurrencyCloudException;
 
 
@@ -632,14 +632,93 @@ public interface CurrencyCloud {
 
     ///////////////////////////////////////////////////////////////////
     ///// SETTLEMENTS API /////////////////////////////////////////////
+
     /** Create a Settlement */
+    @POST
+    @Path("settlements/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Settlement createSettlement(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Retrieve a Settlement */
+    @GET
+    @Path("settlements/{id}")
+    Settlement retrieveSettlement(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String id,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Find Settlements */
+    @GET
+    @Path("settlements/find")
+    Settlements findSettlements(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @Nullable @QueryParam("short_reference") String shortReference,
+            @Nullable @QueryParam("status") String status,
+            @Nullable @QueryParam("created_at_from") Date createdAtFrom,
+            @Nullable @QueryParam("created_at_to") Date createdAtTo,
+            @Nullable @QueryParam("updated_at_from") Date updatedAtFrom,
+            @Nullable @QueryParam("updated_at_to") Date updatedAtTo,
+            @Nullable @QueryParam("released_at_from") Date releasedAtFrom,
+            @Nullable @QueryParam("released_at_to") Date releasedAtTo,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Delete a Settlement */
+    @POST
+    @Path("settlements/{id}/delete")
+    Settlement deleteSettlement(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String settlementId,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Add a Conversion to a Settlement */
+    @POST
+    @Path("settlements/{id}/add_conversion")
+    Settlement addConversion(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String settlementId,
+            @FormParam("conversion_id") String conversionId,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Remove a Conversion from a Settlement */
+    @POST
+    @Path("settlements/{id}/remove_conversion")
+    Settlement removeConversion(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String settlementId,
+            @FormParam("conversion_id") String conversionId,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Release a Settlement */
+    @POST
+    @Path("settlements/{id}/release")
+    Settlement releaseSettlement(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String settlementId,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
     /** Unrelease a Settlement */
+    @POST
+    @Path("settlements/{id}/unrelease")
+    Settlement unreleaseSettlement(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @PathParam("id") String settlementId,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws CurrencyCloudException;
+
+
     ///////////////////////////////////////////////////////////////////
     ///// TRANSACTIONS API ////////////////////////////////////////////
     /** Retrieve a Transaction */
