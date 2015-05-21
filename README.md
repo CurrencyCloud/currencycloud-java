@@ -3,28 +3,34 @@
 # Currency Cloud API v2 Java client
 
 This is the official Java SDK for the Currency Cloud API. Additional documentation 
-for each API endpoint can be found at [connect.currencycloud.com][connect]
+for each API endpoint can be found at [connect.currencycloud.com][connect].
 
 ## Installation
 
 To use `currencycloud-java` you currently need to get the source and build it yourself. The easiest way to do this
 is using git and Maven:
 
-   git clone git@github.com:CurrencyCloud/currencycloud-java.git
-   cd currencycloud-java
-   mvn clean install
+```Shell
+git clone git@github.com:CurrencyCloud/currencycloud-java.git
+cd currencycloud-java
+mvn clean install
+```
 
 Then include `target/currencycloud-java-*.jar` in your project's classpath, or include it using Maven:
 
-  <dependency>
+```Maven POM
+<dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
     <version>1.0-SNAPSHOT</version>
-  </dependency>
+</dependency>
+```
 
 # Usage
 
-```java
+An example in Java 8 (Java 8 syntax is only used to format the output):
+
+```Java
 // Create API proxy
 CurrencyCloudClient currencyCloud = new CurrencyCloudClient(CurrencyCloudClient.Environment.demo);
 
@@ -48,7 +54,7 @@ currencyCloud.endSession();
 If you want to make calls on behalf of another user (e.g. someone who has a sub-account with you), you 
 can execute certain commands 'on behalf of' the user's contact id. Here is an example:
 
-```java
+```Java
 currencyCloud.onBehalfOfDo("c6ece846-6df1-461d-acaa-b42a6aa74045", new Runnable() {
     public void run() {
         currencyCloud.createBeneficiary(...);
@@ -60,7 +66,7 @@ currencyCloud.onBehalfOfDo("c6ece846-6df1-461d-acaa-b42a6aa74045", new Runnable(
 
 Or in Java 8:
 
-```java
+```Java
 currencyCloud.onBehalfOfDo("c6ece846-6df1-461d-acaa-b42a6aa74045", () -> {
     currencyCloud.createBeneficiary(...);
     currencyCloud.createConversion(...);
