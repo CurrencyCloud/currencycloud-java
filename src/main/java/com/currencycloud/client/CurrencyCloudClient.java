@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class CurrencyCloudClient {
@@ -245,20 +246,20 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// REFERENCE ///////////////////////////////////////////////////
 
-    public BeneficiaryRequiredDetails getBeneficiaryRequiredDetails(@Nullable String currency, @Nullable String bankAccountCountry, @Nullable String beneficiaryCountry) throws CurrencyCloudException {
-        return api.getBeneficiaryRequiredDetails(authToken, currency, bankAccountCountry, beneficiaryCountry);
+    public List<Map<String, String>> getBeneficiaryRequiredDetails(@Nullable String currency, @Nullable String bankAccountCountry, @Nullable String beneficiaryCountry) throws CurrencyCloudException {
+        return api.getBeneficiaryRequiredDetails(authToken, currency, bankAccountCountry, beneficiaryCountry).getDetails();
     }
 
-    public Currencies getCurrencies() throws CurrencyCloudException {
-        return api.getCurrencies(authToken);
+    public List<Currency> getCurrencies() throws CurrencyCloudException {
+        return api.getCurrencies(authToken).getCurrencies();
     }
 
     public ConversionDates getConversionDates(String conversionPair, @Nullable Date start_date) throws CurrencyCloudException {
         return api.getConversionDates(authToken, conversionPair, start_date);
     }
 
-    public SettlementAccounts getSettlementAccounts(@Nullable String currency) throws CurrencyCloudException {
-        return api.getSettlementAccounts(authToken, currency);
+    public List<SettlementAccount> getSettlementAccounts(@Nullable String currency) throws CurrencyCloudException {
+        return api.getSettlementAccounts(authToken, currency).getSettlementAccounts();
     }
 
     ///////////////////////////////////////////////////////////////////

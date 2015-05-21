@@ -3,8 +3,8 @@ package com.currencycloud.client;
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.ConversionDates;
-import com.currencycloud.client.model.Currencies;
-import com.currencycloud.client.model.SettlementAccounts;
+import com.currencycloud.client.model.Currency;
+import com.currencycloud.client.model.SettlementAccount;
 import org.junit.Test;
 
 import java.util.Date;
@@ -21,7 +21,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_retrieve_beneficiary_required_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrieveBeneficiaryRequiredDetails() throws Exception {
-        List<Map<String, String>> details = client.getBeneficiaryRequiredDetails("GBP", "GB", "GB").getDetails();
+        List<Map<String, String>> details = client.getBeneficiaryRequiredDetails("GBP", "GB", "GB");
         assertThat(details, not(empty()));
 
         Map<String, String> detail = details.iterator().next();
@@ -53,10 +53,10 @@ public class ReferenceTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_retrieve_currencies", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrieveCurrencies() throws Exception {
-        List<Currencies.Currency> currencies = client.getCurrencies().getCurrencies();
+        List<Currency> currencies = client.getCurrencies();
         assertThat(currencies, not(empty()));
 
-        Currencies.Currency currency = currencies.iterator().next();
+        Currency currency = currencies.iterator().next();
         assertThat(currency.getCode(), equalTo("AED"));
         assertThat(currency.getName(), equalTo("United Arab Emirates Dirham"));
         assertThat(currency.getDecimalPlaces(), equalTo(2));
@@ -65,10 +65,10 @@ public class ReferenceTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_retrieve_settlement_accounts", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrieveSettlementAccounts() throws Exception {
-        List<SettlementAccounts.SettlementAccount> settlementAccounts = client.getSettlementAccounts("GBP").getSettlementAccounts();
+        List<SettlementAccount> settlementAccounts = client.getSettlementAccounts("GBP");
         assertThat(settlementAccounts, not(empty()));
 
-        SettlementAccounts.SettlementAccount settlementAccount = settlementAccounts.iterator().next();
+        SettlementAccount settlementAccount = settlementAccounts.iterator().next();
         assertThat(settlementAccount.getBankAccountHolderName(), equalTo("The Currency Cloud GBP - Client Seg A/C"));
         assertThat(settlementAccount.getBankAddress(), empty());
     }
