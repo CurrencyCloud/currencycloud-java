@@ -43,6 +43,47 @@ public class ErrorTest extends BetamaxTestSupport {
     }
 
     @Test
+    @Betamax(tape = "is_raised_on_incorrect_authentication_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testIsRaisedOnIncorrectAuthenticationDetails() throws Exception {
+        loginId = "non-existent-login-id";
+        apiKey = "efb5ae2af84978b7a37f18dd61c8bbe139b403009faea83484405a3dcb64c4d8";
+        CurrencyCloudException e = testFailedLogin("auth_failed", 401);
+        assertThat(e.getErrorMessages().get("username").size(), equalTo(1));
+        assertThat(e.getErrorMessages().get("username").get(0).getCode(), equalTo("invalid_supplied_credentials"));
+        assertThat(e.getErrorMessages().get("username").get(0).getMessage(), equalTo("Authentication failed with the supplied credentials"));
+        assertThat(e.getErrorMessages().get("username").get(0).getParams(), anEmptyMap());
+    }
+
+/*
+  it 'is raised on unexpected error' do
+    allow(HTTParty).to receive(:post).and_raise(Timeout::Error)
+
+    error = nil
+    begin
+      CurrencyCloud.session
+      raise 'Should have failed'
+    rescue CurrencyCloud::UnexpectedError => error
+    end
+
+        expected_error = %Q{CurrencyCloud::UnexpectedError
+---
+platform: #{error.platform}
+request:
+  parameters:
+    login_id: rjnienaber@gmail.com
+    api_key: ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0
+  verb: post
+  url: https://devapi.thecurrencycloud.com/v2/authenticate/api
+inner_error: Timeout::Error
+}
+
+    expect(error.to_s).to eq(expected_error)
+    expect(error.inner_error).to_not be_nil
+    expect(error.inner_error.class).to eq(Timeout::Error)
+  end
+*/
+
+    @Test
     @Betamax(tape = "is_raised_on_a_forbidden_request", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testIsRaisedOnAForbiddenRequest() throws Exception {
         CurrencyCloudException error = testFailedLogin("auth_failed", 403);
@@ -55,41 +96,6 @@ public class ErrorTest extends BetamaxTestSupport {
         assertThat(errorMessage.getMessage(), equalTo("Authentication failed with the supplied credentials"));
         assertThat(errorMessage.getParams(), is(anEmptyMap()));
     }
-
-    @Test
-    @Betamax(tape = "is_raised_on_an_internal_server_error", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testIsRaisedOnAnInternalServerError() throws Exception {
-        CurrencyCloudException error = testFailedLogin("internal_application_error", 500);
-        ErrorMessage errorMessage = error.getErrorMessages().get("base").get(0);
-        assertThat(errorMessage.getCode(), equalTo("internal_application_error"));
-        assertThat(errorMessage.getMessage(), equalTo("A general application error occurred"));
-        assertThat(errorMessage.getParams(), hasEntry("request_id", (Object)2771875643610572878L));
-    }
-
-    @Test
-    @Betamax(tape = "is_raised_on_incorrect_authentication_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testIsRaisedOnIncorrectAuthenticationDetails() throws Exception {
-        loginId = "non-existent-login-id";
-        apiKey = "efb5ae2af84978b7a37f18dd61c8bbe139b403009faea83484405a3dcb64c4d8";
-        CurrencyCloudException e = testFailedLogin("auth_failed", 401);
-        assertThat(e.getErrorMessages().get("username").size(), equalTo(1));
-        assertThat(e.getErrorMessages().get("username").get(0).getCode(), equalTo("invalid_supplied_credentials"));
-        assertThat(e.getErrorMessages().get("username").get(0).getMessage(), equalTo("Authentication failed with the supplied credentials"));
-        assertThat(e.getErrorMessages().get("username").get(0).getParams(), anEmptyMap());
-    }
-
-    @Test
-    @Betamax(tape = "is_raised_when_too_many_requests_have_been_issued", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testIsRaisedWhenTooManyRequestsHaveBeenIssued() throws Exception {
-        loginId = "rjnienaber@gmail.com2";
-        CurrencyCloudException error = testFailedLogin("too_many_requests", 429);
-        ErrorMessage errorMessage = error.getErrorMessages().get("base").get(0);
-        assertThat(errorMessage.getCode(), equalTo("too_many_requests"));
-        assertThat(errorMessage.getMessage(), equalTo("Too many requests have been made to the api. Please refer to the Developer Center for more information"));
-        assertThat(errorMessage.getParams(), is(anEmptyMap()));
-    }
-
-    // todo: handling of timout errors
 
     @Test
     @Betamax(tape = "is_raised_when_a_resource_is_not_found", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
@@ -110,6 +116,29 @@ public class ErrorTest extends BetamaxTestSupport {
             assertThat(errorMessage.getParams(), is(anEmptyMap()));
         }
     }
+
+    @Test
+    @Betamax(tape = "is_raised_on_an_internal_server_error", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testIsRaisedOnAnInternalServerError() throws Exception {
+        CurrencyCloudException error = testFailedLogin("internal_application_error", 500);
+        ErrorMessage errorMessage = error.getErrorMessages().get("base").get(0);
+        assertThat(errorMessage.getCode(), equalTo("internal_application_error"));
+        assertThat(errorMessage.getMessage(), equalTo("A general application error occurred"));
+        assertThat(errorMessage.getParams(), hasEntry("request_id", (Object)2771875643610572878L));
+    }
+
+    @Test
+    @Betamax(tape = "is_raised_when_too_many_requests_have_been_issued", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testIsRaisedWhenTooManyRequestsHaveBeenIssued() throws Exception {
+        loginId = "rjnienaber@gmail.com2";
+        CurrencyCloudException error = testFailedLogin("too_many_requests", 429);
+        ErrorMessage errorMessage = error.getErrorMessages().get("base").get(0);
+        assertThat(errorMessage.getCode(), equalTo("too_many_requests"));
+        assertThat(errorMessage.getMessage(), equalTo("Too many requests have been made to the api. Please refer to the Developer Center for more information"));
+        assertThat(errorMessage.getParams(), is(anEmptyMap()));
+    }
+
+    // todo: handling of timout errors
 
     private CurrencyCloudException testFailedLogin(String errorCode, int httpStatusCode) {
         try {
