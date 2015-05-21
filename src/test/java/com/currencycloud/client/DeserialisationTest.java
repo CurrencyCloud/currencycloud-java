@@ -2,16 +2,17 @@ package com.currencycloud.client;
 
 import com.currencycloud.client.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 
 public class DeserialisationTest extends JsonTestSupport {
 
@@ -110,7 +111,27 @@ public class DeserialisationTest extends JsonTestSupport {
         assertThat(tx.getUpdatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
     }
 
-    private <T> T readJson(Class<T> type) throws java.io.IOException {
+    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+    @Test
+    public void testException() throws Exception {
+        CurrencyCloudException ex = readJson(CurrencyCloudException.class);
+
+        assertThat(ex.getErrorCode(), equalTo("account_create_failed"));
+
+        Map<String, List<ErrorMessage>> messages = ex.getErrorMessages();
+        assertThat(messages, aMapWithSize(3));
+
+        List<ErrorMessage> legalEntityType = messages.get("legal_entity_type");
+
+        assertThat(legalEntityType, hasSize(2));
+
+        ErrorMessage range = legalEntityType.get(1);
+        assertThat(range.getCode(), CoreMatchers.equalTo("legal_entity_type_not_in_range"));
+        assertThat(range.getParams(), aMapWithSize(1));
+        assertThat(range.getParams(), hasEntry("range", (Object)"individual, company"));
+    }
+
+    public static <T> T readJson(Class<T> type) throws java.io.IOException {
         URL jsonUrl = DeserialisationTest.class.getResource(String.format("/json/%s.json", type.getSimpleName()));
         return new ObjectMapper().readValue(jsonUrl, type);
     }
