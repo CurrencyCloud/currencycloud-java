@@ -17,6 +17,12 @@ public class CurrencyCloudException extends HttpStatusExceptionSupport {
         return errorCode;
     }
 
+    /**
+     * A map of error messages where the key is the field/parameter whose value cause the error, and the value
+     * contains the error message details.
+     *
+     * @see ErrorMessage
+     */
     public Map<String, List<ErrorMessage>> getErrorMessages() {
         return errorMessages;
     }

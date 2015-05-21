@@ -12,14 +12,17 @@ public class ErrorMessage {
     private String message;
     private Map<String, Object> params;
 
+    /** The error message code */
     public String getCode() {
         return code;
     }
 
+    /** The error message in English */
     public String getMessage() {
         return message;
     }
 
+    /** Error parameters (may be used eg. for rendering the error message in other languages */
     public Map<String, Object> getParams() {
         return params;
     }

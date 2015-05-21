@@ -1,3 +1,109 @@
+[![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
+
 # Currency Cloud API v2 Java client
 
-This is a Java client for the [Currency Cloud API](https://connect.currencycloud.com/documentation/getting-started/introduction).
+This is the official Java SDK for the Currency Cloud API. Additional documentation 
+for each API endpoint can be found at [connect.currencycloud.com][connect]
+
+## Installation
+
+To use `currencycloud-java` you currently need to get the source and build it yourself. The easiest way to do this
+is using git and Maven:
+
+   git clone git@github.com:CurrencyCloud/currencycloud-java.git
+   cd currencycloud-java
+   mvn clean install
+
+Then include `target/currencycloud-java-*.jar` in your project's classpath, or include it using Maven:
+
+  <dependency>
+    <groupId>com.currencycloud.currencycloud-java</groupId>
+    <artifactId>currencycloud-java</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </dependency>
+
+# Usage
+
+```java
+// Create API proxy
+CurrencyCloudClient currencyCloud = new CurrencyCloudClient(CurrencyCloudClient.Environment.demo);
+
+// Authenticate
+currencyCloud.authenticate("<your login id>", "<your API key>");
+
+// Make API calls
+List<Currency> currencies = currencyCloud.getCurrencies();
+System.out.println("Supported currencies: " + currencies.stream().map(Currency::getCode).collect(Collectors.joining(", ")));
+
+List<Balance> balances = currencyCloud.findBalances(null, null, null, null).getBalances();
+System.out.println("Balances: " + balances.stream()
+        .map((b) -> String.format("%s %s", b.getCurrency(), b.getAmount()))
+        .collect(Collectors.joining(", ")));
+
+// End session
+currencyCloud.endSession();
+```
+
+## On Behalf Of
+If you want to make calls on behalf of another user (e.g. someone who has a sub-account with you), you 
+can execute certain commands 'on behalf of' the user's contact id. Here is an example:
+
+```java
+currencyCloud.onBehalfOfDo("c6ece846-6df1-461d-acaa-b42a6aa74045", new Runnable() {
+    public void run() {
+        currencyCloud.createBeneficiary(...);
+        currencyCloud.createConversion(...);
+        currencyCloud.createPayment(...);
+    }
+});
+```
+
+Or in Java 8:
+
+```java
+currencyCloud.onBehalfOfDo("c6ece846-6df1-461d-acaa-b42a6aa74045", () -> {
+    currencyCloud.createBeneficiary(...);
+    currencyCloud.createConversion(...);
+    currencyCloud.createPayment(...);
+});
+
+```
+
+Each of the above transactions will be executed in scope of the limits for that contact and linked to that contact. Note
+that the real user who executed the transaction will also be stored.
+
+
+## Errors
+
+When an error occurs in the API, the library aims to give us much information
+as possible. A `CurrencyCloudException` will be thrown that contains the HTTP response
+code, error codes and details messages with parameters for each field/parameter
+that caused an error. Please consult the javadocs for more information.
+
+When troubleshooting API calls with Currency Cloud support, including the full
+error in any correspondence can be very helpful.
+
+# Development
+
+Test cases can be run with `mvn test`. 
+
+## Dependencies
+* [Rescu][rescu]
+
+## Versioning
+
+This project uses [semantic versioning][semver]. You can safely
+express a dependency on a major version and expect all minor and patch versions
+to be backwards compatible.
+
+# Copyright
+
+Copyright (c) 2015 Currency Cloud. See [LICENSE][license] for details.
+
+
+
+[connect]:   https://connect.currencycloud.com/documentation/getting-started/introduction
+[travis]:    https://travis-ci.org/CurrencyCloud/currencycloud-java
+[rescu]:     https://github.com/mmazi/rescu
+[semver]:    http://semver.org/
+[license]:   LICENSE.md
