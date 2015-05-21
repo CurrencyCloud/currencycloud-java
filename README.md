@@ -18,7 +18,7 @@ mvn clean install
 
 Then include `target/currencycloud-java-*.jar` in your project's classpath, or include it using Maven:
 
-```Maven POM
+```xml
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
