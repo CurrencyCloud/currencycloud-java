@@ -22,7 +22,7 @@ Then include `target/currencycloud-java-*.jar` in your project's classpath, or i
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.7-SNAPSHOT</version>
 </dependency>
 ```
 
