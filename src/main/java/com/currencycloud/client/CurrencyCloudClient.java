@@ -12,12 +12,16 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class CurrencyCloudClient {
+
+    private static final Pattern UUID = Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", Pattern.CASE_INSENSITIVE);
 
     private final CurrencyCloud api;
 
     private String onBehalfOf = null;
+
     private String authToken;
 
     public CurrencyCloudClient() {
@@ -43,6 +47,37 @@ public class CurrencyCloudClient {
         this.authToken = authToken;
     }
 
+    ///////////////////////////////////////////////////////////////////
+    ///// ON BEHALF OF ////////////////////////////////////////////////
+
+    /**
+     * Performs the work on behalf of another user.
+     *
+     * @param onBehalfOf contactId of the user
+     * @param work       the work to do
+     * @throws CurrencyCloudException   if work throws it
+     * @throws IllegalStateException    if onBehalfOf is already set (nested call to this method)
+     * @throws IllegalArgumentException if onBehalfOf is in illegal format
+     */
+    public void onBehalfOfDo(String onBehalfOf, Runnable work)
+            throws IllegalArgumentException, IllegalStateException, CurrencyCloudException {
+        if (!UUID.matcher(onBehalfOf).matches()) {
+            throw new IllegalArgumentException("Contact id for onBehalfOf is not a UUID");
+        }
+        if (this.onBehalfOf != null) {
+            throw new IllegalStateException("Can't nest on-behalf-of calls: " + this.onBehalfOf);
+        }
+        this.onBehalfOf = onBehalfOf;
+        try {
+            work.run();
+        } finally {
+            this.onBehalfOf = null;
+        }
+    }
+
+    String getOnBehalfOf() {
+        return onBehalfOf;
+    }
     ///////////////////////////////////////////////////////////////////
     ///// AUTHENTICATE ////////////////////////////////////////////////
 
