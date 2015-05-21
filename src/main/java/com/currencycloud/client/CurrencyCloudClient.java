@@ -125,7 +125,7 @@ public class CurrencyCloudClient {
     ///// BALANCES ////////////////////////////////////////////////////
 
     // todo: test
-    public Balances findBalances(BigDecimal amountFrom, BigDecimal amountTo, Date asAtDate, @Nullable Pagination pagination) throws CurrencyCloudException {
+    public Balances findBalances(@Nullable BigDecimal amountFrom, @Nullable BigDecimal amountTo, @Nullable Date asAtDate, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
