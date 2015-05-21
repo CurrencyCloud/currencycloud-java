@@ -623,7 +623,7 @@ public interface CurrencyCloud {
     ConversionDates getConversionDates(
             @HeaderParam("X-Auth-Token") String authToken,
             @QueryParam("conversion_pair") String conversionPair,
-            @Nullable @QueryParam("start_date") Date start_date
+            @Nullable @QueryParam("start_date") Date startDate
     ) throws CurrencyCloudException;
 
     /** Settlement Accounts */

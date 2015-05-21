@@ -54,21 +54,21 @@ public class CurrencyCloudClient {
     /**
      * Performs the work on behalf of another user.
      *
-     * @param onBehalfOf contactId of the user
+     * @param contactId  contactId of the user
      * @param work       the work to do
      * @throws CurrencyCloudException   if work throws it
      * @throws IllegalStateException    if onBehalfOf is already set (nested call to this method)
      * @throws IllegalArgumentException if onBehalfOf is in illegal format
      */
-    public void onBehalfOfDo(String onBehalfOf, Runnable work)
+    public void onBehalfOfDo(String contactId, Runnable work)
             throws IllegalArgumentException, IllegalStateException, CurrencyCloudException {
-        if (!UUID.matcher(onBehalfOf).matches()) {
+        if (!UUID.matcher(contactId).matches()) {
             throw new IllegalArgumentException("Contact id for onBehalfOf is not a UUID");
         }
         if (this.onBehalfOf != null) {
             throw new IllegalStateException("Can't nest on-behalf-of calls: " + this.onBehalfOf);
         }
-        this.onBehalfOf = onBehalfOf;
+        this.onBehalfOf = contactId;
         try {
             work.run();
         } finally {
@@ -254,8 +254,8 @@ public class CurrencyCloudClient {
         return api.getCurrencies(authToken).getCurrencies();
     }
 
-    public ConversionDates getConversionDates(String conversionPair, @Nullable Date start_date) throws CurrencyCloudException {
-        return api.getConversionDates(authToken, conversionPair, start_date);
+    public ConversionDates getConversionDates(String conversionPair, @Nullable Date startDate) throws CurrencyCloudException {
+        return api.getConversionDates(authToken, conversionPair, startDate);
     }
 
     public List<SettlementAccount> getSettlementAccounts(@Nullable String currency) throws CurrencyCloudException {
