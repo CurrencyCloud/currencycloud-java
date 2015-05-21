@@ -6,7 +6,7 @@
 
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.7-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Currency Cloud</name>
@@ -47,7 +47,7 @@
     </scm>
 
     <ciManagement>
-        <url>https://travis-ci.org/currencyc</url>
+        <url>https://travis-ci.org/CurrencyCloud/currencycloud-java</url>
     </ciManagement>
 
     <build>
