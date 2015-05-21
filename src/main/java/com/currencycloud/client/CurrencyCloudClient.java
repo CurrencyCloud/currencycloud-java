@@ -246,19 +246,19 @@ public class CurrencyCloudClient {
     ///// REFERENCE ///////////////////////////////////////////////////
 
     public BeneficiaryRequiredDetails getBeneficiaryRequiredDetails(@Nullable String currency, @Nullable String bankAccountCountry, @Nullable String beneficiaryCountry) throws CurrencyCloudException {
-        return api.getBeneficiaryRequiredDetails(currency, bankAccountCountry, beneficiaryCountry);
+        return api.getBeneficiaryRequiredDetails(authToken, currency, bankAccountCountry, beneficiaryCountry);
     }
 
     public Currencies getCurrencies() throws CurrencyCloudException {
-        return api.getCurrencies();
+        return api.getCurrencies(authToken);
     }
 
     public ConversionDates getConversionDates(String conversionPair, @Nullable Date start_date) throws CurrencyCloudException {
-        return api.getConversionDates(conversionPair, start_date);
+        return api.getConversionDates(authToken, conversionPair, start_date);
     }
 
     public SettlementAccounts getSettlementAccounts(@Nullable String currency) throws CurrencyCloudException {
-        return api.getSettlementAccounts(currency);
+        return api.getSettlementAccounts(authToken, currency);
     }
 
     ///////////////////////////////////////////////////////////////////

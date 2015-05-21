@@ -604,6 +604,7 @@ public interface CurrencyCloud {
     @GET
     @Path("reference/beneficiary_required_details")
     BeneficiaryRequiredDetails getBeneficiaryRequiredDetails(
+            @HeaderParam("X-Auth-Token") String authToken,
             @Nullable @QueryParam("currency") String currency,
             @Nullable @QueryParam("bank_account_country") String bankAccountCountry,
             @Nullable @QueryParam("beneficiary_country") String beneficiaryCountry
@@ -612,12 +613,15 @@ public interface CurrencyCloud {
     /** Available Currencies */
     @GET
     @Path("reference/currencies")
-    Currencies getCurrencies() throws CurrencyCloudException;
+    Currencies getCurrencies(
+            @HeaderParam("X-Auth-Token") String authToken
+    ) throws CurrencyCloudException;
 
     /** Conversion Dates */
     @GET
     @Path("reference/conversion_dates")
     ConversionDates getConversionDates(
+            @HeaderParam("X-Auth-Token") String authToken,
             @QueryParam("conversion_pair") String conversionPair,
             @Nullable @QueryParam("start_date") Date start_date
     ) throws CurrencyCloudException;
@@ -626,6 +630,7 @@ public interface CurrencyCloud {
     @GET
     @Path("reference/settlement_accounts")
     SettlementAccounts getSettlementAccounts(
+            @HeaderParam("X-Auth-Token") String authToken,
             @Nullable @QueryParam("currency") String currency
     ) throws CurrencyCloudException;
 
