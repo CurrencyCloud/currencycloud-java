@@ -70,12 +70,6 @@
             <artifactId>rescu</artifactId>
             <version>1.7.3-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
-            <!-- todo: optional? -->
-        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
