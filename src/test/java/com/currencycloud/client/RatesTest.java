@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class RatesTest extends BetamaxTestSupport {
 
-//    private String token = "bbdd421bdda373ea69670c9101fa9197";
+    @Override protected String getAuthToken() { return "242993ca94b9d1c6c1d8f7d3275a6f36"; }
 
     @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})

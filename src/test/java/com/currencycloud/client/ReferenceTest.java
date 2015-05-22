@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.*;
 
 public class ReferenceTest extends BetamaxTestSupport {
 
-//    private String token = "1c9da5726314246acfb09ec5651307a5";
+    @Override protected String getAuthToken() { return "1c9da5726314246acfb09ec5651307a5"; }
 
     @Test
     @Betamax(tape = "can_retrieve_beneficiary_required_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})

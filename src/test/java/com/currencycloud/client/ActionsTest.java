@@ -22,6 +22,8 @@ import static org.hamcrest.Matchers.nullValue;
 
 public class ActionsTest extends BetamaxTestSupport {
 
+    @Override protected String getAuthToken() { return "4df5b3e5882a412f148dcd08fa4e5b73"; }
+
     // todo: serialize collections correctly in method body
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri/*, MatchRule.body*/})
@@ -155,7 +157,4 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(balance.getCreatedAt(), equalTo(parseDateTime("2014-12-04T09:50:35+00:00")));
         assertThat(balance.getUpdatedAt(), equalTo(parseDateTime("2015-03-23T14:33:37+00:00")));
     }
-
-    ////////////////////////////////////////////////////////////////
-
 }

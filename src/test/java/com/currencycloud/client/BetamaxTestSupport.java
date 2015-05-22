@@ -1,12 +1,20 @@
 package com.currencycloud.client;
 
 import co.freeside.betamax.Recorder;
+import org.junit.Before;
 import org.junit.Rule;
 
 import java.io.File;
 
 public class BetamaxTestSupport extends JsonTestSupport {
     protected CurrencyCloudClient client = new CurrencyCloudClient("http://localhost:5555");
+
+    @Before
+    public void configureClient() {
+        client.setAuthToken(getAuthToken());
+    }
+
+    protected String getAuthToken() { return null; }
 
     @Rule
     public Recorder createRecorder() {
