@@ -475,7 +475,7 @@ public interface CurrencyCloud {
             @HeaderParam("X-Auth-Token") String authToken,
             @FormParam("currency") String currency,
             @FormParam("beneficiary_id") String beneficiaryId,
-            @FormParam("amount") String amount,
+            @FormParam("amount") BigDecimal amount,
             @FormParam("reason") String reason,
             @FormParam("reference") String reference,
             @Nullable @FormParam("payment_date") String paymentDate,
