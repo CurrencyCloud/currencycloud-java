@@ -246,20 +246,20 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// REFERENCE ///////////////////////////////////////////////////
 
-    public List<Map<String, String>> getBeneficiaryRequiredDetails(@Nullable String currency, @Nullable String bankAccountCountry, @Nullable String beneficiaryCountry) throws CurrencyCloudException {
-        return api.getBeneficiaryRequiredDetails(authToken, currency, bankAccountCountry, beneficiaryCountry).getDetails();
+    public List<Map<String, String>> beneficiaryRequiredDetails(@Nullable String currency, @Nullable String bankAccountCountry, @Nullable String beneficiaryCountry) throws CurrencyCloudException {
+        return api.beneficiaryRequiredDetails(authToken, currency, bankAccountCountry, beneficiaryCountry).getDetails();
     }
 
-    public List<Currency> getCurrencies() throws CurrencyCloudException {
-        return api.getCurrencies(authToken).getCurrencies();
+    public List<Currency> currencies() throws CurrencyCloudException {
+        return api.currencies(authToken).getCurrencies();
     }
 
-    public ConversionDates getConversionDates(String conversionPair, @Nullable Date startDate) throws CurrencyCloudException {
-        return api.getConversionDates(authToken, conversionPair, startDate);
+    public ConversionDates conversionDates(String conversionPair, @Nullable Date startDate) throws CurrencyCloudException {
+        return api.conversionDates(authToken, conversionPair, startDate);
     }
 
-    public List<SettlementAccount> getSettlementAccounts(@Nullable String currency) throws CurrencyCloudException {
-        return api.getSettlementAccounts(authToken, currency).getSettlementAccounts();
+    public List<SettlementAccount> settlementAccounts(@Nullable String currency) throws CurrencyCloudException {
+        return api.settlementAccounts(authToken, currency).getSettlementAccounts();
     }
 
     ///////////////////////////////////////////////////////////////////

@@ -21,7 +21,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_retrieve_beneficiary_required_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrieveBeneficiaryRequiredDetails() throws Exception {
-        List<Map<String, String>> details = client.getBeneficiaryRequiredDetails("GBP", "GB", "GB");
+        List<Map<String, String>> details = client.beneficiaryRequiredDetails("GBP", "GB", "GB");
         assertThat(details, not(empty()));
 
         Map<String, String> detail = details.iterator().next();
@@ -40,7 +40,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_retrieve_conversion_dates", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrieveConversionDates() throws Exception {
-        ConversionDates dates = client.getConversionDates("GBPUSD", null);
+        ConversionDates dates = client.conversionDates("GBPUSD", null);
 
         assertThat(dates.getInvalidConversionDates(), not(anEmptyMap()));
         Date invalidConversionDate = dates.getInvalidConversionDates().keySet().iterator().next();
@@ -53,7 +53,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_retrieve_currencies", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrieveCurrencies() throws Exception {
-        List<Currency> currencies = client.getCurrencies();
+        List<Currency> currencies = client.currencies();
         assertThat(currencies, not(empty()));
 
         Currency currency = currencies.iterator().next();
@@ -65,7 +65,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_retrieve_settlement_accounts", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrieveSettlementAccounts() throws Exception {
-        List<SettlementAccount> settlementAccounts = client.getSettlementAccounts("GBP");
+        List<SettlementAccount> settlementAccounts = client.settlementAccounts("GBP");
         assertThat(settlementAccounts, not(empty()));
 
         SettlementAccount settlementAccount = settlementAccounts.iterator().next();
