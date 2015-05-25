@@ -24,7 +24,6 @@ public class ActionsTest extends BetamaxTestSupport {
 
     @Override protected String getAuthToken() { return "4df5b3e5882a412f148dcd08fa4e5b73"; }
 
-    // todo: serialize collections correctly in method body
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri/*, MatchRule.body*/})
     public void testCanCreate() throws Exception {
@@ -123,7 +122,6 @@ public class ActionsTest extends BetamaxTestSupport {
         assertThat(account.getUpdatedAt(), equalTo(parseDateTime("2015-04-24T15:57:55+00:00")));
     }
 
-    // todo: serialize collections correctly in method body
     @Test
     @Betamax(tape = "can_validate_beneficiaries", match = {MatchRule.method, MatchRule.uri/*, MatchRule.body*/})
     public void testCanValidateBeneficiaries() throws Exception {

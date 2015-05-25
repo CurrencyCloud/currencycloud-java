@@ -160,7 +160,6 @@ public class CurrencyCloudClient {
 
     public Beneficiaries findBeneficiaries()
             throws CurrencyCloudException {
-        // todo: convert camelCase in order to underscore_case?
         return api.findBeneficiaries(
                 authToken, null, null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, null, null, null, null, null, null, null, null, null, null, onBehalfOf);
