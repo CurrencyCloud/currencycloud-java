@@ -9,4 +9,9 @@ public class Contacts extends PaginatedData {
     public List<Contact> getContacts() {
         return contacts;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Contacts{contacts=%s, pagination=%s}", contacts, pagination);
+    }
 }

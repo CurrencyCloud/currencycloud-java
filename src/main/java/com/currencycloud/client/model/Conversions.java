@@ -9,4 +9,9 @@ public class Conversions extends PaginatedData {
     public List<Conversion> getConversions() {
         return conversions;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Conversions{conversions=%s, pagination=%s}", conversions, pagination);
+    }
 }

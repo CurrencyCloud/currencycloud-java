@@ -48,4 +48,10 @@ public class Balance {
     public Date getUpdatedAt() {
         return updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Balance{id='%s', accountId='%s', currency='%s', amount=%s, createdAt=%s, updatedAt=%s}",
+                id, accountId, currency, amount, createdAt, updatedAt);
+    }
 }

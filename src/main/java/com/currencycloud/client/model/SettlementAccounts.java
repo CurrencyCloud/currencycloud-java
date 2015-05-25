@@ -16,4 +16,8 @@ public class SettlementAccounts {
         return settlementAccounts;
     }
 
+    @Override
+    public String toString() {
+        return String.format("SettlementAccounts{settlementAccounts=%s}", settlementAccounts);
+    }
 }

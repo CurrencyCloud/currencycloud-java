@@ -28,4 +28,10 @@ public class ConversionDates {
     public Map<Date, String> getInvalidConversionDates() {
         return invalidConversionDates;
     }
+
+    @Override
+    public String toString() {
+        return String.format("ConversionDates{firstConversionDate=%s, defaultConversionDate=%s, invalidConversionDates=%s}",
+                firstConversionDate, defaultConversionDate, invalidConversionDates);
+    }
 }

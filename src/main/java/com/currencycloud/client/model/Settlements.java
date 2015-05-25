@@ -9,4 +9,9 @@ public class Settlements extends PaginatedData {
     public List<Settlement> getSettlements() {
         return settlements;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Settlements{settlements=%s, pagination=%s}", settlements, pagination);
+    }
 }

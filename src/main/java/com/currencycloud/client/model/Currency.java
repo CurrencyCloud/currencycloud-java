@@ -23,4 +23,9 @@ public class Currency {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Currency{code='%s', decimalPlaces=%d, name='%s'}", code, decimalPlaces, name);
+    }
 }

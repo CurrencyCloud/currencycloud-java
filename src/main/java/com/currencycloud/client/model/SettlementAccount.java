@@ -82,4 +82,10 @@ public class SettlementAccount {
     public String getRoutingCodeValue2() {
         return routingCodeValue2;
     }
+
+    @Override
+    public String toString() {
+        return String.format("SettlementAccount{bankAccountHolderName='%s', beneficiaryAddress=%s, beneficiaryCountry='%s', bankName='%s', bankAddress=%s, bankCountry='%s', currency='%s', bicSwift='%s', iban='%s', accountNumber='%s', routingCodeType1='%s', routingCodeValue1='%s', routingCodeType2='%s', routingCodeValue2='%s'}",
+                bankAccountHolderName, beneficiaryAddress, beneficiaryCountry, bankName, bankAddress, bankCountry, currency, bicSwift, iban, accountNumber, routingCodeType1, routingCodeValue1, routingCodeType2, routingCodeValue2);
+    }
 }

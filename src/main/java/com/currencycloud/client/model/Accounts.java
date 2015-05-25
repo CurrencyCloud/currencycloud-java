@@ -9,4 +9,9 @@ public class Accounts extends PaginatedData {
     public List<Account> getAccounts() {
         return accounts;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Accounts{accounts=%s, pagination=%s}", accounts, pagination);
+    }
 }

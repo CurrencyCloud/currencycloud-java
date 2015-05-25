@@ -99,6 +99,12 @@ public class Pagination {
         return builder().limit(1).build();
     }
 
+    @Override
+    public String toString() {
+        return String.format("Pagination{totalEntries=%d, totalPages=%d, currentPage=%d, perPage=%d, previousPage=%d, nextPage=%d, order='%s', orderAscDesc=%s}",
+                totalEntries, totalPages, currentPage, perPage, previousPage, nextPage, order, orderAscDesc);
+    }
+
     public enum SortOrder {asc, desc}
 
     public static class Builder {

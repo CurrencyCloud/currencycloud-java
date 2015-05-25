@@ -9,4 +9,9 @@ public class Transactions extends PaginatedData {
     public List<Transaction> getTransactions() {
         return transactions;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Transactions{transactions=%s, pagination=%s}", transactions, pagination);
+    }
 }

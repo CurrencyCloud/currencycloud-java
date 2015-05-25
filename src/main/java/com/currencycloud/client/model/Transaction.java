@@ -91,4 +91,10 @@ public class Transaction {
     public Date getUpdatedAt() {
         return updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Transaction{id='%s', balanceId='%s', accountId='%s', currency='%s', amount=%s, balanceAmount=%s, type='%s', action='%s', relatedEntityType='%s', relatedEntityId='%s', relatedEntityShortReference='%s', status='%s', reason='%s', settlesAt=%s, createdAt=%s, updatedAt=%s}",
+                id, balanceId, accountId, currency, amount, balanceAmount, type, action, relatedEntityType, relatedEntityId, relatedEntityShortReference, status, reason, settlesAt, createdAt, updatedAt);
+    }
 }

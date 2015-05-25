@@ -88,4 +88,10 @@ public class Payer {
     public Date getUpdatedAt() {
         return updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Payer{id='%s', legalEntityType='%s', companyName='%s', firstName='%s', lastName='%s', address=%s, city='%s', stateOrProvince='%s', country='%s', identificationType='%s', identificationValue='%s', postcode='%s', dateOfBirth=%s, createdAt=%s, updatedAt=%s}",
+                id, legalEntityType, companyName, firstName, lastName, address, city, stateOrProvince, country, identificationType, identificationValue, postcode, dateOfBirth, createdAt, updatedAt);
+    }
 }

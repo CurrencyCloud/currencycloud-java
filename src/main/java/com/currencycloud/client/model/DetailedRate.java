@@ -81,4 +81,10 @@ public class DetailedRate {
     public String getDepositCurrency() {
         return depositCurrency;
     }
+
+    @Override
+    public String toString() {
+        return String.format("DetailedRate{settlementCutOffTime=%s, currencyPair='%s', clientBuyCurrency='%s', clientSellCurrency='%s', clientBuyAmount=%s, clientSellAmount=%s, fixedSide='%s', midMarketRate=%s, coreRate=%s, partnerRate=%s, clientRate=%s, depositRequired=%s, depositAmount=%s, depositCurrency='%s'}",
+                settlementCutOffTime, currencyPair, clientBuyCurrency, clientSellCurrency, clientBuyAmount, clientSellAmount, fixedSide, midMarketRate, coreRate, partnerRate, clientRate, depositRequired, depositAmount, depositCurrency);
+    }
 }

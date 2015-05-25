@@ -2,7 +2,7 @@ package com.currencycloud.client.model;
 
 public class PaginatedData {
 
-    private Pagination pagination;
+    protected Pagination pagination;
 
     public Pagination getPagination() {
         return pagination;

@@ -31,4 +31,9 @@ public class Rate {
     public BigDecimal getOffer() {
         return offer;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Rate{bid=%s, offer=%s}", bid, offer);
+    }
 }

@@ -213,5 +213,11 @@ public class Beneficiary {
     public List<String> getBankAddress() {
         return bankAddress;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Beneficiary{id='%s', bankAccountHolderName='%s', name='%s', email='%s', defaultBeneficiary=%s, creatorContactId='%s', createdAt=%s, updatedAt=%s, paymentTypes=%s, bankCountry='%s', bankName='%s', currency='%s', accountNumber='%s', routingCodeType1='%s', bankAccountType='%s', beneficiaryAddress=%s, beneficiaryCountry='%s', beneficiaryEntityType='%s', beneficiaryCompanyName='%s', beneficiaryFirstName='%s', beneficiaryLastName='%s', beneficiaryCity='%s', beneficiaryPostcode='%s', beneficiaryStateOrProvince='%s', beneficiaryDateOfBirth='%s', beneficiaryIdentificationType='%s', beneficiaryIdentificationValue='%s', routingCodeValue1='%s', routingCodeType2='%s', routingCodeValue2='%s', bicSwift='%s', iban='%s', bankAddress=%s}",
+                id, bankAccountHolderName, name, email, defaultBeneficiary, creatorContactId, createdAt, updatedAt, paymentTypes, bankCountry, bankName, currency, accountNumber, routingCodeType1, bankAccountType, beneficiaryAddress, beneficiaryCountry, beneficiaryEntityType, beneficiaryCompanyName, beneficiaryFirstName, beneficiaryLastName, beneficiaryCity, beneficiaryPostcode, beneficiaryStateOrProvince, beneficiaryDateOfBirth, beneficiaryIdentificationType, beneficiaryIdentificationValue, routingCodeValue1, routingCodeType2, routingCodeValue2, bicSwift, iban, bankAddress);
+    }
 }
 

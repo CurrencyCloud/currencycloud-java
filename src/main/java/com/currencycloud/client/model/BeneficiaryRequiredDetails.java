@@ -17,7 +17,12 @@ public class BeneficiaryRequiredDetails {
         return details;
     }
 
-/*
+    @Override
+    public String toString() {
+        return String.format("BeneficiaryRequiredDetails{details=%s}", details);
+    }
+
+    /*
     @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Details {
