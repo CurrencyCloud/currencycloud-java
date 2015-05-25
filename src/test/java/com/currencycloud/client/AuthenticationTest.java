@@ -13,7 +13,7 @@ public class AuthenticationTest extends BetamaxTestSupport {
     @Betamax(tape = "can_use_just_a_token", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanUseJustAToken() throws Exception {
         client.setAuthToken("7fbba909f66ee6721b2e20a5fa1ccae7");
-        assertThat(client.findBeneficiaries(), notNullValue());
+        assertThat(client.findBeneficiaries(null, null), notNullValue());
     }
 
     @Test

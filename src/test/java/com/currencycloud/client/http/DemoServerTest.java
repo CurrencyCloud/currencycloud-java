@@ -8,10 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -39,12 +36,11 @@ public class DemoServerTest {
     @Test
     public void testPaymentTypes() throws Exception {
         try {
-            currencyCloud.validateBeneficiary(
-                    "GB", "GBP", "GB", null, null, null, null, null, null, null,
-                    Arrays.asList("Trafalgar Square", "London", "UK"),
-                    "Acme Bank", null, null, null, null, null, null, null, null, null, null, null,
-                    Arrays.asList("priority", "regular")
-            );
+            Beneficiary beneficiary = Beneficiary.createForValidate("GB", "GBP", "GB");
+            beneficiary.setBankAddress(Arrays.asList("Trafalgar Square", "London", "UK"));
+            beneficiary.setBankName("Acme Bank");
+            beneficiary.setPaymentTypes(Arrays.asList("priority", "regular"));
+            currencyCloud.validateBeneficiary(beneficiary);
             assertThat("Should fail.", false);
         } catch (CurrencyCloudException e) {
             log.info(e.toString());
@@ -64,12 +60,22 @@ public class DemoServerTest {
     @Test
     public void testAddress() throws Exception {
         List<String> paymentTypes = Arrays.asList("priority", "regular");
-        Beneficiary beneficiary = currencyCloud.createBeneficiary(
-                "Acme GmbH", "DE", "EUR", "John Doe", null, "London, UK", "DE",
-                null, null, null, null, null,
-                "COBADEFF", "DE89370400440532013000", null, null, null, null,
-                "individual", "ACME Ltd.", "John", "Doe", "London", null, null,
-                null, null, null, paymentTypes);
+        Beneficiary beneficiary = Beneficiary.createForCreate("John W Doe", "DE", "EUR", "John Doe");
+        beneficiary.setBeneficiaryAddress(Collections.singletonList("Hamburg, GE"));
+        beneficiary.setBeneficiaryCountry("DE");
+        beneficiary.setBicSwift("COBADEFF");
+        beneficiary.setIban("DE89370400440532013000");
+        beneficiary.setBeneficiaryEntityType("individual");
+        beneficiary.setBeneficiaryCompanyName("ACME Ltd.");
+        beneficiary.setBeneficiaryFirstName("John");
+        beneficiary.setBeneficiaryLastName("Doe");
+        beneficiary.setBeneficiaryCity("Hamburg");
+        beneficiary.setBankAddress(Arrays.asList("Trafalgar Square", "London", "UK"));
+        beneficiary.setBankName("Acme Bank");
+        beneficiary.setPaymentTypes(paymentTypes);
+
+        beneficiary = currencyCloud.createBeneficiary(beneficiary);
+
         assertThat(beneficiary.getPaymentTypes(), is(equalTo(paymentTypes)));
     }
 

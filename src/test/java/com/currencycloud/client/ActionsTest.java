@@ -27,11 +27,13 @@ public class ActionsTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri/*, MatchRule.body*/})
     public void testCanCreate() throws Exception {
-        Beneficiary beneficiary = client.createBeneficiary(
-                "Test User", "GB", "GBP", "Test User", null, null, null, "12345678", "sort_code", "123456",
-                null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-                Collections.singletonList("regular")
-        );
+        Beneficiary beneficiary = Beneficiary.createForCreate("Test User", "GB", "GBP", "Test User");
+        beneficiary.setAccountNumber("12345678");
+        beneficiary.setRoutingCodeType1("sort_code");
+        beneficiary.setRoutingCodeValue1("123456");
+        beneficiary.setPaymentTypes(Collections.singletonList("regular"));
+
+        beneficiary = client.createBeneficiary(beneficiary);
 
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
@@ -55,9 +57,7 @@ public class ActionsTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_first", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFirst() throws Exception {
-        Beneficiary beneficiary = client.firstBeneficiary(
-                "Test User", null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null);
+        Beneficiary beneficiary = client.firstBeneficiary(Beneficiary.createForCreate("Test User", null, null, null));
 
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
@@ -69,7 +69,7 @@ public class ActionsTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFind() throws Exception {
-        Beneficiaries beneficiariesData = client.findBeneficiaries();
+        Beneficiaries beneficiariesData = client.findBeneficiaries(null, null);
 
         List<Beneficiary> beneficiaries = beneficiariesData.getBeneficiaries();
         assertThat(beneficiaries, not(empty()));
@@ -89,11 +89,9 @@ public class ActionsTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_update", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanUpdate() throws Exception {
-        Beneficiary beneficiary = client.updateBeneficiary(
-                "081596c9-02de-483e-9f2a-4cf55dcdf98c", "Test User 2",
-                null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null, null, null
-        );
+        Beneficiary beneficiary = Beneficiary.createForFind("081596c9-02de-483e-9f2a-4cf55dcdf98c");
+        beneficiary.setBankAccountHolderName("Test User 2");
+        beneficiary = client.updateBeneficiary(beneficiary);
 
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User 2"));
@@ -127,12 +125,12 @@ public class ActionsTest extends BetamaxTestSupport {
     public void testCanValidateBeneficiaries() throws Exception {
         client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
         List<String> paymentTypes = Collections.singletonList("regular");
-        Beneficiary beneficiary = client.validateBeneficiary(
-                "GB", "GBP", null, "12345678", "sort_code", "123456",
-                null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null,
-                paymentTypes
-        );
+        Beneficiary beneficiary = Beneficiary.createForValidate("GB", "GBP", null);
+        beneficiary.setAccountNumber("12345678");
+        beneficiary.setRoutingCodeType1("sort_code");
+        beneficiary.setRoutingCodeValue1("123456");
+        beneficiary.setPaymentTypes(Collections.singletonList("regular"));
+        beneficiary = client.validateBeneficiary(beneficiary);
         assertThat(beneficiary.getPaymentTypes(), Matchers.equalTo(paymentTypes));
         assertThat(beneficiary.getBankCountry(), equalTo("GB"));
         assertThat(beneficiary.getBankName(), equalTo("HSBC BANK PLC"));

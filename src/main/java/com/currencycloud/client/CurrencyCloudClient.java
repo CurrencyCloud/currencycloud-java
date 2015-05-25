@@ -190,42 +190,155 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// BENEFICIARIES ///////////////////////////////////////////////
 
-    public Beneficiary validateBeneficiary(String bankCountry, String currency, String beneficiaryCountry, @Nullable String accountNumber, @Nullable String routingCodeType1, @Nullable String routingCodeValue1, @Nullable String routingCodeType2, @Nullable String routingCodeValue2, @Nullable String bicSwift, @Nullable String iban, @Nullable List<String> bankAddress, @Nullable String bankName, @Nullable String bankAccountType, @Nullable String beneficiaryEntityType, @Nullable String beneficiaryCompanyName, @Nullable String beneficiaryFirstName, @Nullable String beneficiaryLastName, @Nullable String beneficiaryCity, @Nullable String beneficiaryPostcode, @Nullable String beneficiaryStateOrProvince, @Nullable Date beneficiaryDateOfBirth, @Nullable String beneficiaryIdentificationType, @Nullable String beneficiaryIdentificationValue, @Nullable List<String> paymentTypes)
-            throws CurrencyCloudException {
-        return api.validateBeneficiary(authToken, bankCountry, currency, beneficiaryCountry, accountNumber, routingCodeType1, routingCodeValue1, routingCodeType2, routingCodeValue2, bicSwift, iban, bankAddress, bankName, bankAccountType, beneficiaryEntityType, beneficiaryCompanyName, beneficiaryFirstName, beneficiaryLastName, beneficiaryCity, beneficiaryPostcode, beneficiaryStateOrProvince, beneficiaryDateOfBirth, beneficiaryIdentificationType, beneficiaryIdentificationValue, paymentTypes, onBehalfOf);
+    public Beneficiary validateBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
+        return api.validateBeneficiary(
+                authToken,
+                beneficiary.getBankCountry(),
+                beneficiary.getCurrency(),
+                beneficiary.getBeneficiaryCountry(),
+                beneficiary.getAccountNumber(),
+                beneficiary.getRoutingCodeType1(),
+                beneficiary.getRoutingCodeValue1(),
+                beneficiary.getRoutingCodeType2(),
+                beneficiary.getRoutingCodeValue2(),
+                beneficiary.getBicSwift(),
+                beneficiary.getIban(),
+                beneficiary.getBankAddress(),
+                beneficiary.getBankName(),
+                beneficiary.getBankAccountType(),
+                beneficiary.getBeneficiaryEntityType(),
+                beneficiary.getBeneficiaryCompanyName(),
+                beneficiary.getBeneficiaryFirstName(),
+                beneficiary.getBeneficiaryLastName(),
+                beneficiary.getBeneficiaryCity(),
+                beneficiary.getBeneficiaryPostcode(),
+                beneficiary.getBeneficiaryStateOrProvince(),
+                beneficiary.getBeneficiaryDateOfBirth(),
+                beneficiary.getBeneficiaryIdentificationType(),
+                beneficiary.getBeneficiaryIdentificationValue(),
+                beneficiary.getPaymentTypes(),
+                onBehalfOf
+        );
     }
 
-    public Beneficiary createBeneficiary(String bankAccountHolderName, String bankCountry, String currency, String name, @Nullable String email, @Nullable String beneficiaryAddress, @Nullable String beneficiaryCountry, @Nullable String accountNumber, @Nullable String routingCodeType1, @Nullable String routingCodeValue1, @Nullable String routingCodeType2, @Nullable String routingCodeValue2, @Nullable String bicSwift, @Nullable String iban, @Nullable Boolean defaultBeneficiary, @Nullable List<String> bankAddress, @Nullable String bankName, @Nullable String bankAccountType, @Nullable String beneficiaryEntityType, @Nullable String beneficiaryCompanyName, @Nullable String beneficiaryFirstName, @Nullable String beneficiaryLastName, @Nullable String beneficiaryCity, @Nullable String beneficiaryPostcode, @Nullable String beneficiaryStateOrProvince, @Nullable Date beneficiaryDateOfBirth, @Nullable String beneficiaryIdentificationType, @Nullable String beneficiaryIdentificationValue, @Nullable List<String> paymentTypes)
-            throws CurrencyCloudException {
-        return api.createBeneficiary(authToken, bankAccountHolderName, bankCountry, currency, name, email, beneficiaryAddress, beneficiaryCountry, accountNumber, routingCodeType1, routingCodeValue1, routingCodeType2, routingCodeValue2, bicSwift, iban, defaultBeneficiary, bankAddress, bankName, bankAccountType, beneficiaryEntityType, beneficiaryCompanyName, beneficiaryFirstName, beneficiaryLastName, beneficiaryCity, beneficiaryPostcode, beneficiaryStateOrProvince, beneficiaryDateOfBirth, beneficiaryIdentificationType, beneficiaryIdentificationValue, paymentTypes, onBehalfOf);
+    public Beneficiary createBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
+        return api.createBeneficiary(
+                authToken,
+                beneficiary.getBankAccountHolderName(),
+                beneficiary.getBankCountry(),
+                beneficiary.getCurrency(),
+                beneficiary.getName(),
+                beneficiary.getEmail(),
+                join(beneficiary.getBeneficiaryAddress()), // todo
+                beneficiary.getBeneficiaryCountry(),
+                beneficiary.getAccountNumber(),
+                beneficiary.getRoutingCodeType1(),
+                beneficiary.getRoutingCodeValue1(),
+                beneficiary.getRoutingCodeType2(),
+                beneficiary.getRoutingCodeValue2(),
+                beneficiary.getBicSwift(),
+                beneficiary.getIban(),
+                beneficiary.getDefaultBeneficiary(),
+                beneficiary.getBankAddress(),
+                beneficiary.getBankName(),
+                beneficiary.getBankAccountType(),
+                beneficiary.getBeneficiaryEntityType(),
+                beneficiary.getBeneficiaryCompanyName(),
+                beneficiary.getBeneficiaryFirstName(),
+                beneficiary.getBeneficiaryLastName(),
+                beneficiary.getBeneficiaryCity(),
+                beneficiary.getBeneficiaryPostcode(),
+                beneficiary.getBeneficiaryStateOrProvince(),
+                beneficiary.getBeneficiaryDateOfBirth(),
+                beneficiary.getBeneficiaryIdentificationType(),
+                beneficiary.getBeneficiaryIdentificationValue(),
+                beneficiary.getPaymentTypes(),
+                onBehalfOf
+        );
     }
 
     public Beneficiary retrieveBeneficiary(String id) throws CurrencyCloudException {
         return api.retrieveBeneficiary(authToken, id, onBehalfOf);
     }
 
-    public Beneficiary updateBeneficiary(String beneficiaryId, @Nullable String bankAccountHolderName, @Nullable String bankCountry, @Nullable String currency, @Nullable String name, @Nullable String email, @Nullable String beneficiaryAddress, @Nullable String beneficiaryCountry, @Nullable String accountNumber, @Nullable String routingCodeType1, @Nullable String routingCodeValue1, @Nullable String routingCodeType2, @Nullable String routingCodeValue2, @Nullable String bicSwift, @Nullable String iban, @Nullable Boolean defaultBeneficiary, @Nullable List<String> bankAddress, @Nullable String bankName, @Nullable String bankAccountType, @Nullable String beneficiaryEntityType, @Nullable String beneficiaryCompanyName, @Nullable String beneficiaryFirstName, @Nullable String beneficiaryLastName, @Nullable String beneficiaryCity, @Nullable String beneficiaryPostcode, @Nullable String beneficiaryStateOrProvince, @Nullable Date beneficiaryDateOfBirth, @Nullable String beneficiaryIdentificationType, @Nullable String beneficiaryIdentificationValue, @Nullable List<String> paymentTypes)
-            throws CurrencyCloudException {
-        return api.updateBeneficiary(authToken, beneficiaryId, bankAccountHolderName, bankCountry, currency, name, email, beneficiaryAddress, beneficiaryCountry, accountNumber, routingCodeType1, routingCodeValue1, routingCodeType2, routingCodeValue2, bicSwift, iban, defaultBeneficiary, bankAddress, bankName, bankAccountType, beneficiaryEntityType, beneficiaryCompanyName, beneficiaryFirstName, beneficiaryLastName, beneficiaryCity, beneficiaryPostcode, beneficiaryStateOrProvince, beneficiaryDateOfBirth, beneficiaryIdentificationType, beneficiaryIdentificationValue, paymentTypes, onBehalfOf);
+    public Beneficiary updateBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
+        return api.updateBeneficiary(
+                authToken,
+                beneficiary.getId(),
+                beneficiary.getBankAccountHolderName(),
+                beneficiary.getBankCountry(),
+                beneficiary.getCurrency(),
+                beneficiary.getName(),
+                beneficiary.getEmail(),
+                join(beneficiary.getBeneficiaryAddress()), // todo
+                beneficiary.getBeneficiaryCountry(),
+                beneficiary.getAccountNumber(),
+                beneficiary.getRoutingCodeType1(),
+                beneficiary.getRoutingCodeValue1(),
+                beneficiary.getRoutingCodeType2(),
+                beneficiary.getRoutingCodeValue2(),
+                beneficiary.getBicSwift(),
+                beneficiary.getIban(),
+                beneficiary.getDefaultBeneficiary(),
+                beneficiary.getBankAddress(),
+                beneficiary.getBankName(),
+                beneficiary.getBankAccountType(),
+                beneficiary.getBeneficiaryEntityType(),
+                beneficiary.getBeneficiaryCompanyName(),
+                beneficiary.getBeneficiaryFirstName(),
+                beneficiary.getBeneficiaryLastName(),
+                beneficiary.getBeneficiaryCity(),
+                beneficiary.getBeneficiaryPostcode(),
+                beneficiary.getBeneficiaryStateOrProvince(),
+                beneficiary.getBeneficiaryDateOfBirth(),
+                beneficiary.getBeneficiaryIdentificationType(),
+                beneficiary.getBeneficiaryIdentificationValue(),
+                beneficiary.getPaymentTypes(),
+                onBehalfOf
+        );
     }
 
-    public Beneficiaries findBeneficiaries()
-            throws CurrencyCloudException {
-        return api.findBeneficiaries(
-                authToken, null, null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null, null, null, null, null, onBehalfOf);
-    }
-
-    public Beneficiaries findBeneficiaries(@Nullable String bankAccountHolderName, @Nullable String beneficiaryCountry, @Nullable String currency, @Nullable String accountNumber, @Nullable String routingCodeType, @Nullable String routingCodeValue, @Nullable String paymentTypes, @Nullable String bicSwift, @Nullable String iban, @Nullable Boolean defaultBeneficiary, @Nullable String bankName, @Nullable String bankAccountType, @Nullable String name, @Nullable String beneficiaryEntityType, @Nullable String beneficiaryCompanyName, @Nullable String beneficiaryFirstName, @Nullable String beneficiaryLastName, @Nullable String beneficiaryCity, @Nullable String beneficiaryPostcode, @Nullable String beneficiaryStateOrProvince, @Nullable Date beneficiaryDateOfBirth, @Nullable Pagination pagination)
+    public Beneficiaries findBeneficiaries(@Nullable Beneficiary beneficiary, @Nullable Pagination pagination)
             throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
-        return api.findBeneficiaries(authToken, bankAccountHolderName, beneficiaryCountry, currency, accountNumber, routingCodeType, routingCodeValue, paymentTypes, bicSwift, iban, defaultBeneficiary, bankName, bankAccountType, name, beneficiaryEntityType, beneficiaryCompanyName, beneficiaryFirstName, beneficiaryLastName, beneficiaryCity, beneficiaryPostcode, beneficiaryStateOrProvince, beneficiaryDateOfBirth, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc(), onBehalfOf);
+        if (beneficiary == null) {
+            beneficiary = Beneficiary.createEmpty();
+        }
+        return api.findBeneficiaries(
+                authToken,
+                beneficiary.getBankAccountHolderName(),
+                beneficiary.getBeneficiaryCountry(),
+                beneficiary.getCurrency(),
+                beneficiary.getAccountNumber(),
+                beneficiary.getRoutingCodeType1(), // todo
+                beneficiary.getRoutingCodeValue1(),  // todo
+                beneficiary.getPaymentTypes(),
+                beneficiary.getBicSwift(),
+                beneficiary.getIban(),
+                beneficiary.getDefaultBeneficiary(),
+                beneficiary.getBankName(),
+                beneficiary.getBankAccountType(),
+                beneficiary.getName(),
+                beneficiary.getBeneficiaryEntityType(),
+                beneficiary.getBeneficiaryCompanyName(),
+                beneficiary.getBeneficiaryFirstName(),
+                beneficiary.getBeneficiaryLastName(),
+                beneficiary.getBeneficiaryCity(),
+                beneficiary.getBeneficiaryPostcode(),
+                beneficiary.getBeneficiaryStateOrProvince(),
+                beneficiary.getBeneficiaryDateOfBirth(),
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc(),
+                onBehalfOf
+        );
     }
 
-    public Beneficiary firstBeneficiary(@Nullable String bankAccountHolderName, @Nullable String beneficiaryCountry, @Nullable String currency, @Nullable String accountNumber, @Nullable String routingCodeType, @Nullable String routingCodeValue, @Nullable String paymentTypes, @Nullable String bicSwift, @Nullable String iban, @Nullable Boolean defaultBeneficiary, @Nullable String bankName, @Nullable String bankAccountType, @Nullable String name, @Nullable String beneficiaryEntityType, @Nullable String beneficiaryCompanyName, @Nullable String beneficiaryFirstName, @Nullable String beneficiaryLastName, @Nullable String beneficiaryCity, @Nullable String beneficiaryPostcode, @Nullable String beneficiaryStateOrProvince, @Nullable Date beneficiaryDateOfBirth) {
-        return findBeneficiaries(bankAccountHolderName, beneficiaryCountry, currency, accountNumber, routingCodeType, routingCodeValue, paymentTypes, bicSwift, iban, defaultBeneficiary, bankName, bankAccountType, name, beneficiaryEntityType, beneficiaryCompanyName, beneficiaryFirstName, beneficiaryLastName, beneficiaryCity, beneficiaryPostcode, beneficiaryStateOrProvince, beneficiaryDateOfBirth, Pagination.first()).getBeneficiaries().iterator().next();
+    public Beneficiary firstBeneficiary(@Nullable Beneficiary beneficiary) throws CurrencyCloudException {
+        return findBeneficiaries(beneficiary, Pagination.first()).getBeneficiaries().iterator().next();
     }
 
     public Beneficiary deleteBeneficiary(String id) throws CurrencyCloudException {
@@ -367,6 +480,20 @@ public class CurrencyCloudClient {
 
 
     ///////////////////////////////////////////////////////////////////
+
+    static String join(List<String> strings) {
+        if (strings == null) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (String string : strings) {
+            if (sb.length() > 0) {
+                sb.append(", ");
+            }
+            sb.append(string);
+        }
+        return sb.toString();
+    }
 
     public enum Environment {
         production("https://api.thecurrencycloud.com"),

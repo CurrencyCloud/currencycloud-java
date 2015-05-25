@@ -273,7 +273,7 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("account_number") String accountNumber,
             @Nullable @QueryParam("routing_code_type") String routingCodeType,
             @Nullable @QueryParam("routing_code_value") String routingCodeValue,
-            @Nullable @QueryParam("payment_types") String paymentTypes,
+            @Nullable @QueryParam("payment_types[]") List<String> paymentTypes,
             @Nullable @QueryParam("bic_swift") String bicSwift,
             @Nullable @QueryParam("iban") String iban,
             @Nullable @QueryParam("default_beneficiary") Boolean defaultBeneficiary,
