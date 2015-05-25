@@ -52,64 +52,128 @@ public class Account {
         return legalEntityType;
     }
 
+    public void setLegalEntityType(String legalEntityType) {
+        this.legalEntityType = legalEntityType;
+    }
+
     public String getAccountName() {
         return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public String getBrand() {
         return brand;
     }
 
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
     public String getYourReference() {
         return yourReference;
+    }
+
+    public void setYourReference(String yourReference) {
+        this.yourReference = yourReference;
     }
 
     public String getStatus() {
         return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getStreet() {
         return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getCity() {
         return city;
     }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getStateOrProvince() {
         return stateOrProvince;
+    }
+
+    public void setStateOrProvince(String stateOrProvince) {
+        this.stateOrProvince = stateOrProvince;
     }
 
     public String getCountry() {
         return country;
     }
 
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public String getPostalCode() {
         return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getSpreadTable() {
         return spreadTable;
     }
 
+    public void setSpreadTable(String spreadTable) {
+        this.spreadTable = spreadTable;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Date getUpdatedAt() {
         return updatedAt;
     }
 
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public String getIdentificationType() {
         return identificationType;
+    }
+
+    public void setIdentificationType(String identificationType) {
+        this.identificationType = identificationType;
     }
 
     public String getIdentificationValue() {
         return identificationValue;
     }
 
+    public void setIdentificationValue(String identificationValue) {
+        this.identificationValue = identificationValue;
+    }
+
     public String getShortReference() {
         return shortReference;
+    }
+
+    public void setShortReference(String shortReference) {
+        this.shortReference = shortReference;
     }
 
     @Override

@@ -54,8 +54,8 @@ public class CurrencyCloudClient {
     /**
      * Performs the work on behalf of another user.
      *
-     * @param contactId  contactId of the user
-     * @param work       the work to do
+     * @param contactId contactId of the user
+     * @param work      the work to do
      * @throws CurrencyCloudException   if work throws it
      * @throws IllegalStateException    if onBehalfOf is already set (nested call to this method)
      * @throws IllegalArgumentException if onBehalfOf is in illegal format
@@ -82,12 +82,16 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// AUTHENTICATE ////////////////////////////////////////////////
 
-    /** Starts a logged in session */
+    /**
+     * Starts a logged in session
+     */
     public void authenticate(String loginId, String apiKey) throws CurrencyCloudException {
         authToken = api.authenticate(loginId, apiKey).getAuthToken();
     }
 
-    /** Ends a logged in session */
+    /**
+     * Ends a logged in session
+     */
     public void endSession() throws CurrencyCloudException {
         api.endSession(authToken);
         authToken = null;
@@ -98,23 +102,70 @@ public class CurrencyCloudClient {
 
     // todo: test: create retrieve update find
 
-    public Account createAccount(String accountName, @Nullable String legalEntityType, @Nullable String yourReference, @Nullable String status, @Nullable String street, @Nullable String city, @Nullable String stateOrProvince, @Nullable String postalCode, @Nullable String country, @Nullable String spreadTable, @Nullable String identificationType, @Nullable String identificationValue) throws CurrencyCloudException {
-        return api.createAccount(authToken, accountName, legalEntityType, yourReference, status, street, city, stateOrProvince, postalCode, country, spreadTable, identificationType, identificationValue);
+    public Account createAccount(String accountName, Account account) throws CurrencyCloudException {
+        return api.createAccount(authToken, accountName,
+                account.getLegalEntityType(),
+                account.getYourReference(),
+                account.getStatus(),
+                account.getStreet(),
+                account.getCity(),
+                account.getStateOrProvince(),
+                account.getPostalCode(),
+                account.getCountry(),
+                account.getSpreadTable(),
+                account.getIdentificationType(),
+                account.getIdentificationValue()
+        );
     }
 
     public Account retrieveAccount(String accountId) throws CurrencyCloudException {
         return api.retrieveAccount(authToken, accountId, onBehalfOf);
     }
-    
-    public Account updateAccount(String accountId, @Nullable String accountName, @Nullable String legalEntityType, @Nullable String yourReference, @Nullable String status, @Nullable String street, @Nullable String city, @Nullable String stateOrProvince, @Nullable String postalCode, @Nullable String country, @Nullable String spreadTable, @Nullable String identificationType, @Nullable String identificationValue) throws CurrencyCloudException {
-        return api.updateAccount(authToken, accountId, accountName, legalEntityType, yourReference, status, street, city, stateOrProvince, postalCode, country, spreadTable, identificationType, identificationValue);
+
+    public Account updateAccount(Account account) throws CurrencyCloudException {
+        return api.updateAccount(authToken,
+                                 account.getId(),
+                                 account.getAccountName(),
+                                 account.getLegalEntityType(),
+                                 account.getYourReference(),
+                                 account.getStatus(),
+                                 account.getStreet(),
+                                 account.getCity(),
+                                 account.getStateOrProvince(),
+                                 account.getPostalCode(),
+                                 account.getCountry(),
+                                 account.getSpreadTable(),
+                                 account.getIdentificationType(),
+                                 account.getIdentificationValue()
+        );
     }
-    
-    public Accounts findAccounts(@Nullable String accountName, @Nullable String brand, @Nullable String yourReference, @Nullable String status, @Nullable String street, @Nullable String city, @Nullable String stateOrProvince, @Nullable String postalCode, @Nullable String country, @Nullable String spreadTable, @Nullable Pagination pagination) throws CurrencyCloudException {
+
+    /**
+     * @param example Those properties that are not null in example will be used as filters; null values will be ignored.
+     */
+    public Accounts findAccounts(@Nullable Account example, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
-        return api.findAccounts(authToken, accountName, brand, yourReference, status, street, city, stateOrProvince, postalCode, country, spreadTable, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc());
+        if (example == null) {
+            example = new Account();
+        }
+        return api.findAccounts(authToken,
+                                example.getAccountName(),
+                                example.getBrand(),
+                                example.getYourReference(),
+                                example.getStatus(),
+                                example.getStreet(),
+                                example.getCity(),
+                                example.getStateOrProvince(),
+                                example.getPostalCode(),
+                                example.getCountry(),
+                                example.getSpreadTable(),
+                                pagination.getPage(),
+                                pagination.getPerPage(),
+                                pagination.getOrder(),
+                                pagination.getOrderAscDesc()
+        );
     }
 
     public Account currentAccount() throws CurrencyCloudException {
@@ -319,8 +370,7 @@ public class CurrencyCloudClient {
 
     public enum Environment {
         production("https://api.thecurrencycloud.com"),
-        demo("https://devapi.thecurrencycloud.com")
-        ;
+        demo("https://devapi.thecurrencycloud.com");
         private final String url;
 
         Environment(String url) {

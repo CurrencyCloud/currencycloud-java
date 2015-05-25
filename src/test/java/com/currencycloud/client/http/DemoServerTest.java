@@ -1,9 +1,7 @@
 package com.currencycloud.client.http;
 
 import com.currencycloud.client.CurrencyCloudClient;
-import com.currencycloud.client.model.Beneficiary;
-import com.currencycloud.client.model.CurrencyCloudException;
-import com.currencycloud.client.model.ErrorMessage;
+import com.currencycloud.client.model.*;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -72,5 +71,30 @@ public class DemoServerTest {
                 "individual", "ACME Ltd.", "John", "Doe", "London", null, null,
                 null, null, null, paymentTypes);
         assertThat(beneficiary.getPaymentTypes(), is(equalTo(paymentTypes)));
+    }
+
+    @Test
+    public void testAccounts() throws Exception {
+        Accounts accounts = currencyCloud.findAccounts(null, null);
+        log.debug("Accounts = {}", accounts);
+
+        Account account = currencyCloud.currentAccount();
+        log.debug("Current account = {}", account);
+
+        String myAccId = account.getId();
+        account = currencyCloud.retrieveAccount(myAccId);
+        assertThat(account.getId(), equalTo(myAccId));
+
+        boolean found = false;
+        for (Account a : accounts.getAccounts()) {
+            if (Objects.equals(a.getId(), myAccId)) {
+                found = true;
+            }
+        }
+        assertThat("Current account not found among the ones listed.", found);
+
+//        account.setCountry("SI");
+//        account = currencyCloud.updateAccount(account); // todo: permission denied
+//        log.debug("account = {}", account);
     }
 }
