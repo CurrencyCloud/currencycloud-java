@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -129,6 +130,14 @@ public class DeserialisationTest extends JsonTestSupport {
         assertThat(range.getCode(), CoreMatchers.equalTo("legal_entity_type_not_in_range"));
         assertThat(range.getParams(), aMapWithSize(1));
         assertThat(range.getParams(), hasEntry("range", (Object)"individual, company"));
+    }
+
+    @Test
+    public void testBeneficiary() throws Exception {
+        Beneficiary beneficiary = readJson(Beneficiary.class);
+
+        assertThat(beneficiary.getBeneficiaryAddress(), equalTo(Collections.singletonList("London, UK")));
+        assertThat(beneficiary.getBankAddress(), equalTo(Arrays.asList("KAISERSTRASSE 16", "60261 FRANKFURT AM MAIN")));
     }
 
     public static <T> T readJson(Class<T> type) throws java.io.IOException {

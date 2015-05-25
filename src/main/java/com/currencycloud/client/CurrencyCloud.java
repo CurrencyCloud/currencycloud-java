@@ -159,7 +159,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("routing_code_value_2") String routingCodeValue2,
             @Nullable @FormParam("bic_swift") String bicSwift,
             @Nullable @FormParam("iban") String iban,
-            @Nullable @FormParam("bank_address") List<String> bankAddress,
+            @Nullable @FormParam("bank_address[]") List<String> bankAddress,
             @Nullable @FormParam("bank_name") String bankName,
             @Nullable @FormParam("bank_account_type") String bankAccountType,
             @Nullable @FormParam("beneficiary_entity_type") String beneficiaryEntityType,
@@ -172,7 +172,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("beneficiary_date_of_birth	date") Date beneficiaryDateOfBirth,
             @Nullable @FormParam("beneficiary_identification_type") String beneficiaryIdentificationType,
             @Nullable @FormParam("beneficiary_identification_value") String beneficiaryIdentificationValue,
-            @Nullable @FormParam("payment_types") List<String> paymentTypes,
+            @Nullable @FormParam("payment_types[]") List<String> paymentTypes,
             @Nullable @FormParam("on_behalf_of") String onBehalfOf
     ) throws CurrencyCloudException;
 
@@ -197,7 +197,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("bic_swift") String bicSwift,
             @Nullable @FormParam("iban") String iban,
             @Nullable @FormParam("default_beneficiary") Boolean defaultBeneficiary,
-            @Nullable @FormParam("bank_address") List<String> bankAddress,
+            @Nullable @FormParam("bank_address[]") List<String> bankAddress,
             @Nullable @FormParam("bank_name") String bankName,
             @Nullable @FormParam("bank_account_type") String bankAccountType,
             @Nullable @FormParam("beneficiary_entity_type") String beneficiaryEntityType,
@@ -210,7 +210,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("beneficiary_date_of_birth	date") Date beneficiaryDateOfBirth,
             @Nullable @FormParam("beneficiary_identification_type") String beneficiaryIdentificationType,
             @Nullable @FormParam("beneficiary_identification_value") String beneficiaryIdentificationValue,
-            @Nullable @FormParam("payment_types") List<String> paymentTypes,
+            @Nullable @FormParam("payment_types[]") List<String> paymentTypes,
             @Nullable @FormParam("on_behalf_of") String onBehalfOf
     ) throws CurrencyCloudException;
 
@@ -245,7 +245,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("bic_swift") String bicSwift,
             @Nullable @FormParam("iban") String iban,
             @Nullable @FormParam("default_beneficiary") Boolean defaultBeneficiary,
-            @Nullable @FormParam("bank_address") List<String> bankAddress,
+            @Nullable @FormParam("bank_address[]") List<String> bankAddress,
             @Nullable @FormParam("bank_name") String bankName,
             @Nullable @FormParam("bank_account_type") String bankAccountType,
             @Nullable @FormParam("beneficiary_entity_type") String beneficiaryEntityType,
@@ -258,7 +258,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("beneficiary_date_of_birth	date") Date beneficiaryDateOfBirth,
             @Nullable @FormParam("beneficiary_identification_type") String beneficiaryIdentificationType,
             @Nullable @FormParam("beneficiary_identification_value") String beneficiaryIdentificationValue,
-            @Nullable @FormParam("payment_types") List<String> paymentTypes,
+            @Nullable @FormParam("payment_types[]") List<String> paymentTypes,
             @Nullable @FormParam("on_behalf_of") String onBehalfOf
     ) throws CurrencyCloudException;
 

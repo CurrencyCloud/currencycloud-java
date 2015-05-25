@@ -1,0 +1,42 @@
+{
+  "id": "5d38d2e3-c634-4e9c-9fcc-4331063e21f8",
+  "bank_account_holder_name": "Acme GmbH",
+  "name": "John Doe",
+  "email": null,
+  "payment_types": [
+    "regular"
+  ],
+  "beneficiary_address": [
+    "London, UK"
+  ],
+  "beneficiary_country": "DE",
+  "beneficiary_entity_type": null,
+  "beneficiary_company_name": null,
+  "beneficiary_first_name": null,
+  "beneficiary_last_name": null,
+  "beneficiary_city": null,
+  "beneficiary_postcode": null,
+  "beneficiary_state_or_province": null,
+  "beneficiary_date_of_birth": null,
+  "beneficiary_identification_type": null,
+  "beneficiary_identification_value": null,
+  "bank_country": "DE",
+  "bank_name": "COMMERZBANK AG",
+  "bank_account_type": null,
+  "currency": "EUR",
+  "account_number": null,
+  "routing_code_type_1": null,
+  "routing_code_value_1": null,
+  "routing_code_type_2": null,
+  "routing_code_value_2": null,
+  "bic_swift": "COBADEFF",
+  "iban": "DE89370400440532013000",
+  "default_beneficiary": "false",
+  "creator_contact_id": "fdc9d10e-3265-4af0-ac5d-d8313f2cfb81",
+  "bank_address": [
+    "KAISERSTRASSE 16",
+    "60261 FRANKFURT AM MAIN"
+  ],
+  "created_at": "2015-05-25T12:08:51+00:00",
+  "updated_at": "2015-05-25T12:08:51+00:00"
+}
