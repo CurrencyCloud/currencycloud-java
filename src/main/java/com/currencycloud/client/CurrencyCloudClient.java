@@ -555,11 +555,36 @@ public class CurrencyCloudClient {
         return api.retrieveSettlement(authToken, id, onBehalfOf);
     }
 
-    public Settlements findSettlements(@Nullable String shortReference, @Nullable String status, @Nullable Date createdAtFrom, @Nullable Date createdAtTo, @Nullable Date updatedAtFrom, @Nullable Date updatedAtTo, @Nullable Date releasedAtFrom, @Nullable Date releasedAtTo, @Nullable Pagination pagination) throws CurrencyCloudException {
+    public Settlements findSettlements(
+            @Nullable String shortReference,
+            @Nullable String status,
+            @Nullable Date createdAtFrom,
+            @Nullable Date createdAtTo,
+            @Nullable Date updatedAtFrom,
+            @Nullable Date updatedAtTo,
+            @Nullable Date releasedAtFrom,
+            @Nullable Date releasedAtTo,
+            @Nullable Pagination pagination
+    ) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
-        return api.findSettlements(authToken, shortReference, status, createdAtFrom, createdAtTo, updatedAtFrom, updatedAtTo, releasedAtFrom, releasedAtTo, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc(), onBehalfOf);
+        return api.findSettlements(
+                authToken,
+                shortReference,
+                status,
+                createdAtFrom,
+                createdAtTo,
+                updatedAtFrom,
+                updatedAtTo,
+                releasedAtFrom,
+                releasedAtTo,
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc(),
+                onBehalfOf
+        );
     }
 
     public Settlement deleteSettlement(String settlementId) throws CurrencyCloudException {
@@ -590,11 +615,49 @@ public class CurrencyCloudClient {
         return api.retrieveTransaction(authToken, id, onBehalfOf);
     }
 
-    public Transactions findTransactions(@Nullable String currency, @Nullable BigDecimal amount, @Nullable BigDecimal amountFrom, @Nullable BigDecimal amountTo, @Nullable String action, @Nullable String relatedEntityType, @Nullable String relatedEntityId, @Nullable String relatedEntityShortReference, @Nullable String status, @Nullable String type, @Nullable String reason, @Nullable String settlesAtFrom, @Nullable String settlesAtTo, @Nullable Date createdAtFrom, @Nullable Date createdAtTo, @Nullable Date updatedAtFrom, @Nullable Date updatedAtTo, @Nullable Pagination pagination) throws CurrencyCloudException {
+    public Transactions findTransactions(
+            @Nullable Transaction example,
+            @Nullable BigDecimal amountFrom,
+            @Nullable BigDecimal amountTo,
+            @Nullable String settlesAtFrom,
+            @Nullable String settlesAtTo,
+            @Nullable Date createdAtFrom,
+            @Nullable Date createdAtTo,
+            @Nullable Date updatedAtFrom,
+            @Nullable Date updatedAtTo,
+            @Nullable Pagination pagination
+    ) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
-        return api.findTransactions(authToken, currency, amount, amountFrom, amountTo, action, relatedEntityType, relatedEntityId, relatedEntityShortReference, status, type, reason, settlesAtFrom, settlesAtTo, createdAtFrom, createdAtTo, updatedAtFrom, updatedAtTo, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc(), onBehalfOf);
+        if (example == null) {
+            example = Transaction.createEmpty();
+        }
+        return api.findTransactions(
+                authToken,
+                example.getCurrency(),
+                example.getAmount(),
+                amountFrom,
+                amountTo,
+                example.getAction(),
+                example.getRelatedEntityType(),
+                example.getRelatedEntityId(),
+                example.getRelatedEntityShortReference(),
+                example.getStatus(),
+                example.getType(),
+                example.getReason(),
+                settlesAtFrom,
+                settlesAtTo,
+                createdAtFrom,
+                createdAtTo,
+                updatedAtFrom,
+                updatedAtTo,
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc(),
+                onBehalfOf
+        );
     }
 
 

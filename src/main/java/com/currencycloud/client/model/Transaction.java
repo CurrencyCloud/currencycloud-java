@@ -28,6 +28,58 @@ public class Transaction {
     private Date createdAt;
     private Date updatedAt;
 
+    private Transaction() { }
+
+    private Transaction(
+            String currency,
+            BigDecimal amount,
+            String action,
+            String relatedEntityType,
+            String relatedEntityId,
+            String relatedEntityShortReference,
+            String status,
+            String type,
+            String reason
+    ) {
+        this.currency = currency;
+        this.amount = amount;
+        this.action = action;
+        this.relatedEntityType = relatedEntityType;
+        this.relatedEntityId = relatedEntityId;
+        this.relatedEntityShortReference = relatedEntityShortReference;
+        this.status = status;
+        this.type = type;
+        this.reason = reason;
+    }
+
+    public static Transaction createEmpty() {
+        return new Transaction();
+    }
+
+    public static Transaction createExample(
+            String currency,
+            BigDecimal amount,
+            String action,
+            String relatedEntityType,
+            String relatedEntityId,
+            String relatedEntityShortReference,
+            String status,
+            String type,
+            String reason
+    ) {
+        return new Transaction(
+                currency,
+                amount,
+                action,
+                relatedEntityType,
+                relatedEntityId,
+                relatedEntityShortReference,
+                status,
+                type,
+                reason
+        );
+    }
+
     public String getId() {
         return id;
     }
