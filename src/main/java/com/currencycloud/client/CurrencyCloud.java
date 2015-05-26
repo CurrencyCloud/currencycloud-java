@@ -135,7 +135,7 @@ public interface CurrencyCloud {
     /** Retrieve a Balance */
     @GET
     @Path("balances/{currency}")
-    Balance findBalance(
+    Balance retrieveBalance(
             @HeaderParam("X-Auth-Token") String authToken,
             @PathParam("currency") String currency
     ) throws CurrencyCloudException;

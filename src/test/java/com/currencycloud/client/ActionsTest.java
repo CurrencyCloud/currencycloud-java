@@ -146,7 +146,7 @@ public class ActionsTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_use_currency_to_retrieve_balance", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanUseCurrencyToRetrieveBalance() throws Exception {
-        Balance balance = client.findBalance("GBP");
+        Balance balance = client.retrieveBalance("GBP");
 
         assertThat(balance.getId(), equalTo("5a998e06-3eb7-46d6-ba58-f749864159ce"));
         assertThat(balance.getAmount(), equalTo(new BigDecimal("999866.78")));

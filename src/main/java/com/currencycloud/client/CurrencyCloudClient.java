@@ -183,8 +183,8 @@ public class CurrencyCloudClient {
         return api.findBalances(authToken, amountFrom, amountTo, asAtDate, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc());
     }
 
-    public Balance findBalance(String currency) throws CurrencyCloudException {
-        return api.findBalance(authToken, currency);
+    public Balance retrieveBalance(String currency) throws CurrencyCloudException {
+        return api.retrieveBalance(authToken, currency);
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -348,16 +348,50 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// CONVERSIONS /////////////////////////////////////////////////
 
-    public Conversions findConversions(@Nullable String shortReference, @Nullable String status, @Nullable String partnerStatus, @Nullable String buyCurrency, @Nullable String sellCurrency, @Nullable String conversionIds, @Nullable String createdAtFrom, @Nullable String createdAtTo, @Nullable String updatedAtFrom, @Nullable String updatedAtTo, @Nullable String currencyPair, @Nullable String partnerBuyAmountFrom, @Nullable String partnerBuyAmountTo, @Nullable String partnerSellAmountFrom, @Nullable String partnerSellAmountTo, @Nullable String buyAmountFrom, @Nullable String buyAmountTo, @Nullable String sellAmountFrom, @Nullable String sellAmountTo) throws CurrencyCloudException {
-        return api.findConversions(authToken, shortReference, status, partnerStatus, buyCurrency, sellCurrency, conversionIds, createdAtFrom, createdAtTo, updatedAtFrom, updatedAtTo, currencyPair, partnerBuyAmountFrom, partnerBuyAmountTo, partnerSellAmountFrom, partnerSellAmountTo, buyAmountFrom, buyAmountTo, sellAmountFrom, sellAmountTo, onBehalfOf);
+    public Conversion createConversion(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, String reason, Boolean termAgreement, @Nullable Date conversionDate, @Nullable BigDecimal clientRate, @Nullable String currencyPair, @Nullable BigDecimal clientBuyAmount, @Nullable BigDecimal clientSellAmount) {
+        return api.createConversion(authToken,
+                                    buyCurrency,
+                                    sellCurrency,
+                                    fixedSide,
+                                    amount,
+                                    reason,
+                                    termAgreement,
+                                    conversionDate,
+                                    clientRate,
+                                    currencyPair,
+                                    clientBuyAmount,
+                                    clientSellAmount,
+                                    onBehalfOf
+        );
     }
 
     public Conversion retrieveConversion(String conversionId) throws CurrencyCloudException {
         return api.retrieveConversion(authToken, conversionId);
     }
 
-    public Conversion createConversion(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, String reason, Boolean termAgreement, @Nullable Date conversionDate, @Nullable BigDecimal clientRate, @Nullable String currencyPair, @Nullable BigDecimal clientBuyAmount, @Nullable BigDecimal clientSellAmount) {
-        return api.createConversion(authToken, buyCurrency, sellCurrency, fixedSide, amount, reason, termAgreement, conversionDate, clientRate, currencyPair, clientBuyAmount, clientSellAmount, onBehalfOf);
+    public Conversions findConversions(@Nullable String shortReference, @Nullable String status, @Nullable String partnerStatus, @Nullable String buyCurrency, @Nullable String sellCurrency, @Nullable String conversionIds, @Nullable String createdAtFrom, @Nullable String createdAtTo, @Nullable String updatedAtFrom, @Nullable String updatedAtTo, @Nullable String currencyPair, @Nullable String partnerBuyAmountFrom, @Nullable String partnerBuyAmountTo, @Nullable String partnerSellAmountFrom, @Nullable String partnerSellAmountTo, @Nullable String buyAmountFrom, @Nullable String buyAmountTo, @Nullable String sellAmountFrom, @Nullable String sellAmountTo) throws CurrencyCloudException {
+        return api.findConversions(authToken,
+                                   shortReference,
+                                   status,
+                                   partnerStatus,
+                                   buyCurrency,
+                                   sellCurrency,
+                                   conversionIds,
+                                   createdAtFrom,
+                                   createdAtTo,
+                                   updatedAtFrom,
+                                   updatedAtTo,
+                                   currencyPair,
+                                   partnerBuyAmountFrom,
+                                   partnerBuyAmountTo,
+                                   partnerSellAmountFrom,
+                                   partnerSellAmountTo,
+                                   buyAmountFrom,
+                                   buyAmountTo,
+                                   sellAmountFrom,
+                                   sellAmountTo,
+                                   onBehalfOf
+        );
     }
 
 
@@ -372,38 +406,102 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// PAYMENTS ////////////////////////////////////////////////////
 
-    public Payment deletePayment(String paymentId) throws CurrencyCloudException {
-        return api.deletePayment(authToken, paymentId, onBehalfOf);
-    }
-
-    public Payments findPayments(@Nullable String shortReference, @Nullable String currency, @Nullable BigDecimal amount, @Nullable BigDecimal amountFrom, @Nullable BigDecimal amountTo, @Nullable String status, @Nullable String reason, @Nullable Date paymentDateFrom, @Nullable Date paymentDateTo, @Nullable Date transferredAtFrom, @Nullable Date transferredAtTo, @Nullable Date createdAtFrom, @Nullable Date createdAtTo, @Nullable Date updatedAtFrom, @Nullable Date updatedAtTo, @Nullable String beneficiaryId, @Nullable String conversionId, @Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        return api.findPayments(authToken, shortReference, currency, amount, amountFrom, amountTo, status, reason, paymentDateFrom, paymentDateTo, transferredAtFrom, transferredAtTo, createdAtFrom, createdAtTo, updatedAtFrom, updatedAtTo, beneficiaryId, conversionId, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc(), onBehalfOf);
-    }
-
-    public Payment updatePayment(String paymentId, String currency, String beneficiaryId, String amount, String reason, @Nullable String reference, @Nullable String paymentDate, @Nullable String paymentType, @Nullable String conversionId, @Nullable String payerEntityType, @Nullable String payerCompanyName, @Nullable String payerFirstName, @Nullable String payerLastName, @Nullable String payerCity, @Nullable String payerPostcode, @Nullable String payerStateOrProvince, @Nullable Date payerDateOfBirth, @Nullable String payerIdentificationType, @Nullable String payerIdentificationValue, @Nullable String onBehalfOf) throws CurrencyCloudException {
-        return api.updatePayment(authToken, paymentId, currency, beneficiaryId, amount, reason, reference, paymentDate, paymentType, conversionId, payerEntityType, payerCompanyName, payerFirstName, payerLastName, payerCity, payerPostcode, payerStateOrProvince, payerDateOfBirth, payerIdentificationType, payerIdentificationValue, onBehalfOf);
+    public Payment createPayment(String currency, String beneficiaryId, BigDecimal amount, String reason, String reference, @Nullable String paymentDate, @Nullable String paymentType, @Nullable String conversionId, @Nullable String payerEntityType, @Nullable String payerCompanyName, @Nullable String payerFirstName, @Nullable String payerLastName, @Nullable String payerCity, @Nullable String payerPostcode, @Nullable String payerStateOrProvince, @Nullable Date payerDateOfBirth, @Nullable String payerIdentificationType, @Nullable String payerIdentificationValue, @Nullable String onBehalfOf) throws CurrencyCloudException {
+        return api.createPayment(authToken,
+                                 currency,
+                                 beneficiaryId,
+                                 amount,
+                                 reason,
+                                 reference,
+                                 paymentDate,
+                                 paymentType,
+                                 conversionId,
+                                 payerEntityType,
+                                 payerCompanyName,
+                                 payerFirstName,
+                                 payerLastName,
+                                 payerCity,
+                                 payerPostcode,
+                                 payerStateOrProvince,
+                                 payerDateOfBirth,
+                                 payerIdentificationType,
+                                 payerIdentificationValue,
+                                 onBehalfOf
+        );
     }
 
     public Payment retrievePayment(String id) throws CurrencyCloudException {
         return api.retrievePayment(authToken, id, onBehalfOf);
     }
 
-    public Payment createPayment(String currency, String beneficiaryId, BigDecimal amount, String reason, String reference, @Nullable String paymentDate, @Nullable String paymentType, @Nullable String conversionId, @Nullable String payerEntityType, @Nullable String payerCompanyName, @Nullable String payerFirstName, @Nullable String payerLastName, @Nullable String payerCity, @Nullable String payerPostcode, @Nullable String payerStateOrProvince, @Nullable Date payerDateOfBirth, @Nullable String payerIdentificationType, @Nullable String payerIdentificationValue, @Nullable String onBehalfOf) throws CurrencyCloudException {
-        return api.createPayment(authToken, currency, beneficiaryId, amount, reason, reference, paymentDate, paymentType, conversionId, payerEntityType, payerCompanyName, payerFirstName, payerLastName, payerCity, payerPostcode, payerStateOrProvince, payerDateOfBirth, payerIdentificationType, payerIdentificationValue, onBehalfOf);
+    public Payment updatePayment(String paymentId, String currency, String beneficiaryId, String amount, String reason, @Nullable String reference, @Nullable String paymentDate, @Nullable String paymentType, @Nullable String conversionId, @Nullable String payerEntityType, @Nullable String payerCompanyName, @Nullable String payerFirstName, @Nullable String payerLastName, @Nullable String payerCity, @Nullable String payerPostcode, @Nullable String payerStateOrProvince, @Nullable Date payerDateOfBirth, @Nullable String payerIdentificationType, @Nullable String payerIdentificationValue, @Nullable String onBehalfOf) throws CurrencyCloudException {
+        return api.updatePayment(authToken,
+                                 paymentId,
+                                 currency,
+                                 beneficiaryId,
+                                 amount,
+                                 reason,
+                                 reference,
+                                 paymentDate,
+                                 paymentType,
+                                 conversionId,
+                                 payerEntityType,
+                                 payerCompanyName,
+                                 payerFirstName,
+                                 payerLastName,
+                                 payerCity,
+                                 payerPostcode,
+                                 payerStateOrProvince,
+                                 payerDateOfBirth,
+                                 payerIdentificationType,
+                                 payerIdentificationValue,
+                                 onBehalfOf
+        );
+    }
+
+    public Payments findPayments(@Nullable String shortReference, @Nullable String currency, @Nullable BigDecimal amount, @Nullable BigDecimal amountFrom, @Nullable BigDecimal amountTo, @Nullable String status, @Nullable String reason, @Nullable Date paymentDateFrom, @Nullable Date paymentDateTo, @Nullable Date transferredAtFrom, @Nullable Date transferredAtTo, @Nullable Date createdAtFrom, @Nullable Date createdAtTo, @Nullable Date updatedAtFrom, @Nullable Date updatedAtTo, @Nullable String beneficiaryId, @Nullable String conversionId, @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        return api.findPayments(authToken,
+                                shortReference,
+                                currency,
+                                amount,
+                                amountFrom,
+                                amountTo,
+                                status,
+                                reason,
+                                paymentDateFrom,
+                                paymentDateTo,
+                                transferredAtFrom,
+                                transferredAtTo,
+                                createdAtFrom,
+                                createdAtTo,
+                                updatedAtFrom,
+                                updatedAtTo,
+                                beneficiaryId,
+                                conversionId,
+                                pagination.getPage(),
+                                pagination.getPerPage(),
+                                pagination.getOrder(),
+                                pagination.getOrderAscDesc(),
+                                onBehalfOf
+        );
+    }
+
+    public Payment deletePayment(String paymentId) throws CurrencyCloudException {
+        return api.deletePayment(authToken, paymentId, onBehalfOf);
     }
 
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 
-    public DetailedRate detailedRates(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, @Nullable Date conversionDate) throws CurrencyCloudException {
-        return api.detailedRates(authToken, buyCurrency, sellCurrency, fixedSide, amount, conversionDate, onBehalfOf);
-    }
-
     public Rates findRates(Collection<String> currencyPair, @Nullable Boolean ignoreInvalidPairs) throws CurrencyCloudException {
         return api.findRates(authToken, currencyPair, ignoreInvalidPairs, onBehalfOf);
+    }
+
+    public DetailedRate detailedRates(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, @Nullable Date conversionDate) throws CurrencyCloudException {
+        return api.detailedRates(authToken, buyCurrency, sellCurrency, fixedSide, amount, conversionDate, onBehalfOf);
     }
 
     ///////////////////////////////////////////////////////////////////
