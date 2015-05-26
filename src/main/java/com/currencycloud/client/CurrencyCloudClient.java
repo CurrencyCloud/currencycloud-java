@@ -406,26 +406,29 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// PAYMENTS ////////////////////////////////////////////////////
 
-    public Payment createPayment(String currency, String beneficiaryId, BigDecimal amount, String reason, String reference, @Nullable String paymentDate, @Nullable String paymentType, @Nullable String conversionId, @Nullable String payerEntityType, @Nullable String payerCompanyName, @Nullable String payerFirstName, @Nullable String payerLastName, @Nullable String payerCity, @Nullable String payerPostcode, @Nullable String payerStateOrProvince, @Nullable Date payerDateOfBirth, @Nullable String payerIdentificationType, @Nullable String payerIdentificationValue) throws CurrencyCloudException {
+    public Payment createPayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
+        if (payer == null) {
+            payer = Payer.create();
+        }
         return api.createPayment(authToken,
-                                 currency,
-                                 beneficiaryId,
-                                 amount,
-                                 reason,
-                                 reference,
-                                 paymentDate,
-                                 paymentType,
-                                 conversionId,
-                                 payerEntityType,
-                                 payerCompanyName,
-                                 payerFirstName,
-                                 payerLastName,
-                                 payerCity,
-                                 payerPostcode,
-                                 payerStateOrProvince,
-                                 payerDateOfBirth,
-                                 payerIdentificationType,
-                                 payerIdentificationValue,
+                                 payment.getCurrency(),
+                                 payment.getBeneficiaryId(),
+                                 payment.getAmount(),
+                                 payment.getReason(),
+                                 payment.getReference(),
+                                 payment.getPaymentDate(),
+                                 payment.getPaymentType(),
+                                 payment.getConversionId(),
+                                 payer.getLegalEntityType(),
+                                 payer.getCompanyName(),
+                                 payer.getFirstName(),
+                                 payer.getLastName(),
+                                 payer.getCity(),
+                                 payer.getPostcode(),
+                                 payer.getStateOrProvince(),
+                                 payer.getDateOfBirth(),
+                                 payer.getIdentificationType(),
+                                 payer.getIdentificationValue(),
                                  onBehalfOf
         );
     }
@@ -434,43 +437,61 @@ public class CurrencyCloudClient {
         return api.retrievePayment(authToken, id, onBehalfOf);
     }
 
-    public Payment updatePayment(String paymentId, String currency, String beneficiaryId, String amount, String reason, @Nullable String reference, @Nullable String paymentDate, @Nullable String paymentType, @Nullable String conversionId, @Nullable String payerEntityType, @Nullable String payerCompanyName, @Nullable String payerFirstName, @Nullable String payerLastName, @Nullable String payerCity, @Nullable String payerPostcode, @Nullable String payerStateOrProvince, @Nullable Date payerDateOfBirth, @Nullable String payerIdentificationType, @Nullable String payerIdentificationValue) throws CurrencyCloudException {
+    public Payment updatePayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
+        if (payer == null) {
+            payer = Payer.create();
+        }
         return api.updatePayment(authToken,
-                                 paymentId,
-                                 currency,
-                                 beneficiaryId,
-                                 amount,
-                                 reason,
-                                 reference,
-                                 paymentDate,
-                                 paymentType,
-                                 conversionId,
-                                 payerEntityType,
-                                 payerCompanyName,
-                                 payerFirstName,
-                                 payerLastName,
-                                 payerCity,
-                                 payerPostcode,
-                                 payerStateOrProvince,
-                                 payerDateOfBirth,
-                                 payerIdentificationType,
-                                 payerIdentificationValue,
+                                 payment.getId(),
+                                 payment.getCurrency(),
+                                 payment.getBeneficiaryId(),
+                                 payment.getAmount(),
+                                 payment.getReason(),
+                                 payment.getReference(),
+                                 payment.getPaymentDate(),
+                                 payment.getPaymentType(),
+                                 payment.getConversionId(),
+                                 payer.getLegalEntityType(),
+                                 payer.getCompanyName(),
+                                 payer.getFirstName(),
+                                 payer.getLastName(),
+                                 payer.getCity(),
+                                 payer.getPostcode(),
+                                 payer.getStateOrProvince(),
+                                 payer.getDateOfBirth(),
+                                 payer.getIdentificationType(),
+                                 payer.getIdentificationValue(),
                                  onBehalfOf
         );
     }
 
-    public Payments findPayments(@Nullable String shortReference, @Nullable String currency, @Nullable BigDecimal amount, @Nullable BigDecimal amountFrom, @Nullable BigDecimal amountTo, @Nullable String status, @Nullable String reason, @Nullable Date paymentDateFrom, @Nullable Date paymentDateTo, @Nullable Date transferredAtFrom, @Nullable Date transferredAtTo, @Nullable Date createdAtFrom, @Nullable Date createdAtTo, @Nullable Date updatedAtFrom, @Nullable Date updatedAtTo, @Nullable String beneficiaryId, @Nullable String conversionId, @Nullable Pagination pagination) throws CurrencyCloudException {
+    public Payments findPayments(@Nullable Payment example,
+                                 @Nullable BigDecimal amountFrom,
+                                 @Nullable BigDecimal amountTo,
+                                 @Nullable Date paymentDateFrom,
+                                 @Nullable Date paymentDateTo,
+                                 @Nullable Date transferredAtFrom,
+                                 @Nullable Date transferredAtTo,
+                                 @Nullable Date createdAtFrom,
+                                 @Nullable Date createdAtTo,
+                                 @Nullable Date updatedAtFrom,
+                                 @Nullable Date updatedAtTo,
+                                 @Nullable Pagination pagination
+    ) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
+        if (example == null) {
+            example = Payment.createEmpty();
+        }
         return api.findPayments(authToken,
-                                shortReference,
-                                currency,
-                                amount,
+                                example.getShortReference(),
+                                example.getCurrency(),
+                                example.getAmount(),
                                 amountFrom,
                                 amountTo,
-                                status,
-                                reason,
+                                example.getStatus(),
+                                example.getReason(),
                                 paymentDateFrom,
                                 paymentDateTo,
                                 transferredAtFrom,
@@ -479,8 +500,8 @@ public class CurrencyCloudClient {
                                 createdAtTo,
                                 updatedAtFrom,
                                 updatedAtTo,
-                                beneficiaryId,
-                                conversionId,
+                                example.getBeneficiaryId(),
+                                example.getConversionId(),
                                 pagination.getPage(),
                                 pagination.getPerPage(),
                                 pagination.getOrder(),

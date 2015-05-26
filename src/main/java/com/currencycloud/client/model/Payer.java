@@ -29,6 +29,59 @@ public class Payer {
     private Date createdAt;
     private Date updatedAt;
 
+    private Payer() { }
+
+    private Payer(String entityType,
+                  String companyName,
+                  String firstName,
+                  String lastName,
+                  String city,
+                  String postcode,
+                  String stateOrProvince,
+                  Date dateOfBirth,
+                  String identificationType,
+                  String identificationValue
+    ) {
+        this.legalEntityType = entityType; // todo: is this the same?
+        this.companyName = companyName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+        this.postcode = postcode;
+        this.stateOrProvince = stateOrProvince;
+        this.dateOfBirth = dateOfBirth;
+        this.identificationType = identificationType;
+        this.identificationValue = identificationValue;
+    }
+
+    public static Payer create(String entityType,
+                               String companyName,
+                               String firstName,
+                               String lastName,
+                               String city,
+                               String postcode,
+                               String stateOrProvince,
+                               Date dateOfBirth,
+                               String identificationType,
+                               String identificationValue
+    ) {
+        return new Payer(entityType,
+                         companyName,
+                         firstName,
+                         lastName,
+                         city,
+                         postcode,
+                         stateOrProvince,
+                         dateOfBirth,
+                         identificationType,
+                         identificationValue
+        );
+    }
+
+    public static Payer create() {
+        return new Payer();
+    }
+
     public String getId() {
         return id;
     }

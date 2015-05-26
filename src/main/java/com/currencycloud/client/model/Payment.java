@@ -33,6 +33,76 @@ public class Payment {
     private Date createdAt;
     private Date updatedAt;
 
+    private Payment() { }
+
+    private Payment(String id,
+                    String currency,
+                    String beneficiaryId,
+                    BigDecimal amount,
+                    String reason,
+                    String reference,
+                    String conversionId,
+                    Date paymentDate,
+                    String paymentType,
+                    String shortReference,
+                    String status
+    ) {
+        this.id = id;
+        this.currency = currency;
+        this.beneficiaryId = beneficiaryId;
+        this.amount = amount;
+        this.reason = reason;
+        this.reference = reference;
+        this.conversionId = conversionId;
+        this.paymentDate = paymentDate;
+        this.paymentType = paymentType;
+        this.shortReference = shortReference;
+        this.status = status;
+    }
+
+    public static Payment createEmpty() {
+        return new Payment();
+    }
+
+    public static Payment createForCreate(
+            String currency,
+            String beneficiaryId,
+            BigDecimal amount,
+            String reason,
+            String reference,
+            String conversionId,
+            Date paymentDate,
+            String paymentType
+    ) {
+        return new Payment(null, currency, beneficiaryId, amount, reason, reference, conversionId, paymentDate, paymentType, null, null);
+    }
+
+    public static Payment createForUpdate(
+            String id,
+            String currency,
+            String beneficiaryId,
+            BigDecimal amount,
+            String reason,
+            String reference,
+            String conversionId,
+            Date paymentDate,
+            String paymentType
+    ) {
+        return new Payment(id, currency, beneficiaryId, amount, reason, reference, conversionId, paymentDate, paymentType, null, null);
+    }
+
+    public static Payment createForFind(
+            String currency,
+            String beneficiaryId,
+            BigDecimal amount,
+            String reason,
+            String conversionId,
+            String shortReference,
+            String status
+    ) {
+        return new Payment(null, currency, beneficiaryId, amount, reason, null, conversionId, null, null, shortReference, status);
+    }
+
     public String getId() {
         return id;
     }
