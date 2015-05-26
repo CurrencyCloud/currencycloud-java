@@ -106,10 +106,10 @@ public class Beneficiary {
     }
 
     /**
-     * Creates a Beneficiary with all the required properties for the find beneficiaries method. Note that this
+     * Creates a Beneficiary with all the required properties for the update beneficiaries method. Note that this
      * is just a simple helper factory matedod and can be used for any other purpose.
      */
-    public static Beneficiary createForFind(String id) {
+    public static Beneficiary createForUpdate(String id) {
         return new Beneficiary(id);
     }
 

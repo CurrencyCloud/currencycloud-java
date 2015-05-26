@@ -89,7 +89,7 @@ public class ActionsTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_update", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanUpdate() throws Exception {
-        Beneficiary beneficiary = Beneficiary.createForFind("081596c9-02de-483e-9f2a-4cf55dcdf98c");
+        Beneficiary beneficiary = Beneficiary.createForUpdate("081596c9-02de-483e-9f2a-4cf55dcdf98c");
         beneficiary.setBankAccountHolderName("Test User 2");
         beneficiary = client.updateBeneficiary(beneficiary);
 
