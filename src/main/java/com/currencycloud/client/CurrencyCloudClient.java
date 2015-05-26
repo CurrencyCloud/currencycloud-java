@@ -348,6 +348,8 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// CONVERSIONS /////////////////////////////////////////////////
 
+    // todo: Does is make sense to use a POJO parameter for Conversion (see issue #5)? The parameters don't match Conversion properties very well.
+
     public Conversion createConversion(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, String reason, Boolean termAgreement, @Nullable Date conversionDate, @Nullable BigDecimal clientRate, @Nullable String currencyPair, @Nullable BigDecimal clientBuyAmount, @Nullable BigDecimal clientSellAmount) {
         return api.createConversion(authToken,
                                     buyCurrency,
