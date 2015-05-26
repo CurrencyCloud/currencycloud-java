@@ -406,7 +406,7 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// PAYMENTS ////////////////////////////////////////////////////
 
-    public Payment createPayment(String currency, String beneficiaryId, BigDecimal amount, String reason, String reference, @Nullable String paymentDate, @Nullable String paymentType, @Nullable String conversionId, @Nullable String payerEntityType, @Nullable String payerCompanyName, @Nullable String payerFirstName, @Nullable String payerLastName, @Nullable String payerCity, @Nullable String payerPostcode, @Nullable String payerStateOrProvince, @Nullable Date payerDateOfBirth, @Nullable String payerIdentificationType, @Nullable String payerIdentificationValue, @Nullable String onBehalfOf) throws CurrencyCloudException {
+    public Payment createPayment(String currency, String beneficiaryId, BigDecimal amount, String reason, String reference, @Nullable String paymentDate, @Nullable String paymentType, @Nullable String conversionId, @Nullable String payerEntityType, @Nullable String payerCompanyName, @Nullable String payerFirstName, @Nullable String payerLastName, @Nullable String payerCity, @Nullable String payerPostcode, @Nullable String payerStateOrProvince, @Nullable Date payerDateOfBirth, @Nullable String payerIdentificationType, @Nullable String payerIdentificationValue) throws CurrencyCloudException {
         return api.createPayment(authToken,
                                  currency,
                                  beneficiaryId,
@@ -434,7 +434,7 @@ public class CurrencyCloudClient {
         return api.retrievePayment(authToken, id, onBehalfOf);
     }
 
-    public Payment updatePayment(String paymentId, String currency, String beneficiaryId, String amount, String reason, @Nullable String reference, @Nullable String paymentDate, @Nullable String paymentType, @Nullable String conversionId, @Nullable String payerEntityType, @Nullable String payerCompanyName, @Nullable String payerFirstName, @Nullable String payerLastName, @Nullable String payerCity, @Nullable String payerPostcode, @Nullable String payerStateOrProvince, @Nullable Date payerDateOfBirth, @Nullable String payerIdentificationType, @Nullable String payerIdentificationValue, @Nullable String onBehalfOf) throws CurrencyCloudException {
+    public Payment updatePayment(String paymentId, String currency, String beneficiaryId, String amount, String reason, @Nullable String reference, @Nullable String paymentDate, @Nullable String paymentType, @Nullable String conversionId, @Nullable String payerEntityType, @Nullable String payerCompanyName, @Nullable String payerFirstName, @Nullable String payerLastName, @Nullable String payerCity, @Nullable String payerPostcode, @Nullable String payerStateOrProvince, @Nullable Date payerDateOfBirth, @Nullable String payerIdentificationType, @Nullable String payerIdentificationValue) throws CurrencyCloudException {
         return api.updatePayment(authToken,
                                  paymentId,
                                  currency,
