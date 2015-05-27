@@ -436,7 +436,7 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("partner_status") String partnerStatus,
             @Nullable @QueryParam("buy_currency") String buyCurrency,
             @Nullable @QueryParam("sell_currency") String sellCurrency,
-            @Nullable @QueryParam("conversion_ids") String conversionIds,
+            @Nullable @QueryParam("conversion_ids[]") Collection<String> conversionIds,
             @Nullable @QueryParam("created_at_from") String createdAtFrom,
             @Nullable @QueryParam("created_at_to") String createdAtTo,
             @Nullable @QueryParam("updated_at_from") String updatedAtFrom,

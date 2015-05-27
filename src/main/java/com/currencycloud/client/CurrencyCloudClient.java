@@ -377,7 +377,7 @@ public class CurrencyCloudClient {
 
     public Conversions findConversions(
             @Nullable Conversion example,
-            @Nullable String conversionIds,
+            @Nullable Collection<String> conversionIds,
             @Nullable String createdAtFrom,
             @Nullable String createdAtTo,
             @Nullable String updatedAtFrom,
