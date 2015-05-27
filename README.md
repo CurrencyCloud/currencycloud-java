@@ -50,6 +50,11 @@ System.out.println("Balances: " + balances.stream()
 currencyCloud.endSession();
 ```
 
+For a slightly longer example, see
+[CurrencyCloudCookbook.java](/CurrencyCloud/currencycloud-java/blob/master/src/test/java/com/currencycloud/examples/CurrencyCloudCookbook.java),
+which is an implementation of [the Cookbook](https://connect.currencycloud.com/documentation/getting-started/cookbook) 
+from the documentation.
+
 ## On Behalf Of
 If you want to make calls on behalf of another user (e.g. someone who has a sub-account with you), you 
 can execute certain commands 'on behalf of' the user's contact id. Here is an example:
