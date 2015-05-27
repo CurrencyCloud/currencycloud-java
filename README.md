@@ -51,7 +51,7 @@ currencyCloud.endSession();
 ```
 
 For a slightly longer example, see
-[CurrencyCloudCookbook.java](/CurrencyCloud/currencycloud-java/blob/master/src/test/java/com/currencycloud/examples/CurrencyCloudCookbook.java),
+[CurrencyCloudCookbook.java](/src/test/java/com/currencycloud/examples/CurrencyCloudCookbook.java),
 which is an implementation of [the Cookbook](https://connect.currencycloud.com/documentation/getting-started/cookbook) 
 from the documentation.
 
