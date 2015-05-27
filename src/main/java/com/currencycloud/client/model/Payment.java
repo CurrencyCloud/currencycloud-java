@@ -92,7 +92,7 @@ public class Payment {
         return new Payment(id, currency, beneficiaryId, amount, reason, reference, conversionId, paymentDate, paymentType, null, null);
     }
 
-    public static Payment createForFind(
+    public static Payment createExample(
             String currency,
             String beneficiaryId,
             BigDecimal amount,

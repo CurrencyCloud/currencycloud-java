@@ -348,22 +348,26 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// CONVERSIONS /////////////////////////////////////////////////
 
-    // todo: Does is make sense to use a POJO parameter for Conversion (see issue #5)? The parameters don't match Conversion properties very well.
-
-    public Conversion createConversion(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, String reason, Boolean termAgreement, @Nullable Date conversionDate, @Nullable BigDecimal clientRate, @Nullable String currencyPair, @Nullable BigDecimal clientBuyAmount, @Nullable BigDecimal clientSellAmount) {
-        return api.createConversion(authToken,
-                                    buyCurrency,
-                                    sellCurrency,
-                                    fixedSide,
-                                    amount,
-                                    reason,
-                                    termAgreement,
-                                    conversionDate,
-                                    clientRate,
-                                    currencyPair,
-                                    clientBuyAmount,
-                                    clientSellAmount,
-                                    onBehalfOf
+    public Conversion createConversion(
+            Conversion conversion,
+            BigDecimal amount,
+            String reason,
+            Boolean termAgreement
+    ) {
+        return api.createConversion(
+                authToken,
+                conversion.getBuyCurrency(),
+                conversion.getSellCurrency(),
+                conversion.getFixedSide(),
+                amount,
+                reason,
+                termAgreement,
+                conversion.getConversionDate(),
+                conversion.getClientRate(),
+                conversion.getCurrencyPair(),
+                conversion.getClientBuyAmount(),
+                conversion.getClientSellAmount(),
+                onBehalfOf
         );
     }
 
@@ -371,28 +375,47 @@ public class CurrencyCloudClient {
         return api.retrieveConversion(authToken, conversionId);
     }
 
-    public Conversions findConversions(@Nullable String shortReference, @Nullable String status, @Nullable String partnerStatus, @Nullable String buyCurrency, @Nullable String sellCurrency, @Nullable String conversionIds, @Nullable String createdAtFrom, @Nullable String createdAtTo, @Nullable String updatedAtFrom, @Nullable String updatedAtTo, @Nullable String currencyPair, @Nullable String partnerBuyAmountFrom, @Nullable String partnerBuyAmountTo, @Nullable String partnerSellAmountFrom, @Nullable String partnerSellAmountTo, @Nullable String buyAmountFrom, @Nullable String buyAmountTo, @Nullable String sellAmountFrom, @Nullable String sellAmountTo) throws CurrencyCloudException {
-        return api.findConversions(authToken,
-                                   shortReference,
-                                   status,
-                                   partnerStatus,
-                                   buyCurrency,
-                                   sellCurrency,
-                                   conversionIds,
-                                   createdAtFrom,
-                                   createdAtTo,
-                                   updatedAtFrom,
-                                   updatedAtTo,
-                                   currencyPair,
-                                   partnerBuyAmountFrom,
-                                   partnerBuyAmountTo,
-                                   partnerSellAmountFrom,
-                                   partnerSellAmountTo,
-                                   buyAmountFrom,
-                                   buyAmountTo,
-                                   sellAmountFrom,
-                                   sellAmountTo,
-                                   onBehalfOf
+    public Conversions findConversions(
+            @Nullable Conversion example,
+            @Nullable String conversionIds,
+            @Nullable String createdAtFrom,
+            @Nullable String createdAtTo,
+            @Nullable String updatedAtFrom,
+            @Nullable String updatedAtTo,
+            @Nullable String partnerBuyAmountFrom,
+            @Nullable String partnerBuyAmountTo,
+            @Nullable String partnerSellAmountFrom,
+            @Nullable String partnerSellAmountTo,
+            @Nullable String buyAmountFrom,
+            @Nullable String buyAmountTo,
+            @Nullable String sellAmountFrom,
+            @Nullable String sellAmountTo
+    ) throws CurrencyCloudException {
+        if (example == null) {
+            example = Conversion.createEmpty();
+        }
+        return api.findConversions(
+                authToken,
+                example.getShortReference(),
+                example.getStatus(),
+                example.getPartnerStatus(),
+                example.getBuyCurrency(),
+                example.getSellCurrency(),
+                conversionIds,
+                createdAtFrom,
+                createdAtTo,
+                updatedAtFrom,
+                updatedAtTo,
+                example.getCurrencyPair(),
+                partnerBuyAmountFrom,
+                partnerBuyAmountTo,
+                partnerSellAmountFrom,
+                partnerSellAmountTo,
+                buyAmountFrom,
+                buyAmountTo,
+                sellAmountFrom,
+                sellAmountTo,
+                onBehalfOf
         );
     }
 

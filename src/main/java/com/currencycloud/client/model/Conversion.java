@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import javax.annotation.Nullable;
+import javax.ws.rs.FormParam;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +43,98 @@ public class Conversion {
     private List<String> paymentIds = new ArrayList<>();
     private Date createdAt;
     private Date updatedAt;
+
+    private Conversion() { }
+
+    private Conversion(
+            @FormParam("buy_currency") String buyCurrency,
+            @FormParam("sell_currency") String sellCurrency,
+            @FormParam("fixed_side") String fixedSide,
+            @Nullable @FormParam("conversion_date") Date conversionDate,
+            @Nullable @FormParam("client_rate") BigDecimal clientRate,
+            @Nullable @FormParam("currency_pair") String currencyPair,
+            @Nullable @FormParam("client_buy_amount") BigDecimal clientBuyAmount,
+            @Nullable @FormParam("client_sell_amount") BigDecimal clientSellAmount
+    ) {
+        this.buyCurrency = buyCurrency;
+        this.sellCurrency = sellCurrency;
+        this.fixedSide = fixedSide;
+        this.conversionDate = conversionDate;
+        this.clientRate = clientRate;
+        this.currencyPair = currencyPair;
+        this.clientBuyAmount = clientBuyAmount;
+        this.clientSellAmount = clientSellAmount;
+    }
+
+    private Conversion(
+            @Nullable String shortReference,
+            @Nullable String status,
+            @Nullable String partnerStatus,
+            @Nullable String buyCurrency,
+            @Nullable String sellCurrency,
+            @Nullable String currencyPair
+    ) {
+        this.shortReference = shortReference;
+        this.status = status;
+        this.partnerStatus = partnerStatus;
+        this.buyCurrency = buyCurrency;
+        this.sellCurrency = sellCurrency;
+        this.currencyPair = currencyPair;
+    }
+
+    public static Conversion createEmpty() {
+        return new Conversion();
+    }
+
+    public static Conversion createForCreate(
+            String buyCurrency,
+            String sellCurrency,
+            String fixedSide
+    ) {
+        return new Conversion(
+                buyCurrency,
+                sellCurrency,
+                fixedSide,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+    }
+
+    public static Conversion createForCreate(
+            String buyCurrency,
+            String sellCurrency,
+            String fixedSide,
+            @Nullable Date conversionDate,
+            @Nullable BigDecimal clientRate,
+            @Nullable String currencyPair,
+            @Nullable BigDecimal clientBuyAmount,
+            @Nullable BigDecimal clientSellAmount
+    ) {
+        return new Conversion(
+                buyCurrency,
+                sellCurrency,
+                fixedSide,
+                conversionDate,
+                clientRate,
+                currencyPair,
+                clientBuyAmount,
+                clientSellAmount
+        );
+    }
+
+    public static Conversion createExample(
+            @Nullable String shortReference,
+            @Nullable String status,
+            @Nullable String partnerStatus,
+            @Nullable String buyCurrency,
+            @Nullable String sellCurrency,
+            @Nullable String currencyPair
+    ) {
+        return new Conversion(shortReference, status, partnerStatus, buyCurrency, sellCurrency, currencyPair);
+    }
 
     public String getId() {
         return id;
