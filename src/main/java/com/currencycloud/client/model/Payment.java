@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -71,8 +72,8 @@ public class Payment {
             String reason,
             String reference,
             String conversionId,
-            Date paymentDate,
-            String paymentType
+            @Nullable Date paymentDate,
+            @Nullable String paymentType
     ) {
         return new Payment(null, currency, beneficiaryId, amount, reason, reference, conversionId, paymentDate, paymentType, null, null);
     }
