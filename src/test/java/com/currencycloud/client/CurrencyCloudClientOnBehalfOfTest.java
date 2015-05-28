@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CurrencyCloudClientOnBehalfOfTest {
 
-    protected CurrencyCloudClient client = new CurrencyCloudClient("http://localhost:5555", "login-id", "api-key");
+    protected CurrencyCloudClient client = new CurrencyCloudClient("http://localhost:5555", null, null);
 
     @Test
     public void testSetsTheValueOnTheSessionAndRemovesItWhenDone() throws Exception {
