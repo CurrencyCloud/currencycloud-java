@@ -1,7 +1,6 @@
 package com.currencycloud.client;
 
 
-import com.currencycloud.client.exception.UnexpectedException;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -33,10 +32,12 @@ public class CurrencyCloudClientOnBehalfOfTest {
                 @Override
                 public void run() {
                     assertThat(client.getOnBehalfOf(), equalTo(obo));
-                    throw new UnexpectedException("Completed Expected error");
+                    throw new RuntimeException("Completed Expected error");
                 }
             });
-        } catch (UnexpectedException ignore) { }
+        } catch (RuntimeException e) {
+            assertThat(e.getMessage(), equalTo("Completed Expected error"));
+        }
         assertThat(client.getOnBehalfOf(), nullValue());
     }
 
@@ -50,7 +51,7 @@ public class CurrencyCloudClientOnBehalfOfTest {
                 public void run() {
                     client.onBehalfOfDo("f57b2d33-652c-4589-a8ff-7762add2706d", new Runnable() {
                         @Override public void run() {
-                            throw new UnexpectedException("Should raise exception");
+                            throw new AssertionError("Should raise exception");
                         }
                     });
                 }
@@ -68,7 +69,7 @@ public class CurrencyCloudClientOnBehalfOfTest {
             client.onBehalfOfDo("Richard Nienaber", new Runnable() {
                 @Override
                 public void run() {
-                    throw new UnexpectedException("Should raise exception");
+                    throw new AssertionError("Should raise exception");
                 }
             });
         } catch (IllegalArgumentException e) {
