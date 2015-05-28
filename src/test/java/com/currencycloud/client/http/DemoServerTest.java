@@ -2,7 +2,6 @@ package com.currencycloud.client.http;
 
 import com.currencycloud.client.CurrencyCloudClient;
 import com.currencycloud.client.model.*;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -28,11 +27,6 @@ public class DemoServerTest {
             "rjnienaber@gmail.com",
             "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0"
     );
-
-    @Before
-    public void login() {
-        currencyCloud.authenticate();
-    }
 
     /**
      * Test that payment types collection is handled correctly.

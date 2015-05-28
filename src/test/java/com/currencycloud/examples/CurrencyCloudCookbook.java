@@ -18,18 +18,16 @@ public class CurrencyCloudCookbook {
 
     public static void main(String[] args) throws Exception {
 
-        CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
-                CurrencyCloudClient.Environment.demo,
-                "apitester",
-                "99b0d6895f95e46d9eaf5c85aa0f64dca9007b7ab0778721b6cdc0a8bc7c56cf"
-        );
-
         /*
         1. Authenticate
         In order to access the API you first need to authenticate with your login ID and API key.
         */
 
-        currencyCloud.authenticate();
+        CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
+                CurrencyCloudClient.Environment.demo,
+                "apitester",
+                "99b0d6895f95e46d9eaf5c85aa0f64dca9007b7ab0778721b6cdc0a8bc7c56cf"
+        );
 
         /*
         2. Get a Quote

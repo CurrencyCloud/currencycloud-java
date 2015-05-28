@@ -4,12 +4,20 @@ import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import org.junit.Test;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
 
 public class AuthenticationTest extends BetamaxTestSupport {
 
-    // todo: happens lazily
+    @Test
+    @Betamax(tape = "happens_lazily", match = {MatchRule.method, MatchRule.uri, MatchRule.body, MatchRule.headers})
+    public void testHappensLazily() throws Exception {
+        CurrencyCloudClient client = prepareTestClient("rjnienaber@gmail.com", "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0", null);
+
+        assertThat(client.findBeneficiaries(null, null), notNullValue());
+        assertThat(client.getAuthToken(), equalTo("57ef449f6316f2f54dfec37c2006fe50"));
+    }
 
     @Test
     @Betamax(tape = "can_use_just_a_token", match = {MatchRule.method, MatchRule.uri, MatchRule.body})

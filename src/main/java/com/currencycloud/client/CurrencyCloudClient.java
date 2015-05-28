@@ -45,7 +45,7 @@ public class CurrencyCloudClient {
 
         api = RestProxyFactory.createProxy(
                 CurrencyCloud.class, url, config,
-                new HttpStatusExceptionInterceptor(), new ReauthenticateInterceptor(this)
+                new AutoAuthenticate(this), new HttpStatusExceptionInterceptor(), new ReauthenticateInterceptor(this)
         );
     }
 
@@ -95,10 +95,11 @@ public class CurrencyCloudClient {
     /**
      * Starts a logged in session
      */
-    public void authenticate() throws CurrencyCloudException {
+    void authenticate() throws CurrencyCloudException {
         if (loginId == null || apiKey == null) {
             throw new IllegalArgumentException("Both loginId and apiKey must be set.");
         }
+        authToken = null;
         authToken = api.authenticate(loginId, apiKey).getAuthToken();
     }
 

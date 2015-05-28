@@ -4,7 +4,21 @@ interactions:
     method: POST
     uri: http://localhost:5555/v2/authenticate/api
     body: login_id=rjnienaber%40gmail.com&api_key=ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0
-    headers: {}
+    headers:
+      Accept-Charset:
+      - UTF-8
+      User-Agent:
+      - ResCU JDK/6 AppleWebKit/535.7 Chrome/16.0.912.36 Safari/535.7
+      Accept:
+      - application/json
+      Host:
+      - localhost:5555
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Content-Length:
+      - '104'
   response:
     status: 200
     headers:
@@ -23,3 +37,38 @@ interactions:
       X-Content-Type-Options:
       - nosniff
     body: '{"auth_token":"57ef449f6316f2f54dfec37c2006fe50"}'
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/beneficiaries/find
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 57ef449f6316f2f54dfec37c2006fe50
+      Accept-Charset:
+      - UTF-8
+      User-Agent:
+      - ResCU JDK/6 AppleWebKit/535.7 Chrome/16.0.912.36 Safari/535.7
+      Accept:
+      - application/json
+      Host:
+      - localhost:5555
+      Connection:
+      - keep-alive
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 24 Apr 2015 21:23:27 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '178'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2771587521509285306'
+      X-Content-Type-Options:
+      - nosniff
+    body: ! '{"beneficiaries":[],"pagination":{"total_entries":0,"total_pages":1,"current_page":1,"per_page":25,"previous_page":-1,"next_page":-1,"order":"created_at","order_asc_desc":"asc"}}'
