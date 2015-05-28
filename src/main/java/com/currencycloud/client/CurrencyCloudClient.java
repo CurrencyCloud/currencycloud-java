@@ -116,8 +116,10 @@ public class CurrencyCloudClient {
 
     // todo: test: create retrieve update find
 
-    public Account createAccount(String accountName, Account account) throws CurrencyCloudException {
-        return api.createAccount(authToken, accountName,
+    public Account createAccount(Account account) throws CurrencyCloudException {
+        return api.createAccount(
+                authToken,
+                account.getAccountName(),
                 account.getLegalEntityType(),
                 account.getYourReference(),
                 account.getStatus(),
