@@ -1,7 +1,11 @@
 package com.currencycloud.client.http;
 
 import com.currencycloud.client.CurrencyCloudClient;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.exception.ApiException;
+import com.currencycloud.client.model.Account;
+import com.currencycloud.client.model.Accounts;
+import com.currencycloud.client.model.Beneficiary;
+import com.currencycloud.client.model.ErrorMessage;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -40,7 +44,7 @@ public class DemoServerTest {
             beneficiary.setPaymentTypes(Arrays.asList("priority", "regular"));
             currencyCloud.validateBeneficiary(beneficiary);
             assertThat("Should fail.", false);
-        } catch (ResponseException e) {
+        } catch (ApiException e) {
             log.info(e.toString());
             Map<String, List<ErrorMessage>> msgs = e.getErrorMessages();
             List<ErrorMessage> paymentTypesErrors = msgs.get("payment_types");
