@@ -24,7 +24,7 @@ class ReauthenticateInterceptor implements Interceptor {
     public Object aroundInvoke(InvocationHandler invocationHandler, Object proxy, Method method, Object[] args)
             throws Throwable {
         int reattemptsLeft = 2;
-        if (method.getAnnotation(NoReattempts.class) != null) {
+        if (method.getAnnotation(NoAutoAuth.class) != null) {
             reattemptsLeft = 0;
         }
         do {
