@@ -24,17 +24,17 @@ public class CurrencyCloudClient {
 
     private String onBehalfOf = null;
 
+    private String loginId;
+    private String apiKey;
     private String authToken;
 
-    public CurrencyCloudClient() {
-        this(Environment.production);
+    public CurrencyCloudClient(Environment environment, String loginId, String apiKey) {
+        this(environment.url, loginId, apiKey);
     }
 
-    public CurrencyCloudClient(Environment environment) {
-        this(environment.url);
-    }
-
-    CurrencyCloudClient(String url) {
+    CurrencyCloudClient(String url, String loginId, String apiKey) {
+        this.loginId = loginId;
+        this.apiKey = apiKey;
         ClientConfig config = new ClientConfig();
         config.setJacksonConfigureListener(new JacksonConfigureListener() {
             @Override
@@ -89,7 +89,7 @@ public class CurrencyCloudClient {
     /**
      * Starts a logged in session
      */
-    public void authenticate(String loginId, String apiKey) throws CurrencyCloudException {
+    public void authenticate() throws CurrencyCloudException {
         authToken = api.authenticate(loginId, apiKey).getAuthToken();
     }
 

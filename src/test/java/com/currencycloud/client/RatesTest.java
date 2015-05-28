@@ -6,6 +6,7 @@ import com.currencycloud.client.model.DetailedRate;
 import com.currencycloud.client.model.Rate;
 import com.currencycloud.client.model.Rates;
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -19,7 +20,12 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class RatesTest extends BetamaxTestSupport {
 
-    @Override protected String getAuthToken() { return "242993ca94b9d1c6c1d8f7d3275a6f36"; }
+    private CurrencyCloudClient client;
+
+    @Before
+    public void prepareClient() {
+        client = prepareTestClient(null, null, "6f5f99d1b860fc47e8a186e3dce0d3f9");
+    }
 
     @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})

@@ -4,6 +4,7 @@ import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.Conversion;
 import com.currencycloud.client.model.Settlement;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -15,7 +16,12 @@ import static org.hamcrest.Matchers.*;
 
 public class SettlementsTest extends BetamaxTestSupport {
 
-    @Override protected String getAuthToken() { return "6f5f99d1b860fc47e8a186e3dce0d3f9"; }
+    private CurrencyCloudClient client;
+
+    @Before
+    public void prepareClient() {
+        client = prepareTestClient(null, null, "6f5f99d1b860fc47e8a186e3dce0d3f9");
+    }
 
     @Test
     @Betamax(tape = "can_add_conversion", match = {MatchRule.method, MatchRule.uri, MatchRule.body})

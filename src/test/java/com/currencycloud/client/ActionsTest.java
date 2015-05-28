@@ -5,6 +5,7 @@ import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.*;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -22,7 +23,12 @@ import static org.hamcrest.Matchers.nullValue;
 
 public class ActionsTest extends BetamaxTestSupport {
 
-    @Override protected String getAuthToken() { return "4df5b3e5882a412f148dcd08fa4e5b73"; }
+    private CurrencyCloudClient client;
+
+    @Before
+    public void prepareClient() {
+        client = prepareTestClient(null, null, "6f5f99d1b860fc47e8a186e3dce0d3f9");
+    }
 
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri/*, MatchRule.body*/})

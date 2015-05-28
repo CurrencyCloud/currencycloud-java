@@ -100,7 +100,7 @@ inner_error: Timeout::Error
     @Test
     @Betamax(tape = "is_raised_when_a_resource_is_not_found", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testIsRaisedWhenAResourceIsNotFound() throws Exception {
-        client.setAuthToken("656485646b068f6e9c81e3d885fa54f5");
+        CurrencyCloudClient client = prepareTestClient(loginId, apiKey, "656485646b068f6e9c81e3d885fa54f5");
 
         try {
             client.retrieveBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
@@ -141,8 +141,9 @@ inner_error: Timeout::Error
     // todo: handling of timout errors
 
     private <E extends ApiException> E testFailedLogin(String errorCode, int httpStatusCode, Class<E> exceptionClass) {
+        CurrencyCloudClient client = prepareTestClient(loginId, apiKey, null);
         try {
-            client.authenticate(loginId, apiKey);
+            client.authenticate();
             throw new AssertionError("Should have failed");
         } catch (ApiException error) {
             assertThat(error, instanceOf(exceptionClass));

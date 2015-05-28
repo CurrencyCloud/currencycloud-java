@@ -5,6 +5,7 @@ import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.ConversionDates;
 import com.currencycloud.client.model.Currency;
 import com.currencycloud.client.model.SettlementAccount;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
@@ -16,7 +17,12 @@ import static org.hamcrest.Matchers.*;
 
 public class ReferenceTest extends BetamaxTestSupport {
 
-    @Override protected String getAuthToken() { return "1c9da5726314246acfb09ec5651307a5"; }
+    private CurrencyCloudClient client;
+
+    @Before
+    public void prepareClient() {
+        client = prepareTestClient(null, null, "6f5f99d1b860fc47e8a186e3dce0d3f9");
+    }
 
     @Test
     @Betamax(tape = "can_retrieve_beneficiary_required_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})

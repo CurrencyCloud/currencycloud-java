@@ -31,11 +31,10 @@ Then include `target/currencycloud-java-*.jar` in your project's classpath, or i
 An example in Java 8 (Java 8 syntax is only used to format the output):
 
 ```Java
-// Create API proxy
-CurrencyCloudClient currencyCloud = new CurrencyCloudClient(CurrencyCloudClient.Environment.demo);
-
-// Authenticate
-currencyCloud.authenticate("<your login id>", "<your API key>");
+// Create API proxy; specifiy the environment to connect to and your API credentials.
+CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
+    CurrencyCloudClient.Environment.demo, "<your login id>", "<your API key>"
+);
 
 // Make API calls
 List<Currency> currencies = currencyCloud.getCurrencies();

@@ -23,11 +23,15 @@ public class DemoServerTest {
 
     private static final Logger log = LoggerFactory.getLogger(DemoServerTest.class);
 
-    private CurrencyCloudClient currencyCloud = new CurrencyCloudClient(CurrencyCloudClient.Environment.demo);
+    private CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
+            CurrencyCloudClient.Environment.demo,
+            "rjnienaber@gmail.com",
+            "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0"
+    );
 
     @Before
     public void login() {
-        currencyCloud.authenticate("rjnienaber@gmail.com", "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0");
+        currencyCloud.authenticate();
     }
 
     /**
