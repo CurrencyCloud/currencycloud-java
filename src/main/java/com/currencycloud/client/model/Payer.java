@@ -42,7 +42,7 @@ public class Payer {
                   String identificationType,
                   String identificationValue
     ) {
-        this.legalEntityType = entityType; // todo: is this the same?
+        this.legalEntityType = entityType;
         this.companyName = companyName;
         this.firstName = firstName;
         this.lastName = lastName;
