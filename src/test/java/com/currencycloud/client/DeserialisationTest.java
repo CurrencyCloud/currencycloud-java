@@ -115,7 +115,7 @@ public class DeserialisationTest extends JsonTestSupport {
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     @Test
     public void testException() throws Exception {
-        CurrencyCloudException ex = readJson(CurrencyCloudException.class);
+        ResponseException ex = readJson(ResponseException.class);
 
         assertThat(ex.getErrorCode(), equalTo("account_create_failed"));
 

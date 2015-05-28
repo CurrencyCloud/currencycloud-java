@@ -1,5 +1,6 @@
 package com.currencycloud.client;
 
+import com.currencycloud.client.exception.CurrencyCloudException;
 import com.currencycloud.client.model.*;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,7 +42,9 @@ public class CurrencyCloudClient {
                 objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
             }
         });
-        api = RestProxyFactory.createProxy(CurrencyCloud.class, url, config);
+        api = RestProxyFactory.createProxy(
+                CurrencyCloud.class, url, config, new HttpStatusExceptionInterceptor()
+        );
     }
 
     void setAuthToken(String authToken) {
@@ -79,6 +82,7 @@ public class CurrencyCloudClient {
     String getOnBehalfOf() {
         return onBehalfOf;
     }
+
     ///////////////////////////////////////////////////////////////////
     ///// AUTHENTICATE ////////////////////////////////////////////////
 
@@ -353,7 +357,7 @@ public class CurrencyCloudClient {
             BigDecimal amount,
             String reason,
             Boolean termAgreement
-    ) {
+    ) throws CurrencyCloudException {
         return api.createConversion(
                 authToken,
                 conversion.getBuyCurrency(),
@@ -711,4 +715,5 @@ public class CurrencyCloudClient {
             this.url = url;
         }
     }
+
 }

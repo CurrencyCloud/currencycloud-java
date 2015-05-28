@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
-public class CurrencyCloudException extends HttpStatusExceptionSupport {
+public class ResponseException extends HttpStatusExceptionSupport {
 
     private String errorCode;
     private Map<String, List<ErrorMessage>> errorMessages;

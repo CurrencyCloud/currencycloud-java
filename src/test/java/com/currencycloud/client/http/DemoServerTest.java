@@ -42,7 +42,7 @@ public class DemoServerTest {
             beneficiary.setPaymentTypes(Arrays.asList("priority", "regular"));
             currencyCloud.validateBeneficiary(beneficiary);
             assertThat("Should fail.", false);
-        } catch (CurrencyCloudException e) {
+        } catch (ResponseException e) {
             log.info(e.toString());
             Map<String, List<ErrorMessage>> msgs = e.getErrorMessages();
             List<ErrorMessage> paymentTypesErrors = msgs.get("payment_types");
