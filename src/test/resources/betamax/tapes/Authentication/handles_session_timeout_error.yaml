@@ -1,4 +1,4 @@
-name: tape_name_placeholder
+name: handles_session_timeout_error
 interactions:
 - request:
     method: GET
@@ -7,6 +7,16 @@ interactions:
     headers:
       X-Auth-Token:
       - 3068d3ff160ab0636648d98b4e4e10ad
+      Accept-Charset:
+      - UTF-8
+      User-Agent:
+      - ResCU JDK/6 AppleWebKit/535.7 Chrome/16.0.912.36 Safari/535.7
+      Accept:
+      - application/json
+      Host:
+      - localhost:5555
+      Connection:
+      - keep-alive 
   response:
     status: 401
     headers:
@@ -30,7 +40,21 @@ interactions:
     method: POST
     uri: http://localhost:5555/v2/authenticate/api
     body: login_id=rjnienaber%40gmail.com&api_key=ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0
-    headers: {}
+    headers:
+      Accept-Charset:
+      - UTF-8
+      User-Agent:
+      - ResCU JDK/6 AppleWebKit/535.7 Chrome/16.0.912.36 Safari/535.7
+      Accept:
+      - application/json
+      Host:
+      - localhost:5555
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Content-Length:
+      - '104'
   response:
     status: 200
     headers:
@@ -56,6 +80,16 @@ interactions:
     headers:
       X-Auth-Token:
       - 038022bcd2f372cac7bab448db7b5c3b
+      Accept-Charset:
+      - UTF-8
+      User-Agent:
+      - ResCU JDK/6 AppleWebKit/535.7 Chrome/16.0.912.36 Safari/535.7
+      Accept:
+      - application/json
+      Host:
+      - localhost:5555
+      Connection:
+      - keep-alive
   response:
     status: 200
     headers:

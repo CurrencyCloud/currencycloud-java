@@ -21,6 +21,7 @@ public interface CurrencyCloud {
     @POST
     @Path("authenticate/api")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @NoReattempts
     AuthenticateResponse authenticate(
             @FormParam("login_id") String loginId,
             @FormParam("api_key") String apiKey
@@ -29,6 +30,7 @@ public interface CurrencyCloud {
     /** End API session */
     @POST
     @Path("authenticate/close_session")
+    @NoReattempts
     Object endSession(
             @HeaderParam("X-Auth-Token") String authToken
     ) throws ResponseException;

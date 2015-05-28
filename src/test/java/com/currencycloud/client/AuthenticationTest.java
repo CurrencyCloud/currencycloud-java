@@ -32,17 +32,15 @@ public class AuthenticationTest extends BetamaxTestSupport {
         client.endSession();
     }
 
-/*
-    // todo: automatically handle session timeouts?
     @Test
-    @Betamax(tape = "handles session timeout error")
+    @Betamax(tape = "handles session timeout error", match = {MatchRule.method, MatchRule.uri, MatchRule.body, MatchRule.headers})
     public void testHandlesSessionTimeoutError() throws Exception {
         CurrencyCloudClient client = prepareTestClient(
                 "rjnienaber@gmail.com",
                 "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0",
-                "3907f05da86533710efc589d58f51f45"
+                "3068d3ff160ab0636648d98b4e4e10ad" // The Ruby test has "3907f05da86533710efc589d58f51f45", but this does not match the yaml
         );
-        client.findBeneficiaries();
+
+        client.findBeneficiaries(null, null);
     }
-*/
 }

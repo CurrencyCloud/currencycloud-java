@@ -138,8 +138,6 @@ inner_error: Timeout::Error
         assertThat(errorMessage.getParams(), is(anEmptyMap()));
     }
 
-    // todo: handling of timout errors
-
     private <E extends ApiException> E testFailedLogin(String errorCode, int httpStatusCode, Class<E> exceptionClass) {
         CurrencyCloudClient client = prepareTestClient(loginId, apiKey, null);
         try {

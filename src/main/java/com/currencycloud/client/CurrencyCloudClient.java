@@ -42,13 +42,19 @@ public class CurrencyCloudClient {
                 objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
             }
         });
+
         api = RestProxyFactory.createProxy(
-                CurrencyCloud.class, url, config, new HttpStatusExceptionInterceptor()
+                CurrencyCloud.class, url, config,
+                new HttpStatusExceptionInterceptor(), new ReauthenticateInterceptor(this)
         );
     }
 
     void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    String getAuthToken() {
+        return authToken;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -90,6 +96,9 @@ public class CurrencyCloudClient {
      * Starts a logged in session
      */
     public void authenticate() throws CurrencyCloudException {
+        if (loginId == null || apiKey == null) {
+            throw new IllegalArgumentException("Both loginId and apiKey must be set.");
+        }
         authToken = api.authenticate(loginId, apiKey).getAuthToken();
     }
 
