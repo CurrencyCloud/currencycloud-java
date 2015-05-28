@@ -8,7 +8,7 @@ import java.util.Date;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Contact {
+public class Contact implements HasId {
 
     private String loginId;  // john.smith
 

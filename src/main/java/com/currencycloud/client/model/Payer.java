@@ -11,7 +11,7 @@ import java.util.List;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Payer {
+public class Payer implements HasId {
 
     private String id;
     private String legalEntityType;
@@ -90,56 +90,112 @@ public class Payer {
         return legalEntityType;
     }
 
+    public void setLegalEntityType(String legalEntityType) {
+        this.legalEntityType = legalEntityType;
+    }
+
     public String getCompanyName() {
         return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public List<String> getAddress() {
         return address;
     }
 
+    public void setAddress(List<String> address) {
+        this.address = address;
+    }
+
     public String getCity() {
         return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getStateOrProvince() {
         return stateOrProvince;
     }
 
+    public void setStateOrProvince(String stateOrProvince) {
+        this.stateOrProvince = stateOrProvince;
+    }
+
     public String getCountry() {
         return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getIdentificationType() {
         return identificationType;
     }
 
+    public void setIdentificationType(String identificationType) {
+        this.identificationType = identificationType;
+    }
+
     public String getIdentificationValue() {
         return identificationValue;
+    }
+
+    public void setIdentificationValue(String identificationValue) {
+        this.identificationValue = identificationValue;
     }
 
     public String getPostcode() {
         return postcode;
     }
 
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
     public Date getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override

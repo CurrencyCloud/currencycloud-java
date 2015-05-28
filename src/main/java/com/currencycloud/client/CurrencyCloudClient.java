@@ -114,8 +114,6 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// ACCOUNTS ////////////////////////////////////////////////////
 
-    // todo: test: create retrieve update find
-
     public Account createAccount(Account account) throws CurrencyCloudException {
         return api.createAccount(
                 authToken,
@@ -164,7 +162,7 @@ public class CurrencyCloudClient {
             pagination = Pagination.builder().build();
         }
         if (example == null) {
-            example = new Account();
+            example = Account.create();
         }
         return api.findAccounts(authToken,
                                 example.getAccountName(),
@@ -402,18 +400,18 @@ public class CurrencyCloudClient {
     public Conversions findConversions(
             @Nullable Conversion example,
             @Nullable Collection<String> conversionIds,
-            @Nullable String createdAtFrom,
-            @Nullable String createdAtTo,
-            @Nullable String updatedAtFrom,
-            @Nullable String updatedAtTo,
-            @Nullable String partnerBuyAmountFrom,
-            @Nullable String partnerBuyAmountTo,
-            @Nullable String partnerSellAmountFrom,
-            @Nullable String partnerSellAmountTo,
-            @Nullable String buyAmountFrom,
-            @Nullable String buyAmountTo,
-            @Nullable String sellAmountFrom,
-            @Nullable String sellAmountTo
+            @Nullable Date createdAtFrom,
+            @Nullable Date createdAtTo,
+            @Nullable Date updatedAtFrom,
+            @Nullable Date updatedAtTo,
+            @Nullable BigDecimal partnerBuyAmountFrom,
+            @Nullable BigDecimal partnerBuyAmountTo,
+            @Nullable BigDecimal partnerSellAmountFrom,
+            @Nullable BigDecimal partnerSellAmountTo,
+            @Nullable BigDecimal buyAmountFrom,
+            @Nullable BigDecimal buyAmountTo,
+            @Nullable BigDecimal sellAmountFrom,
+            @Nullable BigDecimal sellAmountTo
     ) throws CurrencyCloudException {
         if (example == null) {
             example = Conversion.createEmpty();
@@ -668,8 +666,8 @@ public class CurrencyCloudClient {
             @Nullable Transaction example,
             @Nullable BigDecimal amountFrom,
             @Nullable BigDecimal amountTo,
-            @Nullable String settlesAtFrom,
-            @Nullable String settlesAtTo,
+            @Nullable Date settlesAtFrom,
+            @Nullable Date settlesAtTo,
             @Nullable Date createdAtFrom,
             @Nullable Date createdAtTo,
             @Nullable Date updatedAtFrom,

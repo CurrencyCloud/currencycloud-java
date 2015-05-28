@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class CurrencyCloudCookbook {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
 
         /*
         1. Authenticate
@@ -25,8 +25,7 @@ public class CurrencyCloudCookbook {
 
         CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
                 CurrencyCloudClient.Environment.demo,
-                "apitester",
-                "99b0d6895f95e46d9eaf5c85aa0f64dca9007b7ab0778721b6cdc0a8bc7c56cf"
+                "apitester", "99b0d6895f95e46d9eaf5c85aa0f64dca9007b7ab0778721b6cdc0a8bc7c56cf"
         );
 
         /*

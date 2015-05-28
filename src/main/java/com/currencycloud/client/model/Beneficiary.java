@@ -10,7 +10,7 @@ import java.util.List;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Beneficiary {
+public class Beneficiary implements HasId {
 
     private String id;
 

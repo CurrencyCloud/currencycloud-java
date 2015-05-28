@@ -12,7 +12,7 @@ import java.util.Date;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Payment {
+public class Payment implements HasId {
 
     private String id;
     private String shortReference;
@@ -112,72 +112,144 @@ public class Payment {
         return shortReference;
     }
 
+    public void setShortReference(String shortReference) {
+        this.shortReference = shortReference;
+    }
+
     public String getBeneficiaryId() {
         return beneficiaryId;
+    }
+
+    public void setBeneficiaryId(String beneficiaryId) {
+        this.beneficiaryId = beneficiaryId;
     }
 
     public String getConversionId() {
         return conversionId;
     }
 
+    public void setConversionId(String conversionId) {
+        this.conversionId = conversionId;
+    }
+
     public BigDecimal getAmount() {
         return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     public String getCurrency() {
         return currency;
     }
 
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public String getStatus() {
         return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getPaymentType() {
         return paymentType;
     }
 
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
     public String getReference() {
         return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public String getReason() {
         return reason;
     }
 
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
     public Date getPaymentDate() {
         return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public Date getTransferredAt() {
         return transferredAt;
     }
 
+    public void setTransferredAt(Date transferredAt) {
+        this.transferredAt = transferredAt;
+    }
+
     public Integer getAuthorisationStepsRequired() {
         return authorisationStepsRequired;
+    }
+
+    public void setAuthorisationStepsRequired(Integer authorisationStepsRequired) {
+        this.authorisationStepsRequired = authorisationStepsRequired;
     }
 
     public String getCreatorContactId() {
         return creatorContactId;
     }
 
+    public void setCreatorContactId(String creatorContactId) {
+        this.creatorContactId = creatorContactId;
+    }
+
     public String getLastUpdaterContactId() {
         return lastUpdaterContactId;
+    }
+
+    public void setLastUpdaterContactId(String lastUpdaterContactId) {
+        this.lastUpdaterContactId = lastUpdaterContactId;
     }
 
     public String getFailureReason() {
         return failureReason;
     }
 
+    public void setFailureReason(String failureReason) {
+        this.failureReason = failureReason;
+    }
+
     public String getPayerId() {
         return payerId;
+    }
+
+    public void setPayerId(String payerId) {
+        this.payerId = payerId;
     }
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.Date;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Transaction {
+public class Transaction implements HasId {
 
     private String id;
     private String balanceId;

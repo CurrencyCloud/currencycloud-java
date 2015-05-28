@@ -316,7 +316,7 @@ public interface CurrencyCloud {
     Object createResetToken(
             @HeaderParam("X-Auth-Token") String authToken,
             @Nullable @FormParam("login_id") String loginId
-    );
+    ) throws ResponseException;
 
     /** Create Contact */
     @POST
@@ -336,7 +336,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("locale") String locale,
             @Nullable @FormParam("timezone") String timezone,
             @Nullable @FormParam("date_of_birth") Date dateOfBirth
-    );
+    ) throws ResponseException;
 
     /** Retrieve a Contact */
     @GET
@@ -417,7 +417,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("client_buy_amount") BigDecimal clientBuyAmount,
             @Nullable @FormParam("client_sell_amount") BigDecimal clientSellAmount,
             @Nullable @FormParam("on_behalf_of") String onBehalfOf
-    );
+    ) throws ResponseException;
 
     /** Retrieve a Conversion */
     @GET
@@ -439,19 +439,19 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("buy_currency") String buyCurrency,
             @Nullable @QueryParam("sell_currency") String sellCurrency,
             @Nullable @QueryParam("conversion_ids[]") Collection<String> conversionIds,
-            @Nullable @QueryParam("created_at_from") String createdAtFrom,
-            @Nullable @QueryParam("created_at_to") String createdAtTo,
-            @Nullable @QueryParam("updated_at_from") String updatedAtFrom,
-            @Nullable @QueryParam("updated_at_to") String updatedAtTo,
+            @Nullable @QueryParam("created_at_from") Date createdAtFrom,
+            @Nullable @QueryParam("created_at_to") Date createdAtTo,
+            @Nullable @QueryParam("updated_at_from") Date updatedAtFrom,
+            @Nullable @QueryParam("updated_at_to") Date updatedAtTo,
             @Nullable @QueryParam("currency_pair") String currencyPair,
-            @Nullable @QueryParam("partner_buy_amount_from") String partnerBuyAmountFrom,
-            @Nullable @QueryParam("partner_buy_amount_to") String partnerBuyAmountTo,
-            @Nullable @QueryParam("partner_sell_amount_from") String partnerSellAmountFrom,
-            @Nullable @QueryParam("partner_sell_amount_to") String partnerSellAmountTo,
-            @Nullable @QueryParam("buy_amount_from") String buyAmountFrom,
-            @Nullable @QueryParam("buy_amount_to") String buyAmountTo,
-            @Nullable @QueryParam("sell_amount_from") String sellAmountFrom,
-            @Nullable @QueryParam("sell_amount_to") String sellAmountTo,
+            @Nullable @QueryParam("partner_buy_amount_from") BigDecimal partnerBuyAmountFrom,
+            @Nullable @QueryParam("partner_buy_amount_to") BigDecimal partnerBuyAmountTo,
+            @Nullable @QueryParam("partner_sell_amount_from") BigDecimal partnerSellAmountFrom,
+            @Nullable @QueryParam("partner_sell_amount_to") BigDecimal partnerSellAmountTo,
+            @Nullable @QueryParam("buy_amount_from") BigDecimal buyAmountFrom,
+            @Nullable @QueryParam("buy_amount_to") BigDecimal buyAmountTo,
+            @Nullable @QueryParam("sell_amount_from") BigDecimal sellAmountFrom,
+            @Nullable @QueryParam("sell_amount_to") BigDecimal sellAmountTo,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
@@ -753,8 +753,9 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("status") String status,
             @Nullable @QueryParam("type") String type,
             @Nullable @QueryParam("reason") String reason,
-            @Nullable @QueryParam("settles_at_from") String settlesAtFrom,
-            @Nullable @QueryParam("settles_at_to") String settlesAtTo,
+            // todo: all dates should be date only
+            @Nullable @QueryParam("settles_at_from") Date settlesAtFrom,
+            @Nullable @QueryParam("settles_at_to") Date settlesAtTo,
             @Nullable @QueryParam("created_at_from") Date createdAtFrom,
             @Nullable @QueryParam("created_at_to") Date createdAtTo,
             @Nullable @QueryParam("updated_at_from") Date updatedAtFrom,

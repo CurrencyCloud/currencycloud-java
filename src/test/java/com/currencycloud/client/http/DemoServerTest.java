@@ -2,20 +2,20 @@ package com.currencycloud.client.http;
 
 import com.currencycloud.client.CurrencyCloudClient;
 import com.currencycloud.client.exception.ApiException;
-import com.currencycloud.client.model.Account;
-import com.currencycloud.client.model.Accounts;
-import com.currencycloud.client.model.Beneficiary;
-import com.currencycloud.client.model.ErrorMessage;
+import com.currencycloud.client.model.*;
+import com.currencycloud.examples.CurrencyCloudCookbook;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 /**
  * This test executes actual http calls to the demo server and shouldn't be run when unit tests are run. Run when
@@ -26,11 +26,22 @@ public class DemoServerTest {
 
     private static final Logger log = LoggerFactory.getLogger(DemoServerTest.class);
 
+    private final SimpleDateFormat dateFormat;
+
     private CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
             CurrencyCloudClient.Environment.demo,
-            "rjnienaber@gmail.com",
-            "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0"
+            "rjnienaber@gmail.com", "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0"
     );
+
+    public DemoServerTest() {
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
+
+    @Test
+    public void testCookbook() throws Exception {
+        CurrencyCloudCookbook.main();
+    }
 
     /**
      * Test that payment types collection is handled correctly.
@@ -101,8 +112,203 @@ public class DemoServerTest {
         }
         assertThat("Current account not found among the ones listed.", found);
 
-//        account.setCountry("SI");
-//        account = currencyCloud.updateAccount(account); // todo: permission denied
-//        log.debug("account = {}", account);
+        account.setCountry("SI");
+        account = currencyCloud.updateAccount(account); // todo: permission denied
+        log.debug("account = {}", account);
+    }
+
+    @Test
+    public void testCreateAccount() throws Exception {
+        currencyCloud.createAccount(Account.create("New Account xyz", "individual")); // todo: permission denied
+    }
+
+    @Test
+    public void testBalances() throws Exception {
+        Balances balances = currencyCloud.findBalances(
+                new BigDecimal("0.00"),
+                new BigDecimal("1000000000.00"),
+                null,
+//                getDate("2015-05-28"),
+                Pagination.builder().pages(1, 20).build()
+        );
+        Pagination pagination = balances.getPagination();
+        assertThat(pagination.getPerPage(), equalTo(20));
+        assertThat(pagination.getPage(), equalTo(1));
+
+//        assertThat(balances.getBalances(), hasSize(greaterThan(0)));
+    }
+
+    @Test
+    public void testConversions() throws Exception {
+        Date date = null; //  getDate("2015-05-28"); // todo: #18
+        Conversion conversion = Conversion.createForCreate(
+                "EUR", "GBP", "buy", date, null, null, null, null
+        );
+        conversion = currencyCloud.createConversion(conversion, new BigDecimal("10000.00"), "Invoice Payment", true);
+
+        log.debug("conversion = {}", conversion);
+
+        assertThat(conversion.getFixedSide(), equalTo("buy"));
+        assertThat(conversion.getCurrencyPair(), equalTo("EURGBP"));
+
+        conversion = currencyCloud.retrieveConversion(conversion.getId());
+
+        assertThat(conversion.getFixedSide(), equalTo("buy"));
+        assertThat(conversion.getCurrencyPair(), equalTo("EURGBP"));
+
+        List<Conversion> conversions = currencyCloud.findConversions(
+                null, Collections.singleton(conversion.getId()),
+                null, null, null, null, null, null, null, null, null, null, null, null
+        ).getConversions();
+
+        assertFound(conversions, conversion);
+
+        conversions = currencyCloud.findConversions(
+                null, Arrays.asList(conversion.getId(), "invalid-id"),
+                null, getDate("2100-01-01"),
+                getDate("2015-01-01"), null, null, null, null, null,
+                null, null, null, new BigDecimal("10000000.00")
+        ).getConversions();
+
+        assertFound(conversions, conversion);
+    }
+
+    @Test
+    public void testPaymentsPayers() throws Exception {
+        Beneficiary beneficiary = Beneficiary.createForCreate("Acme GmbH", "DE", "EUR", "John Doe");
+        beneficiary.setBicSwift("COBADEFF");
+        beneficiary.setIban("DE89370400440532013000");
+        beneficiary = currencyCloud.createBeneficiary(beneficiary);
+        log.debug("beneficiary = {}", beneficiary);
+
+        Conversion conversion = Conversion.createForCreate("EUR", "GBP", "buy");
+        conversion = currencyCloud.createConversion(conversion, new BigDecimal("10000.00"), "Invoice Payment", true);
+        log.debug("conversion = {}", conversion);
+
+        Payment payment = Payment.createForCreate(
+                "EUR", beneficiary.getId(), new BigDecimal("10000"), "Invoice Payment", "Invoice 1234",
+                conversion.getId(), null, "regular"
+        );
+        payment = currencyCloud.createPayment(payment, null);
+        log.debug("Created payment = {}", payment);
+
+        payment = currencyCloud.retrievePayment(payment.getId());
+        log.debug("Retrieved payment = {}", payment);
+
+        Date from = getDate("2015-01-01");
+
+        List<Payment> payments = currencyCloud.findPayments(
+                payment,
+                payment.getAmount(), payment.getAmount().add(new BigDecimal("1.00")), null,
+                null, null, null, null, null, from, null, null
+        ).getPayments();
+
+        assertFound(payments, payment);
+
+        payments = currencyCloud.findPayments(
+                null, new BigDecimal("1.00"), payment.getAmount().add(new BigDecimal("1.00")), null,
+                null, null, null, from, null, null, null, null
+        ).getPayments();
+
+        assertFound(payments, payment);
+
+        Payer payer = currencyCloud.retrievePayer(payment.getPayerId());
+
+        payment.setReason("A changed reason");
+        payer.setCity("A different city.");
+        currencyCloud.updatePayment(payment, payer);
+
+        currencyCloud.deletePayment(payment.getId()); // fails: At least one payment should be associated with the conversion
+
+        payments = currencyCloud
+                .findPayments(payment, null, null, null, null, null, null, null, null, null, null, null)
+                .getPayments();
+
+        assertFound(payments, payment, false);
+    }
+
+    @Test
+    public void testSettlements() throws Exception {
+        Date to = getDate("2115-01-01");
+
+        Settlement settlement = currencyCloud.createSettlement();
+
+        List<Settlement> settlements = currencyCloud.findSettlements(
+                settlement.getShortReference(), null, null, to, null, to, null, null, null
+        ).getSettlements();
+        assertFound(settlements, settlement);
+        assertThat(settlement.getStatus(), equalTo("open"));
+
+        Conversion conversion = currencyCloud.createConversion(
+                Conversion.createForCreate("EUR", "GBP", "buy"),
+                new BigDecimal("10000.00"), "Invoice Payment", true
+        );
+        log.debug("conversion = {}", conversion);
+
+        settlement = currencyCloud.addConversion(settlement.getId(), conversion.getId());
+        assertThat(settlement.getStatus(), equalTo("open"));
+
+        settlements = currencyCloud.findSettlements(
+                settlement.getShortReference(), null, null, to, null, to, null, null, null
+        ).getSettlements();
+        assertFound(settlements, settlement);
+
+        settlement = currencyCloud.releaseSettlement(settlement.getId());
+        assertThat(settlement.getStatus(), equalTo("released"));
+        settlements = currencyCloud.findSettlements(
+                settlement.getShortReference(), null, null, to, null, to, null, to, null
+        ).getSettlements();
+        assertFound(settlements, settlement);
+
+        settlement = currencyCloud.unreleaseSettlement(settlement.getId());
+        assertThat(settlement.getStatus(), equalTo("open"));
+
+        settlement = currencyCloud.removeConversion(settlement.getId(), conversion.getId());
+        assertThat(settlement.getStatus(), equalTo("open"));
+
+        settlement = currencyCloud.deleteSettlement(settlement.getId());
+        assertThat(settlement.getStatus(), equalTo("open"));
+    }
+
+    @Test
+    public void testTransactions() throws Exception {
+        Date from = null; // getDate("2015-01-01"); // todo: date only
+        Date to = null; // getDate("2115-01-01"); // todo: date only
+        List<Transaction> transactions = currencyCloud.findTransactions(
+                null, new BigDecimal("0.00"), new BigDecimal("1000000000.00"),
+                from, to,
+                from, to,
+                from, to,
+                Pagination.builder().pages(1, 10).build()
+        ).getTransactions();
+
+        assertThat(transactions, hasSize(greaterThan(0))); // todo: fails
+        Transaction transaction = transactions.get(0);
+
+        transaction = currencyCloud.retrieveTransaction(transaction.getId());
+        log.debug("transaction = {}", transaction);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private static <T extends HasId> void assertFound(List<T> ts, T t) {
+        assertFound(ts, t, true);
+    }
+
+    private static <T extends HasId> void assertFound(List<T> ts, T t, boolean expectFound) {
+        boolean found = false;
+        for (T c : ts) {
+            if (c.getId().equals(t.getId())) {
+                found = true;
+                break;
+            }
+        }
+        assertThat(found, equalTo(expectFound));
+    }
+
+    private Date getDate(String str) throws ParseException {
+        synchronized (dateFormat) {
+            return dateFormat.parse(str);
+        }
     }
 }

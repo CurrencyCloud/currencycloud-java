@@ -11,7 +11,7 @@ import java.util.*;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Settlement {
+public class Settlement implements HasId {
 
     private String id;
     private String shortReference;

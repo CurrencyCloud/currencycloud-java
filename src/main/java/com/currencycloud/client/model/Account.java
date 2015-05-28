@@ -8,7 +8,7 @@ import java.util.Date;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Account {
+public class Account implements HasId {
 
     private String id;  
 
@@ -43,6 +43,21 @@ public class Account {
     private String identificationValue;
 
     private String shortReference;
+
+    private Account() { }
+
+    private Account(String accountName, String legalEntityType) {
+        this.accountName = accountName;
+        this.legalEntityType = legalEntityType;
+    }
+
+    public static Account create(String accountName, String legalEntityType) {
+        return new Account(accountName, legalEntityType);
+    }
+
+    public static Account create() {
+        return new Account();
+    }
 
     public String getId() {
         return id;

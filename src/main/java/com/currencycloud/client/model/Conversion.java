@@ -13,7 +13,7 @@ import java.util.List;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Conversion {
+public class Conversion implements HasId {
 
     private String id;
     private String accountId;
@@ -136,6 +136,7 @@ public class Conversion {
         return new Conversion(shortReference, status, partnerStatus, buyCurrency, sellCurrency, currencyPair);
     }
 
+    @Override
     public String getId() {
         return id;
     }
