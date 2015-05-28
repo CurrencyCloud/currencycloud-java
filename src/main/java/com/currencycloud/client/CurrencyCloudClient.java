@@ -243,7 +243,7 @@ public class CurrencyCloudClient {
                 beneficiary.getCurrency(),
                 beneficiary.getName(),
                 beneficiary.getEmail(),
-                join(beneficiary.getBeneficiaryAddress()), // todo
+                join(beneficiary.getBeneficiaryAddress()),
                 beneficiary.getBeneficiaryCountry(),
                 beneficiary.getAccountNumber(),
                 beneficiary.getRoutingCodeType1(),
@@ -284,7 +284,7 @@ public class CurrencyCloudClient {
                 beneficiary.getCurrency(),
                 beneficiary.getName(),
                 beneficiary.getEmail(),
-                join(beneficiary.getBeneficiaryAddress()), // todo
+                join(beneficiary.getBeneficiaryAddress()),
                 beneficiary.getBeneficiaryCountry(),
                 beneficiary.getAccountNumber(),
                 beneficiary.getRoutingCodeType1(),
@@ -312,37 +312,45 @@ public class CurrencyCloudClient {
         );
     }
 
-    public Beneficiaries findBeneficiaries(@Nullable Beneficiary beneficiary, @Nullable Pagination pagination)
+    /**
+     *
+     * @param example    The non-null properties of the example will be used for querying.
+     *                   Use routingCodeType1 and routingCodeValue1 (the *2 fields are ignored).
+     * @param pagination pagination settings
+     * @return           The paginated Beneficiaries search results
+     * @throws CurrencyCloudException When an error occurs
+     */
+    public Beneficiaries findBeneficiaries(@Nullable Beneficiary example, @Nullable Pagination pagination)
             throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
-        if (beneficiary == null) {
-            beneficiary = Beneficiary.createEmpty();
+        if (example == null) {
+            example = Beneficiary.createEmpty();
         }
         return api.findBeneficiaries(
                 authToken,
-                beneficiary.getBankAccountHolderName(),
-                beneficiary.getBeneficiaryCountry(),
-                beneficiary.getCurrency(),
-                beneficiary.getAccountNumber(),
-                beneficiary.getRoutingCodeType1(), // todo
-                beneficiary.getRoutingCodeValue1(),  // todo
-                beneficiary.getPaymentTypes(),
-                beneficiary.getBicSwift(),
-                beneficiary.getIban(),
-                beneficiary.getDefaultBeneficiary(),
-                beneficiary.getBankName(),
-                beneficiary.getBankAccountType(),
-                beneficiary.getName(),
-                beneficiary.getBeneficiaryEntityType(),
-                beneficiary.getBeneficiaryCompanyName(),
-                beneficiary.getBeneficiaryFirstName(),
-                beneficiary.getBeneficiaryLastName(),
-                beneficiary.getBeneficiaryCity(),
-                beneficiary.getBeneficiaryPostcode(),
-                beneficiary.getBeneficiaryStateOrProvince(),
-                beneficiary.getBeneficiaryDateOfBirth(),
+                example.getBankAccountHolderName(),
+                example.getBeneficiaryCountry(),
+                example.getCurrency(),
+                example.getAccountNumber(),
+                example.getRoutingCodeType1(),
+                example.getRoutingCodeValue1(),
+                example.getPaymentTypes(),
+                example.getBicSwift(),
+                example.getIban(),
+                example.getDefaultBeneficiary(),
+                example.getBankName(),
+                example.getBankAccountType(),
+                example.getName(),
+                example.getBeneficiaryEntityType(),
+                example.getBeneficiaryCompanyName(),
+                example.getBeneficiaryFirstName(),
+                example.getBeneficiaryLastName(),
+                example.getBeneficiaryCity(),
+                example.getBeneficiaryPostcode(),
+                example.getBeneficiaryStateOrProvince(),
+                example.getBeneficiaryDateOfBirth(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
@@ -709,7 +717,7 @@ public class CurrencyCloudClient {
         StringBuilder sb = new StringBuilder();
         for (String string : strings) {
             if (sb.length() > 0) {
-                sb.append(", ");
+                sb.append("\r\n");
             }
             sb.append(string);
         }
