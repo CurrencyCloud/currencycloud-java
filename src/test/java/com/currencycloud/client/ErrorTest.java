@@ -27,6 +27,32 @@ public class ErrorTest extends BetamaxTestSupport {
         assertThat(error.getErrorMessages().get("api_key").get(0).getMessage(), equalTo("api_key should be 64 character(s) long"));
         assertThat(error.getErrorMessages().get("api_key").get(0).getParams().get("length"), instanceOf(Integer.class));
         assertThat((Integer)error.getErrorMessages().get("api_key").get(0).getParams().get("length"), equalTo(new Integer(64)));
+
+        // todo:
+        /*
+            expected_error = %Q{CurrencyCloud::BadRequestError
+---
+platform: #{error.platform}
+request:
+  parameters:
+    login_id: non-existent-login-id
+    api_key: ef0fd50fca1fb14c1fab3a8436b9ecb57528f0
+  verb: post
+  url: https://devapi.thecurrencycloud.com/v2/authenticate/api
+response:
+  status_code: 400
+  date: Wed, 29 Apr 2015 22:46:53 GMT
+  request_id: 2775253392756800903
+errors:
+- field: api_key
+  code: api_key_length_is_invalid
+  message: api_key should be 64 character(s) long
+  params:
+    length: 64
+}
+    expect(error.to_s).to eq(expected_error)
+
+         */
     }
 
     @Test
@@ -54,8 +80,17 @@ public class ErrorTest extends BetamaxTestSupport {
         assertThat(error.getErrorMessages().get("username").get(0).getParams(), anEmptyMap());
     }
 
+
+// todo:
 /*
-  it 'is raised on unexpected error' do
+    @Test
+    @Betamax(tape = "is_raised_on_unexpected_error", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testIsRaisedOnUnexpectedError() throws Exception {
+
+    }
+*/
+/*
+  it '' do
     allow(HTTParty).to receive(:post).and_raise(Timeout::Error)
 
     error = nil
