@@ -186,7 +186,7 @@ public class DemoServerTest {
 
     @Test
     public void testConversions() throws Exception {
-        Date date = getDate("2015-05-28");
+        Date date = new Date();
         Conversion conversion = Conversion.create(
                 "EUR", "GBP", "buy", date, null, null, null, null
         );
@@ -328,8 +328,16 @@ public class DemoServerTest {
                 Pagination.builder().pages(1, 10).build()
         ).getTransactions();
 
+        Transaction transaction;
+        try {
+            transaction = currencyCloud.retrieveTransaction("c5a990eb-d4d7-482f-bfb1-695261fb1e4f");
+            log.debug("transaction = {}", transaction);
+        } catch (ApiException e) {
+            log.info("Error retrieving transaction: " + e);
+        }
+
         assertThat(transactions, hasSize(greaterThan(0))); // todo: fails
-        Transaction transaction = transactions.get(0);
+        transaction = transactions.get(0);
 
         transaction = currencyCloud.retrieveTransaction(transaction.getId());
         log.debug("transaction = {}", transaction);
