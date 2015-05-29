@@ -231,8 +231,9 @@ public class DemoServerTest {
         conversion = currencyCloud.createConversion(conversion, new BigDecimal("10000.00"), "Invoice Payment", true);
         log.debug("conversion = {}", conversion);
 
+        BigDecimal amount = new BigDecimal(new Random().nextInt(1000000)).movePointLeft(2);
         Payment payment = Payment.create(
-                "EUR", beneficiary.getId(), new BigDecimal("10000"), "Invoice Payment", "Invoice 1234",
+                "EUR", beneficiary.getId(), amount, "Invoice Payment", "Invoice 1234",
                 conversion.getId(), null, "regular"
         );
         payment = currencyCloud.createPayment(payment, null);
@@ -245,14 +246,15 @@ public class DemoServerTest {
 
         List<Payment> payments = currencyCloud.findPayments(
                 payment,
-                payment.getAmount(), payment.getAmount().add(new BigDecimal("1.00")), null,
+                amount.subtract(BigDecimal.ONE), payment.getAmount().add(BigDecimal.ONE), null,
                 null, null, null, null, null, from, null, null
         ).getPayments();
 
         assertFound(payments, payment);
 
         payments = currencyCloud.findPayments(
-                null, new BigDecimal("1.00"), payment.getAmount().add(new BigDecimal("1.00")), null,
+                null,
+                amount.subtract(BigDecimal.ONE), payment.getAmount().add(BigDecimal.ONE), null,
                 null, null, null, from, null, null, null, null
         ).getPayments();
 
@@ -350,6 +352,11 @@ public class DemoServerTest {
     }
 
     private static <T extends HasId> void assertFound(List<T> ts, T t, boolean expectFound) {
+        boolean found = contains(ts, t);
+        assertThat(found, equalTo(expectFound));
+    }
+
+    private static <T extends HasId> boolean contains(List<T> ts, T t) {
         boolean found = false;
         for (T c : ts) {
             if (c.getId().equals(t.getId())) {
@@ -357,7 +364,7 @@ public class DemoServerTest {
                 break;
             }
         }
-        assertThat(found, equalTo(expectFound));
+        return found;
     }
 
     private Date getDate(String str) throws ParseException {
