@@ -18,6 +18,8 @@ import java.util.regex.Pattern;
 
 public class CurrencyCloudClient {
 
+    // todo: delegate Contacts methods and write tests. Figure out why I haven't done this before.
+
     private static final Pattern UUID = Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", Pattern.CASE_INSENSITIVE);
 
     private final CurrencyCloud api;
@@ -189,7 +191,6 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// BALANCES ////////////////////////////////////////////////////
 
-    // todo: test
     public Balances findBalances(@Nullable BigDecimal amountFrom, @Nullable BigDecimal amountTo, @Nullable Date asAtDate, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
@@ -384,7 +385,7 @@ public class CurrencyCloudClient {
                 amount,
                 reason,
                 termAgreement,
-                conversion.getConversionDate(),
+                dateOnly(conversion.getConversionDate()),
                 conversion.getClientRate(),
                 conversion.getCurrencyPair(),
                 conversion.getClientBuyAmount(),
@@ -693,12 +694,12 @@ public class CurrencyCloudClient {
                 example.getStatus(),
                 example.getType(),
                 example.getReason(),
-                settlesAtFrom,
-                settlesAtTo,
-                createdAtFrom,
-                createdAtTo,
-                updatedAtFrom,
-                updatedAtTo,
+                dateOnly(settlesAtFrom),
+                dateOnly(settlesAtTo),
+                dateOnly(createdAtFrom),
+                dateOnly(createdAtTo),
+                dateOnly(updatedAtFrom),
+                dateOnly(updatedAtTo),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
@@ -706,7 +707,7 @@ public class CurrencyCloudClient {
                 onBehalfOf
         );
     }
-
+    
 
     ///////////////////////////////////////////////////////////////////
 
@@ -724,6 +725,11 @@ public class CurrencyCloudClient {
         return sb.toString();
     }
 
+    @Nullable
+    private static java.sql.Date dateOnly(@Nullable Date date) {
+        return date == null ? null : new java.sql.Date(date.getTime());
+    }
+    
     public enum Environment {
         production("https://api.thecurrencycloud.com"),
         demo("https://devapi.thecurrencycloud.com");

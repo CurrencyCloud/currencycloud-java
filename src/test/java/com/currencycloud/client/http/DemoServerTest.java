@@ -128,7 +128,7 @@ public class DemoServerTest {
                 new BigDecimal("0.00"),
                 new BigDecimal("1000000000.00"),
                 null,
-//                getDate("2015-05-28"),
+//                getDate("2015-05-28"), // Non-null date causes null pagination to be returned.
                 Pagination.builder().pages(1, 20).build()
         );
         Pagination pagination = balances.getPagination();
@@ -140,7 +140,7 @@ public class DemoServerTest {
 
     @Test
     public void testConversions() throws Exception {
-        Date date = null; //  getDate("2015-05-28"); // todo: #18
+        Date date = getDate("2015-05-28");
         Conversion conversion = Conversion.createForCreate(
                 "EUR", "GBP", "buy", date, null, null, null, null
         );
@@ -272,8 +272,8 @@ public class DemoServerTest {
 
     @Test
     public void testTransactions() throws Exception {
-        Date from = null; // getDate("2015-01-01"); // todo: date only
-        Date to = null; // getDate("2115-01-01"); // todo: date only
+        Date from = getDate("2015-01-01");
+        Date to = getDate("2115-01-01");
         List<Transaction> transactions = currencyCloud.findTransactions(
                 null, new BigDecimal("0.00"), new BigDecimal("1000000000.00"),
                 from, to,
