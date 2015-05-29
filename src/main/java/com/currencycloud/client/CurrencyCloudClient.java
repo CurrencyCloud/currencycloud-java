@@ -49,6 +49,10 @@ public class CurrencyCloudClient {
         );
     }
 
+    public String getLoginId() {
+        return loginId;
+    }
+
     void setAuthToken(String authToken) {
         this.authToken = authToken;
     }
@@ -56,6 +60,7 @@ public class CurrencyCloudClient {
     String getAuthToken() {
         return authToken;
     }
+
 
     ///////////////////////////////////////////////////////////////////
     ///// ON BEHALF OF ////////////////////////////////////////////////
@@ -369,8 +374,8 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// CONTACTS ////////////////////////////////////////////////////
 
-    public Object createResetToken(@Nullable String loginId) throws ResponseException {
-        return api.createResetToken(authToken, loginId);
+    public void createResetToken(@Nullable String loginId) throws ResponseException {
+        api.createResetToken(authToken, loginId);
     }
 
     public Contact createContact(Contact contact) throws ResponseException {
@@ -806,7 +811,7 @@ public class CurrencyCloudClient {
     private static java.sql.Date dateOnly(@Nullable Date date) {
         return date == null ? null : new java.sql.Date(date.getTime());
     }
-    
+
     public enum Environment {
         production("https://api.thecurrencycloud.com"),
         demo("https://devapi.thecurrencycloud.com");

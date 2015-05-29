@@ -140,6 +140,11 @@ public class DemoServerTest {
     }
 
     @Test
+    public void testCreateResetToken() throws Exception {
+        currencyCloud.createResetToken(currencyCloud.getLoginId());
+    }
+
+    @Test
     public void testContacts() throws Exception {
         String accountId = currencyCloud.currentAccount().getId();
         log.debug("accountId = {}", accountId);
