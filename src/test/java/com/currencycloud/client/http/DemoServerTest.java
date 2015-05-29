@@ -29,7 +29,7 @@ public class DemoServerTest {
 
     private final SimpleDateFormat dateFormat;
 
-    private CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
+    private static CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
             CurrencyCloudClient.Environment.demo,
             "rjnienaber@gmail.com", "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0"
     );
