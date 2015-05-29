@@ -33,7 +33,7 @@ public class ActionsTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri/*, MatchRule.body*/})
     public void testCanCreate() throws Exception {
-        Beneficiary beneficiary = Beneficiary.createForCreate("Test User", "GB", "GBP", "Test User");
+        Beneficiary beneficiary = Beneficiary.create("Test User", "GB", "GBP", "Test User");
         beneficiary.setAccountNumber("12345678");
         beneficiary.setRoutingCodeType1("sort_code");
         beneficiary.setRoutingCodeValue1("123456");
@@ -63,7 +63,7 @@ public class ActionsTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_first", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFirst() throws Exception {
-        Beneficiary beneficiary = client.firstBeneficiary(Beneficiary.createForCreate("Test User", null, null, null));
+        Beneficiary beneficiary = client.firstBeneficiary(Beneficiary.create("Test User", null, null, null));
 
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));

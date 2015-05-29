@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import javax.annotation.Nullable;
 import java.util.Date;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
@@ -42,24 +43,116 @@ public class Contact implements HasId {
 
     private Date updatedAt;  // 2014-01-12T00:00:00+00:00
 
-    public String getLoginId() {
-        return loginId;
+    private Contact() { }
+
+    private Contact(
+            String accountId,
+            String firstName,
+            String lastName,
+            String emailAddress,
+            String phoneNumber,
+            @Nullable String yourReference,
+            @Nullable String mobilePhoneNumber,
+            @Nullable String loginId,
+            @Nullable String status,
+            @Nullable String locale,
+            @Nullable String timezone,
+            @Nullable Date dateOfBirth
+    ) {
+        this.accountId = accountId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
+        this.yourReference = yourReference;
+        this.mobilePhoneNumber = mobilePhoneNumber;
+        this.loginId = loginId;
+        this.status = status;
+        this.locale = locale;
+        this.timezone = timezone;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public static Contact create(
+            String accountId,
+            String firstName,
+            String lastName,
+            String emailAddress,
+            String phoneNumber,
+            @Nullable String yourReference,
+            @Nullable String mobilePhoneNumber,
+            @Nullable String loginId,
+            @Nullable String status,
+            @Nullable String locale,
+            @Nullable String timezone,
+            @Nullable Date dateOfBirth
+    ) {
+        return new Contact(
+                accountId,
+                firstName,
+                lastName,
+                emailAddress,
+                phoneNumber,
+                yourReference,
+                mobilePhoneNumber,
+                loginId,
+                status,
+                locale,
+                timezone,
+                dateOfBirth
+        );
+    }
+    
+    public static Contact create(
+            String accountId,
+            String firstName,
+            String lastName,
+            String emailAddress,
+            String phoneNumber
+    ) {
+        return new Contact(
+                accountId, firstName, lastName, emailAddress, phoneNumber, null, null, null, null, null, null, null
+        );
+    }
+
+    public static Contact create() {
+        return new Contact();
     }
 
     public String getId() {
         return id;
     }
 
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
+
     public String getYourReference() {
         return yourReference;
+    }
+
+    public void setYourReference(String yourReference) {
+        this.yourReference = yourReference;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getAccountId() {
@@ -74,28 +167,56 @@ public class Contact implements HasId {
         return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getMobilePhoneNumber() {
         return mobilePhoneNumber;
     }
 
+    public void setMobilePhoneNumber(String mobilePhoneNumber) {
+        this.mobilePhoneNumber = mobilePhoneNumber;
+    }
+
     public String getLocale() {
         return locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 
     public String getTimezone() {
         return timezone;
     }
 
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
+    }
+
     public String getEmailAddress() {
         return emailAddress;
     }
 
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
     public Date getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Date getCreatedAt() {

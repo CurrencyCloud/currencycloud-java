@@ -18,8 +18,6 @@ import java.util.regex.Pattern;
 
 public class CurrencyCloudClient {
 
-    // todo: delegate Contacts methods and write tests. Figure out why I haven't done this before.
-
     private static final Pattern UUID = Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", Pattern.CASE_INSENSITIVE);
 
     private final CurrencyCloud api;
@@ -327,7 +325,7 @@ public class CurrencyCloudClient {
             pagination = Pagination.builder().build();
         }
         if (example == null) {
-            example = Beneficiary.createEmpty();
+            example = Beneficiary.create();
         }
         return api.findBeneficiaries(
                 authToken,
@@ -367,6 +365,85 @@ public class CurrencyCloudClient {
     public Beneficiary deleteBeneficiary(String id) throws CurrencyCloudException {
         return api.deleteBeneficiary(authToken, id, onBehalfOf);
     }
+
+    ///////////////////////////////////////////////////////////////////
+    ///// CONTACTS ////////////////////////////////////////////////////
+
+    public Object createResetToken(@Nullable String loginId) throws ResponseException {
+        return api.createResetToken(authToken, loginId);
+    }
+
+    public Contact createContact(Contact contact) throws ResponseException {
+        return api.createContact(
+                authToken,
+                contact.getAccountId(),
+                contact.getFirstName(),
+                contact.getLastName(),
+                contact.getEmailAddress(),
+                contact.getPhoneNumber(),
+                contact.getYourReference(),
+                contact.getMobilePhoneNumber(),
+                contact.getLoginId(),
+                contact.getStatus(),
+                contact.getLocale(),
+                contact.getTimezone(),
+                contact.getDateOfBirth()
+        );
+    }
+
+    public Contact retrieveContact(String contactId) throws ResponseException {
+        return api.retrieveContact(authToken, contactId);
+    }
+
+    public Contact updateContact(Contact contact) throws ResponseException {
+        return api.updateContact(
+                authToken,
+                contact.getId(),
+                contact.getFirstName(),
+                contact.getLastName(),
+                contact.getEmailAddress(),
+                contact.getPhoneNumber(),
+                contact.getYourReference(),
+                contact.getMobilePhoneNumber(),
+                contact.getLoginId(),
+                contact.getStatus(),
+                contact.getLocale(),
+                contact.getTimezone(),
+                contact.getDateOfBirth()
+        );
+    }
+
+    public Contacts findContacts(Contact example, Pagination pagination) throws ResponseException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        if (example == null) {
+            example = Contact.create();
+        }
+        return api.findContacts(
+                authToken,
+                example.getAccountName(),
+                example.getAccountId(),
+                example.getFirstName(),
+                example.getLastName(),
+                example.getEmailAddress(),
+                example.getYourReference(),
+                example.getPhoneNumber(),
+                example.getLoginId(),
+                example.getStatus(),
+                example.getLocale(),
+                example.getTimezone(),
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc()
+        );
+    }
+
+    public Contact currentContact() throws ResponseException {
+        return api.currentContact(authToken);
+    }
+
 
     ///////////////////////////////////////////////////////////////////
     ///// CONVERSIONS /////////////////////////////////////////////////
@@ -415,7 +492,7 @@ public class CurrencyCloudClient {
             @Nullable BigDecimal sellAmountTo
     ) throws CurrencyCloudException {
         if (example == null) {
-            example = Conversion.createEmpty();
+            example = Conversion.create();
         }
         return api.findConversions(
                 authToken,
@@ -530,7 +607,7 @@ public class CurrencyCloudClient {
             pagination = Pagination.builder().build();
         }
         if (example == null) {
-            example = Payment.createEmpty();
+            example = Payment.create();
         }
         return api.findPayments(authToken,
                                 example.getShortReference(),
@@ -679,7 +756,7 @@ public class CurrencyCloudClient {
             pagination = Pagination.builder().build();
         }
         if (example == null) {
-            example = Transaction.createEmpty();
+            example = Transaction.create();
         }
         return api.findTransactions(
                 authToken,

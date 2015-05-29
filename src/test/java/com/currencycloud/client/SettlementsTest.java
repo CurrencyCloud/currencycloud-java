@@ -26,7 +26,7 @@ public class SettlementsTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_add_conversion", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanAddConversion() throws Exception {
-        Conversion conversion = Conversion.createForCreate("GBP", "USD", "buy");
+        Conversion conversion = Conversion.create("GBP", "USD", "buy");
         conversion = client.createConversion(conversion, new BigDecimal(1000), "mortgage payment", true);
 
         assertThat(conversion.getId(), equalTo("24d2ee7f-c7a3-4181-979e-9c58dbace992"));

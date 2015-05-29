@@ -61,11 +61,11 @@ public class Payment implements HasId {
         this.status = status;
     }
 
-    public static Payment createEmpty() {
+    public static Payment create() {
         return new Payment();
     }
 
-    public static Payment createForCreate(
+    public static Payment create(
             String currency,
             String beneficiaryId,
             BigDecimal amount,
@@ -76,20 +76,6 @@ public class Payment implements HasId {
             @Nullable String paymentType
     ) {
         return new Payment(null, currency, beneficiaryId, amount, reason, reference, conversionId, paymentDate, paymentType, null, null);
-    }
-
-    public static Payment createForUpdate(
-            String id,
-            String currency,
-            String beneficiaryId,
-            BigDecimal amount,
-            String reason,
-            String reference,
-            String conversionId,
-            Date paymentDate,
-            String paymentType
-    ) {
-        return new Payment(id, currency, beneficiaryId, amount, reason, reference, conversionId, paymentDate, paymentType, null, null);
     }
 
     public static Payment createExample(

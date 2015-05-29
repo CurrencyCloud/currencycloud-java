@@ -52,7 +52,7 @@ public class Transaction implements HasId {
         this.reason = reason;
     }
 
-    public static Transaction createEmpty() {
+    public static Transaction create() {
         return new Transaction();
     }
 

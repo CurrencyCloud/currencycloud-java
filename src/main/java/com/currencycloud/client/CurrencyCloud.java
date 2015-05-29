@@ -358,7 +358,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("phone_number") String phoneNumber,
             @Nullable @FormParam("your_reference") String yourReference,
             @Nullable @FormParam("mobile_phone_number") String mobilePhoneNumber,
-            @Nullable @FormParam("login_id") String login_id,
+            @Nullable @FormParam("login_id") String loginId,
             @Nullable @FormParam("status") String status,
             @Nullable @FormParam("locale") String locale,
             @Nullable @FormParam("timezone") String timezone,

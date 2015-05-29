@@ -101,14 +101,16 @@ public class Beneficiary implements HasId {
         this.name = name;
     }
 
-    public static Beneficiary createEmpty() {
+    public static Beneficiary create() {
         return new Beneficiary();
     }
 
     /**
      * Creates a Beneficiary with all the required properties for the update beneficiaries method. Note that this
      * is just a simple helper factory matedod and can be used for any other purpose.
+     * @deprecated  todo: This is only used in tests and shoud not be part of the public API
      */
+    @Deprecated
     public static Beneficiary createForUpdate(String id) {
         return new Beneficiary(id);
     }
@@ -125,7 +127,7 @@ public class Beneficiary implements HasId {
      * Creates a Beneficiary with all the required properties for the create beneficiary method. Note that this
      * is just a simple helper factory matedod and can be used for any other purpose.
      */
-    public static Beneficiary createForCreate(String bankAccountHolderName, String bankCountry, String currency, String name) {
+    public static Beneficiary create(String bankAccountHolderName, String bankCountry, String currency, String name) {
         return new Beneficiary(bankAccountHolderName, bankCountry, currency, name);
     }
 

@@ -82,28 +82,15 @@ public class Conversion implements HasId {
         this.currencyPair = currencyPair;
     }
 
-    public static Conversion createEmpty() {
+    public static Conversion create() {
         return new Conversion();
     }
 
-    public static Conversion createForCreate(
-            String buyCurrency,
-            String sellCurrency,
-            String fixedSide
-    ) {
-        return new Conversion(
-                buyCurrency,
-                sellCurrency,
-                fixedSide,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
+    public static Conversion create(String buyCurrency, String sellCurrency, String fixedSide) {
+        return new Conversion(buyCurrency, sellCurrency, fixedSide, null, null, null, null, null);
     }
 
-    public static Conversion createForCreate(
+    public static Conversion create(
             String buyCurrency,
             String sellCurrency,
             String fixedSide,

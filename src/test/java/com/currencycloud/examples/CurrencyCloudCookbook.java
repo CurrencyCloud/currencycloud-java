@@ -43,7 +43,7 @@ public class CurrencyCloudCookbook {
         We are happy with the EURGBP rate indicated by Currency Cloud and now wish to create the conversion
         */
 
-        Conversion conversion = Conversion.createForCreate("EUR", "GBP", "buy");
+        Conversion conversion = Conversion.create("EUR", "GBP", "buy");
         conversion = currencyCloud.createConversion( conversion, new BigDecimal("10000.00"), "Invoice Payment", true);
 
         System.out.printf("conversion: %s%n", conversion);
@@ -71,7 +71,7 @@ public class CurrencyCloudCookbook {
         */
 
         // todo: name is missing in the Web example
-        Beneficiary beneficiary = Beneficiary.createForCreate("Acme GmbH", "DE", "EUR", "John Doe");
+        Beneficiary beneficiary = Beneficiary.create("Acme GmbH", "DE", "EUR", "John Doe");
         beneficiary.setBeneficiaryCountry("DE");
         beneficiary.setBicSwift("COBADEFF");
         beneficiary.setIban("DE89370400440532013000");
@@ -86,7 +86,7 @@ public class CurrencyCloudCookbook {
         */
 
         // todo: payment_type is 'priority' in the Web example, but this fails ('Invalid Payment type').
-        Payment payment = Payment.createForCreate(
+        Payment payment = Payment.create(
                 "EUR", beneficiary.getId(), new BigDecimal("10000"), "Invoice Payment", "Invoice 1234",
                 conversion.getId(), null, "regular"
         );

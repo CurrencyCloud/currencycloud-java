@@ -2,6 +2,7 @@ package com.currencycloud.client.http;
 
 import com.currencycloud.client.CurrencyCloudClient;
 import com.currencycloud.client.exception.ApiException;
+import com.currencycloud.client.exception.ForbiddenException;
 import com.currencycloud.client.model.*;
 import com.currencycloud.examples.CurrencyCloudCookbook;
 import org.junit.Ignore;
@@ -49,7 +50,7 @@ public class DemoServerTest {
     @Test
     public void testPaymentTypes() throws Exception {
         try {
-            Beneficiary beneficiary = Beneficiary.createForValidate("GB", "GBP", "GB");
+            Beneficiary beneficiary = Beneficiary.createForValidate("GB", "GBP", "GB"); // todo: does the createForValidate method make sense?
             beneficiary.setBankAddress(Arrays.asList("Trafalgar Square", "London", "UK"));
             beneficiary.setBankName("Acme Bank");
             beneficiary.setPaymentTypes(Arrays.asList("priority", "regular"));
@@ -73,7 +74,7 @@ public class DemoServerTest {
     @Test
     public void testAddress() throws Exception {
         List<String> paymentTypes = Arrays.asList("priority", "regular");
-        Beneficiary beneficiary = Beneficiary.createForCreate("John W Doe", "DE", "EUR", "John Doe");
+        Beneficiary beneficiary = Beneficiary.create("John W Doe", "DE", "EUR", "John Doe");
         beneficiary.setBeneficiaryAddress(Collections.singletonList("Hamburg, GE"));
         beneficiary.setBeneficiaryCountry("DE");
         beneficiary.setBicSwift("COBADEFF");
@@ -139,9 +140,49 @@ public class DemoServerTest {
     }
 
     @Test
+    public void testContacts() throws Exception {
+        String accountId = currencyCloud.currentAccount().getId();
+        log.debug("accountId = {}", accountId);
+
+        Contact contact;
+        try {
+            contact = currencyCloud.createContact(
+                    Contact.create(
+                            accountId, "John Jr.", "Doe", "jdjr@example.com", "555 555 555 555"
+                    )
+            );
+
+            log.debug("contact = {}", contact);
+        } catch (ForbiddenException e) {
+            log.warn("Can't create contact: " + e);
+        }
+
+        contact = currencyCloud.currentContact();
+        log.debug("Current contact = {}", contact);
+
+        try {
+            contact.setPhoneNumber("555 666 777 888");
+            contact = currencyCloud.updateContact(contact);
+        } catch (ForbiddenException e) {
+            log.warn("Can't update contact: " + e);
+        }
+
+        contact = currencyCloud.retrieveContact(contact.getId());
+
+        List<Contact> contacts = currencyCloud.findContacts(contact, Pagination.first()).getContacts();
+        assertFound(contacts, contact);
+
+        contacts = currencyCloud.findContacts(
+                Contact.create(accountId, null, null, null, null),
+                Pagination.builder().pages(1, 10).build()
+        ).getContacts();
+        assertFound(contacts, contact);
+    }
+
+    @Test
     public void testConversions() throws Exception {
         Date date = getDate("2015-05-28");
-        Conversion conversion = Conversion.createForCreate(
+        Conversion conversion = Conversion.create(
                 "EUR", "GBP", "buy", date, null, null, null, null
         );
         conversion = currencyCloud.createConversion(conversion, new BigDecimal("10000.00"), "Invoice Payment", true);
@@ -175,17 +216,17 @@ public class DemoServerTest {
 
     @Test
     public void testPaymentsPayers() throws Exception {
-        Beneficiary beneficiary = Beneficiary.createForCreate("Acme GmbH", "DE", "EUR", "John Doe");
+        Beneficiary beneficiary = Beneficiary.create("Acme GmbH", "DE", "EUR", "John Doe");
         beneficiary.setBicSwift("COBADEFF");
         beneficiary.setIban("DE89370400440532013000");
         beneficiary = currencyCloud.createBeneficiary(beneficiary);
         log.debug("beneficiary = {}", beneficiary);
 
-        Conversion conversion = Conversion.createForCreate("EUR", "GBP", "buy");
+        Conversion conversion = Conversion.create("EUR", "GBP", "buy");
         conversion = currencyCloud.createConversion(conversion, new BigDecimal("10000.00"), "Invoice Payment", true);
         log.debug("conversion = {}", conversion);
 
-        Payment payment = Payment.createForCreate(
+        Payment payment = Payment.create(
                 "EUR", beneficiary.getId(), new BigDecimal("10000"), "Invoice Payment", "Invoice 1234",
                 conversion.getId(), null, "regular"
         );
@@ -240,7 +281,7 @@ public class DemoServerTest {
         assertThat(settlement.getStatus(), equalTo("open"));
 
         Conversion conversion = currencyCloud.createConversion(
-                Conversion.createForCreate("EUR", "GBP", "buy"),
+                Conversion.create("EUR", "GBP", "buy"),
                 new BigDecimal("10000.00"), "Invoice Payment", true
         );
         log.debug("conversion = {}", conversion);
