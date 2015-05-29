@@ -186,7 +186,8 @@ public class DemoServerTest {
 
     @Test
     public void testConversions() throws Exception {
-        Date date = new Date();
+        // Today + 7 days:
+        Date date = getDate(dateFormat.format(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000)));
         Conversion conversion = Conversion.create(
                 "EUR", "GBP", "buy", date, null, null, null, null
         );

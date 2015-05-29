@@ -467,7 +467,7 @@ public class CurrencyCloudClient {
                 amount,
                 reason,
                 termAgreement,
-                dateOnly(conversion.getConversionDate()),
+                conversion.getConversionDate(),
                 conversion.getClientRate(),
                 conversion.getCurrencyPair(),
                 conversion.getClientBuyAmount(),

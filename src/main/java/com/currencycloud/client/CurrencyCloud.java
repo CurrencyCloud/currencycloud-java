@@ -411,7 +411,7 @@ public interface CurrencyCloud {
             @FormParam("amount") BigDecimal amount,
             @FormParam("reason") String reason,
             @FormParam("term_agreement") Boolean termAgreement,
-            @Nullable @FormParam("conversion_date") java.sql.Date conversionDate,
+            @Nullable @FormParam("conversion_date") Date conversionDate, // must be a future date
             @Nullable @FormParam("client_rate") BigDecimal clientRate,
             @Nullable @FormParam("currency_pair") String currencyPair,
             @Nullable @FormParam("client_buy_amount") BigDecimal clientBuyAmount,
