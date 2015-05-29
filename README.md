@@ -93,6 +93,12 @@ that caused an error. Please consult the javadocs for more information.
 When troubleshooting API calls with Currency Cloud support, including the full
 error in any correspondence can be very helpful.
 
+## Logging
+
+The SDK uses [slf4j](slf4j) for logging, wich means you are free to use any of the 
+popular logging providers supported by slf4j in your project. We recommend using logback.
+
+
 # Development
 
 Test cases can be run with `mvn test`. 
@@ -116,4 +122,5 @@ Copyright (c) 2015 Currency Cloud. See [LICENSE][license] for details.
 [travis]:    https://travis-ci.org/CurrencyCloud/currencycloud-java
 [rescu]:     https://github.com/mmazi/rescu
 [semver]:    http://semver.org/
+[slf4j]:     http://www.slf4j.org
 [license]:   LICENSE.md
