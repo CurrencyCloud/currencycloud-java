@@ -1,5 +1,6 @@
 package com.currencycloud.client.model;
 
+import com.currencycloud.client.exception.ApiException;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
@@ -8,9 +9,19 @@ import java.util.Map;
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 public class ErrorMessage {
 
+    private String field;
     private String code;
     private String message;
     private Map<String, Object> params;
+
+    private ErrorMessage() { }
+
+    public ErrorMessage(String field, String code, String message, Map<String, Object> params) {
+        this.field = field;
+        this.code = code;
+        this.message = message;
+        this.params = params;
+    }
 
     /** The error message code */
     public String getCode() {
@@ -20,6 +31,13 @@ public class ErrorMessage {
     /** The error message in English */
     public String getMessage() {
         return message;
+    }
+
+    /** The field whose validation failed.
+     * Note that this is only populated in {@link ApiException} and subclasses,
+     * while it is always null in {@link ResponseException}. */
+    public String getField() {
+        return field;
     }
 
     /** Error parameters (may be used eg. for rendering the error message in other languages */

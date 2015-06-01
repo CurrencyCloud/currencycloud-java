@@ -60,13 +60,12 @@ public class DemoServerTest {
             assertThat("Should fail.", false);
         } catch (ApiException e) {
             log.info(e.toString());
-            Map<String, List<ErrorMessage>> msgs = e.getErrorMessages();
-            List<ErrorMessage> paymentTypesErrors = msgs.get("payment_types");
-            if (paymentTypesErrors != null) {
-                for (ErrorMessage paymentTypesError : paymentTypesErrors) {
+            List<ErrorMessage> msgs = e.getErrorMessages();
+            for (ErrorMessage error : msgs) {
+                if ("payment_types".equals(error.getField())) {
                     if (Arrays.asList("payment_types_type_is_wrong", "payment_types_not_included_in_list")
-                            .contains(paymentTypesError.getCode())) {
-                        throw new AssertionError(paymentTypesError.getMessage());
+                            .contains(error.getCode())) {
+                        throw new AssertionError(error.getMessage());
                     }
                 }
             }

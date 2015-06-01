@@ -23,10 +23,12 @@ public class ErrorTest extends BetamaxTestSupport {
         loginId = "non-existent-login-id";
         apiKey = "ef0fd50fca1fb14c1fab3a8436b9ecb57528f0";
         BadRequestException error = testFailedLogin("auth_invalid_user_login_details", 400, BadRequestException.class);
-        assertThat(error.getErrorMessages().get("api_key").get(0).getCode(), equalTo("api_key_length_is_invalid"));
-        assertThat(error.getErrorMessages().get("api_key").get(0).getMessage(), equalTo("api_key should be 64 character(s) long"));
-        assertThat(error.getErrorMessages().get("api_key").get(0).getParams().get("length"), instanceOf(Integer.class));
-        assertThat((Integer)error.getErrorMessages().get("api_key").get(0).getParams().get("length"), equalTo(new Integer(64)));
+        ErrorMessage errorMessage = error.getErrorMessages().get(0);
+        assertThat(errorMessage.getField(), equalTo("api_key"));
+        assertThat(errorMessage.getCode(), equalTo("api_key_length_is_invalid"));
+        assertThat(errorMessage.getMessage(), equalTo("api_key should be 64 character(s) long"));
+        assertThat(errorMessage.getParams().get("length"), instanceOf(Integer.class));
+        assertThat((Integer) errorMessage.getParams().get("length"), equalTo(new Integer(64)));
 
         // todo:
         /*
@@ -61,7 +63,8 @@ errors:
         loginId = "non-existent-login-id";
         apiKey = "ef0fd50fca1fb14c1fab3a8436b9ecb57528f0";
         BadRequestException error = testFailedLogin("auth_invalid_user_login_details", 400, BadRequestException.class);
-        ErrorMessage errorMessage = error.getErrorMessages().get("api_key").get(0);
+        ErrorMessage errorMessage = error.getErrorMessages().get(0);
+        assertThat(errorMessage.getField(), equalTo("api_key"));
         assertThat(errorMessage.getCode(), equalTo("api_key_length_is_invalid"));
         assertThat(errorMessage.getMessage(), equalTo("api_key should be 64 character(s) long"));
         assertThat(errorMessage.getParams().get("length"), instanceOf(Integer.class));
@@ -74,10 +77,11 @@ errors:
         loginId = "non-existent-login-id";
         apiKey = "efb5ae2af84978b7a37f18dd61c8bbe139b403009faea83484405a3dcb64c4d8";
         AuthenticationException error = testFailedLogin("auth_failed", 401, AuthenticationException.class);
-        assertThat(error.getErrorMessages().get("username").size(), equalTo(1));
-        assertThat(error.getErrorMessages().get("username").get(0).getCode(), equalTo("invalid_supplied_credentials"));
-        assertThat(error.getErrorMessages().get("username").get(0).getMessage(), equalTo("Authentication failed with the supplied credentials"));
-        assertThat(error.getErrorMessages().get("username").get(0).getParams(), anEmptyMap());
+        assertThat(error.getErrorMessages().size(), equalTo(1));
+        assertThat(error.getErrorMessages().get(0).getField(), equalTo("username"));
+        assertThat(error.getErrorMessages().get(0).getCode(), equalTo("invalid_supplied_credentials"));
+        assertThat(error.getErrorMessages().get(0).getMessage(), equalTo("Authentication failed with the supplied credentials"));
+        assertThat(error.getErrorMessages().get(0).getParams(), anEmptyMap());
     }
 
 
@@ -126,7 +130,8 @@ inner_error: Timeout::Error
         assertThat(error.getHttpStatusCode(), equalTo(403));
 
 
-        ErrorMessage errorMessage = error.getErrorMessages().get("username").get(0);
+        ErrorMessage errorMessage = error.getErrorMessages().get(0);
+        assertThat(errorMessage.getField(), equalTo("username"));
         assertThat(errorMessage.getCode(), equalTo("invalid_supplied_credentials"));
         assertThat(errorMessage.getMessage(), equalTo("Authentication failed with the supplied credentials"));
         assertThat(errorMessage.getParams(), is(anEmptyMap()));
@@ -145,7 +150,8 @@ inner_error: Timeout::Error
             assertThat(error.getHttpStatusCode(), equalTo(404));
             assertThat(error.getErrorMessages().size(), equalTo(1));
 
-            ErrorMessage errorMessage = error.getErrorMessages().get("id").get(0);
+            ErrorMessage errorMessage = error.getErrorMessages().get(0);
+            assertThat(errorMessage.getField(), equalTo("id"));
             assertThat(errorMessage.getCode(), equalTo("beneficiary_not_found"));
             assertThat(errorMessage.getMessage(), equalTo("Beneficiary was not found for this id"));
             assertThat(errorMessage.getParams(), is(anEmptyMap()));
@@ -156,7 +162,8 @@ inner_error: Timeout::Error
     @Betamax(tape = "is_raised_on_an_internal_server_error", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testIsRaisedOnAnInternalServerError() throws Exception {
         InternalApplicationException error = testFailedLogin("internal_application_error", 500, InternalApplicationException.class);
-        ErrorMessage errorMessage = error.getErrorMessages().get("base").get(0);
+        ErrorMessage errorMessage = error.getErrorMessages().get(0);
+        assertThat(errorMessage.getField(), equalTo("base"));
         assertThat(errorMessage.getCode(), equalTo("internal_application_error"));
         assertThat(errorMessage.getMessage(), equalTo("A general application error occurred"));
         assertThat(errorMessage.getParams(), hasEntry("request_id", (Object)2771875643610572878L));
@@ -167,7 +174,8 @@ inner_error: Timeout::Error
     public void testIsRaisedWhenTooManyRequestsHaveBeenIssued() throws Exception {
         loginId = "rjnienaber@gmail.com2";
         TooManyRequestsException error = testFailedLogin("too_many_requests", 429, TooManyRequestsException.class);
-        ErrorMessage errorMessage = error.getErrorMessages().get("base").get(0);
+        ErrorMessage errorMessage = error.getErrorMessages().get(0);
+        assertThat(errorMessage.getField(), equalTo("base"));
         assertThat(errorMessage.getCode(), equalTo("too_many_requests"));
         assertThat(errorMessage.getMessage(), equalTo("Too many requests have been made to the api. Please refer to the Developer Center for more information"));
         assertThat(errorMessage.getParams(), is(anEmptyMap()));

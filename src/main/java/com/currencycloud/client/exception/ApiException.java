@@ -3,19 +3,26 @@ package com.currencycloud.client.exception;
 import com.currencycloud.client.model.ErrorMessage;
 import com.currencycloud.client.model.ResponseException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ApiException extends CurrencyCloudException {
     private final int httpStatusCode;
     private final String errorCode;
-    private final Map<String, List<ErrorMessage>> errorMessages;
+    private final List<ErrorMessage> errorMessages;
 
     public ApiException(ResponseException e) {
         super(collectMessages(e));
         httpStatusCode = e.getHttpStatusCode();
         errorCode = e.getErrorCode();
-        errorMessages = e.getErrorMessages();
+        errorMessages = new ArrayList<>();
+        for (Map.Entry<String, List<ErrorMessage>> entry : e.getErrorMessages().entrySet()) {
+            List<ErrorMessage> emsgs = entry.getValue();
+            for (ErrorMessage em : emsgs) {
+                errorMessages.add(new ErrorMessage(entry.getKey(), em.getCode(), em.getMessage(), em.getParams()));
+            }
+        }
     }
 
     static String collectMessages(ResponseException e) {
@@ -51,7 +58,7 @@ public class ApiException extends CurrencyCloudException {
         return errorCode;
     }
 
-    public Map<String, List<ErrorMessage>> getErrorMessages() {
+    public List<ErrorMessage> getErrorMessages() {
         return errorMessages;
     }
 
