@@ -335,7 +335,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("status") String status,
             @Nullable @FormParam("locale") String locale,
             @Nullable @FormParam("timezone") String timezone,
-            @Nullable @FormParam("date_of_birth") Date dateOfBirth
+            @Nullable @FormParam("date_of_birth") java.sql.Date dateOfBirth
     ) throws ResponseException;
 
     /** Retrieve a Contact */
@@ -545,8 +545,8 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("amount_to") BigDecimal amountTo,
             @Nullable @QueryParam("status") String status,
             @Nullable @QueryParam("reason") String reason,
-            @Nullable @QueryParam("payment_date_from") Date paymentDateFrom,
-            @Nullable @QueryParam("payment_date_to") Date paymentDateTo,
+            @Nullable @QueryParam("payment_date_from") java.sql.Date paymentDateFrom,
+            @Nullable @QueryParam("payment_date_to") java.sql.Date paymentDateTo,
             @Nullable @QueryParam("transferred_at_from") Date transferredAtFrom,
             @Nullable @QueryParam("transferred_at_to") Date transferredAtTo,
             @Nullable @QueryParam("created_at_from") Date createdAtFrom,
@@ -594,7 +594,7 @@ public interface CurrencyCloud {
             @QueryParam("sell_currency") String sellCurrency,
             @QueryParam("fixed_side") String fixedSide,
             @QueryParam("amount") BigDecimal amount,
-            @Nullable @QueryParam("conversion_date") Date conversionDate,
+            @Nullable @QueryParam("conversion_date") java.sql.Date conversionDate,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 

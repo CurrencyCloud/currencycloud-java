@@ -392,7 +392,7 @@ public class CurrencyCloudClient {
                 contact.getStatus(),
                 contact.getLocale(),
                 contact.getTimezone(),
-                contact.getDateOfBirth()
+                dateOnly(contact.getDateOfBirth())
         );
     }
 
@@ -622,8 +622,8 @@ public class CurrencyCloudClient {
                                 amountTo,
                                 example.getStatus(),
                                 example.getReason(),
-                                paymentDateFrom,
-                                paymentDateTo,
+                                dateOnly(paymentDateFrom),
+                                dateOnly(paymentDateTo),
                                 transferredAtFrom,
                                 transferredAtTo,
                                 createdAtFrom,
@@ -652,7 +652,7 @@ public class CurrencyCloudClient {
     }
 
     public DetailedRate detailedRates(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, @Nullable Date conversionDate) throws CurrencyCloudException {
-        return api.detailedRates(authToken, buyCurrency, sellCurrency, fixedSide, amount, conversionDate, onBehalfOf);
+        return api.detailedRates(authToken, buyCurrency, sellCurrency, fixedSide, amount, dateOnly(conversionDate), onBehalfOf);
     }
 
     ///////////////////////////////////////////////////////////////////
