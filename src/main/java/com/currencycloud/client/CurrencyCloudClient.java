@@ -414,7 +414,7 @@ public class CurrencyCloudClient {
                 contact.getStatus(),
                 contact.getLocale(),
                 contact.getTimezone(),
-                contact.getDateOfBirth()
+                dateOnly(contact.getDateOfBirth())
         );
     }
 

@@ -362,7 +362,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("status") String status,
             @Nullable @FormParam("locale") String locale,
             @Nullable @FormParam("timezone") String timezone,
-            @Nullable @FormParam("date_of_birth") Date dateOfBirth
+            @Nullable @FormParam("date_of_birth") java.sql.Date dateOfBirth
     ) throws ResponseException;
 
     /** Find Contact */
