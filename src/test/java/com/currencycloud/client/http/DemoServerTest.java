@@ -3,8 +3,10 @@ package com.currencycloud.client.http;
 import com.currencycloud.client.CurrencyCloudClient;
 import com.currencycloud.client.exception.ApiException;
 import com.currencycloud.client.exception.ForbiddenException;
+import com.currencycloud.client.exception.NotFoundException;
 import com.currencycloud.client.model.*;
 import com.currencycloud.examples.CurrencyCloudCookbook;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -317,6 +319,13 @@ public class DemoServerTest {
 
         settlement = currencyCloud.deleteSettlement(settlement.getId());
         assertThat(settlement.getStatus(), equalTo("open"));
+
+        try {
+            currencyCloud.retrieveSettlement(settlement.getId());
+            Assert.fail("Shouldn't be able to retrieve a deleted settlement.");
+        } catch (NotFoundException e) {
+            assertThat(e.getErrorCode(), equalTo("settlement_not_found"));
+        }
     }
 
     @Test
@@ -331,19 +340,21 @@ public class DemoServerTest {
                 Pagination.builder().pages(1, 10).build()
         ).getTransactions();
 
-        Transaction transaction;
-        try {
-            transaction = currencyCloud.retrieveTransaction("c5a990eb-d4d7-482f-bfb1-695261fb1e4f");
-            log.debug("transaction = {}", transaction);
-        } catch (ApiException e) {
-            log.info("Error retrieving transaction: " + e);
-        }
-
         assertThat(transactions, hasSize(greaterThan(0))); // todo: fails
-        transaction = transactions.get(0);
+        Transaction transaction = transactions.get(0);
 
         transaction = currencyCloud.retrieveTransaction(transaction.getId());
         log.debug("transaction = {}", transaction);
+    }
+
+    @Test
+    public void testTransactionRetrieve() throws Exception {
+        try {
+            currencyCloud.retrieveTransaction("c5a990eb-d4d7-482f-bfb1-ffffffffffff");
+//        } catch (NotFoundException e) {
+        } catch (ForbiddenException e) {
+            assertThat(e.getErrorCode(), equalTo("transaction_not_found"));
+        }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
