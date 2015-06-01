@@ -234,7 +234,7 @@ public class DemoServerTest {
         conversion = currencyCloud.createConversion(conversion, new BigDecimal("10000.00"), "Invoice Payment", true);
         log.debug("conversion = {}", conversion);
 
-        BigDecimal amount = new BigDecimal(new Random().nextInt(1000000)).movePointLeft(2);
+        BigDecimal amount = randomAmount();
         Payment payment = Payment.create(
                 "EUR", beneficiary.getId(), amount, "Invoice Payment", "Invoice 1234",
                 conversion.getId(), null, "regular"
@@ -269,7 +269,14 @@ public class DemoServerTest {
         payer.setCity("A different city.");
         currencyCloud.updatePayment(payment, payer);
 
-        currencyCloud.deletePayment(payment.getId()); // fails: At least one payment should be associated with the conversion
+        Payment payment2 = Payment.create(
+                "EUR", beneficiary.getId(), randomAmount(), "Invoice Payment 2", "Invoice 2234",
+                conversion.getId(), null, "regular"
+        );
+        payment2 = currencyCloud.createPayment(payment2, null);
+        log.debug("Created payment2 = {}", payment2);
+
+        currencyCloud.deletePayment(payment.getId());
 
         payments = currencyCloud
                 .findPayments(payment, null, null, null, null, null, null, null, null, null, null, null)
@@ -383,5 +390,9 @@ public class DemoServerTest {
         synchronized (dateFormat) {
             return dateFormat.parse(str);
         }
+    }
+
+    private BigDecimal randomAmount() {
+        return new BigDecimal(new Random().nextInt(1000000)).movePointLeft(2);
     }
 }
