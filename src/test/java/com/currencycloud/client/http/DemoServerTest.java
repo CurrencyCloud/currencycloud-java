@@ -60,7 +60,7 @@ public class DemoServerTest {
             assertThat("Should fail.", false);
         } catch (ApiException e) {
             log.info(e.toString());
-            List<ErrorMessage> msgs = e.getErrorMessages();
+            List<ErrorMessage> msgs = e.getErrors();
             for (ErrorMessage error : msgs) {
                 if ("payment_types".equals(error.getField())) {
                     if (Arrays.asList("payment_types_type_is_wrong", "payment_types_not_included_in_list")

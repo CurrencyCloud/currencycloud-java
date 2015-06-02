@@ -1,26 +1,41 @@
 package com.currencycloud.client.exception;
 
+import com.currencycloud.client.jackson.ExceptionDateSerializer;
 import com.currencycloud.client.model.ErrorMessage;
 import com.currencycloud.client.model.ResponseException;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import si.mazi.rescu.InvocationAware;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class ApiException extends CurrencyCloudException {
-    private final int httpStatusCode;
+
     private final String errorCode;
-    private final List<ErrorMessage> errorMessages;
+    private final List<ErrorMessage> errors;
+    private final Response response;
+
+    protected <E extends Throwable & InvocationAware> ApiException(
+            String message,
+            E cause,
+            String errorCode, List<ErrorMessage> errors, Response response
+    ) {
+        super(message, cause);
+        this.errorCode = errorCode;
+        this.errors = errors;
+        this.response = response;
+    }
 
     public ApiException(ResponseException e) {
-        super(collectMessages(e));
-        httpStatusCode = e.getHttpStatusCode();
-        errorCode = e.getErrorCode();
-        errorMessages = new ArrayList<>();
+        this(collectMessages(e), e, e.getErrorCode(), new ArrayList<ErrorMessage>(), new Response(e.getHttpStatusCode()));
         for (Map.Entry<String, List<ErrorMessage>> entry : e.getErrorMessages().entrySet()) {
             List<ErrorMessage> emsgs = entry.getValue();
             for (ErrorMessage em : emsgs) {
-                errorMessages.add(new ErrorMessage(entry.getKey(), em.getCode(), em.getMessage(), em.getParams()));
+                errors.add(new ErrorMessage(entry.getKey(), em.getCode(), em.getMessage(), em.getParams()));
             }
         }
     }
@@ -50,16 +65,28 @@ public class ApiException extends CurrencyCloudException {
         return new ApiException(e);
     }
 
-    public int getHttpStatusCode() {
-        return httpStatusCode;
+    public Response getResponse() {
+        return response;
     }
 
     public String getErrorCode() {
         return errorCode;
     }
 
-    public List<ErrorMessage> getErrorMessages() {
-        return errorMessages;
+    public List<ErrorMessage> getErrors() {
+        return errors;
     }
 
+    @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+    public static class Response {
+        public final int statusCode;
+
+        @JsonSerialize(using = ExceptionDateSerializer.class)
+        public final Date date = new Date();
+
+        public Response(int statusCode) {
+            this.statusCode = statusCode;
+        }
+
+    }
 }

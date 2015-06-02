@@ -20,7 +20,7 @@ class HttpStatusExceptionInterceptor implements Interceptor {
         } catch (ApiException | UnexpectedException e) {
             throw e;
         } catch (Throwable t) {
-            throw new UnexpectedException(t);
+            throw new UnexpectedException("Error invoking " + method, t);
         }
     }
 }

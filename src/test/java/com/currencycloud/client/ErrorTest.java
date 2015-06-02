@@ -4,7 +4,11 @@ import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.exception.*;
 import com.currencycloud.client.model.ErrorMessage;
+import org.eclipse.jetty.io.WriterOutputStream;
 import org.junit.Test;
+
+import java.io.*;
+import java.util.regex.Pattern;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -23,38 +27,16 @@ public class ErrorTest extends BetamaxTestSupport {
         loginId = "non-existent-login-id";
         apiKey = "ef0fd50fca1fb14c1fab3a8436b9ecb57528f0";
         BadRequestException error = testFailedLogin("auth_invalid_user_login_details", 400, BadRequestException.class);
-        ErrorMessage errorMessage = error.getErrorMessages().get(0);
+        ErrorMessage errorMessage = error.getErrors().get(0);
         assertThat(errorMessage.getField(), equalTo("api_key"));
         assertThat(errorMessage.getCode(), equalTo("api_key_length_is_invalid"));
         assertThat(errorMessage.getMessage(), equalTo("api_key should be 64 character(s) long"));
         assertThat(errorMessage.getParams().get("length"), instanceOf(Integer.class));
         assertThat((Integer) errorMessage.getParams().get("length"), equalTo(new Integer(64)));
 
-        // todo:
-        /*
-            expected_error = %Q{CurrencyCloud::BadRequestError
----
-platform: #{error.platform}
-request:
-  parameters:
-    login_id: non-existent-login-id
-    api_key: ef0fd50fca1fb14c1fab3a8436b9ecb57528f0
-  verb: post
-  url: https://devapi.thecurrencycloud.com/v2/authenticate/api
-response:
-  status_code: 400
-  date: Wed, 29 Apr 2015 22:46:53 GMT
-  request_id: 2775253392756800903
-errors:
-- field: api_key
-  code: api_key_length_is_invalid
-  message: api_key should be 64 character(s) long
-  params:
-    length: 64
-}
-    expect(error.to_s).to eq(expected_error)
+        Pattern expectedErrorPattern = Pattern.compile(readFile("/errors/contains_full_details_for_api_error.re.txt"));
 
-         */
+        assertThat(error.toString(), matchesPattern(expectedErrorPattern));
     }
 
     @Test
@@ -63,7 +45,7 @@ errors:
         loginId = "non-existent-login-id";
         apiKey = "ef0fd50fca1fb14c1fab3a8436b9ecb57528f0";
         BadRequestException error = testFailedLogin("auth_invalid_user_login_details", 400, BadRequestException.class);
-        ErrorMessage errorMessage = error.getErrorMessages().get(0);
+        ErrorMessage errorMessage = error.getErrors().get(0);
         assertThat(errorMessage.getField(), equalTo("api_key"));
         assertThat(errorMessage.getCode(), equalTo("api_key_length_is_invalid"));
         assertThat(errorMessage.getMessage(), equalTo("api_key should be 64 character(s) long"));
@@ -77,60 +59,37 @@ errors:
         loginId = "non-existent-login-id";
         apiKey = "efb5ae2af84978b7a37f18dd61c8bbe139b403009faea83484405a3dcb64c4d8";
         AuthenticationException error = testFailedLogin("auth_failed", 401, AuthenticationException.class);
-        assertThat(error.getErrorMessages().size(), equalTo(1));
-        assertThat(error.getErrorMessages().get(0).getField(), equalTo("username"));
-        assertThat(error.getErrorMessages().get(0).getCode(), equalTo("invalid_supplied_credentials"));
-        assertThat(error.getErrorMessages().get(0).getMessage(), equalTo("Authentication failed with the supplied credentials"));
-        assertThat(error.getErrorMessages().get(0).getParams(), anEmptyMap());
+        assertThat(error.getErrors().size(), equalTo(1));
+        assertThat(error.getErrors().get(0).getField(), equalTo("username"));
+        assertThat(error.getErrors().get(0).getCode(), equalTo("invalid_supplied_credentials"));
+        assertThat(error.getErrors().get(0).getMessage(), equalTo("Authentication failed with the supplied credentials"));
+        assertThat(error.getErrors().get(0).getParams(), anEmptyMap());
     }
 
-
-// todo:
-/*
     @Test
-    @Betamax(tape = "is_raised_on_unexpected_error", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testIsRaisedOnUnexpectedError() throws Exception {
-
+        // No Betamax here. The call will fail with java.net.ConnectException
+        // because there is (hopefully) no server at localhost:5555.
+        CurrencyCloudClient client = prepareTestClient(loginId, apiKey, null);
+        try {
+            client.authenticate();
+            throw new AssertionError("Should have failed");
+        } catch (UnexpectedException error) {
+            error.printStackTrace();
+            Pattern expectedErrorPattern = Pattern.compile(readFile("/errors/is_raised_on_unexpected_error.re.txt"));
+            assertThat(error.toString(), matchesPattern(expectedErrorPattern));
+        }
     }
-*/
-/*
-  it '' do
-    allow(HTTParty).to receive(:post).and_raise(Timeout::Error)
-
-    error = nil
-    begin
-      CurrencyCloud.session
-      raise 'Should have failed'
-    rescue CurrencyCloud::UnexpectedError => error
-    end
-
-        expected_error = %Q{CurrencyCloud::UnexpectedError
----
-platform: #{error.platform}
-request:
-  parameters:
-    login_id: rjnienaber@gmail.com
-    api_key: ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0
-  verb: post
-  url: https://devapi.thecurrencycloud.com/v2/authenticate/api
-inner_error: Timeout::Error
-}
-
-    expect(error.to_s).to eq(expected_error)
-    expect(error.inner_error).to_not be_nil
-    expect(error.inner_error.class).to eq(Timeout::Error)
-  end
-*/
 
     @Test
     @Betamax(tape = "is_raised_on_a_forbidden_request", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testIsRaisedOnAForbiddenRequest() throws Exception {
         ForbiddenException error = testFailedLogin("auth_failed", 403, ForbiddenException.class);
         assertThat(error.getErrorCode(), equalTo("auth_failed"));
-        assertThat(error.getHttpStatusCode(), equalTo(403));
+        assertThat(error.getResponse().statusCode, equalTo(403));
 
 
-        ErrorMessage errorMessage = error.getErrorMessages().get(0);
+        ErrorMessage errorMessage = error.getErrors().get(0);
         assertThat(errorMessage.getField(), equalTo("username"));
         assertThat(errorMessage.getCode(), equalTo("invalid_supplied_credentials"));
         assertThat(errorMessage.getMessage(), equalTo("Authentication failed with the supplied credentials"));
@@ -147,10 +106,10 @@ inner_error: Timeout::Error
             assertThat("Should fail.", false);
         } catch (NotFoundException error) {
             assertThat(error.getErrorCode(), equalTo("beneficiary_not_found"));
-            assertThat(error.getHttpStatusCode(), equalTo(404));
-            assertThat(error.getErrorMessages().size(), equalTo(1));
+            assertThat(error.getResponse().statusCode, equalTo(404));
+            assertThat(error.getErrors().size(), equalTo(1));
 
-            ErrorMessage errorMessage = error.getErrorMessages().get(0);
+            ErrorMessage errorMessage = error.getErrors().get(0);
             assertThat(errorMessage.getField(), equalTo("id"));
             assertThat(errorMessage.getCode(), equalTo("beneficiary_not_found"));
             assertThat(errorMessage.getMessage(), equalTo("Beneficiary was not found for this id"));
@@ -162,7 +121,7 @@ inner_error: Timeout::Error
     @Betamax(tape = "is_raised_on_an_internal_server_error", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testIsRaisedOnAnInternalServerError() throws Exception {
         InternalApplicationException error = testFailedLogin("internal_application_error", 500, InternalApplicationException.class);
-        ErrorMessage errorMessage = error.getErrorMessages().get(0);
+        ErrorMessage errorMessage = error.getErrors().get(0);
         assertThat(errorMessage.getField(), equalTo("base"));
         assertThat(errorMessage.getCode(), equalTo("internal_application_error"));
         assertThat(errorMessage.getMessage(), equalTo("A general application error occurred"));
@@ -174,7 +133,7 @@ inner_error: Timeout::Error
     public void testIsRaisedWhenTooManyRequestsHaveBeenIssued() throws Exception {
         loginId = "rjnienaber@gmail.com2";
         TooManyRequestsException error = testFailedLogin("too_many_requests", 429, TooManyRequestsException.class);
-        ErrorMessage errorMessage = error.getErrorMessages().get(0);
+        ErrorMessage errorMessage = error.getErrors().get(0);
         assertThat(errorMessage.getField(), equalTo("base"));
         assertThat(errorMessage.getCode(), equalTo("too_many_requests"));
         assertThat(errorMessage.getMessage(), equalTo("Too many requests have been made to the api. Please refer to the Developer Center for more information"));
@@ -188,10 +147,24 @@ inner_error: Timeout::Error
             throw new AssertionError("Should have failed");
         } catch (ApiException error) {
             assertThat(error, instanceOf(exceptionClass));
-            assertThat(error.getHttpStatusCode(), equalTo(httpStatusCode));
+            assertThat(error.getResponse().statusCode, equalTo(httpStatusCode));
             assertThat(error.getErrorCode(), equalTo(errorCode));
-            assertThat(error.getErrorMessages().size(), equalTo(1));
+            assertThat(error.getErrors().size(), equalTo(1));
             return exceptionClass.cast(error);
+        }
+    }
+
+    private String readFile(String file) throws IOException {
+        try (
+                BufferedReader input = new BufferedReader(new InputStreamReader(ErrorTest.class.getResourceAsStream(file)));
+                StringWriter writer = new StringWriter();
+                PrintStream printStream = new PrintStream(new WriterOutputStream(writer))
+        ) {
+            String line;
+            while ((line = input.readLine()) != null) {
+                printStream.println(line);
+            }
+            return writer.toString();
         }
     }
 }
