@@ -3,7 +3,7 @@
 # Currency Cloud API v2 Java client
 
 This is the official Java SDK for the Currency Cloud API. Additional documentation 
-for each API endpoint can be found at [connect.currencycloud.com][connect].
+for each API endpoint can be found at [connect.currencycloud.com][connect]. If you have any queries or you require support, please contact our implementation team at implementation@currencycloud.com.
 
 ## Installation
 
