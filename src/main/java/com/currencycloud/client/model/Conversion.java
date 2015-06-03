@@ -44,7 +44,7 @@ public class Conversion implements HasId {
     private Date createdAt;
     private Date updatedAt;
 
-    private Conversion() { }
+    protected Conversion() { }
 
     private Conversion(
             @FormParam("buy_currency") String buyCurrency,

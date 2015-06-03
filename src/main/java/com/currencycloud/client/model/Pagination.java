@@ -114,7 +114,7 @@ public class Pagination {
         private String order;
         private SortOrder orderAscDesc;
 
-        private Builder() {
+        protected Builder() {
         }
 
         public Builder pages(Integer currentPage, Integer perPage) {

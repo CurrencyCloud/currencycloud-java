@@ -1,4 +1,3 @@
-
 package com.currencycloud.client.model;
 
 
@@ -34,7 +33,7 @@ public class Payment implements HasId {
     private Date createdAt;
     private Date updatedAt;
 
-    private Payment() { }
+    protected Payment() { }
 
     private Payment(String id,
                     String currency,

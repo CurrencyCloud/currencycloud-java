@@ -28,7 +28,7 @@ public class Transaction implements HasId {
     private Date createdAt;
     private Date updatedAt;
 
-    private Transaction() { }
+    protected Transaction() { }
 
     private Transaction(
             String currency,

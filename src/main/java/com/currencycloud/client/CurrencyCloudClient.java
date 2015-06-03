@@ -1,9 +1,15 @@
 package com.currencycloud.client;
 
+import com.currencycloud.client.dirty.DirtyInterceptor;
+import com.currencycloud.client.dirty.DirtyWatcherInterceptor;
 import com.currencycloud.client.exception.CurrencyCloudException;
 import com.currencycloud.client.model.*;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.sf.cglib.proxy.Callback;
+import net.sf.cglib.proxy.Factory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import si.mazi.rescu.ClientConfig;
 import si.mazi.rescu.RestProxyFactory;
 import si.mazi.rescu.serialization.jackson.JacksonConfigureListener;
@@ -17,6 +23,8 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class CurrencyCloudClient {
+
+    private static final Logger log = LoggerFactory.getLogger(CurrencyCloudClient.class);
 
     private static final Pattern UUID = Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", Pattern.CASE_INSENSITIVE);
 
@@ -45,7 +53,10 @@ public class CurrencyCloudClient {
 
         api = RestProxyFactory.createProxy(
                 CurrencyCloud.class, url, config,
-                new AutoAuthenticate(this), new HttpStatusExceptionInterceptor(), new ReauthenticateInterceptor(this)
+                new AutoAuthenticate(this),
+                new HttpStatusExceptionInterceptor(),
+                new ReauthenticateInterceptor(this),
+                new DirtyWatcherInterceptor()
         );
     }
 
@@ -142,20 +153,21 @@ public class CurrencyCloudClient {
     }
 
     public Account updateAccount(Account account) throws CurrencyCloudException {
+        Collection<String> dirtyProperties = getDirtyProperties(account);
         return api.updateAccount(authToken,
                                  account.getId(),
-                                 account.getAccountName(),
-                                 account.getLegalEntityType(),
-                                 account.getYourReference(),
-                                 account.getStatus(),
-                                 account.getStreet(),
-                                 account.getCity(),
-                                 account.getStateOrProvince(),
-                                 account.getPostalCode(),
-                                 account.getCountry(),
-                                 account.getSpreadTable(),
-                                 account.getIdentificationType(),
-                                 account.getIdentificationValue()
+                                 CurrencyCloudClient.<String>getIfDirty(account, "accountName", dirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(account, "legalEntityType", dirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(account, "yourReference", dirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(account, "status", dirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(account, "street", dirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(account, "city", dirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(account, "stateOrProvince", dirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(account, "postalCode", dirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(account, "country", dirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(account, "spreadTable", dirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(account, "identificationType", dirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(account, "identificationValue", dirtyProperties)
         );
     }
 
@@ -280,38 +292,39 @@ public class CurrencyCloudClient {
     }
 
     public Beneficiary updateBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
+        Collection<String> dirtyProperties = getDirtyProperties(beneficiary);
         return api.updateBeneficiary(
                 authToken,
                 beneficiary.getId(),
-                beneficiary.getBankAccountHolderName(),
-                beneficiary.getBankCountry(),
-                beneficiary.getCurrency(),
-                beneficiary.getName(),
-                beneficiary.getEmail(),
-                Utils.join(beneficiary.getBeneficiaryAddress(), "\r\n"),
-                beneficiary.getBeneficiaryCountry(),
-                beneficiary.getAccountNumber(),
-                beneficiary.getRoutingCodeType1(),
-                beneficiary.getRoutingCodeValue1(),
-                beneficiary.getRoutingCodeType2(),
-                beneficiary.getRoutingCodeValue2(),
-                beneficiary.getBicSwift(),
-                beneficiary.getIban(),
-                beneficiary.getDefaultBeneficiary(),
-                beneficiary.getBankAddress(),
-                beneficiary.getBankName(),
-                beneficiary.getBankAccountType(),
-                beneficiary.getBeneficiaryEntityType(),
-                beneficiary.getBeneficiaryCompanyName(),
-                beneficiary.getBeneficiaryFirstName(),
-                beneficiary.getBeneficiaryLastName(),
-                beneficiary.getBeneficiaryCity(),
-                beneficiary.getBeneficiaryPostcode(),
-                beneficiary.getBeneficiaryStateOrProvince(),
-                beneficiary.getBeneficiaryDateOfBirth(),
-                beneficiary.getBeneficiaryIdentificationType(),
-                beneficiary.getBeneficiaryIdentificationValue(),
-                beneficiary.getPaymentTypes(),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "bankAccountHolderName", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "bankCountry", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "currency", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "name", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "email", dirtyProperties),
+                Utils.join(CurrencyCloudClient.<List<String>>getIfDirty(beneficiary, "beneficiaryAddress", dirtyProperties), "\r\n"),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "beneficiaryCountry", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "accountNumber", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "routingCodeType1", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "routingCodeValue1", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "routingCodeType2", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "routingCodeValue2", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "bicSwift", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "iban", dirtyProperties),
+                CurrencyCloudClient.<Boolean>getIfDirty(beneficiary, "defaultBeneficiary", dirtyProperties),
+                CurrencyCloudClient.<List<String>>getIfDirty(beneficiary, "bankAddress", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "bankName", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "bankAccountType", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "beneficiaryEntityType", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "beneficiaryCompanyName", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "beneficiaryFirstName", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "beneficiaryLastName", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "beneficiaryCity", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "beneficiaryPostcode", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "beneficiaryStateOrProvince", dirtyProperties),
+                CurrencyCloudClient.<Date>getIfDirty(beneficiary, "beneficiaryDateOfBirth", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "beneficiaryIdentificationType", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(beneficiary, "beneficiaryIdentificationValue", dirtyProperties),
+                CurrencyCloudClient.<List<String>>getIfDirty(beneficiary, "paymentTypes", dirtyProperties),
                 onBehalfOf
         );
     }
@@ -401,20 +414,21 @@ public class CurrencyCloudClient {
     }
 
     public Contact updateContact(Contact contact) throws ResponseException {
+        Collection<String> dirtyProperties = getDirtyProperties(contact);
         return api.updateContact(
                 authToken,
                 contact.getId(),
-                contact.getFirstName(),
-                contact.getLastName(),
-                contact.getEmailAddress(),
-                contact.getPhoneNumber(),
-                contact.getYourReference(),
-                contact.getMobilePhoneNumber(),
-                contact.getLoginId(),
-                contact.getStatus(),
-                contact.getLocale(),
-                contact.getTimezone(),
-                dateOnly(contact.getDateOfBirth())
+                CurrencyCloudClient.<String>getIfDirty(contact, "firstName", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(contact, "lastName", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(contact, "emailAddress", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(contact, "phoneNumber", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(contact, "yourReference", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(contact, "mobilePhoneNumber", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(contact, "loginId", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(contact, "status", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(contact, "locale", dirtyProperties),
+                CurrencyCloudClient.<String>getIfDirty(contact, "timezone", dirtyProperties),
+                dateOnly(CurrencyCloudClient.<Date>getIfDirty(contact, "dateOfBirth", dirtyProperties))
         );
     }
 
@@ -571,26 +585,28 @@ public class CurrencyCloudClient {
         if (payer == null) {
             payer = Payer.create();
         }
+        Collection<String> paymentDirtyProperties = getDirtyProperties(payment);
+        Collection<String> payerDirtyProperties = getDirtyProperties(payer);
         return api.updatePayment(authToken,
                                  payment.getId(),
-                                 payment.getCurrency(),
-                                 payment.getBeneficiaryId(),
-                                 payment.getAmount(),
-                                 payment.getReason(),
-                                 payment.getReference(),
-                                 dateOnly(payment.getPaymentDate()),
-                                 payment.getPaymentType(),
-                                 payment.getConversionId(),
-                                 payer.getLegalEntityType(),
-                                 payer.getCompanyName(),
-                                 payer.getFirstName(),
-                                 payer.getLastName(),
-                                 payer.getCity(),
-                                 payer.getPostcode(),
-                                 payer.getStateOrProvince(),
-                                 dateOnly(payer.getDateOfBirth()),
-                                 payer.getIdentificationType(),
-                                 payer.getIdentificationValue(),
+                                 CurrencyCloudClient.<String>getIfDirty(payment, "currency", paymentDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payment, "beneficiaryId", paymentDirtyProperties),
+                                 CurrencyCloudClient.<BigDecimal>getIfDirty(payment, "amount", paymentDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payment, "reason", paymentDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payment, "reference", paymentDirtyProperties),
+                                 dateOnly(CurrencyCloudClient.<Date>getIfDirty(payment, "paymentDate", paymentDirtyProperties)),
+                                 CurrencyCloudClient.<String>getIfDirty(payment, "paymentType", paymentDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payment, "conversionId", paymentDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payer, "legalEntityType", payerDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payer, "companyName", payerDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payer, "firstName", payerDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payer, "lastName", payerDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payer, "city", payerDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payer, "postcode", payerDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payer, "stateOrProvince", payerDirtyProperties),
+                                 dateOnly(CurrencyCloudClient.<Date>getIfDirty(payer, "dateOfBirth", payerDirtyProperties)),
+                                 CurrencyCloudClient.<String>getIfDirty(payer, "identificationType", payerDirtyProperties),
+                                 CurrencyCloudClient.<String>getIfDirty(payer, "identificationValue", payerDirtyProperties),
                                  onBehalfOf
         );
     }
@@ -796,6 +812,39 @@ public class CurrencyCloudClient {
     @Nullable
     private static java.sql.Date dateOnly(@Nullable Date date) {
         return date == null ? null : new java.sql.Date(date.getTime());
+    }
+
+    /**
+     * @param updated The object to be checked for dirty properties
+     * @return The collection of updated properties (may be empty), or null if dirty checking is not enabled for this object.
+     */
+    @Nullable
+    private Collection<String> getDirtyProperties(Object updated) {
+        if (updated instanceof Factory) {
+            Factory proxy = (Factory) updated;
+            for (Callback callback : proxy.getCallbacks()) {
+                if (callback instanceof DirtyInterceptor) {
+                    DirtyInterceptor dirtyInterceptor = (DirtyInterceptor) callback;
+                    return dirtyInterceptor.getDirtyProperties();
+                }
+            }
+        }
+        log.warn("Can't check if the object is dirty because it was not obtained from the client: {}", updated);
+        return null;
+    }
+
+    private static <T> T getIfDirty(Object updated, String property, Collection<String> dirtyProperties) {
+        if (dirtyProperties == null || dirtyProperties.contains(property)) {
+            try {
+                return (T) DirtyWatcherInterceptor.getGetterFromProperty(updated.getClass(), property).invoke(updated);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("Error getting dirty value. This is probably a bug in the Currency Cloud SDK.", e);
+            }
+        }
+        if (!dirtyProperties.contains(property)) {
+            log.debug("Skipping non-dirty property {}", property);
+        }
+        return null;
     }
 
     public enum Environment {

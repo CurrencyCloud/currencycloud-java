@@ -1,4 +1,3 @@
-
 package com.currencycloud.client.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,7 +28,7 @@ public class Payer implements HasId {
     private Date createdAt;
     private Date updatedAt;
 
-    private Payer() { }
+    protected Payer() { }
 
     private Payer(String entityType,
                   String companyName,

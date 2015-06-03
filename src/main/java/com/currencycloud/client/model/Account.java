@@ -44,7 +44,7 @@ public class Account implements HasId {
 
     private String shortReference;
 
-    private Account() { }
+    protected Account() { }
 
     private Account(String accountName, String legalEntityType) {
         this.accountName = accountName;

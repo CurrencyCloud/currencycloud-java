@@ -43,7 +43,7 @@ public class Contact implements HasId {
 
     private Date updatedAt;  // 2014-01-12T00:00:00+00:00
 
-    private Contact() { }
+    protected Contact() { }
 
     private Contact(
             String accountId,
