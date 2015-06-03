@@ -1,5 +1,5 @@
 ---
-platform: [^\n]+
+platform: "${error.platform}"
 request:
   parameters:
     login_id: "non-existent-login-id"
@@ -8,11 +8,12 @@ request:
   url: "http://localhost:5555/v2/authenticate/api"
 response:
   status_code: 400
-  date: "[A-Z][a-z]{2}, [0-9]{1,2} [A-Z][a-z]{2} [0-9]{1,4} [0-9]{2}:[0-9]{2}:[0-9]{2} [A-Z]{1,6}"
+  date: "Wed, 29 Apr 2015 22:46:53 GMT"
+  request_id: "2775253392756800903"
 error_code: "auth_invalid_user_login_details"
 errors:
 - field: "api_key"
   code: "api_key_length_is_invalid"
-  message: "api_key should be 64 character\(s\) long"
+  message: "api_key should be 64 character(s) long"
   params:
     length: 64

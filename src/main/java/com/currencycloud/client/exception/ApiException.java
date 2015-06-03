@@ -1,15 +1,14 @@
 package com.currencycloud.client.exception;
 
-import com.currencycloud.client.jackson.ExceptionDateSerializer;
+import com.currencycloud.client.Utils;
 import com.currencycloud.client.model.ErrorMessage;
 import com.currencycloud.client.model.ResponseException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import si.mazi.rescu.InvocationAware;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,9 @@ public class ApiException extends CurrencyCloudException {
     protected <E extends Throwable & InvocationAware> ApiException(
             String message,
             E cause,
-            String errorCode, List<ErrorMessage> errors, Response response
+            String errorCode,
+            List<ErrorMessage> errors,
+            Response response
     ) {
         super(message, cause);
         this.errorCode = errorCode;
@@ -31,7 +32,7 @@ public class ApiException extends CurrencyCloudException {
     }
 
     public ApiException(ResponseException e) {
-        this(collectMessages(e), e, e.getErrorCode(), new ArrayList<ErrorMessage>(), new Response(e.getHttpStatusCode()));
+        this(collectMessages(e), e, e.getErrorCode(), new ArrayList<ErrorMessage>(), new Response(e.getHttpStatusCode(), e.getResponseHeaders()));
         for (Map.Entry<String, List<ErrorMessage>> entry : e.getErrorMessages().entrySet()) {
             List<ErrorMessage> emsgs = entry.getValue();
             for (ErrorMessage em : emsgs) {
@@ -78,15 +79,26 @@ public class ApiException extends CurrencyCloudException {
     }
 
     @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
-    public static class Response {
+    @JsonPropertyOrder({"statusCode", "date", "requestId"})
+     public static class Response {
         public final int statusCode;
+        public final String requestId;
+        public final String date;
 
-        @JsonSerialize(using = ExceptionDateSerializer.class)
-        public final Date date = new Date();
-
-        public Response(int statusCode) {
+        public Response(int statusCode, Map<String, List<String>> responseHeaders) {
             this.statusCode = statusCode;
+            this.requestId = get(responseHeaders, "X-Request-Id");
+            this.date = get(responseHeaders, "Date");
         }
 
+        private String get(Map<String, List<String>> responseHeaders, String date) {
+            if (responseHeaders != null) {
+                List<String> all = responseHeaders.get(date);
+                if (all != null && !all.isEmpty()) {
+                    return Utils.joinInverse(all, ", ");
+                }
+            }
+            return null;
+        }
     }
 }
