@@ -54,7 +54,7 @@ While we expose certain routes on the sandbox API without the requirement for au
 
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-{{ version }}.jar 
+3. Download the currencycloud-java-0.7-SNAPSHOT.jar 
 
 **Please note:**  This downloads **ONLY** the Currency Cloud SDK jar, and you will need to manually locate and download any required dependencies.  
 
@@ -91,13 +91,7 @@ from the documentation.
 ### 1. Authenticating for each request.
 
 Avoid authenticating on a per-request basis.  Sessions have a timeout of several tens of minutes; this is specifically because we want customers to authenticate and then maintain a live session for as long as is feasible.
-A good workflow would be:
-
-1. Authenticate
-2. Perform operation
-...
-N-1. Perform final operation
-N. Disconnect
+Try to write your application so that it establishes a session on startup and keeps this alive until you shut the application down.  This will translate into fewer requests on your part and less server load on our part.
 
 Authentication requests are logged and actively rate-limited on the sandbox in order to encourage users to follow the above pattern of usage.  
 
