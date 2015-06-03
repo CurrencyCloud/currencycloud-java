@@ -1,10 +1,8 @@
 [![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
 
-{% capture version %}0.7-SNAPSHOT{% endcapture %}
-
 # Currency Cloud API v2 Java client
 
-## Version: {{ version }}
+## Version: 0.7-SNAPSHOT
 
 This is the official Java SDK for the Currency Cloud API. Additional documentation 
 for each API endpoint can be found at [connect.currencycloud.com][connect]. 
@@ -44,7 +42,7 @@ While we expose certain routes on the sandbox API without the requirement for au
 
 2. Add `target/currencycloud-java-*.jar` in your project's classpath, or include it by adding the following dependency to your project `pom.xml`:
 
-```Maven POM
+```xml
    <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
@@ -58,7 +56,7 @@ While we expose certain routes on the sandbox API without the requirement for au
 2. Navigate to the version of currencycloud-java that you wish to use
 3. Download the currencycloud-java-{{ version }}.jar 
 
-**Please note:**  This downloads **ONLY** the Currency Cloud SDK jar, and you will need to manually locate and download any required [dependencies](#dependencies)  
+**Please note:**  This downloads **ONLY** the Currency Cloud SDK jar, and you will need to manually locate and download any required dependencies.  
 
 # Usage
 
@@ -155,7 +153,7 @@ popular logging providers supported by slf4j in your project. We recommend using
 
 Test cases can be run with `mvn test`. 
 
-## <a name="dependencies"></a>Dependencies
+## Dependencies
 * [Rescu][rescu]
 * [SLF4J][slf4j]
 
