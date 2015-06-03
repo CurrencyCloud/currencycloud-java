@@ -128,11 +128,47 @@ that the real user who executed the transaction will also be stored.
 The SDK is thread-safe, and ideally you should share one session across all your worker threads - this is because we specifically rate limit authentication requests.
 
 ## Errors
-
 When an error occurs in the API, the library aims to give us much information
-as possible. A `CurrencyCloudException` will be thrown that contains the HTTP response
-code, error codes and details messages with parameters for each field/parameter
-that caused an error. Please consult the javadocs for more information.
+as possible. A `CurrencyCloudException` will be thrown that contains much useful information
+that you can access via its methods (please consult the javadoc for more information).
+When the exception is logged, it will provide information such as the following:
+
+```yaml
+BadRequestException
+---
+platform: Java 1.7.0_51 (Oracle Corporation)
+request:
+  parameters:
+    login_id: non-existent-login-id
+    api_key: ef0fd50fca1fb14c1fab3a8436b9ecb57528f0
+  verb: post
+  url: https://devapi.thecurrencycloud.com/v2/authenticate/api
+response:
+  status_code: 400
+  date: Wed, 29 Apr 2015 22:46:53 GMT
+  request_id: 2775253392756800903
+errors:
+- field: api_key
+  code: api_key_length_is_invalid
+  message: api_key should be 64 character(s) long
+  params:
+    length: 64
+```
+
+This is split into 5 sections:
+
+1. Error Type: In this case `BadRequestException` represents an HTTP 400 error
+2. Platform: The Java implementation that was used in the client
+3. Request: Details about the HTTP request that was made, e.g. the POST parameters
+4. Response: Details about the HTTP response that was returned, e.g. HTTP status code
+5. Errors: A list of errors that provide additional information
+
+The final section contains valuable information:
+
+- Field: The parameter that the error is linked to
+- Code: A code representing this error
+- Message: A human readable message that explains the error
+- Params: A map that contains dynamic parts of the error message for building custom error messages
 
 When troubleshooting API calls with Currency Cloud support, including the full
 error in any correspondence can be very helpful.
