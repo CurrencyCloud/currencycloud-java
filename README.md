@@ -1,30 +1,64 @@
 [![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
 
+{% capture version %}0.7-SNAPSHOT{% endcapture %}
+
 # Currency Cloud API v2 Java client
 
+## Version: {{ version }}
+
 This is the official Java SDK for the Currency Cloud API. Additional documentation 
-for each API endpoint can be found at [connect.currencycloud.com][connect]. If you have any queries or you require support, please contact our implementation team at implementation@currencycloud.com.
+for each API endpoint can be found at [connect.currencycloud.com][connect]. 
 
-## Installation
+If you have any queries or you require support, please contact our implementation team at implementation@currencycloud.com.  Please quote your login id in any correspondence as this makes
+it far simpler for us to locate your account and give you the support you need.
 
-To use `currencycloud-java` you currently need to get the source and build it yourself. The easiest way to do this
-is using git and Maven:
+## Prerequisites
+
+### 1. Maven
+
+CurrencyCloud-Java is a Maven project.  You will require [Apache Maven][maven] 3 in order to build the SDK.  You can download the snapshots from [Sonatype Nexus][nexus] if you desire, but
+it will be far easier to simply make use of maven to build the project and do the dependency management for you.
+
+### 2. Oracle JDK 7 or equivalent JDK
+
+CurrencyCloud-Java makes use of annotations and generics.  It requires at least a Java version 7 compatible JDK.
+
+### 3. A valid sandbox login id and api key on the CurrencyCloud sandbox API environment.
+
+While we expose certain routes on the sandbox API without the requirement for authentication, we rate-limit these requests aggressively to prevent abuse of the sandbox.  Rate-limiting on authenticated requests
+ is far more lenient.
+
+## Installing the Currency Cloud SDK
+
+### 1. Using Git and Maven
+
+#### Steps
+
+1. In a shell, do the following
 
 ```Shell
-git clone https://github.com/CurrencyCloud/currencycloud-java.git     
-cd currencycloud-java
-mvn clean install
+    git clone https://github.com/CurrencyCloud/currencycloud-java.git     
+    cd currencycloud-java
+    mvn clean install
 ```
 
-Then include `target/currencycloud-java-*.jar` in your project's classpath, or include it using Maven:
+2. Add `target/currencycloud-java-*.jar` in your project's classpath, or include it by adding the following dependency to your project `pom.xml`:
 
-```xml
-<dependency>
+```Maven POM
+   <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
     <version>0.7-SNAPSHOT</version>
 </dependency>
 ```
+
+### 2. Manually downloading the dependency
+
+1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
+2. Navigate to the version of currencycloud-java that you wish to use
+3. Download the currencycloud-java-{{ version }}.jar 
+
+**Please note:**  This downloads **ONLY** the Currency Cloud SDK jar, and you will need to manually locate and download any required [dependencies](#dependencies)  
 
 # Usage
 
@@ -54,6 +88,21 @@ For a slightly longer example, see
 which is an implementation of [the Cookbook](https://connect.currencycloud.com/documentation/getting-started/cookbook) 
 from the documentation.
 
+## Common Misconceptions and Antipatterns
+
+### 1. Authenticating for each request.
+
+Avoid authenticating on a per-request basis.  Sessions have a timeout of several tens of minutes; this is specifically because we want customers to authenticate and then maintain a live session for as long as is feasible.
+A good workflow would be:
+
+1. Authenticate
+2. Perform operation
+...
+N-1. Perform final operation
+N. Disconnect
+
+Authentication requests are logged and actively rate-limited on the sandbox in order to encourage users to follow the above pattern of usage.  
+
 ## On Behalf Of
 If you want to make calls on behalf of another user (e.g. someone who has a sub-account with you), you 
 can execute certain commands 'on behalf of' the user's contact id. Here is an example:
@@ -82,6 +131,9 @@ currencyCloud.onBehalfOfDo("c6ece846-6df1-461d-acaa-b42a6aa74045", () -> {
 Each of the above transactions will be executed in scope of the limits for that contact and linked to that contact. Note
 that the real user who executed the transaction will also be stored.
 
+## Concurrency and Sessions 
+
+The SDK is thread-safe, and ideally you should share one session across all your worker threads - this is because we specifically rate limit authentication requests.
 
 ## Errors
 
@@ -103,8 +155,9 @@ popular logging providers supported by slf4j in your project. We recommend using
 
 Test cases can be run with `mvn test`. 
 
-## Dependencies
+## <a name="dependencies"></a>Dependencies
 * [Rescu][rescu]
+* [SLF4J][slf4j]
 
 ## Versioning
 
@@ -118,6 +171,9 @@ Copyright (c) 2015 Currency Cloud. See [LICENSE][license] for details.
 
 
 
+[maven]:     https://maven.apache.org/index.html
+[nexus]:     http://www.sonatype.org/nexus/
+[slf4j]:     http://www.slf4j.org/
 [connect]:   https://connect.currencycloud.com/documentation/getting-started/introduction
 [travis]:    https://travis-ci.org/CurrencyCloud/currencycloud-java
 [rescu]:     https://github.com/mmazi/rescu
