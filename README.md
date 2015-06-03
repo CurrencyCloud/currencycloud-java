@@ -11,7 +11,7 @@ To use `currencycloud-java` you currently need to get the source and build it yo
 is using git and Maven:
 
 ```Shell
-git clone git@github.com:CurrencyCloud/currencycloud-java.git
+git clone https://github.com/CurrencyCloud/currencycloud-java.git     
 cd currencycloud-java
 mvn clean install
 ```
