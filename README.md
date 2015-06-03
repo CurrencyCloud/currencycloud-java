@@ -88,7 +88,7 @@ from the documentation.
 
 ## Common Misconceptions and Antipatterns
 
-### 1. Authenticating for each request.
+### 1. Creating a client for each request.
 
 Avoid creating one client per request.  Sessions have a timeout of several tens of minutes; this is specifically because we want customers to reuse existing sessions for as long as is feasible.
 Try to write your application so that it establishes a single instance of the CurrencyCloudClient class on startup and shares this between threads, keeping it alive until you shut the application down.  
