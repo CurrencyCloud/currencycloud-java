@@ -15,6 +15,7 @@ import si.mazi.rescu.RestInvocation;
 import javax.annotation.Nullable;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.QueryParam;
+import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -70,12 +71,15 @@ public abstract class CurrencyCloudException extends RuntimeException {
 
     @Override
     public String toString() {
-        try {
+        try (
+                StringWriter out = new StringWriter();
+                PrintWriter writer = new PrintWriter(out)
+        ) {
             ObjectMapper mapper = new ObjectMapper(YAML_FACTORY);
+            writer.println(getClass().getSimpleName());
             mapper.setAnnotationIntrospector(IGNORE_EXCEPTION_PROPERTIES);
-            StringWriter writer = new StringWriter();
             mapper.writeValue(writer, this);
-            return writer.toString();
+            return out.toString();
         } catch (Exception e) {
             log.warn("Error formatting exception as YAML: " + e);
             return super.toString();
