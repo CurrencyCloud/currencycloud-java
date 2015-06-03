@@ -90,10 +90,12 @@ from the documentation.
 
 ### 1. Authenticating for each request.
 
-Avoid authenticating on a per-request basis.  Sessions have a timeout of several tens of minutes; this is specifically because we want customers to authenticate and then maintain a live session for as long as is feasible.
-Try to write your application so that it establishes a session on startup and keeps this alive until you shut the application down.  This will translate into fewer requests on your part and less server load on our part.
+Avoid creating one client per request.  Sessions have a timeout of several tens of minutes; this is specifically because we want customers to reuse existing sessions for as long as is feasible.
+Try to write your application so that it establishes a single instance of the CurrencyCloudClient class on startup and shares this between threads, keeping it alive until you shut the application down.  
 
-Authentication requests are logged and actively rate-limited on the sandbox in order to encourage users to follow the above pattern of usage.  
+This will translate into fewer requests on your part and less server load on our part.
+
+We rate-limit connections on the sandbox in order to encourage users to follow the above pattern.  
 
 ## On Behalf Of
 If you want to make calls on behalf of another user (e.g. someone who has a sub-account with you), you 
