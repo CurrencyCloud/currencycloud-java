@@ -22,12 +22,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
-@JsonPropertyOrder({"platform", "request", "response", "error_code", "errors"})
+@JsonPropertyOrder({"platform", "request", "response", "errorCode", "errors"})
 public abstract class CurrencyCloudException extends RuntimeException {
 
     private static final Logger log = LoggerFactory.getLogger(ApiException.class);
     private static final YAMLFactory YAML_FACTORY = new YAMLFactory();
-    private static final String platform = String.format(
+    public static final String PLATFORM = String.format(
             "Java %s (%s)",
             System.getProperty("java.version"),
             System.getProperty("java.vendor")
@@ -65,7 +65,7 @@ public abstract class CurrencyCloudException extends RuntimeException {
     }
 
     public String getPlatform() {
-        return platform;
+        return PLATFORM;
     }
 
     @Override

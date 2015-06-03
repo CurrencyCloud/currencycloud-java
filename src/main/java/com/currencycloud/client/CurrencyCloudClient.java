@@ -247,7 +247,7 @@ public class CurrencyCloudClient {
                 beneficiary.getCurrency(),
                 beneficiary.getName(),
                 beneficiary.getEmail(),
-                join(beneficiary.getBeneficiaryAddress()),
+                Utils.join(beneficiary.getBeneficiaryAddress(), "\r\n"),
                 beneficiary.getBeneficiaryCountry(),
                 beneficiary.getAccountNumber(),
                 beneficiary.getRoutingCodeType1(),
@@ -288,7 +288,7 @@ public class CurrencyCloudClient {
                 beneficiary.getCurrency(),
                 beneficiary.getName(),
                 beneficiary.getEmail(),
-                join(beneficiary.getBeneficiaryAddress()),
+                Utils.join(beneficiary.getBeneficiaryAddress(), "\r\n"),
                 beneficiary.getBeneficiaryCountry(),
                 beneficiary.getAccountNumber(),
                 beneficiary.getRoutingCodeType1(),
@@ -792,20 +792,6 @@ public class CurrencyCloudClient {
     
 
     ///////////////////////////////////////////////////////////////////
-
-    static String join(List<String> strings) {
-        if (strings == null) {
-            return null;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (String string : strings) {
-            if (sb.length() > 0) {
-                sb.append("\r\n");
-            }
-            sb.append(string);
-        }
-        return sb.toString();
-    }
 
     @Nullable
     private static java.sql.Date dateOnly(@Nullable Date date) {

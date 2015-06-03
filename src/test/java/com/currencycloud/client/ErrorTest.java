@@ -8,7 +8,8 @@ import org.eclipse.jetty.io.WriterOutputStream;
 import org.junit.Test;
 
 import java.io.*;
-import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -34,9 +35,12 @@ public class ErrorTest extends BetamaxTestSupport {
         assertThat(errorMessage.getParams().get("length"), instanceOf(Integer.class));
         assertThat((Integer) errorMessage.getParams().get("length"), equalTo(new Integer(64)));
 
-        Pattern expectedErrorPattern = Pattern.compile(readFile("/errors/contains_full_details_for_api_error.re.txt"));
+        String expectedErrorPattern = interpolate(
+                readFile("/errors/contains_full_details_for_api_error.yaml"),
+                buildMap("error.platform", CurrencyCloudException.PLATFORM)
+        );
 
-        assertThat(error.toString(), matchesPattern(expectedErrorPattern));
+        assertThat(error.toString(), equalTo(expectedErrorPattern));
     }
 
     @Test
@@ -75,9 +79,11 @@ public class ErrorTest extends BetamaxTestSupport {
             client.authenticate();
             throw new AssertionError("Should have failed");
         } catch (UnexpectedException error) {
-            error.printStackTrace();
-            Pattern expectedErrorPattern = Pattern.compile(readFile("/errors/is_raised_on_unexpected_error.re.txt"));
-            assertThat(error.toString(), matchesPattern(expectedErrorPattern));
+            String expectedErrorPattern = interpolate(
+                    readFile("/errors/is_raised_on_unexpected_error.yaml"),
+                    buildMap("error.platform", CurrencyCloudException.PLATFORM)
+            );
+            assertThat(error.toString(), equalTo(expectedErrorPattern));
         }
     }
 
@@ -166,5 +172,20 @@ public class ErrorTest extends BetamaxTestSupport {
             }
             return writer.toString();
         }
+    }
+
+    private String interpolate(String string, Map<String, String> vars) {
+        for (String var : vars.keySet()) {
+            string = string.replace(String.format("${%s}", var), vars.get(var));
+        }
+        return string;
+    }
+
+    private Map<String, String> buildMap(String ... str) {
+        Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < str.length; i++) {
+            map.put(str[i], str[++i]);
+        }
+        return map;
     }
 }

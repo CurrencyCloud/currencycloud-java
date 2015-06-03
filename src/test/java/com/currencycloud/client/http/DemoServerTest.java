@@ -392,6 +392,6 @@ public class DemoServerTest {
     }
 
     private BigDecimal randomAmount() {
-        return new BigDecimal(new Random().nextInt(1000000)).movePointLeft(2);
+        return new BigDecimal(new Random().nextInt(800000)).movePointLeft(2);
     }
 }

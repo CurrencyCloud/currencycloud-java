@@ -2,6 +2,7 @@ package com.currencycloud.client.model;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import si.mazi.rescu.HttpResponseAware;
 import si.mazi.rescu.HttpStatusExceptionSupport;
 import si.mazi.rescu.InvocationAware;
 import si.mazi.rescu.RestInvocation;
@@ -10,11 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
-public class ResponseException extends HttpStatusExceptionSupport implements InvocationAware {
+public class ResponseException extends HttpStatusExceptionSupport implements InvocationAware, HttpResponseAware {
 
     private String errorCode;
     private Map<String, List<ErrorMessage>> errorMessages;
     private RestInvocation invocation;
+    private Map<String, List<String>> headers;
 
     public String getErrorCode() {
         return errorCode;
@@ -32,7 +34,7 @@ public class ResponseException extends HttpStatusExceptionSupport implements Inv
 
     @Override
     public String toString() {
-        return String.format("CurrencyCloudException{errorCode='%s', errorMessages=%s}", errorCode, errorMessages);
+        return String.format("ResponseException{errorCode='%s', errorMessages=%s}", errorCode, errorMessages);
     }
 
     @Override
@@ -42,5 +44,15 @@ public class ResponseException extends HttpStatusExceptionSupport implements Inv
 
     public RestInvocation getInvocation() {
         return invocation;
+    }
+
+    @Override
+    public void setResponseHeaders(Map<String, List<String>> headers) {
+        this.headers = headers;
+    }
+
+    @Override
+    public Map<String, List<String>> getResponseHeaders() {
+        return headers;
     }
 }
