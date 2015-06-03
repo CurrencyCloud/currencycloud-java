@@ -32,18 +32,18 @@ While we expose certain routes on the sandbox API without the requirement for au
 
 #### Steps
 
-1. In a shell, do the following
+In a shell, do the following
 
 ```Shell
-    git clone https://github.com/CurrencyCloud/currencycloud-java.git     
-    cd currencycloud-java
-    mvn clean install
+    devuser@localhost ~ $ git clone https://github.com/CurrencyCloud/currencycloud-java.git     
+    devuser@localhost ~ $ cd currencycloud-java
+    devuser@localhost currencycloud-java $ mvn clean install
 ```
 
-2. Add `target/currencycloud-java-*.jar` in your project's classpath, or include it by adding the following dependency to your project `pom.xml`:
+Then add `target/currencycloud-java-*.jar` in your project's classpath, or include it by adding the following dependency to your project `pom.xml`:
 
 ```xml
-   <dependency>
+<dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
     <version>0.7-SNAPSHOT</version>
