@@ -1,10 +1,8 @@
 [![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
 
-{% capture version %}0.7-SNAPSHOT{% endcapture %}
-
 # Currency Cloud API v2 Java client
 
-## Version: {{ version }}
+## Version: 0.7-SNAPSHOT
 
 This is the official Java SDK for the Currency Cloud API. Additional documentation 
 for each API endpoint can be found at [connect.currencycloud.com][connect]. 
@@ -34,18 +32,18 @@ While we expose certain routes on the sandbox API without the requirement for au
 
 #### Steps
 
-1. In a shell, do the following
+In a shell, do the following
 
 ```Shell
-    git clone https://github.com/CurrencyCloud/currencycloud-java.git     
-    cd currencycloud-java
-    mvn clean install
+    devuser@localhost ~ $ git clone https://github.com/CurrencyCloud/currencycloud-java.git     
+    devuser@localhost ~ $ cd currencycloud-java
+    devuser@localhost currencycloud-java $ mvn clean install
 ```
 
-2. Add `target/currencycloud-java-*.jar` in your project's classpath, or include it by adding the following dependency to your project `pom.xml`:
+Then add `target/currencycloud-java-*.jar` in your project's classpath, or include it by adding the following dependency to your project `pom.xml`:
 
-```Maven POM
-   <dependency>
+```xml
+<dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
     <version>0.7-SNAPSHOT</version>
@@ -56,9 +54,9 @@ While we expose certain routes on the sandbox API without the requirement for au
 
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-{{ version }}.jar 
+3. Download the currencycloud-java-0.7-SNAPSHOT.jar 
 
-**Please note:**  This downloads **ONLY** the Currency Cloud SDK jar, and you will need to manually locate and download any required [dependencies](#dependencies)  
+**Please note:**  This downloads **ONLY** the Currency Cloud SDK jar, and you will need to manually locate and download any required dependencies.  
 
 # Usage
 
@@ -93,13 +91,7 @@ from the documentation.
 ### 1. Authenticating for each request.
 
 Avoid authenticating on a per-request basis.  Sessions have a timeout of several tens of minutes; this is specifically because we want customers to authenticate and then maintain a live session for as long as is feasible.
-A good workflow would be:
-
-1. Authenticate
-2. Perform operation
-...
-N-1. Perform final operation
-N. Disconnect
+Try to write your application so that it establishes a session on startup and keeps this alive until you shut the application down.  This will translate into fewer requests on your part and less server load on our part.
 
 Authentication requests are logged and actively rate-limited on the sandbox in order to encourage users to follow the above pattern of usage.  
 
@@ -155,7 +147,7 @@ popular logging providers supported by slf4j in your project. We recommend using
 
 Test cases can be run with `mvn test`. 
 
-## <a name="dependencies"></a>Dependencies
+## Dependencies
 * [Rescu][rescu]
 * [SLF4J][slf4j]
 
