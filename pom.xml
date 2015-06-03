@@ -29,6 +29,12 @@
             <organization>Currency Cloud</organization>
             <organizationUrl>https://www.currencycloud.com</organizationUrl>
         </developer>
+        <developer>
+            <name>Jeremy Botha</name>
+            <email>jeremy.botha@currencycloud.com</email>
+            <organization>Currency Cloud</organization>
+            <organizationUrl>https://www.currencycloud.com</organizationUrl>
+        </developer>
     </developers>
 
     <issueManagement>
@@ -106,7 +112,6 @@
             </plugin>
         </plugins>
     </build>
-
     <dependencies>
         <dependency>
             <groupId>com.github.mmazi</groupId>
