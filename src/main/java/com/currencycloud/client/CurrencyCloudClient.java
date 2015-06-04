@@ -16,6 +16,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+/**
+ * This is the high-lever entry point to the Currency Cloud API. It provides access to the HTTP API while providing
+ * support for the following features:
+ *
+ * <ul>
+ *     <li>Automatic lazy authentication and session keeping</li>
+ *     <li>Automatic re-authentication after session timeouts</li>
+ *     <li>Calling methods on behalf of other users</li>
+ *     <li>Making certain client-side checks/validations</li>
+ * </ul>
+ *
+ */
 public class CurrencyCloudClient {
 
     private static final Pattern UUID = Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", Pattern.CASE_INSENSITIVE);
