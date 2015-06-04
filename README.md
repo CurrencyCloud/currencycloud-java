@@ -2,7 +2,7 @@
 
 # Currency Cloud API v2 Java client
 
-## Version: 0.7-SNAPSHOT
+## Version: 0.7.1-SNAPSHOT
 
 This is the official Java SDK for the Currency Cloud API. Additional documentation 
 for each API endpoint can be found at [connect.currencycloud.com][connect]. 
@@ -19,7 +19,7 @@ it will be far easier to simply make use of maven to build the project and do th
 
 ### 2. Oracle JDK 7 or equivalent JDK
 
-CurrencyCloud-Java makes use of annotations and generics.  It requires at least a Java version 7 compatible JDK.
+CurrencyCloud-Java requires at least a Java version 7 compatible JDK.
 
 ### 3. A valid sandbox login id and api key on the CurrencyCloud sandbox API environment.
 
