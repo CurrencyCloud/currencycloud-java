@@ -1,14 +1,12 @@
 #!/bin/bash
 
-JAVA_VERSION=`java -version 2>&1 | sed 's/java version "\(.*\)\.\(.*\)\..*"/\1\2/; 1q'`
 GIT_BRANCH=`git branch | sed -n -e 's/^\* \(.*\)/\1/p'`
 
-echo "Java version:        " ${JAVA_VERSION}
 echo "Travis branch:       " ${TRAVIS_BRANCH}
 echo "Travis pull request: " ${TRAVIS_PULL_REQUEST}
 echo "Travis JDK version:  " ${TRAVIS_JDK_VERSION}
-if [ "${JAVA_VERSION}" == "17" -a "${TRAVIS_BRANCH}" == "master" -a "${TRAVIS_PULL_REQUEST}" == "false" ]; then
+if [ "${TRAVIS_JDK_VERSION}" == "oraclejdk7" -a "${TRAVIS_BRANCH}" == "master" -a "${TRAVIS_PULL_REQUEST}" == "false" ]; then
     mvn deploy --settings settings.xml
 else
-    echo "Not deploying artefacts. This is only done with non-pull-request commits to master branch with Java 7 builds."
+    echo "Not deploying artifacts. This is only done with non-pull-request commits to master branch with Oracle Java 7 builds."
 fi
