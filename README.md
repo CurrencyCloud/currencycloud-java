@@ -199,18 +199,18 @@ error in any correspondence can be very helpful.
 ## Logging
 
 The SDK uses [slf4j](slf4j) for logging, wich means you are free to use any of the 
-popular logging providers supported by slf4j in your project (eg. log4j, logback, or Java Logging).
+popular logging providers supported by slf4j in your project (eg. log4j, Logback, or Java Logging).
 
 You must add your chosen logging provider to your project's dependencies yourself. 
 We recommend using [Logback][logback]:
 
 ```xml
-    <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-classic</artifactId>
-        <version>1.1.3</version>
-        <optional>true</optional>
-    </dependency>
+<dependency>
+    <groupId>ch.qos.logback</groupId>
+    <artifactId>logback-classic</artifactId>
+    <version>1.1.3</version>
+    <optional>true</optional>
+</dependency>
 ```
 
 # Development
