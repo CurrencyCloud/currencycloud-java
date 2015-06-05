@@ -16,6 +16,8 @@ import java.util.Collection;
  *    &lt;filter class="com.currencycloud.client.logging.LogSecretsFilter" />
  * &lt;/appender>
  * </pre>
+ *
+ * Note that this depends on Logback, so the project must use Logback as the slf4j logging provider.
  */
 public class LogSecretsFilter extends Filter<ILoggingEvent> {
 

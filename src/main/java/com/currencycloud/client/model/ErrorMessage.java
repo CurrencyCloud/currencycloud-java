@@ -23,24 +23,24 @@ public class ErrorMessage {
         this.params = params;
     }
 
-    /** The error message code */
+    /** @return The error message code */
     public String getCode() {
         return code;
     }
 
-    /** The error message in English */
+    /** @return The error message in English */
     public String getMessage() {
         return message;
     }
 
-    /** The field whose validation failed.
+    /** @return The field whose validation failed.
      * Note that this is only populated in {@link ApiException} and subclasses,
      * while it is always null in {@link ResponseException}. */
     public String getField() {
         return field;
     }
 
-    /** Error parameters (may be used eg. for rendering the error message in other languages */
+    /** @return Error parameters (may be used eg. for rendering the error message in other languages */
     public Map<String, Object> getParams() {
         return params;
     }

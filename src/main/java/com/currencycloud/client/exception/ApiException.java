@@ -80,18 +80,24 @@ public class ApiException extends CurrencyCloudException {
 
     @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
     @JsonPropertyOrder({"statusCode", "date", "requestId"})
-     public static class Response {
+    public static class Response {
+
+        /** The HTTP response status code (eg. 404 for Not Found).  */
         public final int statusCode;
+
+        /** The request ID, as returned by the server. */
         public final String requestId;
+
+        /** The request date/time, as returned by the server. */
         public final String date;
 
-        public Response(int statusCode, Map<String, List<String>> responseHeaders) {
+        private Response(int statusCode, Map<String, List<String>> responseHeaders) {
             this.statusCode = statusCode;
             this.requestId = get(responseHeaders, "X-Request-Id");
             this.date = get(responseHeaders, "Date");
         }
 
-        private String get(Map<String, List<String>> responseHeaders, String date) {
+        private static String get(Map<String, List<String>> responseHeaders, String date) {
             if (responseHeaders != null) {
                 List<String> all = responseHeaders.get(date);
                 if (all != null && !all.isEmpty()) {

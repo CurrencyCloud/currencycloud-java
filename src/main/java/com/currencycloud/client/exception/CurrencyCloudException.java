@@ -22,6 +22,10 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * This is the root of the Currency Cloud Exception hierarchy. It provides some information about the
+ * HTTP request and the server response. The {@link #toString()} method returns YAML-formatted data.
+ */
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonPropertyOrder({"platform", "request", "response", "errorCode", "errors"})
 public abstract class CurrencyCloudException extends RuntimeException {
@@ -65,10 +69,14 @@ public abstract class CurrencyCloudException extends RuntimeException {
         return request;
     }
 
+    /** @return The runtime environment of the client, eg. "Java 1.7" */
     public String getPlatform() {
         return PLATFORM;
     }
 
+    /**
+     * @return YAML-formatted exception data
+     */
     @Override
     public String toString() {
         try (
@@ -88,11 +96,17 @@ public abstract class CurrencyCloudException extends RuntimeException {
 
     @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
     public static class Request {
+
+        /** The parameters that were sent in the request (GET or POST) */
         public final Map<String, String> parameters;
+
+        /** The HTTP method in lowercase (get, post, ...) */
         public final String verb;
+
+        /** The full URL of the request */
         public final String url;
 
-        public Request(Map<String, String> parameters, String httpMethod, String url) {
+        private Request(Map<String, String> parameters, String httpMethod, String url) {
             this.parameters = parameters;
             this.verb = httpMethod.toLowerCase();
             this.url = url;
