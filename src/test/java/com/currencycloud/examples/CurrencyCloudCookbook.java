@@ -67,10 +67,9 @@ public class CurrencyCloudCookbook {
         System.out.printf("beneficiaryRequiredDetails: %s%n", beneficiaryRequiredDetails);
 
         /*
-            We know the IBAN and BIC/SWIFT numbers for the beneficiary, so we can use these details.
+        We know the IBAN and BIC/SWIFT numbers for the beneficiary, so we can use these details.
         */
 
-        // todo: name is missing in the Web example
         Beneficiary beneficiary = Beneficiary.create("Acme GmbH", "DE", "EUR", "John Doe");
         beneficiary.setBeneficiaryCountry("DE");
         beneficiary.setBicSwift("COBADEFF");
@@ -85,7 +84,6 @@ public class CurrencyCloudCookbook {
         Finally we want to create a payment to send the funds to the beneficiary.
         */
 
-        // todo: payment_type is 'priority' in the Web example, but this fails ('Invalid Payment type').
         Payment payment = Payment.create(
                 "EUR", beneficiary.getId(), new BigDecimal("10000"), "Invoice Payment", "Invoice 1234",
                 conversion.getId(), null, "regular"
