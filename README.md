@@ -12,10 +12,12 @@ it far simpler for us to locate your account and give you the support you need.
 
 ## Prerequisites
 
-### 1. Maven
+### 1. Maven (optional, but highly recommended)
 
-CurrencyCloud-Java is a Maven project.  You will require [Apache Maven][maven] 3 in order to build the SDK.  You can download the snapshots from [Sonatype Nexus][nexus] if you desire, but
-it will be far easier to simply make use of maven to build the project and do the dependency management for you.
+CurrencyCloud-Java is a Maven project.  We highly recommend using [Apache Maven][maven] 3 (or a compatible build tool like Gradle) 
+to build your project.  While using Maven is not strictly required, 
+it will be far easier to simply make use of Maven to build the project and do the dependency management for you.
+
 
 ### 2. Oracle JDK 7 or equivalent JDK
 
@@ -23,24 +25,16 @@ CurrencyCloud-Java requires at least a Java version 7 compatible JDK.
 
 ### 3. A valid sandbox login id and api key on the CurrencyCloud sandbox API environment.
 
+You can register for demo API key at https://connect.currencycloud.com/. 
+
 While we expose certain routes on the sandbox API without the requirement for authentication, we rate-limit these requests aggressively to prevent abuse of the sandbox.  Rate-limiting on authenticated requests
  is far more lenient.
 
 ## Installing the Currency Cloud SDK
 
-### 1. Using Git and Maven
+### 1. Using Maven
 
-#### Steps
-
-In a shell, do the following
-
-```Shell
-    devuser@localhost ~ $ git clone https://github.com/CurrencyCloud/currencycloud-java.git     
-    devuser@localhost ~ $ cd currencycloud-java
-    devuser@localhost currencycloud-java $ mvn clean install
-```
-
-Then add `target/currencycloud-java-*.jar` in your project's classpath, or include it by adding the following dependency to your project `pom.xml`:
+To use the Currency Cloud SDK in a Maven project, add the following dependency to the project's `pom.xml`:
 
 ```xml
 <dependency>
@@ -50,13 +44,39 @@ Then add `target/currencycloud-java-*.jar` in your project's classpath, or inclu
 </dependency>
 ```
 
-### 2. Manually downloading the dependency
+### 2. Manually downloading the jars
+
+Download the Currency Cloud SDK jar:
 
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
 3. Download the currencycloud-java-0.7-SNAPSHOT.jar 
 
-**Please note:**  This downloads **ONLY** the Currency Cloud SDK jar, and you will need to manually locate and download any required dependencies.  
+Get the list of all dependencies:
+
+```Shell
+mvn dependency:list -DincludeScope=runtime
+```
+
+As of version 0.7, this returns the following list:
+
+```
+ch.qos.logback:logback-core:jar:1.1.2
+com.fasterxml.jackson.core:jackson-core:jar:2.5.0
+com.github.mmazi:rescu:jar:1.8.1-SNAPSHOT
+com.google.code.findbugs:jsr305:jar:3.0.0
+com.fasterxml.jackson.core:jackson-databind:jar:2.5.0
+ch.qos.logback:logback-classic:jar:1.1.2
+com.fasterxml.jackson.core:jackson-annotations:jar:2.5.0
+org.slf4j:slf4j-api:jar:1.7.12
+com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:jar:2.5.0
+javax.ws.rs:jsr311-api:jar:1.1.1
+```
+
+You will need to find each of these dependencies and download it from the [Sonatype Nexus][sonatype] as described above.
+ 
+Finally, include all downloaded jars in your project's classpath.
+
 
 # Usage
 
@@ -98,6 +118,7 @@ This will translate into fewer requests on your part and less server load on our
 We rate-limit connections on the sandbox in order to encourage users to follow the above pattern.  
 
 ## On Behalf Of
+
 If you want to make calls on behalf of another user (e.g. someone who has a sub-account with you), you 
 can execute certain commands 'on behalf of' the user's contact id. Here is an example:
 
@@ -178,18 +199,40 @@ error in any correspondence can be very helpful.
 ## Logging
 
 The SDK uses [slf4j](slf4j) for logging, wich means you are free to use any of the 
-popular logging providers supported by slf4j in your project. We recommend using logback.
+popular logging providers supported by slf4j in your project. We recommend using [LOGBack][logback].
 
 
 # Development
 
+## Building Currency Cloud SDK from sources
+
+Building the project from sources is not necessary to use it.
+
+To build the project from sources, you will need git and [Maven 3][maven].
+
+In a shell, do the following:
+
+```Shell
+    devuser@localhost ~ $ git clone https://github.com/CurrencyCloud/currencycloud-java.git     
+    devuser@localhost ~ $ cd currencycloud-java
+    devuser@localhost currencycloud-java $ mvn clean install
+```
+
+## Testing
+
 Test cases can be run with `mvn test`. 
 
 ## Dependencies
-* [Rescu][rescu]
-* [SLF4J][slf4j]
 
-## Versioning
+* [Rescu][rescu]
+  * [Jackson][jackson]
+  * JSR-311
+  * JSR-305
+* [LOGBack][logback]
+  * [slf4j][slf4j]
+
+
+# Versioning
 
 This project uses [semantic versioning][semver]. You can safely
 express a dependency on a major version and expect all minor and patch versions
@@ -204,9 +247,11 @@ Copyright (c) 2015 Currency Cloud. See [LICENSE][license] for details.
 [maven]:     https://maven.apache.org/index.html
 [nexus]:     http://www.sonatype.org/nexus/
 [slf4j]:     http://www.slf4j.org/
+[logback]:   http://logback.qos.ch/
+[rescu]:     https://github.com/mmazi/rescu
+[jackson]:   https://github.com/FasterXML/jackson
 [connect]:   https://connect.currencycloud.com/documentation/getting-started/introduction
 [travis]:    https://travis-ci.org/CurrencyCloud/currencycloud-java
-[rescu]:     https://github.com/mmazi/rescu
 [semver]:    http://semver.org/
-[slf4j]:     http://www.slf4j.org
+[sonatype]:  https://oss.sonatype.org/
 [license]:   LICENSE.md
