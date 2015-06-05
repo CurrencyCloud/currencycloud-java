@@ -5,7 +5,7 @@
 ## Version: 0.7.1-SNAPSHOT
 
 This is the official Java SDK for the Currency Cloud API. Additional documentation 
-for each API endpoint can be found at [connect.currencycloud.com][connect]. 
+for each API endpoint can be found at [connect.currencycloud.com][docs]. 
 
 If you have any queries or you require support, please contact our implementation team at implementation@currencycloud.com.  Please quote your login id in any correspondence as this makes
 it far simpler for us to locate your account and give you the support you need.
@@ -25,7 +25,7 @@ CurrencyCloud-Java requires at least a Java version 7 compatible JDK.
 
 ### 3. A valid sandbox login id and api key on the CurrencyCloud sandbox API environment.
 
-You can register for demo API key at https://connect.currencycloud.com/. 
+You can register for demo API key at [connect.currencycloud.com][connect]. 
 
 While we expose certain routes on the sandbox API without the requirement for authentication, we rate-limit these requests aggressively to prevent abuse of the sandbox.  Rate-limiting on authenticated requests
  is far more lenient.
@@ -199,8 +199,19 @@ error in any correspondence can be very helpful.
 ## Logging
 
 The SDK uses [slf4j](slf4j) for logging, wich means you are free to use any of the 
-popular logging providers supported by slf4j in your project. We recommend using [LOGBack][logback].
+popular logging providers supported by slf4j in your project (eg. log4j, logback, or Java Logging).
 
+You must add your chosen logging provider to your project's dependencies yourself. 
+We recommend using [Logback][logback]:
+
+```xml
+    <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.1.3</version>
+        <optional>true</optional>
+    </dependency>
+```
 
 # Development
 
@@ -228,8 +239,7 @@ Test cases can be run with `mvn test`.
   * [Jackson][jackson]
   * JSR-311
   * JSR-305
-* [LOGBack][logback]
-  * [slf4j][slf4j]
+* [slf4j][slf4j]
 
 
 # Versioning
@@ -250,7 +260,8 @@ Copyright (c) 2015 Currency Cloud. See [LICENSE][license] for details.
 [logback]:   http://logback.qos.ch/
 [rescu]:     https://github.com/mmazi/rescu
 [jackson]:   https://github.com/FasterXML/jackson
-[connect]:   https://connect.currencycloud.com/documentation/getting-started/introduction
+[docs]:      https://connect.currencycloud.com/documentation/getting-started/introduction
+[connect]:   https://connect.currencycloud.com/
 [travis]:    https://travis-ci.org/CurrencyCloud/currencycloud-java
 [semver]:    http://semver.org/
 [sonatype]:  https://oss.sonatype.org/
