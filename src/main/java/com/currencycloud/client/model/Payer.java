@@ -194,10 +194,6 @@ public class Payer implements HasId {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @Override
     public String toString() {
         return String.format("Payer{id='%s', legalEntityType='%s', companyName='%s', firstName='%s', lastName='%s', address=%s, city='%s', stateOrProvince='%s', country='%s', identificationType='%s', identificationValue='%s', postcode='%s', dateOfBirth=%s, createdAt=%s, updatedAt=%s}",
