@@ -18,8 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 /**
  * This is an integration test that executes actual http calls to the demo server
@@ -37,6 +36,7 @@ public class DemoServerTest {
             CurrencyCloudClient.Environment.demo,
             "rjnienaber@gmail.com", "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0"
     );
+    public static final String SOME_UUID = "385f0e80-1ffd-4d9c-8a64-11237bdb9284";
 
     public DemoServerTest() {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -71,6 +71,7 @@ public class DemoServerTest {
             }
         }
     }
+
     /** Test that payment types collection is handled correctly. */
     @Test
     public void testAddress() throws Exception {
@@ -121,6 +122,25 @@ public class DemoServerTest {
         } catch (ForbiddenException ignored) {
             // This always happens with current permissions.
         }
+    }
+
+    @Test
+    public void testFindNoAccountsWithABadExample() throws Exception {
+        Account badExample = Account.create("No such account", "individual");
+        badExample.setCountry("DE");
+        badExample.setIdentificationValue("1111111");
+        badExample.setIdentificationType("drivers_licence");
+        badExample.setBrand("Brand");
+        badExample.setPostalCode("XYZ");
+        badExample.setShortReference("1234");
+        badExample.setYourReference("mine");
+        badExample.setSpreadTable("st");
+        badExample.setStatus("disabled");
+        badExample.setStreet("Weitstrasse 1");
+        badExample.setCity("Hamburg");
+        badExample.setStateOrProvince("Western region");
+        Accounts accounts = currencyCloud.findAccounts(badExample, null);
+        assertThat(accounts.getAccounts(), hasSize(0));
     }
 
     @Test
@@ -230,6 +250,28 @@ public class DemoServerTest {
     }
 
     @Test
+    public void testFindConversions() throws Exception {
+        currencyCloud.findConversions(
+                Conversion.createExample(
+                        "ref", "awaiting_funds", "funds_sent", "GBP", "USD", "EURMXN"
+                ),
+                Collections.<String>emptyList(),
+                new Date(),
+                new Date(),
+                new Date(),
+                new Date(),
+                new BigDecimal("1.00"),
+                new BigDecimal("100000.00"),
+                new BigDecimal("1.00"),
+                new BigDecimal("100000.00"),
+                new BigDecimal("1.00"),
+                new BigDecimal("100000.00"),
+                new BigDecimal("1.00"),
+                new BigDecimal("100000.00")
+        );
+    }
+
+    @Test
     public void testPaymentsPayers() throws Exception {
         Beneficiary beneficiary = Beneficiary.create("Acme GmbH", "DE", "EUR", "John Doe");
         beneficiary.setBicSwift("COBADEFF");
@@ -244,7 +286,7 @@ public class DemoServerTest {
         BigDecimal amount = randomAmount();
         Payment payment = Payment.create(
                 "EUR", beneficiary.getId(), amount, "Invoice Payment", "Invoice 1234",
-                conversion.getId(), null, "regular"
+                null, "regular", conversion.getId()
         );
         payment = currencyCloud.createPayment(payment, null);
         log.debug("Created payment = {}", payment);
@@ -278,7 +320,7 @@ public class DemoServerTest {
 
         Payment payment2 = Payment.create(
                 "EUR", beneficiary.getId(), randomAmount(), "Invoice Payment 2", "Invoice 2234",
-                conversion.getId(), null, "regular"
+                null, "regular", conversion.getId()
         );
         payment2 = currencyCloud.createPayment(payment2, null);
         log.debug("Created payment2 = {}", payment2);
@@ -290,6 +332,17 @@ public class DemoServerTest {
                 .getPayments();
 
         assertFound(payments, payment, false);
+    }
+
+    @Test
+    public void testFindPaymentsByExample() throws Exception {
+        currencyCloud.findPayments(
+                Payment.createExample("USD",
+                                      SOME_UUID, new BigDecimal("12.44"), "Some reason",
+                                      SOME_UUID, "asdf", "ready_to_send"),
+                BigDecimal.ONE, new BigDecimal("1000000.00"), new Date(),
+                new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), Pagination.first()
+        ).getPayments();
     }
 
     @Test
@@ -361,6 +414,22 @@ public class DemoServerTest {
 
 //        transaction = currencyCloud.retrieveTransaction(transaction.getId());
 //        log.debug("transaction = {}", transaction);
+    }
+
+    @Test
+    public void testFindTransactionsByExample() throws Exception {
+        Date now = new Date();
+        currencyCloud.findTransactions(
+                Transaction.createExample(
+                        "GBP", new BigDecimal("123.45"), "payment_failure", "inbound_funds", SOME_UUID, "ref",
+                        "pending", "debit", "Because"
+                ),
+                new BigDecimal("0.00"), new BigDecimal("1000000000.00"),
+                now, now,
+                now, now,
+                now, now,
+                Pagination.builder().pages(1, 10).build()
+        );
     }
 
     @Test

@@ -65,19 +65,25 @@ public class Payment implements HasId {
         return new Payment();
     }
 
+    /** Creates a new {@link Payment} that can be used as a parameter for the
+     * {@link com.currencycloud.client.CurrencyCloudClient#createPayment(Payment, Payer)} method.
+     */
     public static Payment create(
             String currency,
             String beneficiaryId,
             BigDecimal amount,
             String reason,
             String reference,
-            String conversionId,
             @Nullable Date paymentDate,
-            @Nullable String paymentType
+            @Nullable String paymentType,
+            @Nullable String conversionId
     ) {
         return new Payment(null, currency, beneficiaryId, amount, reason, reference, conversionId, paymentDate, paymentType, null, null);
     }
 
+    /** Creates a new {@link Payment} that can be used a as parameter for the
+     * {@link com.currencycloud.client.CurrencyCloudClient#findPayments} method.
+     */
     public static Payment createExample(
             String currency,
             String beneficiaryId,

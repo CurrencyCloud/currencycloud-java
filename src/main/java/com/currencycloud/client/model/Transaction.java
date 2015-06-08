@@ -56,6 +56,10 @@ public class Transaction implements HasId {
         return new Transaction();
     }
 
+    /**
+     * Creates a new {@link Transaction} that can be used as a parameter for the
+     * {@link com.currencycloud.client.CurrencyCloudClient#findTransactions} method.
+     */
     public static Transaction createExample(
             String currency,
             BigDecimal amount,

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.FormParam;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,15 +45,15 @@ public class Conversion implements HasId {
 
     private Conversion() { }
 
-    private Conversion(
-            @FormParam("buy_currency") String buyCurrency,
-            @FormParam("sell_currency") String sellCurrency,
-            @FormParam("fixed_side") String fixedSide,
-            @Nullable @FormParam("conversion_date") Date conversionDate,
-            @Nullable @FormParam("client_rate") BigDecimal clientRate,
-            @Nullable @FormParam("currency_pair") String currencyPair,
-            @Nullable @FormParam("client_buy_amount") BigDecimal clientBuyAmount,
-            @Nullable @FormParam("client_sell_amount") BigDecimal clientSellAmount
+    private Conversion (
+            String buyCurrency,
+            String sellCurrency,
+            String fixedSide,
+            @Nullable Date conversionDate,
+            @Nullable BigDecimal clientRate,
+            @Nullable String currencyPair,
+            @Nullable BigDecimal clientBuyAmount,
+            @Nullable BigDecimal clientSellAmount
     ) {
         this.buyCurrency = buyCurrency;
         this.sellCurrency = sellCurrency;
@@ -86,10 +85,12 @@ public class Conversion implements HasId {
         return new Conversion();
     }
 
+    /** Creates a Conversion with only the required properties for creation. */
     public static Conversion create(String buyCurrency, String sellCurrency, String fixedSide) {
         return new Conversion(buyCurrency, sellCurrency, fixedSide, null, null, null, null, null);
     }
 
+    /** Creates a Conversion with the required and the optional properties for creation. */
     public static Conversion create(
             String buyCurrency,
             String sellCurrency,
@@ -112,6 +113,8 @@ public class Conversion implements HasId {
         );
     }
 
+    /** Creates the Conversion with the properties that can be passed to the
+     * {@link com.currencycloud.client.CurrencyCloudClient#findConversions} method. */
     public static Conversion createExample(
             @Nullable String shortReference,
             @Nullable String status,

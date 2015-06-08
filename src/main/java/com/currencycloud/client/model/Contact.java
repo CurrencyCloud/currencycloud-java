@@ -73,6 +73,10 @@ public class Contact implements HasId {
         this.dateOfBirth = dateOfBirth;
     }
 
+    /**
+     * Creates a contact as expected by the
+     * {@link com.currencycloud.client.CurrencyCloudClient#createContact(Contact)} method.
+     */
     public static Contact create(
             String accountId,
             String firstName,
@@ -102,7 +106,12 @@ public class Contact implements HasId {
                 dateOfBirth
         );
     }
-    
+
+    /**
+     * Creates a contact as expected by the
+     * {@link com.currencycloud.client.CurrencyCloudClient#createContact(Contact)} method,
+     * using only required parameters.
+     */
     public static Contact create(
             String accountId,
             String firstName,
