@@ -14,7 +14,7 @@ public class ErrorMessage {
     private String message;
     private Map<String, Object> params;
 
-    private ErrorMessage() { }
+    protected ErrorMessage() { }
 
     public ErrorMessage(String field, String code, String message, Map<String, Object> params) {
         this.field = field;

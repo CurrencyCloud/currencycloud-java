@@ -43,7 +43,7 @@ public class Conversion implements HasId {
     private Date createdAt;
     private Date updatedAt;
 
-    private Conversion() { }
+    protected Conversion() { }
 
     private Conversion (
             String buyCurrency,

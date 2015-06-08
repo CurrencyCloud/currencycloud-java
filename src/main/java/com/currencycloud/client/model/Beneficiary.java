@@ -82,7 +82,7 @@ public class Beneficiary implements HasId {
 
     private List<String> bankAddress;
 
-    private Beneficiary() { }
+    protected Beneficiary() { }
 
     private Beneficiary(String id) {
         this.id = id;
