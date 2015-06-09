@@ -212,6 +212,9 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <keyname>Richard Nienaber &lt;richard.nienaber@currencycloud.com&gt;</keyname>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
