@@ -6,19 +6,20 @@ import com.currencycloud.client.exception.ForbiddenException;
 import com.currencycloud.client.exception.NotFoundException;
 import com.currencycloud.client.model.*;
 import com.currencycloud.examples.CurrencyCloudCookbook;
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.fail;
 
 /**
  * This is an integration test that executes actual http calls to the demo server
@@ -29,6 +30,7 @@ import static org.hamcrest.Matchers.*;
 public class DemoServerTest {
 
     private static final Logger log = LoggerFactory.getLogger(DemoServerTest.class);
+    private static final Random RND = new Random();
 
     private final SimpleDateFormat dateFormat;
 
@@ -96,7 +98,7 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testAccounts() throws Exception {
+    public void testCurrentAccount() throws Exception {
         Accounts accounts = currencyCloud.findAccounts(null, null);
         log.debug("Accounts = {}", accounts);
 
@@ -114,14 +116,6 @@ public class DemoServerTest {
             }
         }
         assertThat("Current account not found among the ones listed.", found);
-
-        account.setCountry("SI");
-        try {
-            account = currencyCloud.updateAccount(account);
-            log.debug("account = {}", account);
-        } catch (ForbiddenException ignored) {
-            // This always happens with current permissions.
-        }
     }
 
     @Test
@@ -144,9 +138,18 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testCreateAccount() throws Exception {
+    public void testCreateUpdateAccount() throws Exception {
+        Account account = currencyCloud.createAccount(Account.create("New Account xyz", "individual"));
+
+        assertThat(account.getYourReference(), is(nullValue()));
+        account.setYourReference("a");
+        account = currencyCloud.updateAccount(account);
+        assertThat(account.getYourReference(), equalTo("a"));
+
+        account.setStatus("disabled");
         try {
-            currencyCloud.createAccount(Account.create("New Account xyz", "individual"));
+            currencyCloud.updateAccount(account);
+            fail("Updating account status should fail");
         } catch (ForbiddenException ignored) {
             // This always happens with current permissions.
         }
@@ -174,32 +177,28 @@ public class DemoServerTest {
     }
 
     @Test
+    public void testCurrentContact() throws Exception {
+        Contact contact = currencyCloud.currentContact();
+        log.debug("Current contact = {}", contact);
+    }
+
+    @Test
     public void testContacts() throws Exception {
         String accountId = currencyCloud.currentAccount().getId();
         log.debug("accountId = {}", accountId);
 
-        Contact contact;
-        try {
-            contact = currencyCloud.createContact(
-                    Contact.create(
-                            accountId, "John Jr.", "Doe", "jdjr@example.com", "555 555 555 555"
-                    )
-            );
+        Contact contact = currencyCloud.createContact(
+                Contact.create(accountId, "John Jr.", "Doe", randomString() + "+jdjr@example.com", "555 555 555 555")
+        );
 
-            log.debug("contact = {}", contact);
-        } catch (ForbiddenException e) {
-            log.warn("Can't create contact: " + e);
-        }
+        log.debug("contact = {}", contact);
+        assertThat(contact.getMobilePhoneNumber(), is(nullValue()));
 
-        contact = currencyCloud.currentContact();
-        log.debug("Current contact = {}", contact);
+        String newPhoneNumber = "555 666 777 888";
+        contact.setMobilePhoneNumber(newPhoneNumber);
+        contact = currencyCloud.updateContact(contact);
 
-        try {
-            contact.setPhoneNumber("555 666 777 888");
-            contact = currencyCloud.updateContact(contact);
-        } catch (ForbiddenException e) {
-            log.warn("Can't update contact: " + e);
-        }
+        assertThat(contact.getMobilePhoneNumber(), equalTo(newPhoneNumber));
 
         contact = currencyCloud.retrieveContact(contact.getId());
 
@@ -389,7 +388,7 @@ public class DemoServerTest {
 
         try {
             currencyCloud.retrieveSettlement(settlement.getId());
-            Assert.fail("Shouldn't be able to retrieve a deleted settlement.");
+            fail("Shouldn't be able to retrieve a deleted settlement.");
         } catch (NotFoundException e) {
             assertThat(e.getErrorCode(), equalTo("settlement_not_found"));
         }
@@ -470,7 +469,11 @@ public class DemoServerTest {
         }
     }
 
-    private BigDecimal randomAmount() {
-        return new BigDecimal(new Random().nextInt(800000)).movePointLeft(2);
+    private static String randomString() {
+        return new BigInteger(32, RND).toString(32);
+    }
+
+    private static BigDecimal randomAmount() {
+        return new BigDecimal(RND.nextInt(800000)).movePointLeft(2);
     }
 }
