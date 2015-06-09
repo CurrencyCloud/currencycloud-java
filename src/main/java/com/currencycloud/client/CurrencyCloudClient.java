@@ -30,7 +30,10 @@ import java.util.regex.Pattern;
  */
 public class CurrencyCloudClient {
 
-    private static final Pattern UUID = Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", Pattern.CASE_INSENSITIVE);
+    private static final Pattern UUID = Pattern.compile(
+            "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+            Pattern.CASE_INSENSITIVE
+    );
 
     private final CurrencyCloud api;
 
@@ -48,16 +51,18 @@ public class CurrencyCloudClient {
         this.loginId = loginId;
         this.apiKey = apiKey;
         ClientConfig config = new ClientConfig();
-        config.setJacksonConfigureListener(new JacksonConfigureListener() {
-            @Override
-            public void configureObjectMapper(ObjectMapper objectMapper) {
-                objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-            }
-        });
+        config.setJacksonConfigureListener(
+                new JacksonConfigureListener() {
+                    @Override
+                    public void configureObjectMapper(ObjectMapper objectMapper) {
+                        objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+                    }
+                }
+        );
 
         api = RestProxyFactory.createProxy(
                 CurrencyCloud.class, url, config,
-                new AutoAuthenticate(this), new HttpStatusExceptionInterceptor(), new ReauthenticateInterceptor(this)
+                new AutoAuthenticator(this), new ExceptionTransformer(), new Reauthenticator(this)
         );
     }
 
@@ -154,20 +159,21 @@ public class CurrencyCloudClient {
     }
 
     public Account updateAccount(Account account) throws CurrencyCloudException {
-        return api.updateAccount(authToken,
-                                 account.getId(),
-                                 account.getAccountName(),
-                                 account.getLegalEntityType(),
-                                 account.getYourReference(),
-                                 account.getStatus(),
-                                 account.getStreet(),
-                                 account.getCity(),
-                                 account.getStateOrProvince(),
-                                 account.getPostalCode(),
-                                 account.getCountry(),
-                                 account.getSpreadTable(),
-                                 account.getIdentificationType(),
-                                 account.getIdentificationValue()
+        return api.updateAccount(
+                authToken,
+                account.getId(),
+                account.getAccountName(),
+                account.getLegalEntityType(),
+                account.getYourReference(),
+                account.getStatus(),
+                account.getStreet(),
+                account.getCity(),
+                account.getStateOrProvince(),
+                account.getPostalCode(),
+                account.getCountry(),
+                account.getSpreadTable(),
+                account.getIdentificationType(),
+                account.getIdentificationValue()
         );
     }
 
@@ -181,21 +187,22 @@ public class CurrencyCloudClient {
         if (example == null) {
             example = Account.create();
         }
-        return api.findAccounts(authToken,
-                                example.getAccountName(),
-                                example.getBrand(),
-                                example.getYourReference(),
-                                example.getStatus(),
-                                example.getStreet(),
-                                example.getCity(),
-                                example.getStateOrProvince(),
-                                example.getPostalCode(),
-                                example.getCountry(),
-                                example.getSpreadTable(),
-                                pagination.getPage(),
-                                pagination.getPerPage(),
-                                pagination.getOrder(),
-                                pagination.getOrderAscDesc()
+        return api.findAccounts(
+                authToken,
+                example.getAccountName(),
+                example.getBrand(),
+                example.getYourReference(),
+                example.getStatus(),
+                example.getStreet(),
+                example.getCity(),
+                example.getStateOrProvince(),
+                example.getPostalCode(),
+                example.getCountry(),
+                example.getSpreadTable(),
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc()
         );
     }
 
@@ -210,7 +217,16 @@ public class CurrencyCloudClient {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
-        return api.findBalances(authToken, amountFrom, amountTo, asAtDate, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc());
+        return api.findBalances(
+                authToken,
+                amountFrom,
+                amountTo,
+                asAtDate,
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc()
+        );
     }
 
     public Balance retrieveBalance(String currency) throws CurrencyCloudException {
@@ -583,27 +599,28 @@ public class CurrencyCloudClient {
         if (payer == null) {
             payer = Payer.create();
         }
-        return api.updatePayment(authToken,
-                                 payment.getId(),
-                                 payment.getCurrency(),
-                                 payment.getBeneficiaryId(),
-                                 payment.getAmount(),
-                                 payment.getReason(),
-                                 payment.getReference(),
-                                 dateOnly(payment.getPaymentDate()),
-                                 payment.getPaymentType(),
-                                 payment.getConversionId(),
-                                 payer.getLegalEntityType(),
-                                 payer.getCompanyName(),
-                                 payer.getFirstName(),
-                                 payer.getLastName(),
-                                 payer.getCity(),
-                                 payer.getPostcode(),
-                                 payer.getStateOrProvince(),
-                                 dateOnly(payer.getDateOfBirth()),
-                                 payer.getIdentificationType(),
-                                 payer.getIdentificationValue(),
-                                 onBehalfOf
+        return api.updatePayment(
+                authToken,
+                payment.getId(),
+                payment.getCurrency(),
+                payment.getBeneficiaryId(),
+                payment.getAmount(),
+                payment.getReason(),
+                payment.getReference(),
+                dateOnly(payment.getPaymentDate()),
+                payment.getPaymentType(),
+                payment.getConversionId(),
+                payer.getLegalEntityType(),
+                payer.getCompanyName(),
+                payer.getFirstName(),
+                payer.getLastName(),
+                payer.getCity(),
+                payer.getPostcode(),
+                payer.getStateOrProvince(),
+                dateOnly(payer.getDateOfBirth()),
+                payer.getIdentificationType(),
+                payer.getIdentificationValue(),
+                onBehalfOf
         );
     }
 
@@ -664,7 +681,15 @@ public class CurrencyCloudClient {
     }
 
     public DetailedRate detailedRates(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, @Nullable Date conversionDate) throws CurrencyCloudException {
-        return api.detailedRates(authToken, buyCurrency, sellCurrency, fixedSide, amount, dateOnly(conversionDate), onBehalfOf);
+        return api.detailedRates(
+                authToken,
+                buyCurrency,
+                sellCurrency,
+                fixedSide,
+                amount,
+                dateOnly(conversionDate),
+                onBehalfOf
+        );
     }
 
     ///////////////////////////////////////////////////////////////////

@@ -8,7 +8,7 @@ import javax.ws.rs.HeaderParam;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-public abstract class AuthenticateInterceptor implements Interceptor {
+abstract class AuthenticateInterceptor implements Interceptor {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 

@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-class AutoAuthenticate extends AuthenticateInterceptor {
+class AutoAuthenticator extends AuthenticateInterceptor {
 
-    private static final Logger log = LoggerFactory.getLogger(AutoAuthenticate.class);
+    private static final Logger log = LoggerFactory.getLogger(AutoAuthenticator.class);
 
-    AutoAuthenticate(CurrencyCloudClient client) {
+    AutoAuthenticator(CurrencyCloudClient client) {
         super(client);
     }
 

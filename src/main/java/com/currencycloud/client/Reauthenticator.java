@@ -5,9 +5,9 @@ import com.currencycloud.client.exception.AuthenticationException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-class ReauthenticateInterceptor extends AuthenticateInterceptor {
+class Reauthenticator extends AuthenticateInterceptor {
 
-    ReauthenticateInterceptor(CurrencyCloudClient client) {
+    Reauthenticator(CurrencyCloudClient client) {
         super(client);
     }
 
