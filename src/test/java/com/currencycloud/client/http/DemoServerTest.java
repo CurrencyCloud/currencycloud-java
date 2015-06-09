@@ -31,6 +31,7 @@ public class DemoServerTest {
 
     private static final Logger log = LoggerFactory.getLogger(DemoServerTest.class);
     private static final Random RND = new Random();
+    private static final String SOME_UUID = "385f0e80-1ffd-4d9c-8a64-11237bdb9284";
 
     private final SimpleDateFormat dateFormat;
 
@@ -38,7 +39,6 @@ public class DemoServerTest {
             CurrencyCloudClient.Environment.demo,
             "rjnienaber@gmail.com", "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0"
     );
-    public static final String SOME_UUID = "385f0e80-1ffd-4d9c-8a64-11237bdb9284";
 
     public DemoServerTest() {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
