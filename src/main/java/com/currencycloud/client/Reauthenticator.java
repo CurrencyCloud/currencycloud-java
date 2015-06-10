@@ -22,11 +22,11 @@ class Reauthenticator extends AuthenticateInterceptor {
                 replaceAuthToken(method, args);
                 return invocationHandler.invoke(proxy, method, args);
             } catch (AuthenticationException e) {
-                log.trace( "Attempt at {} failed with {}", method.getName(), e.toString());
+                log.info( "Attempt at {} failed with {}", method.getName(), e.toString());
                 if (reattemptsLeft-- <= 0) {
                     throw e;
                 }
-                log.trace("Reauthenticating.");
+                log.info("Reauthenticating.");
                 client.authenticate();
                 log.trace("client.authToken = {}", client.getAuthToken());
             }
