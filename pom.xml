@@ -11,6 +11,7 @@
 
     <name>Currency Cloud</name>
     <description>Currency Cloud API v2 Java client</description>
+    <url>https://github.com/CurrencyCloud/currencycloud-java/</url>
     <inceptionYear>2015</inceptionYear>
 
     <organization>
