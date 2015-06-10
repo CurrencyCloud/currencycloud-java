@@ -33,15 +33,20 @@ public class ApiException extends CurrencyCloudException {
 
     public ApiException(ResponseException e) {
         this(collectMessages(e), e, e.getErrorCode(), new ArrayList<ErrorMessage>(), new Response(e.getHttpStatusCode(), e.getResponseHeaders()));
-        for (Map.Entry<String, List<ErrorMessage>> entry : e.getErrorMessages().entrySet()) {
-            List<ErrorMessage> emsgs = entry.getValue();
-            for (ErrorMessage em : emsgs) {
-                errors.add(new ErrorMessage(entry.getKey(), em.getCode(), em.getMessage(), em.getParams()));
+        if (e.getErrorMessages() != null) {
+            for (Map.Entry<String, List<ErrorMessage>> entry : e.getErrorMessages().entrySet()) {
+                List<ErrorMessage> emsgs = entry.getValue();
+                for (ErrorMessage em : emsgs) {
+                    errors.add(new ErrorMessage(entry.getKey(), em.getCode(), em.getMessage(), em.getParams()));
+                }
             }
         }
     }
 
     static String collectMessages(ResponseException e) {
+        if (e.getErrorMessages() == null) {
+            return e.getMessage();
+        }
         StringBuilder sb = new StringBuilder();
         for (List<ErrorMessage> msgs : e.getErrorMessages().values()) {
             for (ErrorMessage msg : msgs) {
