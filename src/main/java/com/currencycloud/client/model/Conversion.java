@@ -12,7 +12,7 @@ import java.util.List;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Conversion implements HasId {
+public class Conversion implements Entity {
 
     private String id;
     private String accountId;
@@ -43,7 +43,7 @@ public class Conversion implements HasId {
     private Date createdAt;
     private Date updatedAt;
 
-    private Conversion() { }
+    protected Conversion() { }
 
     private Conversion (
             String buyCurrency,

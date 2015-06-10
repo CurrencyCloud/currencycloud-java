@@ -1,5 +1,5 @@
 package com.currencycloud.client.model;
 
-public interface HasId {
+public interface Entity {
     String getId();
 }

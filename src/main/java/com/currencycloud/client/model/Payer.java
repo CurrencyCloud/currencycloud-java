@@ -1,8 +1,9 @@
-
 package com.currencycloud.client.model;
 
+import com.currencycloud.client.dirty.DirtyWatcherDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.util.ArrayList;
@@ -11,7 +12,8 @@ import java.util.List;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Payer implements HasId {
+@JsonDeserialize(converter = DirtyWatcherDeserializer.Payer.class)
+public class Payer implements Entity {
 
     private String id;
     private String legalEntityType;
@@ -29,7 +31,7 @@ public class Payer implements HasId {
     private Date createdAt;
     private Date updatedAt;
 
-    private Payer() { }
+    protected Payer() { }
 
     private Payer(String entityType,
                   String companyName,

@@ -1,14 +1,17 @@
 package com.currencycloud.client.model;
 
+import com.currencycloud.client.dirty.DirtyWatcherDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.util.Date;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Account implements HasId {
+@JsonDeserialize(converter = DirtyWatcherDeserializer.Account.class)
+public class Account implements Entity {
 
     private String id;  
 
@@ -44,7 +47,7 @@ public class Account implements HasId {
 
     private String shortReference;
 
-    private Account() { }
+    protected Account() { }
 
     private Account(String accountName, String legalEntityType) {
         this.accountName = accountName;

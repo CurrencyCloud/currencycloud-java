@@ -1,7 +1,9 @@
 package com.currencycloud.client.model;
 
+import com.currencycloud.client.dirty.DirtyWatcherDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import javax.annotation.Nullable;
@@ -9,7 +11,8 @@ import java.util.Date;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Contact implements HasId {
+@JsonDeserialize(converter = DirtyWatcherDeserializer.Contact.class)
+public class Contact implements Entity {
 
     private String loginId;  // john.smith
 
@@ -43,7 +46,7 @@ public class Contact implements HasId {
 
     private Date updatedAt;  // 2014-01-12T00:00:00+00:00
 
-    private Contact() { }
+    protected Contact() { }
 
     private Contact(
             String accountId,

@@ -443,16 +443,16 @@ public class DemoServerTest {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private static <T extends HasId> void assertFound(List<T> ts, T t) {
+    private static <T extends Entity> void assertFound(List<T> ts, T t) {
         assertFound(ts, t, true);
     }
 
-    private static <T extends HasId> void assertFound(List<T> ts, T t, boolean expectFound) {
+    private static <T extends Entity> void assertFound(List<T> ts, T t, boolean expectFound) {
         boolean found = contains(ts, t);
         assertThat(found, equalTo(expectFound));
     }
 
-    private static <T extends HasId> boolean contains(List<T> ts, T t) {
+    private static <T extends Entity> boolean contains(List<T> ts, T t) {
         boolean found = false;
         for (T c : ts) {
             if (c.getId().equals(t.getId())) {

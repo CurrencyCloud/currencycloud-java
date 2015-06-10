@@ -1,19 +1,24 @@
 package com.currencycloud.client;
 
+import com.currencycloud.client.dirty.ModificationTracker;
+import com.currencycloud.client.dirty.ModifiedValueProvider;
 import com.currencycloud.client.exception.CurrencyCloudException;
 import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Currency;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.sf.cglib.proxy.Callback;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.Factory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import si.mazi.rescu.ClientConfig;
 import si.mazi.rescu.RestProxyFactory;
 import si.mazi.rescu.serialization.jackson.JacksonConfigureListener;
 
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -29,6 +34,8 @@ import java.util.regex.Pattern;
  *
  */
 public class CurrencyCloudClient {
+
+    private static final Logger log = LoggerFactory.getLogger(CurrencyCloudClient.class);
 
     private static final Pattern UUID = Pattern.compile(
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
@@ -159,6 +166,11 @@ public class CurrencyCloudClient {
     }
 
     public Account updateAccount(Account account) throws CurrencyCloudException {
+        try {
+            account = wrapIfDirty(account, Account.class);
+        } catch (NoChangeException e) {
+            return account;
+        }
         return api.updateAccount(
                 authToken,
                 account.getId(),
@@ -308,6 +320,11 @@ public class CurrencyCloudClient {
     }
 
     public Beneficiary updateBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
+        try {
+            beneficiary = wrapIfDirty(beneficiary, Beneficiary.class);
+        } catch (NoChangeException e) {
+            return beneficiary;
+        }
         return api.updateBeneficiary(
                 authToken,
                 beneficiary.getId(),
@@ -429,6 +446,11 @@ public class CurrencyCloudClient {
     }
 
     public Contact updateContact(Contact contact) throws ResponseException {
+        try {
+            contact = wrapIfDirty(contact, Contact.class);
+        } catch (NoChangeException e) {
+            return contact;
+        }
         return api.updateContact(
                 authToken,
                 contact.getId(),
@@ -598,6 +620,12 @@ public class CurrencyCloudClient {
     public Payment updatePayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
         if (payer == null) {
             payer = Payer.create();
+        }
+        try {
+            payment = wrapIfDirty(payment, Payment.class);
+            payer = wrapIfDirty(payer, Payer.class);
+        } catch (NoChangeException e) {
+            return payment;
         }
         return api.updatePayment(
                 authToken,
@@ -835,6 +863,50 @@ public class CurrencyCloudClient {
         return date == null ? null : new java.sql.Date(date.getTime());
     }
 
+    /**
+     * @param updated The object to be checked for dirty properties
+     * @return The collection of updated properties (may be empty), or null if dirty checking is not enabled for this object.
+     */
+    @Nullable
+    private static Map<String, Object> getDirtyProperties(Object updated) {
+        if (updated instanceof Factory) {
+            Factory proxy = (Factory) updated;
+            for (Callback callback : proxy.getCallbacks()) {
+                if (callback instanceof ModificationTracker) {
+                    ModificationTracker ModificationTracker = (ModificationTracker) callback;
+                    return ModificationTracker.getDirtyProperties();
+                }
+            }
+        }
+        log.warn("Can't check if the object is dirty because it was not obtained from the client: {}", updated);
+        return null;
+    }
+
+    /**
+     * @return A proxy object whose getters will return null for unchanged entity's properties
+     * (and new values for changed properties), or the entity itself if the entity was not
+     * enhanced for dirty checking.
+     * @throws com.currencycloud.client.CurrencyCloudClient.NoChangeException if the entity was dirty-checked
+     * but there were no changes.
+     */
+    static <E extends Entity> E wrapIfDirty(E entity, Class<E> entityClass) throws NoChangeException {
+        if (entity != null) {
+            Map<String, Object> values = getDirtyProperties(entity);
+            if (values != null) {
+                if (values.isEmpty()) {
+                    throw new NoChangeException();
+                }
+                values = new HashMap<>(values);
+                values.put("id", entity.getId());
+                Enhancer enhancer = new Enhancer();
+                enhancer.setSuperclass(entityClass);
+                enhancer.setCallback(new ModifiedValueProvider(values));
+                return (E) enhancer.create();
+            }
+        }
+        return entity;
+    }
+
     public enum Environment {
         production("https://api.thecurrencycloud.com"),
         demo("https://devapi.thecurrencycloud.com");
@@ -845,4 +917,5 @@ public class CurrencyCloudClient {
         }
     }
 
+    private static class NoChangeException extends Exception { }
 }
