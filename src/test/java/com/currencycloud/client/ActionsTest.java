@@ -31,7 +31,7 @@ public class ActionsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri/*, MatchRule.body*/})
+    @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanCreate() throws Exception {
         Beneficiary beneficiary = Beneficiary.create("Test User", "GB", "GBP", "Test User");
         beneficiary.setAccountNumber("12345678");
@@ -127,7 +127,7 @@ public class ActionsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_validate_beneficiaries", match = {MatchRule.method, MatchRule.uri/*, MatchRule.body*/})
+    @Betamax(tape = "can_validate_beneficiaries", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanValidateBeneficiaries() throws Exception {
         client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
         List<String> paymentTypes = Collections.singletonList("regular");
