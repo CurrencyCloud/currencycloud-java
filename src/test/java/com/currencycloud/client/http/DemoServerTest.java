@@ -32,12 +32,14 @@ public class DemoServerTest {
     private static final Logger log = LoggerFactory.getLogger(DemoServerTest.class);
     private static final Random RND = new Random();
     private static final String SOME_UUID = "385f0e80-1ffd-4d9c-8a64-11237bdb9284";
+    private static final String LOGIN_ID = "rjnienaber@gmail.com";
+    private static final String API_KEY = "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0";
 
     private final SimpleDateFormat dateFormat;
 
     private static CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
             CurrencyCloudClient.Environment.demo,
-            "rjnienaber@gmail.com", "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0"
+            LOGIN_ID, API_KEY
     );
 
     public DemoServerTest() {
@@ -47,7 +49,7 @@ public class DemoServerTest {
 
     @Test
     public void testCookbook() throws Exception {
-        CurrencyCloudCookbook.main();
+        CurrencyCloudCookbook.runCookBook(LOGIN_ID, API_KEY);
     }
 
     /** Test that payment types collection is handled correctly. */
