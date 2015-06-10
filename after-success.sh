@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script is used by Travis-CI to publish artifacts (binary, sorce and javadoc jars) when releasing snapshots.
+# This script is referenced in .travis.yml.
+
 GIT_BRANCH=`git branch | sed -n -e 's/^\* \(.*\)/\1/p'`
 
 echo "Travis branch:       " ${TRAVIS_BRANCH}

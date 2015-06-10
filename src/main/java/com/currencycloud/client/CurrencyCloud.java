@@ -10,6 +10,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This is the low-level Currency Cloud HTTP API Java implementation. This interface's methods map directly to
+ * the HTTP endpoints, as described in the HTTP API documentation.
+ */
 @Path("v2")
 @Produces(MediaType.APPLICATION_JSON)
 public interface CurrencyCloud {
