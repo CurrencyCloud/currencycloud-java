@@ -7,7 +7,7 @@
 This is the official Java SDK for the Currency Cloud API. Additional documentation 
 for each API endpoint can be found at [connect.currencycloud.com][docs]. 
 
-If you have any queries or you require support, please contact our implementation team at implementation@currencycloud.com.  Please quote your login id in any correspondence as this makes
+If you have any queries or you require support, please contact our sales team at sales@currencycloud.com.  Please quote your login id in any correspondence as this makes
 it far simpler for us to locate your account and give you the support you need.
 
 ## Prerequisites
