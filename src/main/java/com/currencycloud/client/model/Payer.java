@@ -37,7 +37,9 @@ public class Payer implements Entity {
                   String companyName,
                   String firstName,
                   String lastName,
+                  List<String> address,
                   String city,
+                  String country,
                   String postcode,
                   String stateOrProvince,
                   Date dateOfBirth,
@@ -48,7 +50,9 @@ public class Payer implements Entity {
         this.companyName = companyName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.country = country;
         this.city = city;
+        this.address = address;
         this.postcode = postcode;
         this.stateOrProvince = stateOrProvince;
         this.dateOfBirth = dateOfBirth;
@@ -60,7 +64,9 @@ public class Payer implements Entity {
                                String companyName,
                                String firstName,
                                String lastName,
+                               List<String> address,
                                String city,
+                               String country,
                                String postcode,
                                String stateOrProvince,
                                Date dateOfBirth,
@@ -71,7 +77,9 @@ public class Payer implements Entity {
                          companyName,
                          firstName,
                          lastName,
+                         address,
                          city,
+                         country,
                          postcode,
                          stateOrProvince,
                          dateOfBirth,
