@@ -217,12 +217,11 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <keyname>Richard Nienaber &lt;richard.nienaber@currencycloud.com&gt;</keyname>
+                            <keyname>Jeremy Botha &lt;jeremy.botha@currencycloud.com&gt;</keyname>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-
 </project>
