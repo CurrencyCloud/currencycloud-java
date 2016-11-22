@@ -1,11 +1,11 @@
 [![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
 
-# Currency Cloud API v2 Java client
+# Currencycloud API v2 Java client
 
 ## Version: 0.7.2
 
-This is the official Java SDK for the Currency Cloud API. Additional documentation 
-for each API endpoint can be found at [connect.currencycloud.com][docs]. 
+This is the official Java SDK for the Currencycloud API. Additional documentation 
+for each API endpoint can be found at [developer.currencycloud.com][docs]. 
 
 If you have any queries or you require support, please contact our sales team at sales@currencycloud.com.  Please quote your login id in any correspondence as this makes
 it far simpler for us to locate your account and give you the support you need.
@@ -23,18 +23,18 @@ it will be far easier to simply make use of Maven to build the project and do th
 
 CurrencyCloud-Java requires at least a Java version 7 compatible JDK.
 
-### 3. A valid sandbox login id and api key on the CurrencyCloud sandbox API environment.
+### 3. A valid sandbox login id and api key on the Currencycloud sandbox API environment.
 
-You can register for demo API key at [connect.currencycloud.com][connect]. 
+You can register for demo API key at [developer.currencycloud.com][developer]. 
 
 While we expose certain routes on the sandbox API without the requirement for authentication, we rate-limit these requests aggressively to prevent abuse of the sandbox.  Rate-limiting on authenticated requests
  is far more lenient.
 
-## Installing the Currency Cloud SDK
+## Installing the Currencycloud SDK
 
 ### 1. Using Maven
 
-To use the Currency Cloud SDK in a Maven project, add the following dependency to the project's `pom.xml`:
+To use the Currencycloud SDK in a Maven project, add the following dependency to the project's `pom.xml`:
 
 ```xml
 <dependency>
@@ -46,7 +46,7 @@ To use the Currency Cloud SDK in a Maven project, add the following dependency t
 
 ### 2. Manually downloading the jars
 
-Download the Currency Cloud SDK jar:
+Download the Currencycloud SDK jar:
 
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
@@ -193,7 +193,7 @@ The final section contains valuable information:
 - Message: A human readable message that explains the error
 - Params: A map that contains dynamic parts of the error message for building custom error messages
 
-When troubleshooting API calls with Currency Cloud support, including the full
+When troubleshooting API calls with Currencycloud support, including the full
 error in any correspondence can be very helpful.
 
 ## Logging
@@ -215,7 +215,7 @@ We recommend using [Logback][logback]:
 
 # Development
 
-## Building Currency Cloud SDK from sources
+## Building Currencycloud SDK from sources
 
 Building the project from sources is not necessary to use it.
 
@@ -250,7 +250,7 @@ to be backwards compatible.
 
 # Copyright
 
-Copyright (c) 2015 Currency Cloud. See [LICENSE][license] for details.
+Copyright (c) 2016 Currencycloud. See [LICENSE][license] for details.
 
 
 
@@ -261,7 +261,7 @@ Copyright (c) 2015 Currency Cloud. See [LICENSE][license] for details.
 [rescu]:     https://github.com/mmazi/rescu
 [jackson]:   https://github.com/FasterXML/jackson
 [docs]:      https://connect.currencycloud.com/documentation/getting-started/introduction
-[connect]:   https://connect.currencycloud.com/
+[developer]: https://developer.currencycloud.com
 [travis]:    https://travis-ci.org/CurrencyCloud/currencycloud-java
 [semver]:    http://semver.org/
 [sonatype]:  https://oss.sonatype.org/
