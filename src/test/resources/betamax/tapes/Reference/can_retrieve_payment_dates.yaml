@@ -1,4 +1,4 @@
-name: can_retrieve_conversion_dates
+name: can_retrieve_payment_dates
 interactions:
 - request:
     method: GET

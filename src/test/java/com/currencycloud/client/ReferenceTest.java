@@ -1,11 +1,5 @@
 package com.currencycloud.client;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.anEmptyMap;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
-
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.ConversionDates;
@@ -18,6 +12,9 @@ import org.junit.Test;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class ReferenceTest extends BetamaxTestSupport {
 
