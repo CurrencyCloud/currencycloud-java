@@ -1,9 +1,16 @@
 package com.currencycloud.client;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.anEmptyMap;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
+
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.ConversionDates;
 import com.currencycloud.client.model.Currency;
+import com.currencycloud.client.model.PaymentDates;
 import com.currencycloud.client.model.SettlementAccount;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,9 +18,6 @@ import org.junit.Test;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 
 public class ReferenceTest extends BetamaxTestSupport {
 
@@ -54,6 +58,18 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(dates.getInvalidConversionDates().get(invalidConversionDate), equalTo("No trading on Saturday"));
         assertThat(dates.getFirstConversionDate(), equalTo(parseDate("2015-04-30")));
         assertThat(dates.getDefaultConversionDate(), equalTo(parseDate("2015-04-30")));
+    }
+    
+    @Test
+    @Betamax(tape = "can_retrieve_payment_dates", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanRetrievePaymentDates() throws Exception {
+        PaymentDates dates = client.paymentDates("GBP", null);
+
+        assertThat(dates.getInvalidPaymentDates(), not(anEmptyMap()));
+        Date invalidPaymentDate = dates.getInvalidPaymentDates().keySet().iterator().next();
+        assertThat(invalidPaymentDate, equalTo(parseDate("2017-01-14")));
+        assertThat(dates.getInvalidPaymentDates().get(invalidPaymentDate), equalTo("No trading on Saturday"));
+        assertThat(dates.getFirstPaymentDate(), equalTo(parseDate("2017-01-16")));
     }
 
     @Test

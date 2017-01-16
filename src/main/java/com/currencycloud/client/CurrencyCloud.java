@@ -1,14 +1,49 @@
 package com.currencycloud.client;
 
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Account;
+import com.currencycloud.client.model.Accounts;
+import com.currencycloud.client.model.AuthenticateResponse;
+import com.currencycloud.client.model.Balance;
+import com.currencycloud.client.model.Balances;
+import com.currencycloud.client.model.Beneficiaries;
+import com.currencycloud.client.model.Beneficiary;
+import com.currencycloud.client.model.BeneficiaryRequiredDetails;
+import com.currencycloud.client.model.Contact;
+import com.currencycloud.client.model.Contacts;
+import com.currencycloud.client.model.Conversion;
+import com.currencycloud.client.model.ConversionDates;
+import com.currencycloud.client.model.Conversions;
+import com.currencycloud.client.model.Currencies;
+import com.currencycloud.client.model.DetailedRate;
+import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.Payer;
+import com.currencycloud.client.model.Payment;
+import com.currencycloud.client.model.PaymentDates;
+import com.currencycloud.client.model.Payments;
+import com.currencycloud.client.model.Rates;
+import com.currencycloud.client.model.ResponseException;
+import com.currencycloud.client.model.Settlement;
+import com.currencycloud.client.model.SettlementAccounts;
+import com.currencycloud.client.model.Settlements;
+import com.currencycloud.client.model.Transaction;
+import com.currencycloud.client.model.Transactions;
 
-import javax.annotation.Nullable;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+import javax.annotation.Nullable;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 /**
  * This is the low-level Currency Cloud HTTP API Java implementation. This interface's methods map directly to
@@ -633,6 +668,15 @@ public interface CurrencyCloud {
     ConversionDates conversionDates(
             @HeaderParam("X-Auth-Token") String authToken,
             @QueryParam("conversion_pair") String conversionPair,
+            @Nullable @QueryParam("start_date") Date startDate
+    ) throws ResponseException;
+    
+    /** Payment Dates */
+    @GET
+    @Path("reference/payment_dates")
+    PaymentDates paymentDates(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @QueryParam("currency") String currency,
             @Nullable @QueryParam("start_date") Date startDate
     ) throws ResponseException;
 
