@@ -912,8 +912,8 @@ public class CurrencyCloudClient {
     }
 
     public enum Environment {
-        production("https://api.thecurrencycloud.com"),
-        demo("https://devapi.thecurrencycloud.com");
+        production("https://api.currencycloud.com"),
+        demo("https://devapi.currencycloud.com");
         private final String url;
 
         Environment(String url) {
