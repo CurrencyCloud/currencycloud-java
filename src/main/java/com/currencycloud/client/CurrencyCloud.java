@@ -420,6 +420,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("currency_pair") String currencyPair,
             @Nullable @FormParam("client_buy_amount") BigDecimal clientBuyAmount,
             @Nullable @FormParam("client_sell_amount") BigDecimal clientSellAmount,
+            @Nullable @FormParam("unique_request_id") String uniqueRequestId,
             @Nullable @FormParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
@@ -456,6 +457,7 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("buy_amount_to") BigDecimal buyAmountTo,
             @Nullable @QueryParam("sell_amount_from") BigDecimal sellAmountFrom,
             @Nullable @QueryParam("sell_amount_to") BigDecimal sellAmountTo,
+            @Nullable @QueryParam("unique_request_id") String uniqueRequestId,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
@@ -499,6 +501,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_date_of_birth") java.sql.Date payerDateOfBirth,
             @Nullable @FormParam("payer_identification_type") String payerIdentificationType,
             @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
+            @Nullable @FormParam("unique_request_id") String uniqueRequestId,
             @Nullable @FormParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
@@ -567,6 +570,7 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
+            @Nullable @QueryParam("unique_request_id") String uniqueRequestId,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 

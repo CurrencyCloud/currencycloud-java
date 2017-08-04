@@ -90,7 +90,7 @@ public class CurrencyCloudCookbook {
 
         Payment payment = Payment.create(
                 "EUR", beneficiary.getId(), new BigDecimal("10000"), "Invoice Payment", "Invoice 1234",
-                null, "regular", conversion.getId()
+                null, "regular", conversion.getId(), null
         );
         payment = currencyCloud.createPayment(payment, null);
 

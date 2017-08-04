@@ -35,6 +35,7 @@ public class Payment implements Entity {
     private String payerId;
     private Date createdAt;
     private Date updatedAt;
+    private String uniqueRequestId;
 
     protected Payment() { }
 
@@ -48,7 +49,8 @@ public class Payment implements Entity {
                     Date paymentDate,
                     String paymentType,
                     String shortReference,
-                    String status
+                    String status,
+                    @Nullable String uniqueRequestId
     ) {
         this.id = id;
         this.currency = currency;
@@ -61,6 +63,7 @@ public class Payment implements Entity {
         this.paymentType = paymentType;
         this.shortReference = shortReference;
         this.status = status;
+        this.uniqueRequestId = uniqueRequestId;
     }
 
     public static Payment create() {
@@ -78,9 +81,10 @@ public class Payment implements Entity {
             String reference,
             @Nullable Date paymentDate,
             @Nullable String paymentType,
-            @Nullable String conversionId
+            @Nullable String conversionId,
+            @Nullable String uniqueRequestId
     ) {
-        return new Payment(null, currency, beneficiaryId, amount, reason, reference, conversionId, paymentDate, paymentType, null, null);
+        return new Payment(null, currency, beneficiaryId, amount, reason, reference, conversionId, paymentDate, paymentType, null, null, uniqueRequestId);
     }
 
     /** Creates a new {@link Payment} that can be used a as parameter for the
@@ -93,9 +97,10 @@ public class Payment implements Entity {
             String reason,
             String conversionId,
             String shortReference,
-            String status
+            String status,
+            @Nullable String uniqueRequestId
     ) {
-        return new Payment(null, currency, beneficiaryId, amount, reason, null, conversionId, null, null, shortReference, status);
+        return new Payment(null, currency, beneficiaryId, amount, reason, null, conversionId, null, null, shortReference, status, uniqueRequestId);
     }
 
     public String getId() {
@@ -238,9 +243,17 @@ public class Payment implements Entity {
         return updatedAt;
     }
 
+    public String getUniqueRequestId() {
+        return uniqueRequestId;
+    }
+
+    public void setUniqueRequestId(String uniqueRequestId) {
+        this.uniqueRequestId = uniqueRequestId;
+    }
+
     @Override
     public String toString() {
-        return String.format("Payment{id='%s', shortReference='%s', beneficiaryId='%s', conversionId='%s', amount=%s, currency='%s', status='%s', paymentType='%s', reference='%s', reason='%s', paymentDate=%s, transferredAt=%s, authorisationStepsRequired=%d, creatorContactId='%s', lastUpdaterContactId='%s', failureReason='%s', payerId='%s', createdAt=%s, updatedAt=%s}",
-                id, shortReference, beneficiaryId, conversionId, amount, currency, status, paymentType, reference, reason, paymentDate, transferredAt, authorisationStepsRequired, creatorContactId, lastUpdaterContactId, failureReason, payerId, createdAt, updatedAt);
+        return String.format("Payment{id='%s', shortReference='%s', beneficiaryId='%s', conversionId='%s', amount=%s, currency='%s', status='%s', paymentType='%s', reference='%s', reason='%s', paymentDate=%s, transferredAt=%s, authorisationStepsRequired=%d, creatorContactId='%s', lastUpdaterContactId='%s', failureReason='%s', payerId='%s', createdAt=%s, updatedAt=%s, uniqueRequestId=%s}",
+                id, shortReference, beneficiaryId, conversionId, amount, currency, status, paymentType, reference, reason, paymentDate, transferredAt, authorisationStepsRequired, creatorContactId, lastUpdaterContactId, failureReason, payerId, createdAt, updatedAt, uniqueRequestId);
     }
 }
