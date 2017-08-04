@@ -253,6 +253,7 @@ public class CurrencyCloudClient {
                 authToken,
                 beneficiary.getBankCountry(),
                 beneficiary.getCurrency(),
+                Utils.join(beneficiary.getBeneficiaryAddress(), "\r\n"),
                 beneficiary.getBeneficiaryCountry(),
                 beneficiary.getAccountNumber(),
                 beneficiary.getRoutingCodeType1(),
