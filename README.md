@@ -2,7 +2,7 @@
 
 # Currencycloud API v2 Java client
 
-## Version: 0.7.2
+## Version: 0.7.5
 
 This is the official Java SDK for the Currencycloud API. Additional documentation 
 for each API endpoint can be found at [developer.currencycloud.com][docs]. 
