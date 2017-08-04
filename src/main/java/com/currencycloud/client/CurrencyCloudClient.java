@@ -522,6 +522,7 @@ public class CurrencyCloudClient {
                 conversion.getCurrencyPair(),
                 conversion.getClientBuyAmount(),
                 conversion.getClientSellAmount(),
+                conversion.getUniqueRequestId(),
                 onBehalfOf
         );
     }
@@ -544,7 +545,8 @@ public class CurrencyCloudClient {
             @Nullable BigDecimal buyAmountFrom,
             @Nullable BigDecimal buyAmountTo,
             @Nullable BigDecimal sellAmountFrom,
-            @Nullable BigDecimal sellAmountTo
+            @Nullable BigDecimal sellAmountTo,
+            @Nullable String uniqueRequestId
     ) throws CurrencyCloudException {
         if (example == null) {
             example = Conversion.create();
@@ -570,6 +572,7 @@ public class CurrencyCloudClient {
                 buyAmountTo,
                 sellAmountFrom,
                 sellAmountTo,
+                uniqueRequestId,
                 onBehalfOf
         );
     }
@@ -611,6 +614,7 @@ public class CurrencyCloudClient {
                                  dateOnly(payer.getDateOfBirth()),
                                  payer.getIdentificationType(),
                                  payer.getIdentificationValue(),
+                                 payment.getUniqueRequestId(),
                                  onBehalfOf
         );
     }
@@ -667,7 +671,8 @@ public class CurrencyCloudClient {
                                  @Nullable Date createdAtTo,
                                  @Nullable Date updatedAtFrom,
                                  @Nullable Date updatedAtTo,
-                                 @Nullable Pagination pagination
+                                 @Nullable Pagination pagination,
+                                 @Nullable String uniqueRequestId
     ) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
@@ -697,6 +702,7 @@ public class CurrencyCloudClient {
                                 pagination.getPerPage(),
                                 pagination.getOrder(),
                                 pagination.getOrderAscDesc(),
+                                uniqueRequestId,
                                 onBehalfOf
         );
     }
@@ -858,7 +864,7 @@ public class CurrencyCloudClient {
                 onBehalfOf
         );
     }
-    
+
 
     ///////////////////////////////////////////////////////////////////
 

@@ -42,6 +42,7 @@ public class Conversion implements Entity {
     private List<String> paymentIds = new ArrayList<>();
     private Date createdAt;
     private Date updatedAt;
+    private String uniqueRequestId;
 
     protected Conversion() { }
 
@@ -53,7 +54,8 @@ public class Conversion implements Entity {
             @Nullable BigDecimal clientRate,
             @Nullable String currencyPair,
             @Nullable BigDecimal clientBuyAmount,
-            @Nullable BigDecimal clientSellAmount
+            @Nullable BigDecimal clientSellAmount,
+            @Nullable String uniqueRequestId
     ) {
         this.buyCurrency = buyCurrency;
         this.sellCurrency = sellCurrency;
@@ -63,6 +65,7 @@ public class Conversion implements Entity {
         this.currencyPair = currencyPair;
         this.clientBuyAmount = clientBuyAmount;
         this.clientSellAmount = clientSellAmount;
+        this.uniqueRequestId = uniqueRequestId;
     }
 
     private Conversion(
@@ -71,7 +74,8 @@ public class Conversion implements Entity {
             @Nullable String partnerStatus,
             @Nullable String buyCurrency,
             @Nullable String sellCurrency,
-            @Nullable String currencyPair
+            @Nullable String currencyPair,
+            @Nullable String uniqueRequestId
     ) {
         this.shortReference = shortReference;
         this.status = status;
@@ -79,6 +83,7 @@ public class Conversion implements Entity {
         this.buyCurrency = buyCurrency;
         this.sellCurrency = sellCurrency;
         this.currencyPair = currencyPair;
+        this.uniqueRequestId = uniqueRequestId;
     }
 
     public static Conversion create() {
@@ -87,7 +92,7 @@ public class Conversion implements Entity {
 
     /** Creates a Conversion with only the required properties for creation. */
     public static Conversion create(String buyCurrency, String sellCurrency, String fixedSide) {
-        return new Conversion(buyCurrency, sellCurrency, fixedSide, null, null, null, null, null);
+        return new Conversion(buyCurrency, sellCurrency, fixedSide, null, null, null, null, null, null);
     }
 
     /** Creates a Conversion with the required and the optional properties for creation. */
@@ -99,7 +104,8 @@ public class Conversion implements Entity {
             @Nullable BigDecimal clientRate,
             @Nullable String currencyPair,
             @Nullable BigDecimal clientBuyAmount,
-            @Nullable BigDecimal clientSellAmount
+            @Nullable BigDecimal clientSellAmount,
+            @Nullable String uniqueRequestId
     ) {
         return new Conversion(
                 buyCurrency,
@@ -109,7 +115,8 @@ public class Conversion implements Entity {
                 clientRate,
                 currencyPair,
                 clientBuyAmount,
-                clientSellAmount
+                clientSellAmount,
+                uniqueRequestId
         );
     }
 
@@ -121,9 +128,10 @@ public class Conversion implements Entity {
             @Nullable String partnerStatus,
             @Nullable String buyCurrency,
             @Nullable String sellCurrency,
-            @Nullable String currencyPair
+            @Nullable String currencyPair,
+            @Nullable String uniqueRequestId
     ) {
-        return new Conversion(shortReference, status, partnerStatus, buyCurrency, sellCurrency, currencyPair);
+        return new Conversion(shortReference, status, partnerStatus, buyCurrency, sellCurrency, currencyPair, uniqueRequestId);
     }
 
     @Override
@@ -138,7 +146,7 @@ public class Conversion implements Entity {
     public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
-    
+
     public String getCreatorContactId() {
         return creatorContactId;
     }
@@ -337,6 +345,14 @@ public class Conversion implements Entity {
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public String getUniqueRequestId() {
+        return uniqueRequestId;
+    }
+
+    public void setUniqueRequestId(String uniqueRequestId) {
+        this.uniqueRequestId = uniqueRequestId;
     }
 
     @Override
