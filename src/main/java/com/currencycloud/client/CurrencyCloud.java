@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * This is the low-level Currency Cloud HTTP API Java implementation. This interface's methods map directly to
  * the HTTP endpoints, as described in the HTTP API documentation.
@@ -637,6 +638,15 @@ public interface CurrencyCloud {
     ConversionDates conversionDates(
             @HeaderParam("X-Auth-Token") String authToken,
             @QueryParam("conversion_pair") String conversionPair,
+            @Nullable @QueryParam("start_date") Date startDate
+    ) throws ResponseException;
+    
+    /** Payment Dates */
+    @GET
+    @Path("reference/payment_dates")
+    PaymentDates paymentDates(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @QueryParam("currency") String currency,
             @Nullable @QueryParam("start_date") Date startDate
     ) throws ResponseException;
 

@@ -744,6 +744,10 @@ public class CurrencyCloudClient {
     public ConversionDates conversionDates(String conversionPair, @Nullable Date startDate) throws CurrencyCloudException {
         return api.conversionDates(authToken, conversionPair, startDate);
     }
+    
+    public PaymentDates paymentDates(String currency, @Nullable Date startDate) throws CurrencyCloudException {
+        return api.paymentDates(authToken, currency, startDate);
+    }
 
     public List<SettlementAccount> settlementAccounts(@Nullable String currency) throws CurrencyCloudException {
         return api.settlementAccounts(authToken, currency).getSettlementAccounts();
