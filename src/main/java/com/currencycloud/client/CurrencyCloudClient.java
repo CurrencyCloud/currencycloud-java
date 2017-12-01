@@ -36,11 +36,12 @@ import java.util.regex.Pattern;
 public class CurrencyCloudClient {
 
     private static final Logger log = LoggerFactory.getLogger(CurrencyCloudClient.class);
-
     private static final Pattern UUID = Pattern.compile(
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/0.7.6";
+
 
     private final CurrencyCloud api;
 
@@ -129,14 +130,14 @@ public class CurrencyCloudClient {
             throw new IllegalArgumentException("Both loginId and apiKey must be set.");
         }
         authToken = null;
-        authToken = api.authenticate(loginId, apiKey).getAuthToken();
+        authToken = api.authenticate(userAgent, loginId, apiKey).getAuthToken();
     }
 
     /**
      * Ends a logged in session
      */
     public void endSession() throws CurrencyCloudException {
-        api.endSession(authToken);
+        api.endSession(userAgent, authToken);
         authToken = null;
     }
 
@@ -146,6 +147,7 @@ public class CurrencyCloudClient {
     public Account createAccount(Account account) throws CurrencyCloudException {
         return api.createAccount(
                 authToken,
+                userAgent,
                 account.getAccountName(),
                 account.getLegalEntityType(),
                 account.getYourReference(),
@@ -162,7 +164,7 @@ public class CurrencyCloudClient {
     }
 
     public Account retrieveAccount(String accountId) throws CurrencyCloudException {
-        return api.retrieveAccount(authToken, accountId, onBehalfOf);
+        return api.retrieveAccount(authToken, userAgent, accountId, onBehalfOf);
     }
 
     public Account updateAccount(Account account) throws CurrencyCloudException {
@@ -173,6 +175,7 @@ public class CurrencyCloudClient {
         }
         return api.updateAccount(
                 authToken,
+                userAgent,
                 account.getId(),
                 account.getAccountName(),
                 account.getLegalEntityType(),
@@ -201,6 +204,7 @@ public class CurrencyCloudClient {
         }
         return api.findAccounts(
                 authToken,
+                userAgent,
                 example.getAccountName(),
                 example.getBrand(),
                 example.getYourReference(),
@@ -219,7 +223,7 @@ public class CurrencyCloudClient {
     }
 
     public Account currentAccount() throws CurrencyCloudException {
-        return api.currentAccount(authToken);
+        return api.currentAccount(authToken, userAgent);
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -231,6 +235,7 @@ public class CurrencyCloudClient {
         }
         return api.findBalances(
                 authToken,
+                userAgent,
                 amountFrom,
                 amountTo,
                 asAtDate,
@@ -242,7 +247,7 @@ public class CurrencyCloudClient {
     }
 
     public Balance retrieveBalance(String currency) throws CurrencyCloudException {
-        return api.retrieveBalance(authToken, currency);
+        return api.retrieveBalance(authToken, userAgent, currency);
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -251,6 +256,7 @@ public class CurrencyCloudClient {
     public Beneficiary validateBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
         return api.validateBeneficiary(
                 authToken,
+                userAgent,
                 beneficiary.getBankCountry(),
                 beneficiary.getCurrency(),
                 Utils.join(beneficiary.getBeneficiaryAddress(), "\r\n"),
@@ -283,6 +289,7 @@ public class CurrencyCloudClient {
     public Beneficiary createBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
         return api.createBeneficiary(
                 authToken,
+                userAgent,
                 beneficiary.getBankAccountHolderName(),
                 beneficiary.getBankCountry(),
                 beneficiary.getCurrency(),
@@ -317,7 +324,7 @@ public class CurrencyCloudClient {
     }
 
     public Beneficiary retrieveBeneficiary(String id) throws CurrencyCloudException {
-        return api.retrieveBeneficiary(authToken, id, onBehalfOf);
+        return api.retrieveBeneficiary(authToken, userAgent, id, onBehalfOf);
     }
 
     public Beneficiary updateBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
@@ -328,6 +335,7 @@ public class CurrencyCloudClient {
         }
         return api.updateBeneficiary(
                 authToken,
+                userAgent,
                 beneficiary.getId(),
                 beneficiary.getBankAccountHolderName(),
                 beneficiary.getBankCountry(),
@@ -380,6 +388,7 @@ public class CurrencyCloudClient {
         }
         return api.findBeneficiaries(
                 authToken,
+                userAgent,
                 example.getBankAccountHolderName(),
                 example.getBeneficiaryCountry(),
                 example.getCurrency(),
@@ -414,19 +423,20 @@ public class CurrencyCloudClient {
     }
 
     public Beneficiary deleteBeneficiary(String id) throws CurrencyCloudException {
-        return api.deleteBeneficiary(authToken, id, onBehalfOf);
+        return api.deleteBeneficiary(authToken, userAgent, id, onBehalfOf);
     }
 
     ///////////////////////////////////////////////////////////////////
     ///// CONTACTS ////////////////////////////////////////////////////
 
     public void createResetToken(@Nullable String loginId) throws ResponseException {
-        api.createResetToken(authToken, loginId);
+        api.createResetToken(authToken, userAgent, loginId);
     }
 
     public Contact createContact(Contact contact) throws ResponseException {
         return api.createContact(
                 authToken,
+                userAgent,
                 contact.getAccountId(),
                 contact.getFirstName(),
                 contact.getLastName(),
@@ -443,7 +453,7 @@ public class CurrencyCloudClient {
     }
 
     public Contact retrieveContact(String contactId) throws ResponseException {
-        return api.retrieveContact(authToken, contactId);
+        return api.retrieveContact(authToken, userAgent, contactId);
     }
 
     public Contact updateContact(Contact contact) throws ResponseException {
@@ -454,6 +464,7 @@ public class CurrencyCloudClient {
         }
         return api.updateContact(
                 authToken,
+                userAgent,
                 contact.getId(),
                 contact.getFirstName(),
                 contact.getLastName(),
@@ -478,6 +489,7 @@ public class CurrencyCloudClient {
         }
         return api.findContacts(
                 authToken,
+                userAgent,
                 example.getAccountName(),
                 example.getAccountId(),
                 example.getFirstName(),
@@ -497,7 +509,7 @@ public class CurrencyCloudClient {
     }
 
     public Contact currentContact() throws ResponseException {
-        return api.currentContact(authToken);
+        return api.currentContact(authToken, userAgent);
     }
 
 
@@ -512,6 +524,7 @@ public class CurrencyCloudClient {
     ) throws CurrencyCloudException {
         return api.createConversion(
                 authToken,
+                userAgent,
                 conversion.getBuyCurrency(),
                 conversion.getSellCurrency(),
                 conversion.getFixedSide(),
@@ -529,7 +542,7 @@ public class CurrencyCloudClient {
     }
 
     public Conversion retrieveConversion(String conversionId) throws CurrencyCloudException {
-        return api.retrieveConversion(authToken, conversionId);
+        return api.retrieveConversion(authToken, userAgent, conversionId);
     }
 
     public Conversions findConversions(
@@ -554,6 +567,7 @@ public class CurrencyCloudClient {
         }
         return api.findConversions(
                 authToken,
+                userAgent,
                 example.getShortReference(),
                 example.getStatus(),
                 example.getPartnerStatus(),
@@ -583,7 +597,7 @@ public class CurrencyCloudClient {
     ///// PAYERS ///////////////////////////////////////////////////////
 
     public Payer retrievePayer(String payerId) throws CurrencyCloudException {
-        return api.retrievePayer(authToken, payerId);
+        return api.retrievePayer(authToken, userAgent, payerId);
     }
 
 
@@ -595,6 +609,7 @@ public class CurrencyCloudClient {
             payer = Payer.create();
         }
         return api.createPayment(authToken,
+                                 userAgent,
                                  payment.getCurrency(),
                                  payment.getBeneficiaryId(),
                                  payment.getAmount(),
@@ -621,7 +636,7 @@ public class CurrencyCloudClient {
     }
 
     public Payment retrievePayment(String id) throws CurrencyCloudException {
-        return api.retrievePayment(authToken, id, onBehalfOf);
+        return api.retrievePayment(authToken, userAgent, id, onBehalfOf);
     }
 
     public Payment updatePayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
@@ -636,6 +651,7 @@ public class CurrencyCloudClient {
         }
         return api.updatePayment(
                 authToken,
+                userAgent,
                 payment.getId(),
                 payment.getCurrency(),
                 payment.getBeneficiaryId(),
@@ -682,6 +698,7 @@ public class CurrencyCloudClient {
             example = Payment.create();
         }
         return api.findPayments(authToken,
+                                userAgent,
                                 example.getShortReference(),
                                 example.getCurrency(),
                                 example.getAmount(),
@@ -709,19 +726,20 @@ public class CurrencyCloudClient {
     }
 
     public Payment deletePayment(String paymentId) throws CurrencyCloudException {
-        return api.deletePayment(authToken, paymentId, onBehalfOf);
+        return api.deletePayment(authToken, userAgent, paymentId, onBehalfOf);
     }
 
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 
     public Rates findRates(Collection<String> currencyPair, @Nullable Boolean ignoreInvalidPairs) throws CurrencyCloudException {
-        return api.findRates(authToken, currencyPair, ignoreInvalidPairs, onBehalfOf);
+        return api.findRates(authToken, userAgent, currencyPair, ignoreInvalidPairs, onBehalfOf);
     }
 
     public DetailedRate detailedRates(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, @Nullable Date conversionDate) throws CurrencyCloudException {
         return api.detailedRates(
                 authToken,
+                userAgent,
                 buyCurrency,
                 sellCurrency,
                 fixedSide,
@@ -735,34 +753,34 @@ public class CurrencyCloudClient {
     ///// REFERENCE ///////////////////////////////////////////////////
 
     public List<Map<String, String>> beneficiaryRequiredDetails(@Nullable String currency, @Nullable String bankAccountCountry, @Nullable String beneficiaryCountry) throws CurrencyCloudException {
-        return api.beneficiaryRequiredDetails(authToken, currency, bankAccountCountry, beneficiaryCountry).getDetails();
+        return api.beneficiaryRequiredDetails(authToken, userAgent, currency, bankAccountCountry, beneficiaryCountry).getDetails();
     }
 
     public List<Currency> currencies() throws CurrencyCloudException {
-        return api.currencies(authToken).getCurrencies();
+        return api.currencies(authToken, userAgent).getCurrencies();
     }
 
     public ConversionDates conversionDates(String conversionPair, @Nullable Date startDate) throws CurrencyCloudException {
-        return api.conversionDates(authToken, conversionPair, startDate);
+        return api.conversionDates(authToken, userAgent, conversionPair, startDate);
     }
     
     public PaymentDates paymentDates(String currency, @Nullable Date startDate) throws CurrencyCloudException {
-        return api.paymentDates(authToken, currency, startDate);
+        return api.paymentDates(authToken, userAgent, currency, startDate);
     }
 
     public List<SettlementAccount> settlementAccounts(@Nullable String currency) throws CurrencyCloudException {
-        return api.settlementAccounts(authToken, currency).getSettlementAccounts();
+        return api.settlementAccounts(authToken, userAgent, currency).getSettlementAccounts();
     }
 
     ///////////////////////////////////////////////////////////////////
     ///// SETTLEMENTS /////////////////////////////////////////////////
 
     public Settlement createSettlement() throws CurrencyCloudException {
-        return api.createSettlement(authToken, onBehalfOf);
+        return api.createSettlement(authToken, userAgent, onBehalfOf);
     }
 
     public Settlement retrieveSettlement(String id) throws CurrencyCloudException {
-        return api.retrieveSettlement(authToken, id, onBehalfOf);
+        return api.retrieveSettlement(authToken, userAgent, id, onBehalfOf);
     }
 
     public Settlements findSettlements(
@@ -781,6 +799,7 @@ public class CurrencyCloudClient {
         }
         return api.findSettlements(
                 authToken,
+                userAgent,
                 shortReference,
                 status,
                 createdAtFrom,
@@ -798,23 +817,23 @@ public class CurrencyCloudClient {
     }
 
     public Settlement deleteSettlement(String settlementId) throws CurrencyCloudException {
-        return api.deleteSettlement(authToken, settlementId, onBehalfOf);
+        return api.deleteSettlement(authToken, userAgent, settlementId, onBehalfOf);
     }
 
     public Settlement addConversion(String settlementId, String conversionId) throws CurrencyCloudException {
-        return api.addConversion(authToken, settlementId, conversionId, onBehalfOf);
+        return api.addConversion(authToken, userAgent, settlementId, conversionId, onBehalfOf);
     }
 
     public Settlement removeConversion(String settlementId, String conversionId) throws CurrencyCloudException {
-        return api.removeConversion(authToken, settlementId, conversionId, onBehalfOf);
+        return api.removeConversion(authToken, userAgent, settlementId, conversionId, onBehalfOf);
     }
 
     public Settlement releaseSettlement(String settlementId) throws CurrencyCloudException {
-        return api.releaseSettlement(authToken, settlementId, onBehalfOf);
+        return api.releaseSettlement(authToken, userAgent, settlementId, onBehalfOf);
     }
 
     public Settlement unreleaseSettlement(String settlementId) throws CurrencyCloudException {
-        return api.unreleaseSettlement(authToken, settlementId, onBehalfOf);
+        return api.unreleaseSettlement(authToken, userAgent, settlementId, onBehalfOf);
     }
 
 
@@ -822,7 +841,7 @@ public class CurrencyCloudClient {
     ///// TRANSACTIONS ////////////////////////////////////////////////
 
     public Transaction retrieveTransaction(String id) throws CurrencyCloudException {
-        return api.retrieveTransaction(authToken, id, onBehalfOf);
+        return api.retrieveTransaction(authToken, userAgent, id, onBehalfOf);
     }
 
     public Transactions findTransactions(
@@ -845,6 +864,7 @@ public class CurrencyCloudClient {
         }
         return api.findTransactions(
                 authToken,
+                userAgent,
                 example.getCurrency(),
                 example.getAmount(),
                 amountFrom,

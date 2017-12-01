@@ -7,6 +7,8 @@ interactions:
     headers:
       X-Auth-Token:
       - 656485646b068f6e9c81e3d885fa54f5
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/0.7.6
   response:
     status: 404
     headers:

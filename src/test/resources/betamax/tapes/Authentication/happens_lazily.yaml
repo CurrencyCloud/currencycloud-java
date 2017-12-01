@@ -8,7 +8,7 @@ interactions:
       Accept-Charset:
       - UTF-8
       User-Agent:
-      - ResCU JDK/6 AppleWebKit/535.7 Chrome/16.0.912.36 Safari/535.7
+      - CurrencyCloudSDK/2.0 Java/0.7.6
       Accept:
       - application/json
       Host:
@@ -47,7 +47,7 @@ interactions:
       Accept-Charset:
       - UTF-8
       User-Agent:
-      - ResCU JDK/6 AppleWebKit/535.7 Chrome/16.0.912.36 Safari/535.7
+      - CurrencyCloudSDK/2.0 Java/0.7.6
       Accept:
       - application/json
       Host:

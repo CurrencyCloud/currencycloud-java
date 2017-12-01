@@ -8,7 +8,7 @@ interactions:
       Accept:
       - ! '*/*'
       User-Agent:
-      - Ruby
+      - CurrencyCloudSDK/2.0 Java/0.7.6
   response:
     status: 400
     headers:
