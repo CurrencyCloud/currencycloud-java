@@ -88,6 +88,42 @@ public class Payer implements Entity {
         );
     }
 
+    /**
+     * Create payer with minimum set of required attributes
+     * @param entityType
+     * @param companyName
+     * @param firstName
+     * @param lastName
+     * @param address
+     * @param city
+     * @param country
+     * @param dateOfBirth
+     * @return
+     */
+    public static Payer create(String entityType,
+                               String companyName,
+                               String firstName,
+                               String lastName,
+                               List<String> address,
+                               String city,
+                               String country,
+                               Date dateOfBirth
+    ) {
+        return new Payer(entityType,
+                companyName,
+                firstName,
+                lastName,
+                address,
+                city,
+                country,
+                null,
+                null,
+                dateOfBirth,
+                null,
+                null
+        );
+    }
+
     public static Payer create() {
         return new Payer();
     }

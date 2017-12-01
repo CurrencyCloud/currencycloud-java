@@ -141,7 +141,7 @@ public class DemoServerTest {
 
     @Test
     public void testCreateUpdateAccount() throws Exception {
-        Account account = currencyCloud.createAccount(Account.create("New Account xyz", "individual"));
+        Account account = currencyCloud.createAccount(Account.create("New Account xyz", "individual" , " Test Street", "London", "GB"));
 
         assertThat(account.getYourReference(), is(nullValue()));
         account.setYourReference("a");
@@ -290,7 +290,20 @@ public class DemoServerTest {
                 "EUR", beneficiary.getId(), amount, "Invoice Payment", "Invoice 1234",
                 null, "regular", conversion.getId(), null
         );
-        payment = currencyCloud.createPayment(payment, null);
+
+        List<String> payerAddress = new ArrayList<String>();
+        payerAddress.add("Payer Address Line 1");
+        payerAddress.add("Payer Address Line 2");
+        Payer payer = Payer.create(
+                "individual",
+                "Test Payer Company",
+                "Test Payer First Name",
+                "Test Payer Last Name",
+                payerAddress,
+                "Paris",
+                "FR",
+                new Date());
+        payment = currencyCloud.createPayment(payment, payer);
         log.debug("Created payment = {}", payment);
 
         payment = currencyCloud.retrievePayment(payment.getId());
@@ -314,7 +327,7 @@ public class DemoServerTest {
 
         assertFound(payments, payment);
 
-        Payer payer = currencyCloud.retrievePayer(payment.getPayerId());
+        payer = currencyCloud.retrievePayer(payment.getPayerId());
 
         payment.setReason("A changed reason");
         payer.setCity("A different city.");
@@ -324,7 +337,7 @@ public class DemoServerTest {
                 "EUR", beneficiary.getId(), randomAmount(), "Invoice Payment 2", "Invoice 2234",
                 null, "regular", conversion.getId(), null
         );
-        payment2 = currencyCloud.createPayment(payment2, null);
+        payment2 = currencyCloud.createPayment(payment2, payer);
         log.debug("Created payment2 = {}", payment2);
 
         currencyCloud.deletePayment(payment.getId());
@@ -408,7 +421,7 @@ public class DemoServerTest {
                 from, to,
                 Pagination.builder().pages(1, 10).build()
         ).getTransactions();
-        log.debug("transactions = {}", transactions);;
+        log.debug("transactions = {}", transactions);
 
         // todo: we never get any transactions here
 //        assertThat(transactions, hasSize(greaterThan(0)));

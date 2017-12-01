@@ -622,7 +622,7 @@ public class CurrencyCloudClient {
                                  payer.getCompanyName(),
                                  payer.getFirstName(),
                                  payer.getLastName(),
-                                 payer.getAddress(),
+                                 flattenList(payer.getAddress()),
                                  payer.getCity(),
                                  payer.getCountry(),
                                  payer.getPostcode(),
@@ -665,7 +665,7 @@ public class CurrencyCloudClient {
                 payer.getCompanyName(),
                 payer.getFirstName(),
                 payer.getLastName(),
-                payer.getAddress(),
+                flattenList(payer.getAddress()),
                 payer.getCity(),
                 payer.getCountry(),
                 payer.getPostcode(),
@@ -953,4 +953,27 @@ public class CurrencyCloudClient {
     }
 
     private static class NoChangeException extends Exception { }
+
+    /**
+     * Flattens list of string objects into a comma separated string in Java 1.7 and earlier.
+     * If the list is empty then null is returned.
+     *
+     * @param stringArray List of strings
+     * @return a flattened comma separated string object.
+     */
+    private static String flattenList(List<String> stringArray) {
+        if (stringArray!= null && stringArray.size() > 0) {
+            StringBuilder stringBuilder = new StringBuilder();
+            String resultString;
+            for (String string : stringArray) {
+                stringBuilder.append(string);
+                stringBuilder.append(",");
+            }
+            resultString = stringBuilder.toString();
+            resultString = resultString.substring(0, resultString.length() - ",".length());
+            return resultString;
+        } else {
+            return null;
+        }
+    }
 }
