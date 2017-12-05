@@ -189,8 +189,12 @@ public class DemoServerTest {
         String accountId = currencyCloud.currentAccount().getId();
         log.debug("accountId = {}", accountId);
 
+        String Contact_First_Name = randomString();
+        String Contact_Last_Name = randomString();
+        String Contact_email_id = randomString() + "+jdjr@example.com";
+
         Contact contact = currencyCloud.createContact(
-                Contact.create(accountId, "John Jr.", "Doe", randomString() + "+jdjr@example.com", "555 555 555 555")
+                Contact.create(accountId, Contact_First_Name, Contact_Last_Name, Contact_email_id, "555 555 555 555")
         );
 
         log.debug("contact = {}", contact);
@@ -208,7 +212,7 @@ public class DemoServerTest {
         assertFound(contacts, contact);
 
         contacts = currencyCloud.findContacts(
-                Contact.create(accountId, null, null, null, null),
+                Contact.create(accountId, Contact_First_Name, Contact_Last_Name, Contact_email_id, null),
                 Pagination.builder().pages(1, 10).build()
         ).getContacts();
         assertFound(contacts, contact);
