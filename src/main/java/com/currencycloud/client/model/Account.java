@@ -49,13 +49,20 @@ public class Account implements Entity {
 
     protected Account() { }
 
-    private Account(String accountName, String legalEntityType) {
+    private Account(String accountName, String legalEntityType, String street, String city, String country) {
         this.accountName = accountName;
         this.legalEntityType = legalEntityType;
+        this.street = street;
+        this.city = city;
+        this.country = country;
+    }
+
+    public static Account create(String accountName, String legalEntityType, String street, String city, String country) {
+        return new Account(accountName, legalEntityType, street, city, country);
     }
 
     public static Account create(String accountName, String legalEntityType) {
-        return new Account(accountName, legalEntityType);
+        return new Account(accountName, legalEntityType, null, null, null);
     }
 
     public static Account create() {

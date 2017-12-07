@@ -4,7 +4,9 @@ interactions:
     method: POST
     uri: http://localhost:5555/v2/authenticate/api
     body: login_id=rjnienaber%40gmail.com&api_key=ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0
-    headers: {}
+    headers:
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/0.7.6
   response:
     status: 200
     headers:

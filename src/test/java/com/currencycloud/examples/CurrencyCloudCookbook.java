@@ -1,12 +1,11 @@
 package com.currencycloud.examples;
 
 import com.currencycloud.client.CurrencyCloudClient;
-import com.currencycloud.client.model.Beneficiary;
-import com.currencycloud.client.model.Conversion;
-import com.currencycloud.client.model.DetailedRate;
-import com.currencycloud.client.model.Payment;
+import com.currencycloud.client.model.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -78,9 +77,35 @@ public class CurrencyCloudCookbook {
         beneficiary.setBeneficiaryCountry("DE");
         beneficiary.setBicSwift("COBADEFF");
         beneficiary.setIban("DE89370400440532013000");
+        List<String> beneficiaryAddress = new ArrayList<String>();
+        beneficiaryAddress.add("Acme building in Germany");
+        beneficiaryAddress.add("Acme street in Germany");
+        beneficiary.setBeneficiaryAddress(beneficiaryAddress);
         beneficiary = currencyCloud.createBeneficiary(beneficiary);
 
         System.out.printf("beneficiary: %s%n", beneficiary);
+
+        /*
+        Validate this beneficiary before we attempt a payment to avoid any payment failures.
+         */
+
+        currencyCloud.validateBeneficiary(beneficiary);
+
+        /*
+        5. Provide details of the Payer
+         */
+        List<String> payerAddress = new ArrayList<String>();
+        payerAddress.add("Payer Address Line 1");
+        payerAddress.add("Payer Address Line 2");
+        Payer payer = Payer.create(
+                "individual",
+                "Test Payer Company",
+                "Test Payer First Name",
+                "Test Payer Last Name",
+                payerAddress,
+                "Paris",
+                "FR",
+                new Date());
 
         /*
         5. Pay
@@ -92,7 +117,7 @@ public class CurrencyCloudCookbook {
                 "EUR", beneficiary.getId(), new BigDecimal("10000"), "Invoice Payment", "Invoice 1234",
                 null, "regular", conversion.getId(), null
         );
-        payment = currencyCloud.createPayment(payment, null);
+        payment = currencyCloud.createPayment(payment, payer);
 
         System.out.printf("payment: %s%n", payment);
 
