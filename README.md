@@ -2,7 +2,7 @@
 
 # Currencycloud API v2 Java client
 
-## Version: 0.7.5
+## Version: 0.7.6
 
 This is the official Java SDK for the Currencycloud API. Additional documentation 
 for each API endpoint can be found at [developer.currencycloud.com][docs]. 
@@ -40,7 +40,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>0.7-SNAPSHOT</version>
+    <version>0.7.6</version>
 </dependency>
 ```
 
@@ -50,7 +50,7 @@ Download the Currencycloud SDK jar:
 
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-0.7-SNAPSHOT.jar 
+3. Download the currencycloud-java-0.7.6.jar 
 
 Get the list of all dependencies:
 
@@ -58,19 +58,21 @@ Get the list of all dependencies:
 mvn dependency:list -DincludeScope=runtime
 ```
 
-As of version 0.7, this returns the following list:
+As of version 0.7.6, this returns the following list:
 
 ```
-ch.qos.logback:logback-core:jar:1.1.2
-com.fasterxml.jackson.core:jackson-core:jar:2.5.0
-com.github.mmazi:rescu:jar:1.8.1-SNAPSHOT
-com.google.code.findbugs:jsr305:jar:3.0.0
-com.fasterxml.jackson.core:jackson-databind:jar:2.5.0
-ch.qos.logback:logback-classic:jar:1.1.2
-com.fasterxml.jackson.core:jackson-annotations:jar:2.5.0
-org.slf4j:slf4j-api:jar:1.7.12
-com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:jar:2.5.0
-javax.ws.rs:jsr311-api:jar:1.1.1
+com.fasterxml.jackson.core:jackson-core:jar:2.5.0:compile
+com.google.code.findbugs:jsr305:jar:3.0.0:compile
+com.fasterxml.jackson.core:jackson-databind:jar:2.5.0:compile
+cglib:cglib:jar:3.1:compile
+com.fasterxml.jackson.core:jackson-annotations:jar:2.5.0:compile
+ch.qos.logback:logback-core:jar:1.1.3:compile
+org.ow2.asm:asm:jar:4.2:compile
+com.github.mmazi:rescu:jar:1.8.1:compile
+org.slf4j:slf4j-api:jar:1.7.12:compile
+com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:jar:2.5.0:compile
+javax.ws.rs:jsr311-api:jar:1.1.1:compile
+ch.qos.logback:logback-classic:jar:1.1.3:compile
 ```
 
 You will need to find each of these dependencies and download it from the [Sonatype Nexus][sonatype] as described above.
@@ -250,7 +252,7 @@ to be backwards compatible.
 
 # Copyright
 
-Copyright (c) 2016 Currencycloud. See [LICENSE][license] for details.
+Copyright (c) 2017 Currencycloud. See [LICENSE][license] for details.
 
 
 

@@ -217,7 +217,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <keyname>Jeremy Botha &lt;jeremy.botha@currencycloud.com&gt;</keyname>
+                            <keyname>Derik Vercueil &lt;derik.vercueil@currencycloud.com&gt;</keyname>
                         </configuration>
                     </plugin>
                 </plugins>
