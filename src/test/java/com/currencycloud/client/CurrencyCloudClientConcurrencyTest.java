@@ -26,11 +26,10 @@ class TestThread extends Thread {
         int i=0;
         while (i<1000) {
             try {
-                client.onBehalfOfDo(contactId, new Runnable() {
-
+                client.onBehalfOfDo(contactId, new OnBehalfRunnable() {
                     @Override
-                    public void run() {
-                        String onBehalfOf = client.getOnBehalfOf();
+                    public void run(OnBehalfClient onBehalfClient) {
+                        String onBehalfOf = onBehalfClient.getOnBehalfOf();
                         /**
                          * It is always expected that \"threadId\" = 2nd last character of onBehalf to ensure that the Runnable for that Thread is running
                          */
