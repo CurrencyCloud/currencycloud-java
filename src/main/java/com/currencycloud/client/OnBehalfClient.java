@@ -32,11 +32,12 @@ public class OnBehalfClient implements OnBehalfFunctions {
     private CurrencyCloudClient client;
     private String onBehalfOf;
 
-    public OnBehalfClient(String onBehalfOf) {
+    OnBehalfClient(String onBehalfOf, CurrencyCloudClient client) {
+        this.onBehalfOf = onBehalfOf;
+        this.client = client;
         if (!UUID.matcher(onBehalfOf).matches()) {
             throw new IllegalArgumentException("Contact id for onBehalfOf is not a UUID");
         }
-        this.onBehalfOf = onBehalfOf;
     }
 
     public CurrencyCloudClient getClient() {

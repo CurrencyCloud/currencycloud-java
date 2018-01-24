@@ -85,7 +85,7 @@ public class CurrencyCloudClient implements OnBehalfFunctions {
 
     
     public OnBehalfClient onBehalf(String contactId) {
-        return new OnBehalfClient(contactId);
+        return new OnBehalfClient(contactId, this);
     }
     
     /**
