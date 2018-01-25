@@ -84,7 +84,7 @@ public class CurrencyCloudClient implements OnBehalfFunctions {
     ///// ON BEHALF OF ////////////////////////////////////////////////
 
     
-    public OnBehalfClient onBehalf(String contactId) {
+    public OnBehalfClient onBehalfOf(String contactId) {
         return new OnBehalfClient(contactId, this);
     }
     
@@ -99,7 +99,7 @@ public class CurrencyCloudClient implements OnBehalfFunctions {
      */
     public void onBehalfOfDo(String contactId, OnBehalfRunnable work)
             throws IllegalArgumentException, IllegalStateException, CurrencyCloudException {
-        work.run(onBehalf(contactId));
+        work.run(onBehalfOf(contactId));
     }
 
     ///////////////////////////////////////////////////////////////////

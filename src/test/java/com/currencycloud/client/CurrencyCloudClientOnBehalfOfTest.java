@@ -40,7 +40,7 @@ public class CurrencyCloudClientOnBehalfOfTest {
     @Test
     public void testOnBehalf() throws Exception {
         final String obo = "c6ece846-6df1-461d-acaa-b42a6aa74045";
-        OnBehalfClient onBehalfClient = client.onBehalf(obo);
+        OnBehalfClient onBehalfClient = client.onBehalfOf(obo);
         assertThat(onBehalfClient.getOnBehalfOf(), equalTo(obo));
     }
 
