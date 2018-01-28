@@ -837,4 +837,23 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
+
+    /**
+     * Create a transfer
+     */
+    @POST
+    @Path("transfers/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Transfer createTransfer(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+
+            @FormParam("source_account_id") String sourceAccountId,
+            @FormParam("destination_account_id") String destinationAccountId,
+            @FormParam("currency") String currency,
+            @FormParam("amount") BigDecimal amount,
+
+            @Nullable @FormParam("reason") String reason
+    ) throws ResponseException;
+
 }

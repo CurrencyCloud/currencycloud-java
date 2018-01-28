@@ -976,4 +976,28 @@ public class CurrencyCloudClient {
             return null;
         }
     }
+
+
+    /**
+     * @HeaderParam("X-Auth-Token") String authToken,
+     * @HeaderParam("User-Agent") String userAgent,
+     * @FormParam("source_account_id") String sourceAccountId,
+     * @FormParam("destination_account_id") String destinationAccountId,
+     * @FormParam("currency") String currency,
+     * @FormParam("amount") BigDecimal amount,
+     * @Nullable @FormParam("reason") String reason
+     */
+
+    public Transfer createTransfer(Transfer transfer) throws CurrencyCloudException {
+        return api.createTransfer(
+                authToken,
+                userAgent,
+
+                transfer.getSourceAccountId(),
+                transfer.getDestinationAccountId(),
+                transfer.getCurrency(),
+                transfer.getAmount(),
+
+                transfer.getReason());
+    }
 }
