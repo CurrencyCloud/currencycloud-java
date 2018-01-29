@@ -19,7 +19,6 @@ import si.mazi.rescu.serialization.jackson.JacksonConfigureListener;
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * This is the high-lever entry point to the Currency Cloud API. It provides access to the HTTP API while providing
@@ -33,19 +32,13 @@ import java.util.regex.Pattern;
  * </ul>
  *
  */
-public class CurrencyCloudClient {
+public class CurrencyCloudClient implements OnBehalfFunctions {
 
     private static final Logger log = LoggerFactory.getLogger(CurrencyCloudClient.class);
-    private static final Pattern UUID = Pattern.compile(
-            "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
-            Pattern.CASE_INSENSITIVE
-    );
     private static final String userAgent = "CurrencyCloudSDK/2.0 Java/0.7.6";
 
 
     private final CurrencyCloud api;
-
-    private String onBehalfOf = null;
 
     private String loginId;
     private String apiKey;
@@ -90,6 +83,11 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// ON BEHALF OF ////////////////////////////////////////////////
 
+    
+    public OnBehalfClient onBehalfOf(String contactId) {
+        return new OnBehalfClient(contactId, this);
+    }
+    
     /**
      * Performs the work on behalf of another user.
      *
@@ -99,24 +97,9 @@ public class CurrencyCloudClient {
      * @throws IllegalStateException    if onBehalfOf is already set (nested call to this method)
      * @throws IllegalArgumentException if onBehalfOf is in illegal format
      */
-    public void onBehalfOfDo(String contactId, Runnable work)
+    public void onBehalfOfDo(String contactId, OnBehalfRunnable work)
             throws IllegalArgumentException, IllegalStateException, CurrencyCloudException {
-        if (!UUID.matcher(contactId).matches()) {
-            throw new IllegalArgumentException("Contact id for onBehalfOf is not a UUID");
-        }
-        if (this.onBehalfOf != null) {
-            throw new IllegalStateException("Can't nest on-behalf-of calls: " + this.onBehalfOf);
-        }
-        this.onBehalfOf = contactId;
-        try {
-            work.run();
-        } finally {
-            this.onBehalfOf = null;
-        }
-    }
-
-    String getOnBehalfOf() {
-        return onBehalfOf;
+        work.run(onBehalfOf(contactId));
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -163,7 +146,12 @@ public class CurrencyCloudClient {
         );
     }
 
+    @Override
     public Account retrieveAccount(String accountId) throws CurrencyCloudException {
+        return retrieveAccount(accountId, null);
+    }
+
+    protected Account retrieveAccount(String accountId, String onBehalfOf) {
         return api.retrieveAccount(authToken, userAgent, accountId, onBehalfOf);
     }
 
@@ -253,7 +241,12 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// BENEFICIARIES ///////////////////////////////////////////////
 
+    @Override
     public Beneficiary validateBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
+        return validateBeneficiary(beneficiary, null);
+    }
+
+    protected Beneficiary validateBeneficiary(Beneficiary beneficiary, String onBehalfOf) {
         return api.validateBeneficiary(
                 authToken,
                 userAgent,
@@ -286,7 +279,12 @@ public class CurrencyCloudClient {
         );
     }
 
+    @Override
     public Beneficiary createBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
+        return createBeneficiary(beneficiary, null);
+    }
+
+    protected Beneficiary createBeneficiary(Beneficiary beneficiary, String onBehalfOf) {
         return api.createBeneficiary(
                 authToken,
                 userAgent,
@@ -323,11 +321,21 @@ public class CurrencyCloudClient {
         );
     }
 
+    @Override
     public Beneficiary retrieveBeneficiary(String id) throws CurrencyCloudException {
+        return retrieveBeneficiary(id, null);
+    }
+
+    protected Beneficiary retrieveBeneficiary(String id, String onBehalfOf) {
         return api.retrieveBeneficiary(authToken, userAgent, id, onBehalfOf);
     }
 
+    @Override
     public Beneficiary updateBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
+        return updateBeneficiary(beneficiary, null);
+    }
+
+    protected Beneficiary updateBeneficiary(Beneficiary beneficiary, String onBehalfOf) {
         try {
             beneficiary = wrapIfDirty(beneficiary, Beneficiary.class);
         } catch (NoChangeException e) {
@@ -378,8 +386,13 @@ public class CurrencyCloudClient {
      * @return           The paginated Beneficiaries search results
      * @throws CurrencyCloudException When an error occurs
      */
+    @Override
     public Beneficiaries findBeneficiaries(@Nullable Beneficiary example, @Nullable Pagination pagination)
             throws CurrencyCloudException {
+        return findBeneficiaries(example, pagination, null);
+    }
+
+    protected Beneficiaries findBeneficiaries(@Nullable Beneficiary example, @Nullable Pagination pagination, String onBehalfOf) {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
@@ -418,11 +431,17 @@ public class CurrencyCloudClient {
         );
     }
 
+    @Override
     public Beneficiary firstBeneficiary(@Nullable Beneficiary beneficiary) throws CurrencyCloudException {
         return findBeneficiaries(beneficiary, Pagination.first()).getBeneficiaries().iterator().next();
     }
 
+    @Override
     public Beneficiary deleteBeneficiary(String id) throws CurrencyCloudException {
+        return deleteBeneficiary(id, null);
+    }
+
+    protected Beneficiary deleteBeneficiary(String id, String onBehalfOf) {
         return api.deleteBeneficiary(authToken, userAgent, id, onBehalfOf);
     }
 
@@ -516,12 +535,17 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// CONVERSIONS /////////////////////////////////////////////////
 
+    @Override
     public Conversion createConversion(
             Conversion conversion,
             BigDecimal amount,
             String reason,
             Boolean termAgreement
     ) throws CurrencyCloudException {
+        return createConversion(conversion, amount, reason, termAgreement, null);
+    }
+
+    protected Conversion createConversion(Conversion conversion, BigDecimal amount, String reason, Boolean termAgreement, String onBehalfOf) {
         return api.createConversion(
                 authToken,
                 userAgent,
@@ -545,6 +569,7 @@ public class CurrencyCloudClient {
         return api.retrieveConversion(authToken, userAgent, conversionId);
     }
 
+    @Override
     public Conversions findConversions(
             @Nullable Conversion example,
             @Nullable Collection<String> conversionIds,
@@ -562,6 +587,13 @@ public class CurrencyCloudClient {
             @Nullable BigDecimal sellAmountTo,
             @Nullable String uniqueRequestId
     ) throws CurrencyCloudException {
+        return findConversions(example, conversionIds, createdAtFrom, createdAtTo,
+                updatedAtFrom, updatedAtTo, partnerBuyAmountFrom, partnerBuyAmountTo,
+                partnerSellAmountFrom, partnerSellAmountTo, buyAmountFrom, buyAmountTo,
+                sellAmountFrom, sellAmountTo, uniqueRequestId, null);
+    }
+
+    protected Conversions findConversions(@Nullable Conversion example, @Nullable Collection<String> conversionIds, @Nullable Date createdAtFrom, @Nullable Date createdAtTo, @Nullable Date updatedAtFrom, @Nullable Date updatedAtTo, @Nullable BigDecimal partnerBuyAmountFrom, @Nullable BigDecimal partnerBuyAmountTo, @Nullable BigDecimal partnerSellAmountFrom, @Nullable BigDecimal partnerSellAmountTo, @Nullable BigDecimal buyAmountFrom, @Nullable BigDecimal buyAmountTo, @Nullable BigDecimal sellAmountFrom, @Nullable BigDecimal sellAmountTo, @Nullable String uniqueRequestId, String onBehalfOf) {
         if (example == null) {
             example = Conversion.create();
         }
@@ -604,7 +636,12 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// PAYMENTS ////////////////////////////////////////////////////
 
+    @Override
     public Payment createPayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
+        return createPayment(payment, payer, null);
+    }
+
+    protected Payment createPayment(Payment payment, @Nullable Payer payer, String onBehalfOf) {
         if (payer == null) {
             payer = Payer.create();
         }
@@ -635,11 +672,21 @@ public class CurrencyCloudClient {
         );
     }
 
+    @Override
     public Payment retrievePayment(String id) throws CurrencyCloudException {
+        return retrievePayment(id, null);
+    }
+
+    protected Payment retrievePayment(String id, String onBehalfOf) {
         return api.retrievePayment(authToken, userAgent, id, onBehalfOf);
     }
 
+    @Override
     public Payment updatePayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
+        return updatePayment(payment, payer, null);
+    }
+
+    protected Payment updatePayment(Payment payment, @Nullable Payer payer, String onBehalfOf) {
         if (payer == null) {
             payer = Payer.create();
         }
@@ -677,6 +724,7 @@ public class CurrencyCloudClient {
         );
     }
 
+    @Override
     public Payments findPayments(@Nullable Payment example,
                                  @Nullable BigDecimal amountFrom,
                                  @Nullable BigDecimal amountTo,
@@ -691,6 +739,12 @@ public class CurrencyCloudClient {
                                  @Nullable Pagination pagination,
                                  @Nullable String uniqueRequestId
     ) throws CurrencyCloudException {
+        return findPayments(example, amountFrom, amountTo, paymentDateFrom, paymentDateTo,
+                transferredAtFrom, transferredAtTo, createdAtFrom, createdAtTo,
+                updatedAtFrom, updatedAtTo, pagination, uniqueRequestId, null);
+    }
+
+    protected Payments findPayments(@Nullable Payment example, @Nullable BigDecimal amountFrom, @Nullable BigDecimal amountTo, @Nullable Date paymentDateFrom, @Nullable Date paymentDateTo, @Nullable Date transferredAtFrom, @Nullable Date transferredAtTo, @Nullable Date createdAtFrom, @Nullable Date createdAtTo, @Nullable Date updatedAtFrom, @Nullable Date updatedAtTo, @Nullable Pagination pagination, @Nullable String uniqueRequestId, String onBehalfOf) {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
@@ -725,18 +779,33 @@ public class CurrencyCloudClient {
         );
     }
 
+    @Override
     public Payment deletePayment(String paymentId) throws CurrencyCloudException {
+        return deletePayment(paymentId, null);
+    }
+
+    protected Payment deletePayment(String paymentId, String onBehalfOf) {
         return api.deletePayment(authToken, userAgent, paymentId, onBehalfOf);
     }
 
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 
+    @Override
     public Rates findRates(Collection<String> currencyPair, @Nullable Boolean ignoreInvalidPairs) throws CurrencyCloudException {
+        return findRates(currencyPair, ignoreInvalidPairs, null);
+    }
+
+    protected Rates findRates(Collection<String> currencyPair, @Nullable Boolean ignoreInvalidPairs, String onBehalfOf) {
         return api.findRates(authToken, userAgent, currencyPair, ignoreInvalidPairs, onBehalfOf);
     }
 
+    @Override
     public DetailedRate detailedRates(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, @Nullable Date conversionDate) throws CurrencyCloudException {
+        return detailedRates(buyCurrency, sellCurrency, fixedSide, amount, conversionDate, null);
+    }
+
+    protected DetailedRate detailedRates(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, @Nullable Date conversionDate, String onBehalfOf) {
         return api.detailedRates(
                 authToken,
                 userAgent,
@@ -775,14 +844,25 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// SETTLEMENTS /////////////////////////////////////////////////
 
+    @Override
     public Settlement createSettlement() throws CurrencyCloudException {
+        return createSettlement(null);
+    }
+
+    protected Settlement createSettlement(String onBehalfOf) {
         return api.createSettlement(authToken, userAgent, onBehalfOf);
     }
 
+    @Override
     public Settlement retrieveSettlement(String id) throws CurrencyCloudException {
+        return retrieveSettlement(id, null);
+    }
+
+    protected Settlement retrieveSettlement(String id, String onBehalfOf) {
         return api.retrieveSettlement(authToken, userAgent, id, onBehalfOf);
     }
 
+    @Override
     public Settlements findSettlements(
             @Nullable String shortReference,
             @Nullable String status,
@@ -794,6 +874,11 @@ public class CurrencyCloudClient {
             @Nullable Date releasedAtTo,
             @Nullable Pagination pagination
     ) throws CurrencyCloudException {
+        return findSettlements(shortReference, status, createdAtFrom, createdAtTo, 
+                updatedAtFrom, updatedAtTo, releasedAtFrom, releasedAtTo, pagination, null);
+    }
+
+    protected Settlements findSettlements(@Nullable String shortReference, @Nullable String status, @Nullable Date createdAtFrom, @Nullable Date createdAtTo, @Nullable Date updatedAtFrom, @Nullable Date updatedAtTo, @Nullable Date releasedAtFrom, @Nullable Date releasedAtTo, @Nullable Pagination pagination, String onBehalfOf) {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
@@ -816,23 +901,48 @@ public class CurrencyCloudClient {
         );
     }
 
+    @Override
     public Settlement deleteSettlement(String settlementId) throws CurrencyCloudException {
+        return deleteSettlement(settlementId, null);
+    }
+
+    protected Settlement deleteSettlement(String settlementId, String onBehalfOf) {
         return api.deleteSettlement(authToken, userAgent, settlementId, onBehalfOf);
     }
 
+    @Override
     public Settlement addConversion(String settlementId, String conversionId) throws CurrencyCloudException {
+        return addConversion(settlementId, conversionId, null);
+    }
+
+    protected Settlement addConversion(String settlementId, String conversionId, String onBehalfOf) {
         return api.addConversion(authToken, userAgent, settlementId, conversionId, onBehalfOf);
     }
 
+    @Override
     public Settlement removeConversion(String settlementId, String conversionId) throws CurrencyCloudException {
+        return removeConversion(settlementId, conversionId, null);
+    }
+
+    protected Settlement removeConversion(String settlementId, String conversionId, String onBehalfOf) {
         return api.removeConversion(authToken, userAgent, settlementId, conversionId, onBehalfOf);
     }
 
+    @Override
     public Settlement releaseSettlement(String settlementId) throws CurrencyCloudException {
+        return releaseSettlement(settlementId, null);
+    }
+
+    protected Settlement releaseSettlement(String settlementId, String onBehalfOf) {
         return api.releaseSettlement(authToken, userAgent, settlementId, onBehalfOf);
     }
 
+    @Override
     public Settlement unreleaseSettlement(String settlementId) throws CurrencyCloudException {
+        return unreleaseSettlement(settlementId, null);
+    }
+
+    protected Settlement unreleaseSettlement(String settlementId, String onBehalfOf) {
         return api.unreleaseSettlement(authToken, userAgent, settlementId, onBehalfOf);
     }
 
@@ -840,10 +950,16 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// TRANSACTIONS ////////////////////////////////////////////////
 
+    @Override
     public Transaction retrieveTransaction(String id) throws CurrencyCloudException {
+        return retrieveTransaction(id, null);
+    }
+
+    protected Transaction retrieveTransaction(String id, String onBehalfOf) {
         return api.retrieveTransaction(authToken, userAgent, id, onBehalfOf);
     }
 
+    @Override
     public Transactions findTransactions(
             @Nullable Transaction example,
             @Nullable BigDecimal amountFrom,
@@ -856,6 +972,15 @@ public class CurrencyCloudClient {
             @Nullable Date updatedAtTo,
             @Nullable Pagination pagination
     ) throws CurrencyCloudException {
+        return findTransactions(example, amountFrom, amountTo, settlesAtFrom, settlesAtTo,
+                createdAtFrom, createdAtTo, updatedAtFrom, updatedAtTo, pagination, null);
+    }
+
+    protected Transactions findTransactions(@Nullable Transaction example, 
+            @Nullable BigDecimal amountFrom, @Nullable BigDecimal amountTo, 
+            @Nullable Date settlesAtFrom, @Nullable Date settlesAtTo, @Nullable Date createdAtFrom, 
+            @Nullable Date createdAtTo, @Nullable Date updatedAtFrom, @Nullable Date updatedAtTo, 
+            @Nullable Pagination pagination, String onBehalfOf) {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }

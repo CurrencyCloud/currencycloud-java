@@ -13,24 +13,21 @@ public class CurrencyCloudClientOnBehalfOfTest {
     @Test
     public void testSetsTheValueOnTheSessionAndRemovesItWhenDone() throws Exception {
         final String obo = "c6ece846-6df1-461d-acaa-b42a6aa74045";
-        assertThat(client.getOnBehalfOf(), nullValue());
-        client.onBehalfOfDo(obo, new Runnable() {
+        client.onBehalfOfDo(obo, new OnBehalfRunnable() {
             @Override
-            public void run() {
+            public void run(OnBehalfClient client) {
                 assertThat(client.getOnBehalfOf(), equalTo(obo));
             }
         });
-        assertThat(client.getOnBehalfOf(), nullValue());
     }
 
     @Test
     public void testStillRemovesTheValueFromTheSessionOnError() throws Exception {
         final String obo = "c6ece846-6df1-461d-acaa-b42a6aa74045";
-        assertThat(client.getOnBehalfOf(), nullValue());
         try {
-            client.onBehalfOfDo(obo, new Runnable() {
+            client.onBehalfOfDo(obo, new OnBehalfRunnable() {
                 @Override
-                public void run() {
+                public void run(OnBehalfClient client) {
                     assertThat(client.getOnBehalfOf(), equalTo(obo));
                     throw new RuntimeException("Completed Expected error");
                 }
@@ -38,43 +35,26 @@ public class CurrencyCloudClientOnBehalfOfTest {
         } catch (RuntimeException e) {
             assertThat(e.getMessage(), equalTo("Completed Expected error"));
         }
-        assertThat(client.getOnBehalfOf(), nullValue());
     }
 
     @Test
-    public void testPreventsReentrantUsage() throws Exception {
+    public void testOnBehalf() throws Exception {
         final String obo = "c6ece846-6df1-461d-acaa-b42a6aa74045";
-        assertThat(client.getOnBehalfOf(), nullValue());
-        try {
-            client.onBehalfOfDo(obo, new Runnable() {
-                @Override
-                public void run() {
-                    client.onBehalfOfDo("f57b2d33-652c-4589-a8ff-7762add2706d", new Runnable() {
-                        @Override public void run() {
-                            throw new AssertionError("Should raise exception");
-                        }
-                    });
-                }
-            });
-        } catch (IllegalStateException e) {
-            assertThat(e.getMessage(), containsString("Can't nest on-behalf-of calls"));
-        }
-        assertThat(client.getOnBehalfOf(), nullValue());
+        OnBehalfClient onBehalfClient = client.onBehalfOf(obo);
+        assertThat(onBehalfClient.getOnBehalfOf(), equalTo(obo));
     }
 
     @Test
     public void testPreventsIllegalIdFormat() throws Exception {
-        assertThat(client.getOnBehalfOf(), nullValue());
         try {
-            client.onBehalfOfDo("Richard Nienaber", new Runnable() {
+            client.onBehalfOfDo("Richard Nienaber", new OnBehalfRunnable() {
                 @Override
-                public void run() {
+                public void run(OnBehalfClient client) {
                     throw new AssertionError("Should raise exception");
                 }
             });
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage(), containsString("is not a UUID"));
         }
-        assertThat(client.getOnBehalfOf(), nullValue());
     }
 }
