@@ -10,7 +10,7 @@ interactions:
       Accept-Charset:
       - UTF-8
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/0.7.6
+      - CurrencyCloudSDK/2.0 Java/0.7.8
       Accept:
       - application/json
       Host:
@@ -44,7 +44,7 @@ interactions:
       Accept-Charset:
       - UTF-8
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/0.7.6
+      - CurrencyCloudSDK/2.0 Java/0.7.8
       Accept:
       - application/json
       Host:
@@ -83,7 +83,7 @@ interactions:
       Accept-Charset:
       - UTF-8
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/0.7.6
+      - CurrencyCloudSDK/2.0 Java/0.7.8
       Accept:
       - application/json
       Host:
