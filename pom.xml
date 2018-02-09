@@ -217,7 +217,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <keyname>Derik Vercueil &lt;derik.vercueil@currencycloud.com&gt;</keyname>
+                            <keyname>CurrencyCloud Security Team &lt;security@currencycloud.com&gt;</keyname>
                         </configuration>
                     </plugin>
                 </plugins>
