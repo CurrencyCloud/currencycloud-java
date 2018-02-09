@@ -40,12 +40,13 @@ public class CurrencyCloudClient {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
-    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/0.7.6";
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/0.7.8";
 
 
     private final CurrencyCloud api;
 
-    private String onBehalfOf = null;
+    // use threadlocal
+    private ThreadLocal<String> onBehalfOf = new ThreadLocal<>();
 
     private String loginId;
     private String apiKey;
@@ -104,19 +105,19 @@ public class CurrencyCloudClient {
         if (!UUID.matcher(contactId).matches()) {
             throw new IllegalArgumentException("Contact id for onBehalfOf is not a UUID");
         }
-        if (this.onBehalfOf != null) {
-            throw new IllegalStateException("Can't nest on-behalf-of calls: " + this.onBehalfOf);
+        if (getOnBehalfOf() != null) {
+            throw new IllegalStateException("Can't nest on-behalf-of calls: " + getOnBehalfOf());
         }
-        this.onBehalfOf = contactId;
+        this.onBehalfOf.set(contactId);
         try {
             work.run();
         } finally {
-            this.onBehalfOf = null;
+            this.onBehalfOf.remove();
         }
     }
 
     String getOnBehalfOf() {
-        return onBehalfOf;
+        return onBehalfOf.get();
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -164,7 +165,7 @@ public class CurrencyCloudClient {
     }
 
     public Account retrieveAccount(String accountId) throws CurrencyCloudException {
-        return api.retrieveAccount(authToken, userAgent, accountId, onBehalfOf);
+        return api.retrieveAccount(authToken, userAgent, accountId, getOnBehalfOf());
     }
 
     public Account updateAccount(Account account) throws CurrencyCloudException {
@@ -282,7 +283,7 @@ public class CurrencyCloudClient {
                 beneficiary.getBeneficiaryIdentificationType(),
                 beneficiary.getBeneficiaryIdentificationValue(),
                 beneficiary.getPaymentTypes(),
-                onBehalfOf
+                getOnBehalfOf()
         );
     }
 
@@ -319,12 +320,12 @@ public class CurrencyCloudClient {
                 beneficiary.getBeneficiaryIdentificationType(),
                 beneficiary.getBeneficiaryIdentificationValue(),
                 beneficiary.getPaymentTypes(),
-                onBehalfOf
+                getOnBehalfOf()
         );
     }
 
     public Beneficiary retrieveBeneficiary(String id) throws CurrencyCloudException {
-        return api.retrieveBeneficiary(authToken, userAgent, id, onBehalfOf);
+        return api.retrieveBeneficiary(authToken, userAgent, id, getOnBehalfOf());
     }
 
     public Beneficiary updateBeneficiary(Beneficiary beneficiary) throws CurrencyCloudException {
@@ -366,7 +367,7 @@ public class CurrencyCloudClient {
                 beneficiary.getBeneficiaryIdentificationType(),
                 beneficiary.getBeneficiaryIdentificationValue(),
                 beneficiary.getPaymentTypes(),
-                onBehalfOf
+                getOnBehalfOf()
         );
     }
 
@@ -414,7 +415,7 @@ public class CurrencyCloudClient {
                 pagination.getPerPage(),
                 pagination.getOrder(),
                 pagination.getOrderAscDesc(),
-                onBehalfOf
+                getOnBehalfOf()
         );
     }
 
@@ -423,7 +424,7 @@ public class CurrencyCloudClient {
     }
 
     public Beneficiary deleteBeneficiary(String id) throws CurrencyCloudException {
-        return api.deleteBeneficiary(authToken, userAgent, id, onBehalfOf);
+        return api.deleteBeneficiary(authToken, userAgent, id, getOnBehalfOf());
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -537,7 +538,7 @@ public class CurrencyCloudClient {
                 conversion.getClientBuyAmount(),
                 conversion.getClientSellAmount(),
                 conversion.getUniqueRequestId(),
-                onBehalfOf
+                getOnBehalfOf()
         );
     }
 
@@ -588,7 +589,7 @@ public class CurrencyCloudClient {
                 sellAmountFrom,
                 sellAmountTo,
                 uniqueRequestId,
-                onBehalfOf
+                getOnBehalfOf()
         );
     }
 
@@ -631,12 +632,12 @@ public class CurrencyCloudClient {
                                  payer.getIdentificationType(),
                                  payer.getIdentificationValue(),
                                  payment.getUniqueRequestId(),
-                                 onBehalfOf
+                                 getOnBehalfOf()
         );
     }
 
     public Payment retrievePayment(String id) throws CurrencyCloudException {
-        return api.retrievePayment(authToken, userAgent, id, onBehalfOf);
+        return api.retrievePayment(authToken, userAgent, id, getOnBehalfOf());
     }
 
     public Payment updatePayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
@@ -673,7 +674,7 @@ public class CurrencyCloudClient {
                 dateOnly(payer.getDateOfBirth()),
                 payer.getIdentificationType(),
                 payer.getIdentificationValue(),
-                onBehalfOf
+                getOnBehalfOf()
         );
     }
 
@@ -721,19 +722,19 @@ public class CurrencyCloudClient {
                                 pagination.getOrder(),
                                 pagination.getOrderAscDesc(),
                                 uniqueRequestId,
-                                onBehalfOf
+                                getOnBehalfOf()
         );
     }
 
     public Payment deletePayment(String paymentId) throws CurrencyCloudException {
-        return api.deletePayment(authToken, userAgent, paymentId, onBehalfOf);
+        return api.deletePayment(authToken, userAgent, paymentId, getOnBehalfOf());
     }
 
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 
     public Rates findRates(Collection<String> currencyPair, @Nullable Boolean ignoreInvalidPairs) throws CurrencyCloudException {
-        return api.findRates(authToken, userAgent, currencyPair, ignoreInvalidPairs, onBehalfOf);
+        return api.findRates(authToken, userAgent, currencyPair, ignoreInvalidPairs, getOnBehalfOf());
     }
 
     public DetailedRate detailedRates(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, @Nullable Date conversionDate) throws CurrencyCloudException {
@@ -745,7 +746,7 @@ public class CurrencyCloudClient {
                 fixedSide,
                 amount,
                 dateOnly(conversionDate),
-                onBehalfOf
+                getOnBehalfOf()
         );
     }
 
@@ -763,7 +764,7 @@ public class CurrencyCloudClient {
     public ConversionDates conversionDates(String conversionPair, @Nullable Date startDate) throws CurrencyCloudException {
         return api.conversionDates(authToken, userAgent, conversionPair, startDate);
     }
-    
+
     public PaymentDates paymentDates(String currency, @Nullable Date startDate) throws CurrencyCloudException {
         return api.paymentDates(authToken, userAgent, currency, startDate);
     }
@@ -776,11 +777,11 @@ public class CurrencyCloudClient {
     ///// SETTLEMENTS /////////////////////////////////////////////////
 
     public Settlement createSettlement() throws CurrencyCloudException {
-        return api.createSettlement(authToken, userAgent, onBehalfOf);
+        return api.createSettlement(authToken, userAgent, getOnBehalfOf());
     }
 
     public Settlement retrieveSettlement(String id) throws CurrencyCloudException {
-        return api.retrieveSettlement(authToken, userAgent, id, onBehalfOf);
+        return api.retrieveSettlement(authToken, userAgent, id, getOnBehalfOf());
     }
 
     public Settlements findSettlements(
@@ -812,28 +813,28 @@ public class CurrencyCloudClient {
                 pagination.getPerPage(),
                 pagination.getOrder(),
                 pagination.getOrderAscDesc(),
-                onBehalfOf
+                getOnBehalfOf()
         );
     }
 
     public Settlement deleteSettlement(String settlementId) throws CurrencyCloudException {
-        return api.deleteSettlement(authToken, userAgent, settlementId, onBehalfOf);
+        return api.deleteSettlement(authToken, userAgent, settlementId, getOnBehalfOf());
     }
 
     public Settlement addConversion(String settlementId, String conversionId) throws CurrencyCloudException {
-        return api.addConversion(authToken, userAgent, settlementId, conversionId, onBehalfOf);
+        return api.addConversion(authToken, userAgent, settlementId, conversionId, getOnBehalfOf());
     }
 
     public Settlement removeConversion(String settlementId, String conversionId) throws CurrencyCloudException {
-        return api.removeConversion(authToken, userAgent, settlementId, conversionId, onBehalfOf);
+        return api.removeConversion(authToken, userAgent, settlementId, conversionId, getOnBehalfOf());
     }
 
     public Settlement releaseSettlement(String settlementId) throws CurrencyCloudException {
-        return api.releaseSettlement(authToken, userAgent, settlementId, onBehalfOf);
+        return api.releaseSettlement(authToken, userAgent, settlementId, getOnBehalfOf());
     }
 
     public Settlement unreleaseSettlement(String settlementId) throws CurrencyCloudException {
-        return api.unreleaseSettlement(authToken, userAgent, settlementId, onBehalfOf);
+        return api.unreleaseSettlement(authToken, userAgent, settlementId, getOnBehalfOf());
     }
 
 
@@ -841,7 +842,7 @@ public class CurrencyCloudClient {
     ///// TRANSACTIONS ////////////////////////////////////////////////
 
     public Transaction retrieveTransaction(String id) throws CurrencyCloudException {
-        return api.retrieveTransaction(authToken, userAgent, id, onBehalfOf);
+        return api.retrieveTransaction(authToken, userAgent, id, getOnBehalfOf());
     }
 
     public Transactions findTransactions(
@@ -886,7 +887,7 @@ public class CurrencyCloudClient {
                 pagination.getPerPage(),
                 pagination.getOrder(),
                 pagination.getOrderAscDesc(),
-                onBehalfOf
+                getOnBehalfOf()
         );
     }
 

@@ -8,7 +8,7 @@ interactions:
       Accept:
       - ! '*/*'
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/0.7.6
+      - CurrencyCloudSDK/2.0 Java/0.7.8
   response:
     status: 401
     headers:
