@@ -30,7 +30,7 @@ public class CurrencyCloudClientSessionTest {
 
     @Test
     public void testRaisesAnErrorIfTheApiKeyIsNotSet() throws Exception {
-        CurrencyCloudClient client = new CurrencyCloudClient(CurrencyCloudClient.Environment.demo, "test@example.com", null);
+        CurrencyCloudClient client = new CurrencyCloudClient(CurrencyCloudClient.Environment.demo, "development@currencycloud.com", null);
         try {
             client.authenticate();
             throw new AssertionError("Should have failed.");

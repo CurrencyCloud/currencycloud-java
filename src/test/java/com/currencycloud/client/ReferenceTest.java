@@ -2,10 +2,7 @@ package com.currencycloud.client;
 
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.ConversionDates;
-import com.currencycloud.client.model.Currency;
-import com.currencycloud.client.model.PaymentDates;
-import com.currencycloud.client.model.SettlementAccount;
+import com.currencycloud.client.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -90,5 +87,19 @@ public class ReferenceTest extends BetamaxTestSupport {
         SettlementAccount settlementAccount = settlementAccounts.iterator().next();
         assertThat(settlementAccount.getBankAccountHolderName(), equalTo("The Currency Cloud GBP - Client Seg A/C"));
         assertThat(settlementAccount.getBankAddress(), empty());
+    }
+
+    @Test
+    @Betamax(tape = "can_retrieve_payer_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanRetrievePayerDetails() throws Exception {
+        List<PayerRequiredDetail> requiredDetails = client.payerRequiredDetails("GB", null, null);
+        assertThat(requiredDetails, not(empty()));
+        assertThat(requiredDetails.size(), equalTo(4));
+
+        PayerRequiredDetail payerDetail = requiredDetails.iterator().next();
+        assertThat(payerDetail.getPayerEntityType(), equalTo("company"));
+        assertThat(payerDetail.getPaymentType(), equalTo("priority"));
+        assertThat(payerDetail.getRequiredFields().size(), equalTo(5));
+        assertThat(payerDetail.getPayerIdentificationType(), equalTo("incorporation_number"));
     }
 }
