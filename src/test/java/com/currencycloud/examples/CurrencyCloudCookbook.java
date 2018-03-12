@@ -17,7 +17,7 @@ public class CurrencyCloudCookbook {
 
     public static void main(String... args) throws Exception {
         // Please provide your login id and api key here to run this example.
-        runCookBook("apitester", "99b0d6895f95e46d9eaf5c85aa0f64dca9007b7ab0778721b6cdc0a8bc7c56cf");
+        runCookBook("development@currencycloud.com", "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef");
     }
 
     public static void runCookBook(String loginId, String apiKey) {

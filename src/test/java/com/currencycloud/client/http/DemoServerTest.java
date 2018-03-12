@@ -24,16 +24,16 @@ import static org.junit.Assert.fail;
 /**
  * This is an integration test that executes actual http calls to the demo server
  * and shouldn't be run when unit tests are run.
- * Run when needed only.
+ * Run when needed only. Replace LOGIN_ID, API_KEY and SOME_UUID with appropiate values
  */
 @Ignore
 public class DemoServerTest {
 
     private static final Logger log = LoggerFactory.getLogger(DemoServerTest.class);
     private static final Random RND = new Random();
-    private static final String SOME_UUID = "385f0e80-1ffd-4d9c-8a64-11237bdb9284";
-    private static final String LOGIN_ID = "rjnienaber@gmail.com";
-    private static final String API_KEY = "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0";
+    private static final String SOME_UUID = "deadbeef-dead-beef-dead-beefdeadbeef";
+    private static final String LOGIN_ID = "development@currencycloud.com";
+    private static final String API_KEY = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
 
     private final SimpleDateFormat dateFormat;
 
@@ -122,8 +122,7 @@ public class DemoServerTest {
 
     @Test
     public void testFindNoAccountsWithABadExample() throws Exception {
-        Account badExample = Account.create("No such account", "individual");
-        badExample.setCountry("DE");
+        Account badExample = Account.create("No such account", "individual", "No street", "No city", "No Code", "DE");
         badExample.setIdentificationValue("1111111");
         badExample.setIdentificationType("drivers_licence");
         badExample.setBrand("Brand");
@@ -141,7 +140,7 @@ public class DemoServerTest {
 
     @Test
     public void testCreateUpdateAccount() throws Exception {
-        Account account = currencyCloud.createAccount(Account.create("New Account xyz", "individual" , " Test Street", "London", "GB"));
+        Account account = currencyCloud.createAccount(Account.create("New Account xyz", "individual" , " 12 Steward St", "London", "E1 6FQ", "GB"));
 
         assertThat(account.getYourReference(), is(nullValue()));
         account.setYourReference("a");
@@ -174,11 +173,6 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testCreateResetToken() throws Exception {
-        currencyCloud.createResetToken(currencyCloud.getLoginId());
-    }
-
-    @Test
     public void testCurrentContact() throws Exception {
         Contact contact = currencyCloud.currentContact();
         log.debug("Current contact = {}", contact);
@@ -191,16 +185,16 @@ public class DemoServerTest {
 
         String Contact_First_Name = randomString();
         String Contact_Last_Name = randomString();
-        String Contact_email_id = randomString() + "+jdjr@example.com";
+        String Contact_email_id = randomString() + "development@curencycloud.com";
 
         Contact contact = currencyCloud.createContact(
-                Contact.create(accountId, Contact_First_Name, Contact_Last_Name, Contact_email_id, "555 555 555 555")
+                Contact.create(accountId, Contact_First_Name, Contact_Last_Name, Contact_email_id, "+1 (646) 593 8724")
         );
 
         log.debug("contact = {}", contact);
         assertThat(contact.getMobilePhoneNumber(), is(nullValue()));
 
-        String newPhoneNumber = "555 666 777 888";
+        String newPhoneNumber = "+44 (0)20 3326 8173";
         contact.setMobilePhoneNumber(newPhoneNumber);
         contact = currencyCloud.updateContact(contact);
 
