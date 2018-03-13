@@ -25,7 +25,7 @@ public class UpdateTest extends BetamaxTestSupport {
         assertThat(beneficiary.getCurrency(), equalTo("GBP"));
 
         beneficiary.setBankAccountHolderName("Test User 2");
-        beneficiary.setEmail("rjnienaber@gmail.com");
+        beneficiary.setEmail("development@currencycloud.com");
         beneficiary.setCurrency("GBP"); // doesn't change
 
         // The following will fail (with a HTTP 403 from Betamax and a message "tape is read only") if the request body

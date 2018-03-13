@@ -4,24 +4,17 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Pagination {
 
     private Integer totalEntries;
-
     private Integer totalPages;
-
     private Integer currentPage;
-
     private Integer perPage;
-
     private Integer previousPage;
-
     private Integer nextPage;
-
     private String order;
-
     private SortOrder orderAscDesc;
 
 

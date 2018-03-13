@@ -1,12 +1,12 @@
-name: can be closed
+name: can_be_closed
 interactions:
 - request:
     method: POST
     uri: http://localhost:5555/v2/authenticate/api
-    body: login_id=rjnienaber%40gmail.com&api_key=ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0
+    body: login_id=development%40currencycloud.com&api_key=deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
     headers:
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/0.7.8
+      - CurrencyCloudSDK/2.0 Java/0.9.1
   response:
     status: 200
     headers:

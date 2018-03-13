@@ -3,12 +3,12 @@ interactions:
 - request:
     method: POST
     uri: http://localhost:5555/v2/authenticate/api
-    body: login_id=non-existent-login-id&api_key=efb5ae2af84978b7a37f18dd61c8bbe139b403009faea83484405a3dcb64c4d8
+    body: login_id=non-existent-login-id&api_key=deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
     headers:
       Accept:
       - ! '*/*'
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/0.7.8
+      - CurrencyCloudSDK/2.0 Java/0.9.1
   response:
     status: 401
     headers:

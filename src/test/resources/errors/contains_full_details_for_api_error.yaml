@@ -4,7 +4,7 @@ platform: "${error.platform}"
 request:
   parameters:
     login_id: "non-existent-login-id"
-    api_key: "ef0fd50fca1fb14c1fab3a8436b9ecb57528f0"
+    api_key: "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
   verb: "post"
   url: "http://localhost:5555/v2/authenticate/api"
 response:
