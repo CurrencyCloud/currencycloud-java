@@ -13,7 +13,7 @@ public class AuthenticationTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "happens_lazily", match = {MatchRule.method, MatchRule.uri, MatchRule.body, MatchRule.headers})
     public void testHappensLazily() throws Exception {
-        CurrencyCloudClient client = prepareTestClient("rjnienaber@gmail.com", "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0", null);
+        CurrencyCloudClient client = prepareTestClient("development@currencycloud.com", "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef", null);
 
         assertThat(client.findBeneficiaries(null, null), notNullValue());
         assertThat(client.getAuthToken(), equalTo("57ef449f6316f2f54dfec37c2006fe50"));
@@ -28,11 +28,11 @@ public class AuthenticationTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can be closed", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    @Betamax(tape = "can_be_closed", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanBeClosed() throws Exception {
         CurrencyCloudClient client = prepareTestClient(
-                "rjnienaber@gmail.com",
-                "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0",
+                "development@currencycloud.com",
+                "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
                 null
         );
 
@@ -41,12 +41,12 @@ public class AuthenticationTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "handles session timeout error", match = {MatchRule.method, MatchRule.uri, MatchRule.body, MatchRule.headers})
+    @Betamax(tape = "handles_session_timeout_error", match = {MatchRule.method, MatchRule.uri, MatchRule.body, MatchRule.headers})
     public void testHandlesSessionTimeoutError() throws Exception {
         CurrencyCloudClient client = prepareTestClient(
-                "rjnienaber@gmail.com",
-                "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0",
-                "3068d3ff160ab0636648d98b4e4e10ad" // The Ruby test has "3907f05da86533710efc589d58f51f45", but this does not match the yaml
+                "development@currencycloud.com",
+                "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+                "3068d3ff160ab0636648d98b4e4e10ad"
         );
 
         client.findBeneficiaries(null, null);

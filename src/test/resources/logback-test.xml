@@ -9,6 +9,6 @@
         <appender-ref ref="CONSOLE_APPENDER"/>
     </root>
     <logger name="com.currencycloud" level="debug"/>
-    <!-- todo: remove when testing is done: -->
+    <!-- TODO: comment the below when testing is done -->
     <logger name="si.mazi.rescu" level="trace"/>
 </configuration>

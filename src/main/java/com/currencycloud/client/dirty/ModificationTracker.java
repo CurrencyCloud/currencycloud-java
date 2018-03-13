@@ -28,7 +28,7 @@ public class ModificationTracker implements MethodInterceptor {
             try {
                 getter = ReflectionUtils.getGetterFromProperty(obj.getClass(), property);
             } catch (NoSuchMethodException e) {
-                throw new RuntimeException("A probable bug in the Currency Cloud SDK: no getter found for setter " + method, e);
+                throw new RuntimeException("A probable bug in the Currencycloud SDK: no getter found for setter " + method, e);
             }
             Object prevPropertyValue = getter.invoke(obj);
             Object newPropertyValue = args[0];
