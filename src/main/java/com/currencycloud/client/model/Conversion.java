@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Conversion implements Entity {
 

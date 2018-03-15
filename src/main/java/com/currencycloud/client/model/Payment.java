@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize(converter = DirtyWatcherDeserializer.Payment.class)
 public class Payment implements Entity {

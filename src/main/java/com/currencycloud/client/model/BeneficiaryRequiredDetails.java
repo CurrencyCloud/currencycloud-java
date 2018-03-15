@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.util.List;
 import java.util.Map;
 
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BeneficiaryRequiredDetails {
 

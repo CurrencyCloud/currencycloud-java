@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.util.Date;
 import java.util.List;
 
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize(converter = DirtyWatcherDeserializer.Beneficiary.class)
 public class Beneficiary implements Entity {

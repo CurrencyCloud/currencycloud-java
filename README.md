@@ -16,9 +16,9 @@ CurrencyCloud-Java is a Maven project. We highly recommend using [Apache Maven][
 to build your project. While using Maven is not strictly required 
 it will simplify building the project and handling dependencies.
 
-### 2. Oracle JDK 8 or equivalent JDK
+### 2. Oracle JDK 7 or equivalent JDK
 
-CurrencyCloud-Java requires at least a Java version 8 compatible JDK.
+CurrencyCloud-Java requires at least a Java version 7 compatible JDK.
 
 ### 3. A valid sandbox login id and api key on the Currencycloud sandbox API environment.
 
@@ -63,7 +63,7 @@ ch.qos.logback:logback-core:1.2.3:compile
 com.fasterxml.jackson.core:jackson-annotations:2.9.4:compile
 com.fasterxml.jackson.core:jackson-core:2.9.4:compile
 com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.4:compile
-com.github.mmazi:rescu:2.0.1:compile
+com.github.mmazi:rescu:1.8.1:compile
 com.google.code.findbugs:jsr305:3.0.2:compile
 javax.ws.rs:javax.ws.rs-api:2.1:compile
 javax.ws.rs:jsr311-api:1.1.1:compile

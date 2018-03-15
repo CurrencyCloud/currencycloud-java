@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Rates {
 

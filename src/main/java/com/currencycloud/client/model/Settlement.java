@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.math.BigDecimal;
 import java.util.*;
 
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Settlement implements Entity {
 
@@ -86,7 +86,7 @@ public class Settlement implements Entity {
                 id, shortReference, status, conversionIds, entries, createdAt, updatedAt, releasedAt);
     }
 
-    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Entry {
 

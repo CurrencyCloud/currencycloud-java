@@ -83,7 +83,7 @@ public class ApiException extends CurrencyCloudException {
         return errors;
     }
 
-    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
     @JsonPropertyOrder({"statusCode", "date", "requestId"})
     public static class Response {
 

@@ -17,7 +17,7 @@ import java.util.Map;
  * Note that this works because ResponseException is declared on the HTTP API interface methods
  * ({@link com.currencycloud.client.CurrencyCloud}), and it is mapped to json using Jackson annotations.
  */
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 public class ResponseException extends HttpStatusExceptionSupport implements InvocationAware, HttpResponseAware {
 
     private String errorCode;
