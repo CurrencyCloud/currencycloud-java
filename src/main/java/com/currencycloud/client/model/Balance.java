@@ -12,17 +12,11 @@ import java.util.Date;
 public class Balance implements Entity {
 
     protected Balance() { }
-
     private String id;
-
     private String accountId;
-
     private String currency;
-
     private BigDecimal amount;
-
     private Date createdAt;
-
     private Date updatedAt;
 
     public String getId() {

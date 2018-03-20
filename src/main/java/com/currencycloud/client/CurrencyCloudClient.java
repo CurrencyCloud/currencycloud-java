@@ -40,7 +40,7 @@ public class CurrencyCloudClient {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
-    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/0.7.8";
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/0.9.1";
 
 
     private final CurrencyCloud api;
@@ -151,16 +151,20 @@ public class CurrencyCloudClient {
                 userAgent,
                 account.getAccountName(),
                 account.getLegalEntityType(),
-                account.getYourReference(),
-                account.getStatus(),
                 account.getStreet(),
                 account.getCity(),
-                account.getStateOrProvince(),
                 account.getPostalCode(),
                 account.getCountry(),
+                account.getStateOrProvince(),
+                account.getBrand(),
+                account.getYourReference(),
+                account.getStatus(),
                 account.getSpreadTable(),
                 account.getIdentificationType(),
-                account.getIdentificationValue()
+                account.getIdentificationValue(),
+                account.getApiTrading(),
+                account.getOnlineTrading(),
+                account.getPhoneTrading()
         );
     }
 
@@ -430,10 +434,6 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// CONTACTS ////////////////////////////////////////////////////
 
-    public void createResetToken(@Nullable String loginId) throws ResponseException {
-        api.createResetToken(authToken, userAgent, loginId);
-    }
-
     public Contact createContact(Contact contact) throws ResponseException {
         return api.createContact(
                 authToken,
@@ -512,7 +512,6 @@ public class CurrencyCloudClient {
     public Contact currentContact() throws ResponseException {
         return api.currentContact(authToken, userAgent);
     }
-
 
     ///////////////////////////////////////////////////////////////////
     ///// CONVERSIONS /////////////////////////////////////////////////
@@ -593,6 +592,59 @@ public class CurrencyCloudClient {
         );
     }
 
+    ///////////////////////////////////////////////////////////////////
+    ///// IBANS ///////////////////////////////////////////////////////
+
+    public Iban createIban(Iban iban) throws CurrencyCloudException {
+        return api.createIban(
+                authToken,
+                userAgent,
+                iban.getCurrency()
+        );
+    }
+
+    public Ibans retrieveIbans(@Nullable String currency, @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        return api.retrieveIbans(
+                authToken,
+                userAgent,
+                currency,
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc()
+        );
+    }
+
+    public Ibans retrieveSubAccountsIban(String id, Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        return api.retrieveSubAccountsIban(
+                authToken,
+                userAgent,
+                id,
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc());
+    }
+
+    public Ibans findSubAccountsIbans(String currency, Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        return api.findSubAccountsIbans(
+                authToken,
+                userAgent,
+                currency,
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc());
+    }
 
     ///////////////////////////////////////////////////////////////////
     ///// PAYERS ///////////////////////////////////////////////////////
@@ -600,7 +652,6 @@ public class CurrencyCloudClient {
     public Payer retrievePayer(String payerId) throws CurrencyCloudException {
         return api.retrievePayer(authToken, userAgent, payerId);
     }
-
 
     ///////////////////////////////////////////////////////////////////
     ///// PAYMENTS ////////////////////////////////////////////////////
@@ -730,6 +781,10 @@ public class CurrencyCloudClient {
         return api.deletePayment(authToken, userAgent, paymentId, getOnBehalfOf());
     }
 
+    public Payment retrievePaymentSubmission(String id) throws CurrencyCloudException {
+        return api.retrievePaymentSubmission(authToken, userAgent, id, getOnBehalfOf());
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 
@@ -771,6 +826,10 @@ public class CurrencyCloudClient {
 
     public List<SettlementAccount> settlementAccounts(@Nullable String currency) throws CurrencyCloudException {
         return api.settlementAccounts(authToken, userAgent, currency).getSettlementAccounts();
+    }
+
+    public List<PayerRequiredDetail> payerRequiredDetails(String payerCountry, @Nullable String payerEntityType, @Nullable String paymentType) throws CurrencyCloudException {
+        return api.payerRequiredDetails(authToken, userAgent, payerCountry, payerEntityType, paymentType).getPayerRequiredDetails();
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -837,7 +896,6 @@ public class CurrencyCloudClient {
         return api.unreleaseSettlement(authToken, userAgent, settlementId, getOnBehalfOf());
     }
 
-
     ///////////////////////////////////////////////////////////////////
     ///// TRANSACTIONS ////////////////////////////////////////////////
 
@@ -891,6 +949,99 @@ public class CurrencyCloudClient {
         );
     }
 
+    ///////////////////////////////////////////////////////////////////
+    ///// TRANSFERS ///////////////////////////////////////////////////
+
+    public Transfer retrieveTransfer(String id) throws CurrencyCloudException {
+        return api.retrieveTransfer(authToken, userAgent, id, getOnBehalfOf());
+    }
+
+    public Transfers findTransfers(
+            @Nullable String shortReference,
+            @Nullable String sourceAccountId,
+            @Nullable String destinationAccountId,
+            @Nullable String status,
+            @Nullable String currency,
+            @Nullable BigDecimal amountFrom,
+            @Nullable BigDecimal amountTo,
+            @Nullable Date createdAtFrom,
+            @Nullable Date createdAtTo,
+            @Nullable Date updatedAtFrom,
+            @Nullable Date updatedAtTo,
+            @Nullable Date completedAtFrom,
+            @Nullable Date completedAtTo,
+            @Nullable String creatorContactId,
+            @Nullable String creatorAccountId,
+            @Nullable Pagination pagination,
+            @Nullable String onBehalfOf
+            ) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        return api.findTransfers(
+                authToken,
+                userAgent,
+                shortReference,
+                sourceAccountId,
+                destinationAccountId,
+                status,
+                currency,
+                amountFrom,
+                amountTo,
+                dateOnly(createdAtFrom),
+                dateOnly(createdAtTo),
+                dateOnly(updatedAtFrom),
+                dateOnly(updatedAtTo),
+                dateOnly(completedAtFrom),
+                dateOnly(completedAtTo),
+                creatorContactId,
+                creatorAccountId,
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc(),
+                getOnBehalfOf()
+        );
+    }
+
+    public Transfers findTransfers() throws CurrencyCloudException {
+        return api.findTransfers(
+                authToken,
+                userAgent,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+    }
+
+    public Transfer createTransfer(Transfer transfer) throws ResponseException {
+        return api.createTransfer(
+                authToken,
+                userAgent,
+                transfer.getSourceAccountId(),
+                transfer.getDestinationAccountId(),
+                transfer.getCurrency(),
+                transfer.getAmount(),
+                transfer.getReason()
+        );
+    }
 
     ///////////////////////////////////////////////////////////////////
 

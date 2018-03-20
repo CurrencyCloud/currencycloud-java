@@ -1,7 +1,8 @@
 language: java
 jdk:
-  - oraclejdk8
   - openjdk7
+  - oraclejdk8
+  - oraclejdk9
 script: mvn clean install
 after_success:
   - ./after-success.sh

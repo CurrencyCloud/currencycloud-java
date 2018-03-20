@@ -14,37 +14,22 @@ import java.util.Date;
 @JsonDeserialize(converter = DirtyWatcherDeserializer.Contact.class)
 public class Contact implements Entity {
 
-    private String loginId;  // john.smith
-
-    private String id;  // 543477161-91de-012f-e284-1e0030c7f352
-
-    private String yourReference;  // ACME12345
-
-    private String firstName;  // John
-
-    private String lastName;  // Smith
-
-    private String accountId;  // 87077161-91de-012f-e284-1e0030c7f352
-
-    private String accountName;  // Company PLC
-
-    private String status;  // enabled
-
-    private String phoneNumber;  // 06554 87845
-
-    private String mobilePhoneNumber;  // 07564 534 54
-
-    private String locale;  // en-US
-
-    private String timezone;  // Europe/London
-
-    private String emailAddress;  // john.smith@company.com
-
-    private Date dateOfBirth;  // 1980-01-22
-
-    private Date createdAt;  // 2014-01-12T00:00:00+00:00
-
-    private Date updatedAt;  // 2014-01-12T00:00:00+00:00
+    private String loginId;
+    private String id;
+    private String yourReference;
+    private String firstName;
+    private String lastName;
+    private String accountId;
+    private String accountName;
+    private String status;
+    private String phoneNumber;
+    private String mobilePhoneNumber;
+    private String locale;
+    private String timezone;
+    private String emailAddress;
+    private Date dateOfBirth;
+    private Date createdAt;
+    private Date updatedAt;
 
     protected Contact() { }
 

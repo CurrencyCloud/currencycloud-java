@@ -9,19 +9,12 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 public class Pagination {
 
     private Integer totalEntries;
-
     private Integer totalPages;
-
     private Integer currentPage;
-
     private Integer perPage;
-
     private Integer previousPage;
-
     private Integer nextPage;
-
     private String order;
-
     private SortOrder orderAscDesc;
 
 

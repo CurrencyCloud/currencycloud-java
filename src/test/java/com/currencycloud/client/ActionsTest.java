@@ -31,6 +31,46 @@ public class ActionsTest extends BetamaxTestSupport {
     }
 
     @Test
+    @Betamax(tape = "can_create_account", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanCreateAccount() throws Exception {
+        Account account = Account.create("Acme Ltd", "company", "12 Steward St", "London", "E1 6FQ", "GB");
+        account.setBrand("currencycloud");
+        account.setYourReference("POS-UID-23523");
+        account.setStatus("enabled");
+        account.setStateOrProvince("City of London");
+        account.setSpreadTable("no_markup");
+        account.setApiTrading(true);
+        account.setOnlineTrading(true);
+        account.setPhoneTrading(true);
+        account.setIdentificationType("passport");
+        account.setIdentificationValue("AE02315508BF");
+
+        account = client.createAccount(account);
+
+        assertThat(account.getId(), equalTo("b7de235a-ff5d-4252-83c2-06a605267fea"));
+        assertThat(account.getLegalEntityType(), equalTo("company"));
+        assertThat(account.getAccountName(), equalTo("Acme Ltd"));
+        assertThat(account.getBrand(), equalTo("currencycloud"));
+        assertThat(account.getYourReference(), equalTo("POS-UID-23523"));
+        assertThat(account.getStatus(), equalTo("enabled"));
+        assertThat(account.getStreet(), equalTo("12 Steward St"));
+        assertThat(account.getCity(), equalTo("London"));
+        assertThat(account.getStateOrProvince(), equalTo("City of London"));
+        assertThat(account.getCountry(), equalTo("GB"));
+        assertThat(account.getPostalCode(), equalTo("E1 6FQ"));
+        assertThat(account.getSpreadTable(), equalTo("no_markup"));
+        assertThat(account.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(account.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(account.getIdentificationType(), equalTo("passport"));
+        assertThat(account.getIdentificationValue(), equalTo("AE02315508BF"));
+        assertThat(account.getShortReference(), equalTo("110104-00004"));
+        assertThat(account.getApiTrading(), equalTo(true));
+        assertThat(account.getOnlineTrading(), equalTo(true));
+        assertThat(account.getPhoneTrading(), equalTo(true));
+
+    }
+
+    @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanCreate() throws Exception {
         Beneficiary beneficiary = Beneficiary.create("Test User", "GB", "GBP", "Test User");

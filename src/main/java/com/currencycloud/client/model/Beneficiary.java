@@ -16,73 +16,43 @@ import java.util.List;
 public class Beneficiary implements Entity {
 
     private String id;
-
     private String bankAccountHolderName;
-
     private String name;
-
     private String email;
-
     private Boolean defaultBeneficiary;
-
     private String creatorContactId;
-
     private Date createdAt;
-
     private Date updatedAt;
-
     private List<String> paymentTypes;
-
     private String bankCountry;
-
     private String bankName;
-
     private String currency;
-
     private String accountNumber;
+    private String bankAccountType;
+    private List<String> beneficiaryAddress;
+    private String beneficiaryCountry;
+    private String beneficiaryEntityType;
+    private String beneficiaryCompanyName;
+    private String beneficiaryFirstName;
+    private String beneficiaryLastName;
+    private String beneficiaryCity;
+    private String beneficiaryPostcode;
+    private String beneficiaryStateOrProvince;
+    private Date beneficiaryDateOfBirth;
+    private String beneficiaryIdentificationType;
+    private String beneficiaryIdentificationValue;
 
     @JsonProperty("routing_code_type_1")
     private String routingCodeType1;
-
-    private String bankAccountType;
-
-    private List<String> beneficiaryAddress;
-
-    private String beneficiaryCountry;
-
-    private String beneficiaryEntityType;
-
-    private String beneficiaryCompanyName;
-
-    private String beneficiaryFirstName;
-
-    private String beneficiaryLastName;
-
-    private String beneficiaryCity;
-
-    private String beneficiaryPostcode;
-
-    private String beneficiaryStateOrProvince;
-
-    private Date beneficiaryDateOfBirth;
-
-    private String beneficiaryIdentificationType;
-
-    private String beneficiaryIdentificationValue;
-
     @JsonProperty("routing_code_value_1")
     private String routingCodeValue1;
-
     @JsonProperty("routing_code_type_2")
     private String routingCodeType2;
-
     @JsonProperty("routing_code_value_2")
     private String routingCodeValue2;
 
     private String bicSwift;
-
     private String iban;
-
     private List<String> bankAddress;
 
     protected Beneficiary() { }
