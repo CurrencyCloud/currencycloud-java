@@ -40,7 +40,7 @@ public class CurrencyCloudClient {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
-    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/0.9.1";
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/1.0.3";
 
 
     private final CurrencyCloud api;
@@ -283,7 +283,7 @@ public class CurrencyCloudClient {
                 beneficiary.getBeneficiaryCity(),
                 beneficiary.getBeneficiaryPostcode(),
                 beneficiary.getBeneficiaryStateOrProvince(),
-                beneficiary.getBeneficiaryDateOfBirth(),
+                dateOnly(beneficiary.getBeneficiaryDateOfBirth()),
                 beneficiary.getBeneficiaryIdentificationType(),
                 beneficiary.getBeneficiaryIdentificationValue(),
                 beneficiary.getPaymentTypes(),
@@ -320,7 +320,7 @@ public class CurrencyCloudClient {
                 beneficiary.getBeneficiaryCity(),
                 beneficiary.getBeneficiaryPostcode(),
                 beneficiary.getBeneficiaryStateOrProvince(),
-                beneficiary.getBeneficiaryDateOfBirth(),
+                dateOnly(beneficiary.getBeneficiaryDateOfBirth()),
                 beneficiary.getBeneficiaryIdentificationType(),
                 beneficiary.getBeneficiaryIdentificationValue(),
                 beneficiary.getPaymentTypes(),
@@ -367,7 +367,7 @@ public class CurrencyCloudClient {
                 beneficiary.getBeneficiaryCity(),
                 beneficiary.getBeneficiaryPostcode(),
                 beneficiary.getBeneficiaryStateOrProvince(),
-                beneficiary.getBeneficiaryDateOfBirth(),
+                dateOnly(beneficiary.getBeneficiaryDateOfBirth()),
                 beneficiary.getBeneficiaryIdentificationType(),
                 beneficiary.getBeneficiaryIdentificationValue(),
                 beneficiary.getPaymentTypes(),
@@ -414,7 +414,7 @@ public class CurrencyCloudClient {
                 example.getBeneficiaryCity(),
                 example.getBeneficiaryPostcode(),
                 example.getBeneficiaryStateOrProvince(),
-                example.getBeneficiaryDateOfBirth(),
+                dateOnly(example.getBeneficiaryDateOfBirth()),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),

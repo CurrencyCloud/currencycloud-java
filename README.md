@@ -2,7 +2,7 @@
 
 # Currencycloud API v2 Java client
 
-## Version: 0.9.1
+## Version: 1.0.3
 
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs]
 
@@ -16,9 +16,9 @@ CurrencyCloud-Java is a Maven project. We highly recommend using [Apache Maven][
 to build your project. While using Maven is not strictly required 
 it will simplify building the project and handling dependencies.
 
-### 2. Oracle JDK 7 or equivalent JDK
+### 2. Oracle JDK 8 or equivalent JDK
 
-CurrencyCloud-Java requires at least a Java version 7 compatible JDK.
+CurrencyCloud-Java requires at least a Java version 8 compatible JDK.
 
 ### 3. A valid sandbox login id and api key on the Currencycloud sandbox API environment.
 
@@ -36,7 +36,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>0.9.1</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
@@ -46,7 +46,7 @@ Download the Currencycloud SDK jar:
 
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-0.9.1.jar 
+3. Download the currencycloud-java-1.0.3.jar 
 
 Get the list of all dependencies:
 
@@ -54,7 +54,7 @@ Get the list of all dependencies:
 mvn dependency:list -DincludeScope=runtime
 ```
 
-As of version 0.9.1, this returns the following list:
+As of version 1.0.3, this returns the following list:
 
 ```
 cglib:cglib:3.2.6:compile
@@ -63,7 +63,7 @@ ch.qos.logback:logback-core:1.2.3:compile
 com.fasterxml.jackson.core:jackson-annotations:2.9.4:compile
 com.fasterxml.jackson.core:jackson-core:2.9.4:compile
 com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.4:compile
-com.github.mmazi:rescu:1.8.1:compile
+com.github.mmazi:rescu:2.0.1:compile
 com.google.code.findbugs:jsr305:3.0.2:compile
 javax.ws.rs:javax.ws.rs-api:2.1:compile
 javax.ws.rs:jsr311-api:1.1.1:compile
@@ -234,7 +234,8 @@ org.yaml:snakeyaml:1.19:compile
 
 ## Release History
 
-* [0.9.1] - Add Transfers and IBANs, add missing API paths and operations (#42), update dependencies to latest versions, bug fixes (including #32 and #38), and other minor changes
+* [1.0.3] - Update com.github.mmazi.rescu to latest version, desupport Java 7, add support for Java 9 and Java 10, and fix bug in Beneficiary Date of Birth (#55)
+* [0.9.1] - Add Transfers and IBANs, add missing API paths and operations (#42), update dependencies to newer versions, bug fixes (including #32 and #38), and other minor changes
 * [0.7.8] - Address a concurrency issue discovered in the onBehalfOf functionality (#48) 
 
 ## Versioning

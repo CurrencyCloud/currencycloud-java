@@ -8,7 +8,7 @@ interactions:
       X-Auth-Token:
       - 8af871a5e8007f5073caceaf75d0bc72
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/0.9.1
+      - CurrencyCloudSDK/2.0 Java/1.0.3
   response:
     status: 200
     headers:
