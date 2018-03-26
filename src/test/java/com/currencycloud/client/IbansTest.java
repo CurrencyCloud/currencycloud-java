@@ -53,7 +53,7 @@ public class IbansTest extends BetamaxTestSupport {
         assertThat(ibans, not(nullValue()));
         assertThat(ibans.size(), is(3));
         assertThat(ibans.toString(), containsString("currency='EUR'"));
-        assertThat(ibans.toString(), containsString("uuid='8242d1f4-4555-4155-a9bf-30feee785121'"));
+        assertThat(ibans.toString(), containsString("id='8242d1f4-4555-4155-a9bf-30feee785121'"));
         assertThat(ibans.toString(), containsString("ibanCode='GB51TCCL00997961584807'"));
         assertThat(ibans.toString(), containsString("accountId='e277c9f9-679f-454f-8367-274b3ff977ff'"));
         assertThat(ibans.toString(), containsString("accountHolderName='Development CM'"));
@@ -68,7 +68,7 @@ public class IbansTest extends BetamaxTestSupport {
         assertThat(ibans, not(nullValue()));
         assertThat(ibans.size(), is(1));
         assertThat(ibans.toString(), containsString("currency='GBP'"));
-        assertThat(ibans.toString(), containsString("uuid='8242d1f4-4555-4155-a9bf-30feee785121'"));
+        assertThat(ibans.toString(), containsString("id='8242d1f4-4555-4155-a9bf-30feee785121'"));
         assertThat(ibans.toString(), containsString("ibanCode='GB51TCCL00997961584807'"));
         assertThat(ibans.toString(), containsString("accountId='e277c9f9-679f-454f-8367-274b3ff977ff'"));
         assertThat(ibans.toString(), containsString("accountHolderName='Development CM'"));
@@ -83,7 +83,7 @@ public class IbansTest extends BetamaxTestSupport {
         assertThat(ibans, not(nullValue()));
         assertThat(ibans.size(), is(1));
         assertThat(ibans.toString(), containsString("currency='EUR'"));
-        assertThat(ibans.toString(), containsString("uuid='01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe'"));
+        assertThat(ibans.toString(), containsString("id='01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe'"));
         assertThat(ibans.toString(), containsString("ibanCode='GB51TCCL00997997989489'"));
         assertThat(ibans.toString(), containsString("accountId='87077161-91de-012f-e284-1e0030c7f352'"));
         assertThat(ibans.toString(), containsString("accountHolderName='Account-IGGLNHYTWFKI'"));
@@ -98,7 +98,7 @@ public class IbansTest extends BetamaxTestSupport {
         assertThat(ibans, not(nullValue()));
         assertThat(ibans.size(), is(1));
         assertThat(ibans.toString(), containsString("currency='JPY'"));
-        assertThat(ibans.toString(), containsString("uuid='01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe'"));
+        assertThat(ibans.toString(), containsString("id='01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe'"));
         assertThat(ibans.toString(), containsString("ibanCode='GB51TCCL00997997989490'"));
         assertThat(ibans.toString(), containsString("accountId='87077161-91de-012f-e284-1e0030c7f353'"));
         assertThat(ibans.toString(), containsString("accountHolderName='Account-IGGLNHYTWFKI'"));

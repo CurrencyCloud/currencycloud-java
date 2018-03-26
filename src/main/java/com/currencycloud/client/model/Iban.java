@@ -10,7 +10,7 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Iban implements Entity {
 
-    private String uuid;
+    private String id;
     private String ibanCode;
     private String accountId;
     private String currency;
@@ -42,11 +42,7 @@ public class Iban implements Entity {
 
     @Override
     public String getId() {
-        return uuid;
-    }
-
-    public String getUuid() {
-        return uuid;
+        return id;
     }
 
     public String getIbanCode() {
@@ -131,7 +127,7 @@ public class Iban implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Iban{uuid='%s', ibanCode='%s', accountId='%s', currency='%s', accountHolderName='%s', bankInstitutionName='%s', bankInstitutionAddress='%s', bankInstitutionCountry='%s', bicSwift='%s', createdAt=%s, updatedAt=%s}",
-                uuid, ibanCode, accountId, currency, accountHolderName, bankInstitutionName, bankInstitutionAddress, bankInstitutionCountry, bicSwift, createdAt, updatedAt);
+        return String.format("Iban{id='%s', ibanCode='%s', accountId='%s', currency='%s', accountHolderName='%s', bankInstitutionName='%s', bankInstitutionAddress='%s', bankInstitutionCountry='%s', bicSwift='%s', createdAt=%s, updatedAt=%s}",
+                id, ibanCode, accountId, currency, accountHolderName, bankInstitutionName, bankInstitutionAddress, bankInstitutionCountry, bicSwift, createdAt, updatedAt);
     }
 }
