@@ -25,7 +25,7 @@ public class SettlementsTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_add_conversion", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanAddConversion() throws Exception {
+    public void testCanAddConversionToSettlement() throws Exception {
         Conversion conversion = Conversion.create("GBP", "USD", "buy");
         conversion = client.createConversion(conversion, new BigDecimal(1000), "mortgage payment", true);
 
@@ -59,25 +59,20 @@ public class SettlementsTest extends BetamaxTestSupport {
         assertThat(conversion.getUpdatedAt(), equalTo(parseDateTime("2015-05-04T20:28:29+00:00")));
 
         Settlement settlement = client.createSettlement();
-
         Settlement updatedSettlement = client.addConversion(settlement.getId(), conversion.getId());
 
         assertBasicPropertiesEqual(settlement, updatedSettlement);
-
         assertThat(updatedSettlement.getConversionIds(), equalTo(Collections.singletonList("24d2ee7f-c7a3-4181-979e-9c58dbace992")));
-
         Map<String, Settlement.Entry> entries = updatedSettlement.getEntries();
         assertThat(entries, not(anEmptyMap()));
-
         assertThat(entries, hasEntry("GBP", new Settlement.Entry(new BigDecimal("1000.00"), new BigDecimal("0.00"))));
         assertThat(entries, hasEntry("USD", new Settlement.Entry(new BigDecimal("0.00"), new BigDecimal("1511.70"))));
-
         assertThat(updatedSettlement.getUpdatedAt(), equalTo(parseDateTime("2015-05-04T20:40:56+00:00")));
     }
 
     @Test
     @Betamax(tape = "can_remove_conversion", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRemoveConversion() throws Exception {
+    public void testCanRemoveConversionFromSettlement() throws Exception {
         Settlement settlement = client.retrieveSettlement("63eeef54-3531-4e65-827a-7d0f37503fcc");
         Settlement deletedSettlement = client.removeConversion(settlement.getId(), "24d2ee7f-c7a3-4181-979e-9c58dbace992");
 
@@ -89,7 +84,7 @@ public class SettlementsTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_release", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRelease() throws Exception {
+    public void testCanReleaseSettlement() throws Exception {
         Settlement settlement = client.retrieveSettlement("51c619e0-0256-40ad-afba-ca4114b936f9");
         Settlement releasedSettlement = client.releaseSettlement(settlement.getId());
 
@@ -100,7 +95,7 @@ public class SettlementsTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_unrelease", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanUnrelease() throws Exception {
+    public void testCanUnreleaseSettlement() throws Exception {
         Settlement settlement = client.retrieveSettlement("51c619e0-0256-40ad-afba-ca4114b936f9");
         Settlement unreleaseSettlement = client.unreleaseSettlement(settlement.getId());
 

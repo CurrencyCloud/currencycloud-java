@@ -43,6 +43,25 @@ public class Conversion implements Entity {
     private Date createdAt;
     private Date updatedAt;
     private String uniqueRequestId;
+    private List<String> conversionIds = new ArrayList<>();
+    private Date createdAtFrom;
+    private Date createdAtTo;
+    private Date updatedAtFrom;
+    private Date updatedAtTo;
+    private Date conversionDateFrom;
+    private Date conversionDateTo;
+    private BigDecimal partnerBuyAmountFrom;
+    private BigDecimal partnerBuyAmountTo;
+    private BigDecimal partnerSellAmountFrom;
+    private BigDecimal partnerSellAmountTo;
+    private BigDecimal buyAmountFrom;
+    private BigDecimal buyAmountTo;
+    private BigDecimal sellAmountFrom;
+    private BigDecimal sellAmountTo;
+    private String scope;
+    private Date settlementDateFrom;
+    private Date settlementDateTo;
+    private String bulkUploadId;
 
     protected Conversion() { }
 
@@ -137,6 +156,10 @@ public class Conversion implements Entity {
     @Override
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAccountId() {
@@ -343,8 +366,16 @@ public class Conversion implements Entity {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getUniqueRequestId() {
@@ -353,6 +384,158 @@ public class Conversion implements Entity {
 
     public void setUniqueRequestId(String uniqueRequestId) {
         this.uniqueRequestId = uniqueRequestId;
+    }
+
+    public List<String> getConversionIds() {
+        return conversionIds;
+    }
+
+    public void setConversionIds(List<String> conversionIds) {
+        this.conversionIds = conversionIds;
+    }
+
+    public Date getCreatedAtFrom() {
+        return createdAtFrom;
+    }
+
+    public void setCreatedAtFrom(Date createdAtFrom) {
+        this.createdAtFrom = createdAtFrom;
+    }
+
+    public Date getCreatedAtTo() {
+        return createdAtTo;
+    }
+
+    public void setCreatedAtTo(Date createdAtTo) {
+        this.createdAtTo = createdAtTo;
+    }
+
+    public Date getUpdatedAtFrom() {
+        return updatedAtFrom;
+    }
+
+    public void setUpdatedAtFrom(Date updatedAtFrom) {
+        this.updatedAtFrom = updatedAtFrom;
+    }
+
+    public Date getUpdatedAtTo() {
+        return updatedAtTo;
+    }
+
+    public void setUpdatedAtTo(Date updatedAtTo) {
+        this.updatedAtTo = updatedAtTo;
+    }
+
+    public Date getConversionDateFrom() {
+        return conversionDateFrom;
+    }
+
+    public void setConversionDateFrom(Date conversionDateFrom) {
+        this.conversionDateFrom = conversionDateFrom;
+    }
+
+    public Date getConversionDateTo() {
+        return conversionDateTo;
+    }
+
+    public void setConversionDateTo(Date conversionDateTo) {
+        this.conversionDateTo = conversionDateTo;
+    }
+
+    public BigDecimal getPartnerBuyAmountFrom() {
+        return partnerBuyAmountFrom;
+    }
+
+    public void setPartnerBuyAmountFrom(BigDecimal partnerBuyAmountFrom) {
+        this.partnerBuyAmountFrom = partnerBuyAmountFrom;
+    }
+
+    public BigDecimal getPartnerBuyAmountTo() {
+        return partnerBuyAmountTo;
+    }
+
+    public void setPartnerBuyAmountTo(BigDecimal partnerBuyAmountTo) {
+        this.partnerBuyAmountTo = partnerBuyAmountTo;
+    }
+
+    public BigDecimal getPartnerSellAmountFrom() {
+        return partnerSellAmountFrom;
+    }
+
+    public void setPartnerSellAmountFrom(BigDecimal partnerSellAmountFrom) {
+        this.partnerSellAmountFrom = partnerSellAmountFrom;
+    }
+
+    public BigDecimal getPartnerSellAmountTo() {
+        return partnerSellAmountTo;
+    }
+
+    public void setPartnerSellAmountTo(BigDecimal partnerSellAmountTo) {
+        this.partnerSellAmountTo = partnerSellAmountTo;
+    }
+
+    public BigDecimal getBuyAmountFrom() {
+        return buyAmountFrom;
+    }
+
+    public void setBuyAmountFrom(BigDecimal buyAmountFrom) {
+        this.buyAmountFrom = buyAmountFrom;
+    }
+
+    public BigDecimal getBuyAmountTo() {
+        return buyAmountTo;
+    }
+
+    public void setBuyAmountTo(BigDecimal buyAmountTo) {
+        this.buyAmountTo = buyAmountTo;
+    }
+
+    public BigDecimal getSellAmountFrom() {
+        return sellAmountFrom;
+    }
+
+    public void setSellAmountFrom(BigDecimal sellAmountFrom) {
+        this.sellAmountFrom = sellAmountFrom;
+    }
+
+    public BigDecimal getSellAmountTo() {
+        return sellAmountTo;
+    }
+
+    public void setSellAmountTo(BigDecimal sellAmountTo) {
+        this.sellAmountTo = sellAmountTo;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    public Date getSettlementDateFrom() {
+        return settlementDateFrom;
+    }
+
+    public void setSettlementDateFrom(Date settlementDateFrom) {
+        this.settlementDateFrom = settlementDateFrom;
+    }
+
+    public Date getSettlementDateTo() {
+        return settlementDateTo;
+    }
+
+    public void setSettlementDateTo(Date settlementDateTo) {
+        this.settlementDateTo = settlementDateTo;
+    }
+
+    public String getBulkUploadId() {
+        return bulkUploadId;
+    }
+
+    public void setBulkUploadId(String bulkUploadId) {
+        this.bulkUploadId = bulkUploadId;
     }
 
     @Override

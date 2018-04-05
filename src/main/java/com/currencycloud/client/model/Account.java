@@ -33,6 +33,9 @@ public class Account implements Entity {
     private Boolean apiTrading;
     private Boolean onlineTrading;
     private Boolean phoneTrading;
+    private Boolean processThirdPartyFunds;
+    private String settlementType;
+
     protected Account() { }
 
     private Account(String accountName, String legalEntityType, String street, String city, String postalCode, String country) {
@@ -44,16 +47,20 @@ public class Account implements Entity {
         this.country = country;
     }
 
-    public static Account create(String accountName, String legalEntityType, String street, String city, String postalCode, String country) {
-        return new Account(accountName, legalEntityType, street, city, postalCode, country);
-    }
-
     public static Account create() {
         return new Account();
     }
 
+    public static Account create(String accountName, String legalEntityType, String street, String city, String postalCode, String country) {
+        return new Account(accountName, legalEntityType, street, city, postalCode, country);
+    }
+
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLegalEntityType() {
@@ -198,6 +205,30 @@ public class Account implements Entity {
 
     public void setPhoneTrading(Boolean phoneTrading) {
         this.phoneTrading = phoneTrading;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Boolean getProcessThirdPartyFunds() {
+        return processThirdPartyFunds;
+    }
+
+    public void setProcessThirdPartyFunds(Boolean processThirdPartyFunds) {
+        this.processThirdPartyFunds = processThirdPartyFunds;
+    }
+
+    public String getSettlementType() {
+        return settlementType;
+    }
+
+    public void setSettlementType(String settlementType) {
+        this.settlementType = settlementType;
     }
 
     @Override

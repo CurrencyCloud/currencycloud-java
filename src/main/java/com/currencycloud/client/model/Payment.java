@@ -36,6 +36,23 @@ public class Payment implements Entity {
     private Date createdAt;
     private Date updatedAt;
     private String uniqueRequestId;
+    private String paymentGroupId;
+    private BigDecimal failureReturnedAmount;
+    private String ultimateBeneficiaryName;
+    private String payerDetailsSource;
+    private BigDecimal amountFrom;
+    private BigDecimal amountTo;
+    private Date paymentDateFrom;
+    private Date paymentDateTo;
+    private Date transferredAtFrom;
+    private Date transferredAtTo;
+    private Date createdAtFrom;
+    private Date createdAtTo;
+    private Date updatedAtFrom;
+    private Date updatedAtTo;
+    private Boolean withDeleted;
+    private String scope;
+    private String bulkUploadId;
 
     protected Payment() { }
 
@@ -105,6 +122,10 @@ public class Payment implements Entity {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getShortReference() {
@@ -239,8 +260,16 @@ public class Payment implements Entity {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getUniqueRequestId() {
@@ -249,6 +278,142 @@ public class Payment implements Entity {
 
     public void setUniqueRequestId(String uniqueRequestId) {
         this.uniqueRequestId = uniqueRequestId;
+    }
+
+    public String getPaymentGroupId() {
+        return paymentGroupId;
+    }
+
+    public void setPaymentGroupId(String paymentGroupId) {
+        this.paymentGroupId = paymentGroupId;
+    }
+
+    public String getUltimateBeneficiaryName() {
+        return ultimateBeneficiaryName;
+    }
+
+    public void setUltimateBeneficiaryName(String ultimateBeneficiaryName) {
+        this.ultimateBeneficiaryName = ultimateBeneficiaryName;
+    }
+
+    public String getPayerDetailsSource() {
+        return payerDetailsSource;
+    }
+
+    public void setPayerDetailsSource(String payerDetailsSource) {
+        this.payerDetailsSource = payerDetailsSource;
+    }
+
+    public BigDecimal getFailureReturnedAmount() {
+        return failureReturnedAmount;
+    }
+
+    public void setFailureReturnedAmount(BigDecimal failureReturnedAmount) {
+        this.failureReturnedAmount = failureReturnedAmount;
+    }
+
+    public BigDecimal getAmountFrom() {
+        return amountFrom;
+    }
+
+    public void setAmountFrom(BigDecimal amountFrom) {
+        this.amountFrom = amountFrom;
+    }
+
+    public BigDecimal getAmountTo() {
+        return amountTo;
+    }
+
+    public void setAmountTo(BigDecimal amountTo) {
+        this.amountTo = amountTo;
+    }
+
+    public Date getPaymentDateFrom() {
+        return paymentDateFrom;
+    }
+
+    public void setPaymentDateFrom(Date paymentDateFrom) {
+        this.paymentDateFrom = paymentDateFrom;
+    }
+
+    public Date getPaymentDateTo() {
+        return paymentDateTo;
+    }
+
+    public void setPaymentDateTo(Date paymentDateTo) {
+        this.paymentDateTo = paymentDateTo;
+    }
+
+    public Date getTransferredAtFrom() {
+        return transferredAtFrom;
+    }
+
+    public void setTransferredAtFrom(Date transferredAtFrom) {
+        this.transferredAtFrom = transferredAtFrom;
+    }
+
+    public Date getTransferredAtTo() {
+        return transferredAtTo;
+    }
+
+    public void setTransferredAtTo(Date transferredAtTo) {
+        this.transferredAtTo = transferredAtTo;
+    }
+
+    public Date getCreatedAtFrom() {
+        return createdAtFrom;
+    }
+
+    public void setCreatedAtFrom(Date createdAtFrom) {
+        this.createdAtFrom = createdAtFrom;
+    }
+
+    public Date getCreatedAtTo() {
+        return createdAtTo;
+    }
+
+    public void setCreatedAtTo(Date createdAtTo) {
+        this.createdAtTo = createdAtTo;
+    }
+
+    public Date getUpdatedAtFrom() {
+        return updatedAtFrom;
+    }
+
+    public void setUpdatedAtFrom(Date updatedAtFrom) {
+        this.updatedAtFrom = updatedAtFrom;
+    }
+
+    public Date getUpdatedAtTo() {
+        return updatedAtTo;
+    }
+
+    public void setUpdatedAtTo(Date updatedAtTo) {
+        this.updatedAtTo = updatedAtTo;
+    }
+
+    public Boolean getWithDeleted() {
+        return withDeleted;
+    }
+
+    public void setWithDeleted(Boolean withDeleted) {
+        this.withDeleted = withDeleted;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    public String getBulkUploadId() {
+        return bulkUploadId;
+    }
+
+    public void setBulkUploadId(String bulkUploadId) {
+        this.bulkUploadId = bulkUploadId;
     }
 
     @Override

@@ -61,6 +61,10 @@ public class Contact implements Entity {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public static Contact create() {
+        return new Contact();
+    }
+
     /**
      * Creates a contact as expected by the
      * {@link com.currencycloud.client.CurrencyCloudClient#createContact(Contact)} method.
@@ -112,12 +116,12 @@ public class Contact implements Entity {
         );
     }
 
-    public static Contact create() {
-        return new Contact();
-    }
-
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLoginId() {
@@ -156,8 +160,16 @@ public class Contact implements Entity {
         return accountId;
     }
 
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
     public String getAccountName() {
         return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public String getStatus() {
@@ -220,8 +232,16 @@ public class Contact implements Entity {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class Iban implements Entity {
     private Date createdAt;
     private Date updatedAt;
 
-    protected Iban() {}
+    protected Iban() { }
 
     private Iban(String currency) {
         this.currency = currency;
@@ -43,6 +43,10 @@ public class Iban implements Entity {
     @Override
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getIbanCode() {
@@ -105,7 +109,7 @@ public class Iban implements Entity {
         return bicSwift;
     }
 
-    public void setGetBicSwift(String bicSwift) {
+    public void setBicSwift(String bicSwift) {
         this.bicSwift = bicSwift;
     }
 

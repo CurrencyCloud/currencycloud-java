@@ -29,7 +29,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanCreate() throws Exception {
+    public void testCanCreateBeneficiary() throws Exception {
         Beneficiary beneficiary = Beneficiary.create("Test User", "GB", "GBP", "Test User");
         beneficiary.setEmail("development@currencycloud.com");
         ArrayList<String> beneficiaryAddress = new ArrayList<>();
@@ -57,9 +57,9 @@ public class BeneficiariesTest extends BetamaxTestSupport {
         beneficiary.setBeneficiaryIdentificationType("passport");
         beneficiary.setBeneficiaryIdentificationValue("AE02315508BF");
         beneficiary.setPaymentTypes(Collections.singletonList("regular"));
-
         beneficiary = client.createBeneficiary(beneficiary);
 
+        assertThat(beneficiary, is(notNullValue()));
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
         assertThat(beneficiary.getBankCountry(), equalTo("GB"));
@@ -93,9 +93,10 @@ public class BeneficiariesTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieve() throws Exception {
+    public void testCanRetrieveBeneficiary() throws Exception {
         Beneficiary beneficiary = client.retrieveBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
 
+        assertThat(beneficiary, is(notNullValue()));
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
         assertThat(beneficiary.getBankCountry(), equalTo("GB"));
@@ -129,9 +130,10 @@ public class BeneficiariesTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_first", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFirst() throws Exception {
+    public void testCanFirstBeneficiary() throws Exception {
         Beneficiary beneficiary = client.firstBeneficiary(Beneficiary.create("Test User", null, null, null));
 
+        assertThat(beneficiary, is(notNullValue()));
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
         assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
@@ -142,18 +144,25 @@ public class BeneficiariesTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFind() throws Exception {
-        Beneficiaries beneficiariesData = client.findBeneficiaries(null, null);
-
+    public void testCanFindBeneficiary() throws Exception {
+        Beneficiary beneficiaryCondition = Beneficiary.create();
+        beneficiaryCondition.setBankAccountHolderName("Test User");
+        beneficiaryCondition.setBankCountry("GB");
+        beneficiaryCondition.setCurrency("GBP");
+        Pagination paginationCondition = new Pagination();
+        paginationCondition.setPerPage(10);
+        paginationCondition.setOrder("created_at");
+        paginationCondition.setOrderAscDesc(Pagination.SortOrder.asc);
+        Beneficiaries beneficiariesData = client.findBeneficiaries(beneficiaryCondition, paginationCondition);
         List<Beneficiary> beneficiaries = beneficiariesData.getBeneficiaries();
+        Pagination pagination = beneficiariesData.getPagination();
+
         assertThat(beneficiaries, not(empty()));
         assertThat(beneficiaries.size(), is(2));
-
-        Pagination pagination = beneficiariesData.getPagination();
         assertThat(pagination.getTotalEntries(), equalTo(2));
         assertThat(pagination.getTotalPages(), equalTo(1));
         assertThat(pagination.getCurrentPage(), equalTo(1));
-        assertThat(pagination.getPerPage(), equalTo(25));
+        assertThat(pagination.getPerPage(), equalTo(10));
         assertThat(pagination.getPreviousPage(), equalTo(-1));
         assertThat(pagination.getNextPage(), equalTo(-1));
         assertThat(pagination.getOrder(), equalTo("created_at"));
@@ -162,12 +171,14 @@ public class BeneficiariesTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_update", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanUpdate() throws Exception {
-        Beneficiary beneficiary = Beneficiary.createForUpdate("081596c9-02de-483e-9f2a-4cf55dcdf98c");
+    public void testCanUpdateBeneficiary() throws Exception {
+        Beneficiary beneficiary = Beneficiary.create();
+        beneficiary.setId("081596c9-02de-483e-9f2a-4cf55dcdf98c");
         beneficiary.setBankAccountHolderName("Test User 2");
         beneficiary.setBeneficiaryDateOfBirth(parseDate("1968-03-23"));
         beneficiary = client.updateBeneficiary(beneficiary);
 
+        assertThat(beneficiary, is(notNullValue()));
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User 2"));
         assertThat(beneficiary.getBankCountry(), equalTo("GB"));
@@ -201,9 +212,10 @@ public class BeneficiariesTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_delete", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanDelete() throws Exception {
+    public void testCanDeleteBeneficiary() throws Exception {
         Beneficiary beneficiary = client.deleteBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
 
+        assertThat(beneficiary, is(notNullValue()));
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
         assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User 2"));
         assertThat(beneficiary.getBankCountry(), equalTo("GB"));
@@ -239,16 +251,19 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     @Betamax(tape = "can_validate", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanValidateBeneficiaries() throws Exception {
         client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
-        Beneficiary beneficiary = Beneficiary.createForValidate("GB", "GBP", "GB");
+        Beneficiary beneficiary = Beneficiary.create();
+        beneficiary.setBankCountry("GB");
+        beneficiary.setCurrency("GBP");
+        beneficiary.setBeneficiaryCountry("GB");
         beneficiary.setAccountNumber("1234567890");
         beneficiary.setRoutingCodeType1("sort_code");
         beneficiary.setRoutingCodeValue1("123456");
         beneficiary.setPaymentTypes(Collections.singletonList("regular"));
         beneficiary.setBeneficiaryDateOfBirth(parseDate("1986-12-12"));
-
         beneficiary = client.validateBeneficiary(beneficiary);
 
         List<String> paymentTypes = Collections.singletonList("regular");
+        assertThat(beneficiary, is(notNullValue()));
         assertThat(beneficiary.getPaymentTypes(), Matchers.equalTo(paymentTypes));
         assertThat(beneficiary.getBankCountry(), equalTo("GB"));
         assertThat(beneficiary.getBankName(), equalTo("Sample bank name"));

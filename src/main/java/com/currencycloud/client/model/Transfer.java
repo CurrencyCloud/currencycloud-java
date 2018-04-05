@@ -25,8 +25,16 @@ public class Transfer implements Entity {
     private String creatorAccountId;
     private String creatorContactId;
     private String reason;
+    private BigDecimal amountFrom;
+    private BigDecimal amountTo;
+    private Date createdAtFrom;
+    private Date createdAtTo;
+    private Date updatedAtFrom;
+    private Date updatedAtTo;
+    private Date completedAtFrom;
+    private Date completedAtTo;
 
-    protected Transfer() {};
+    protected Transfer() { }
 
     private Transfer(String sourceAccountId,
                      String destinationAccountId,
@@ -39,6 +47,10 @@ public class Transfer implements Entity {
         this.currency = currency;
         this.amount = amount;
         this.reason = reason;
+    }
+
+    public static Transfer create() {
+        return new Transfer();
     }
 
     /**
@@ -70,13 +82,13 @@ public class Transfer implements Entity {
 
     }
 
-    public static Transfer create() {
-        return new Transfer();
-    }
-
     @Override
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getShortReference() {
@@ -131,20 +143,40 @@ public class Transfer implements Entity {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Date getCompletedAt() {
         return completedAt;
     }
 
+    public void setCompletedAt(Date completedAt) {
+        this.completedAt = completedAt;
+    }
+
     public String getCreatorAccountId() {
         return creatorAccountId;
     }
 
+    public void setCreatorAccountId(String creatorAccountId) {
+        this.creatorAccountId = creatorAccountId;
+    }
+
     public String getCreatorContactId() {
         return creatorContactId;
+    }
+
+    public void setCreatorContactId(String creatorContactId) {
+        this.creatorContactId = creatorContactId;
     }
 
     public String getReason() {
@@ -153,6 +185,70 @@ public class Transfer implements Entity {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public BigDecimal getAmountFrom() {
+        return amountFrom;
+    }
+
+    public void setAmountFrom(BigDecimal amountFrom) {
+        this.amountFrom = amountFrom;
+    }
+
+    public BigDecimal getAmountTo() {
+        return amountTo;
+    }
+
+    public void setAmountTo(BigDecimal amountTo) {
+        this.amountTo = amountTo;
+    }
+
+    public Date getCreatedAtFrom() {
+        return createdAtFrom;
+    }
+
+    public void setCreatedAtFrom(Date createdAtFrom) {
+        this.createdAtFrom = createdAtFrom;
+    }
+
+    public Date getCreatedAtTo() {
+        return createdAtTo;
+    }
+
+    public void setCreatedAtTo(Date createdAtTo) {
+        this.createdAtTo = createdAtTo;
+    }
+
+    public Date getUpdatedAtFrom() {
+        return updatedAtFrom;
+    }
+
+    public void setUpdatedAtFrom(Date updatedAtFrom) {
+        this.updatedAtFrom = updatedAtFrom;
+    }
+
+    public Date getUpdatedAtTo() {
+        return updatedAtTo;
+    }
+
+    public void setUpdatedAtTo(Date updatedAtTo) {
+        this.updatedAtTo = updatedAtTo;
+    }
+
+    public Date getCompletedAtFrom() {
+        return completedAtFrom;
+    }
+
+    public void setCompletedAtFrom(Date completedAtFrom) {
+        this.completedAtFrom = completedAtFrom;
+    }
+
+    public Date getCompletedAtTo() {
+        return completedAtTo;
+    }
+
+    public void setCompletedAtTo(Date completedAtTo) {
+        this.completedAtTo = completedAtTo;
     }
 
     @Override

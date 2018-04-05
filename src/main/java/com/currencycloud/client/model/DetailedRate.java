@@ -25,6 +25,13 @@ public class DetailedRate {
     private Boolean depositRequired;
     private BigDecimal depositAmount;
     private String depositCurrency;
+    private Date conversionDate;
+
+    protected DetailedRate() { }
+
+    public static DetailedRate create() {
+        return new DetailedRate();
+    }
 
     public Date getSettlementCutOffTime() {
         return settlementCutOffTime;
@@ -80,6 +87,10 @@ public class DetailedRate {
 
     public String getDepositCurrency() {
         return depositCurrency;
+    }
+
+    public void setConversionDate(Date conversionDate) {
+        this.conversionDate = conversionDate;
     }
 
     @Override

@@ -60,6 +60,10 @@ public class Payer implements Entity {
         this.identificationValue = identificationValue;
     }
 
+    public static Payer create() {
+        return new Payer();
+    }
+
     public static Payer create(String entityType,
                                String companyName,
                                String firstName,
@@ -124,12 +128,12 @@ public class Payer implements Entity {
         );
     }
 
-    public static Payer create() {
-        return new Payer();
-    }
-
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLegalEntityType() {
@@ -238,6 +242,10 @@ public class Payer implements Entity {
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override

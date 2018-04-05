@@ -4,17 +4,16 @@ import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.Iban;
 import com.currencycloud.client.model.Ibans;
+import com.currencycloud.client.model.Pagination;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class IbansTest extends BetamaxTestSupport {
 
@@ -27,11 +26,12 @@ public class IbansTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanCreate() throws Exception {
-        Iban iban = Iban.create();
-        iban.setCurrency("JPY");
-        iban = client.createIban(iban);
+    public void testCanCreateIban() throws Exception {
+        Iban ibanCondition = Iban.create();
+        ibanCondition.setCurrency("JPY");
+        Iban iban = client.createIban(ibanCondition);
 
+        assertThat(iban, is(notNullValue()));
         assertThat(iban.getId(), equalTo("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe"));
         assertThat(iban.getIbanCode(), equalTo("GB51TCCL00997997989489"));
         assertThat(iban.getCurrency(), equalTo("JPY"));
@@ -46,41 +46,66 @@ public class IbansTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFind() throws Exception {
-        Ibans ibansData = client.retrieveIbans(null, null);
+    public void testCanFindIban() throws Exception {
+        Pagination paginationCondition = new Pagination();
+        Ibans ibansData = client.findIbans(null, paginationCondition);
         List<Iban> ibans = ibansData.getIbans();
+        Pagination pagination = ibansData.getPagination();
 
-        assertThat(ibans, not(nullValue()));
+        Iban iban = ibans.iterator().next();
         assertThat(ibans.size(), is(3));
-        assertThat(ibans.toString(), containsString("currency='EUR'"));
-        assertThat(ibans.toString(), containsString("id='8242d1f4-4555-4155-a9bf-30feee785121'"));
-        assertThat(ibans.toString(), containsString("ibanCode='GB51TCCL00997961584807'"));
-        assertThat(ibans.toString(), containsString("accountId='e277c9f9-679f-454f-8367-274b3ff977ff'"));
-        assertThat(ibans.toString(), containsString("accountHolderName='Development CM'"));
+        assertThat(iban, is(notNullValue()));
+        assertThat(iban.getId(), equalTo("8242d1f4-4555-4155-a9bf-30feee785121"));
+        assertThat(iban.getCurrency(), equalTo("EUR"));
+        assertThat(iban.getIbanCode(), equalTo("GB51TCCL00997961584807"));
+        assertThat(iban.getAccountId(), equalTo("e277c9f9-679f-454f-8367-274b3ff977ff"));
+        assertThat(iban.getAccountHolderName(), equalTo("Development CM"));
+        assertThat(pagination.getTotalEntries(), equalTo(3));
+        assertThat(pagination.getTotalPages(), equalTo(1));
+        assertThat(pagination.getCurrentPage(), equalTo(1));
+        assertThat(pagination.getPerPage(), equalTo(25));
+        assertThat(pagination.getPreviousPage(), equalTo(-1));
+        assertThat(pagination.getNextPage(), equalTo(2));
+        assertThat(pagination.getOrder(), equalTo("created_at"));
+        assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
     }
 
     @Test
     @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieve() throws Exception {
-        Ibans ibansData = client.retrieveIbans("GBP", null);
+    public void testCanRetrieveIban() throws Exception {
+        Iban ibanCondition = Iban.create();
+        ibanCondition.setCurrency("GBP");
+        Ibans ibansData = client.findIbans(ibanCondition, null);
         List<Iban> ibans = ibansData.getIbans();
+        Pagination pagination = ibansData.getPagination();
 
-        assertThat(ibans, not(nullValue()));
+        Iban iban = ibans.iterator().next();
         assertThat(ibans.size(), is(1));
-        assertThat(ibans.toString(), containsString("currency='GBP'"));
-        assertThat(ibans.toString(), containsString("id='8242d1f4-4555-4155-a9bf-30feee785121'"));
-        assertThat(ibans.toString(), containsString("ibanCode='GB51TCCL00997961584807'"));
-        assertThat(ibans.toString(), containsString("accountId='e277c9f9-679f-454f-8367-274b3ff977ff'"));
-        assertThat(ibans.toString(), containsString("accountHolderName='Development CM'"));
+        assertThat(iban, is(notNullValue()));
+        assertThat(iban.getId(), equalTo("8242d1f4-4555-4155-a9bf-30feee785121"));
+        assertThat(iban.getCurrency(), equalTo("GBP"));
+        assertThat(iban.getIbanCode(), equalTo("GB51TCCL00997961584807"));
+        assertThat(iban.getAccountId(), equalTo("e277c9f9-679f-454f-8367-274b3ff977ff"));
+        assertThat(iban.getAccountHolderName(), equalTo("Development CM"));
+        assertThat(pagination.getTotalEntries(), equalTo(1));
+        assertThat(pagination.getTotalPages(), equalTo(1));
+        assertThat(pagination.getCurrentPage(), equalTo(1));
+        assertThat(pagination.getPerPage(), equalTo(25));
+        assertThat(pagination.getPreviousPage(), equalTo(-1));
+        assertThat(pagination.getNextPage(), equalTo(-1));
+        assertThat(pagination.getOrder(), equalTo("created_at"));
+        assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
     }
 
     @Test
     @Betamax(tape = "can_find_subaccounts", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindSubAccounts() throws Exception {
-        Ibans ibansData = client.findSubAccountsIbans(null, null);
+    public void testCanFindSubAccountsIban() throws Exception {
+        Iban ibanCondition = Iban.create();
+        Pagination paginationCondition = new Pagination();
+        Ibans ibansData = client.findSubAccountsIbans(ibanCondition, paginationCondition);
         List<Iban> ibans = ibansData.getIbans();
 
-        assertThat(ibans, not(nullValue()));
+        assertThat(ibans, not(empty()));
         assertThat(ibans.size(), is(1));
         assertThat(ibans.toString(), containsString("currency='EUR'"));
         assertThat(ibans.toString(), containsString("id='01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe'"));
@@ -91,11 +116,11 @@ public class IbansTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_retrieve_subaccounts", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveSubAccount() throws Exception {
+    public void testCanRetrieveSubAccountIban() throws Exception {
         Ibans ibansData = client.retrieveSubAccountsIban("87077161-91de-012f-e284-1e0030c7f353", null);
         List<Iban> ibans = ibansData.getIbans();
 
-        assertThat(ibans, not(nullValue()));
+        assertThat(ibans, not(empty()));
         assertThat(ibans.size(), is(1));
         assertThat(ibans.toString(), containsString("currency='JPY'"));
         assertThat(ibans.toString(), containsString("id='01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe'"));
