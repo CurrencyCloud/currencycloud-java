@@ -33,7 +33,7 @@ public class ErrorTest extends BetamaxTestSupport {
         assertThat(errorMessage.getCode(), equalTo("api_key_length_is_invalid"));
         assertThat(errorMessage.getMessage(), equalTo("api_key should be 64 character(s) long"));
         assertThat(errorMessage.getParams().get("length"), instanceOf(Integer.class));
-        assertThat((Integer) errorMessage.getParams().get("length"), equalTo(new Integer(64)));
+        assertThat((Integer) errorMessage.getParams().get("length"), equalTo(Integer.valueOf(64)));
 
         String expectedErrorPattern = interpolate(
                 readFile("/errors/contains_full_details_for_api_error.yaml"),
@@ -54,7 +54,7 @@ public class ErrorTest extends BetamaxTestSupport {
         assertThat(errorMessage.getCode(), equalTo("api_key_length_is_invalid"));
         assertThat(errorMessage.getMessage(), equalTo("api_key should be 64 character(s) long"));
         assertThat(errorMessage.getParams().get("length"), instanceOf(Integer.class));
-        assertThat((Integer)errorMessage.getParams().get("length"), equalTo(new Integer(64)));
+        assertThat((Integer)errorMessage.getParams().get("length"), equalTo(Integer.valueOf(64)));
     }
 
     @Test

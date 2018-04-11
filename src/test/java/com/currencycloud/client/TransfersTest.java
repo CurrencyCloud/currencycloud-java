@@ -27,7 +27,7 @@ public class TransfersTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanCreate() throws Exception {
+    public void testCanCreateTransfer() throws Exception {
         Transfer transfer = Transfer.create("a7117404-e150-11e6-a5af-080027a79e8f", "946f2d58-e150-11e6-a5af-080027a79e8f", "GBP", new BigDecimal("1250.0"));
         transfer.setReason("Client funding");
         transfer = client.createTransfer(transfer);
@@ -49,7 +49,7 @@ public class TransfersTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieve() throws Exception {
+    public void testCanRetrieveTransfer() throws Exception {
         Transfer transfer = client.retrieveTransfer("b0c2df71-28db-42ef-b6b7-5710f22d2115");
 
         assertThat(transfer.getId(), equalTo("b0c2df71-28db-42ef-b6b7-5710f22d2115"));
@@ -70,8 +70,8 @@ public class TransfersTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFind() throws Exception {
-        Transfers transferData = client.findTransfers();
+    public void testCanFindTransfer() throws Exception {
+        Transfers transferData = client.findTransfers(null, null);
         List<Transfer> transfers = transferData.getTransfers();
 
         assertThat(transfers, not(nullValue()));

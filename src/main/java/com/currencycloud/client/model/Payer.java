@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize(converter = DirtyWatcherDeserializer.Payer.class)
 public class Payer implements Entity {
@@ -58,6 +58,10 @@ public class Payer implements Entity {
         this.dateOfBirth = dateOfBirth;
         this.identificationType = identificationType;
         this.identificationValue = identificationValue;
+    }
+
+    public static Payer create() {
+        return new Payer();
     }
 
     public static Payer create(String entityType,
@@ -124,12 +128,12 @@ public class Payer implements Entity {
         );
     }
 
-    public static Payer create() {
-        return new Payer();
-    }
-
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLegalEntityType() {
@@ -238,6 +242,10 @@ public class Payer implements Entity {
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override

@@ -29,7 +29,7 @@ public class RatesTest extends BetamaxTestSupport {
 
     @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFind() throws Exception {
+    public void testCanFindRates() throws Exception {
         Rates rates = client.findRates(Arrays.asList("GBPUSD", "EURGBP"), null);
 
         assertThat(rates, not(nullValue()));

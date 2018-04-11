@@ -6,11 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.util.Date;
 
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Iban implements Entity {
 
-    private String uuid;
+    private String id;
     private String ibanCode;
     private String accountId;
     private String currency;
@@ -22,7 +22,7 @@ public class Iban implements Entity {
     private Date createdAt;
     private Date updatedAt;
 
-    protected Iban() {}
+    protected Iban() { }
 
     private Iban(String currency) {
         this.currency = currency;
@@ -42,11 +42,11 @@ public class Iban implements Entity {
 
     @Override
     public String getId() {
-        return uuid;
+        return id;
     }
 
-    public String getUuid() {
-        return uuid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getIbanCode() {
@@ -109,7 +109,7 @@ public class Iban implements Entity {
         return bicSwift;
     }
 
-    public void setGetBicSwift(String bicSwift) {
+    public void setBicSwift(String bicSwift) {
         this.bicSwift = bicSwift;
     }
 
@@ -131,7 +131,7 @@ public class Iban implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Iban{uuid='%s', ibanCode='%s', accountId='%s', currency='%s', accountHolderName='%s', bankInstitutionName='%s', bankInstitutionAddress='%s', bankInstitutionCountry='%s', bicSwift='%s', createdAt=%s, updatedAt=%s}",
-                uuid, ibanCode, accountId, currency, accountHolderName, bankInstitutionName, bankInstitutionAddress, bankInstitutionCountry, bicSwift, createdAt, updatedAt);
+        return String.format("Iban{id='%s', ibanCode='%s', accountId='%s', currency='%s', accountHolderName='%s', bankInstitutionName='%s', bankInstitutionAddress='%s', bankInstitutionCountry='%s', bicSwift='%s', createdAt=%s, updatedAt=%s}",
+                id, ibanCode, accountId, currency, accountHolderName, bankInstitutionName, bankInstitutionAddress, bankInstitutionCountry, bicSwift, createdAt, updatedAt);
     }
 }

@@ -34,17 +34,40 @@ public class DemoServerTest {
     private static final String SOME_UUID = "deadbeef-dead-beef-dead-beefdeadbeef";
     private static final String LOGIN_ID = "development@currencycloud.com";
     private static final String API_KEY = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
-
+    private static CurrencyCloudClient currencyCloud = new CurrencyCloudClient(CurrencyCloudClient.Environment.demo, LOGIN_ID, API_KEY);
     private final SimpleDateFormat dateFormat;
-
-    private static CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
-            CurrencyCloudClient.Environment.demo,
-            LOGIN_ID, API_KEY
-    );
 
     public DemoServerTest() {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
+
+    private static <T extends Entity> void assertFound(List<T> ts, T t) {
+        assertFound(ts, t, true);
+    }
+
+    private static <T extends Entity> void assertFound(List<T> ts, T t, boolean expectFound) {
+        boolean found = contains(ts, t);
+        assertThat(found, equalTo(expectFound));
+    }
+
+    private static <T extends Entity> boolean contains(List<T> ts, T t) {
+        boolean found = false;
+        for (T c : ts) {
+            if (c.getId().equals(t.getId())) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
+    private static String randomString() {
+        return new BigInteger(32, RND).toString(32);
+    }
+
+    private static BigDecimal randomAmount() {
+        return new BigDecimal(RND.nextInt(800000)).movePointLeft(2);
     }
 
     @Test
@@ -56,12 +79,17 @@ public class DemoServerTest {
     @Test
     public void testPaymentTypes() throws Exception {
         try {
-            Beneficiary beneficiary = Beneficiary.createForValidate("GB", "GBP", "GB"); // todo: does the createForValidate method make sense?
+            Beneficiary beneficiary = Beneficiary.create();
+            beneficiary.setBankCountry("GB");
+            beneficiary.setCurrency("GBP");
+            beneficiary.setBeneficiaryCountry("GB");
             beneficiary.setBankAddress(Arrays.asList("Trafalgar Square", "London", "UK"));
             beneficiary.setBankName("Acme Bank");
             beneficiary.setPaymentTypes(Arrays.asList("priority", "regular"));
             currencyCloud.validateBeneficiary(beneficiary);
+
             assertThat("Should fail.", false);
+
         } catch (ApiException e) {
             log.info(e.toString());
             List<ErrorMessage> msgs = e.getErrors();
@@ -93,7 +121,6 @@ public class DemoServerTest {
         beneficiary.setBankAddress(Arrays.asList("Trafalgar Square", "London", "UK"));
         beneficiary.setBankName("Acme Bank");
         beneficiary.setPaymentTypes(paymentTypes);
-
         beneficiary = currencyCloud.createBeneficiary(beneficiary);
 
         assertThat(beneficiary.getPaymentTypes(), is(equalTo(paymentTypes)));
@@ -117,6 +144,7 @@ public class DemoServerTest {
                 found = true;
             }
         }
+
         assertThat("Current account not found among the ones listed.", found);
     }
 
@@ -135,6 +163,7 @@ public class DemoServerTest {
         badExample.setCity("Hamburg");
         badExample.setStateOrProvince("Western region");
         Accounts accounts = currencyCloud.findAccounts(badExample, null);
+
         assertThat(accounts.getAccounts(), hasSize(0));
     }
 
@@ -143,8 +172,10 @@ public class DemoServerTest {
         Account account = currencyCloud.createAccount(Account.create("New Account xyz", "individual" , " 12 Steward St", "London", "E1 6FQ", "GB"));
 
         assertThat(account.getYourReference(), is(nullValue()));
+
         account.setYourReference("a");
         account = currencyCloud.updateAccount(account);
+
         assertThat(account.getYourReference(), equalTo("a"));
 
         account.setStatus("disabled");
@@ -158,18 +189,16 @@ public class DemoServerTest {
 
     @Test
     public void testBalances() throws Exception {
-        Balances balances = currencyCloud.findBalances(
-                new BigDecimal("0.00"),
-                new BigDecimal("1000000000.00"),
-                null,
-//                getDate("2015-05-28"), // Non-null date causes null pagination to be returned.
-                Pagination.builder().pages(1, 20).build()
-        );
+        Balance balanceCondition = Balance.create();
+        balanceCondition.setAmountFrom(new BigDecimal("0.00"));
+        balanceCondition.setAmountTo(new BigDecimal("1000000000.00"));
+        balanceCondition.setAsAtDate(getDate("2018-03-23"));
+        Pagination paginationCondition = Pagination.builder().pages(1, 20).build();
+        Balances balances = currencyCloud.findBalances(balanceCondition, paginationCondition);
         Pagination pagination = balances.getPagination();
+
         assertThat(pagination.getPerPage(), equalTo(20));
         assertThat(pagination.getPage(), equalTo(1));
-
-//        assertThat(balances.getBalances(), hasSize(greaterThan(0)));
     }
 
     @Test
@@ -231,44 +260,45 @@ public class DemoServerTest {
         assertThat(conversion.getFixedSide(), equalTo("buy"));
         assertThat(conversion.getCurrencyPair(), equalTo("EURGBP"));
 
-        List<Conversion> conversions = currencyCloud.findConversions(
-                null, Collections.singleton(conversion.getId()),
-                null, null, null, null, null, null, null, null, null, null, null, null, null
-        ).getConversions();
+        Conversion conversionCondition1 = Conversion.create();
+        conversionCondition1.setId(conversion.getId());
+        List<Conversion> conversions = currencyCloud.findConversions(conversionCondition1, null).getConversions();
 
         assertFound(conversions, conversion);
 
-        conversions = currencyCloud.findConversions(
-                null, Arrays.asList(conversion.getId(), "invalid-id"),
-                null, getDate("2100-01-01"),
-                getDate("2015-01-01"), null, null, null, null, null,
-                null, null, null, new BigDecimal("10000000.00"), null
-        ).getConversions();
+        Conversion conversionCondition2 = Conversion.create();
+        conversionCondition2.setConversionIds(Arrays.asList(conversion.getId(), "invalid-id"));
+        conversionCondition2.setCreatedAtTo(getDate("2100-01-01"));
+        conversionCondition2.setUpdatedAtFrom(getDate("2015-01-01"));
+        conversionCondition2.setSellAmountTo(new BigDecimal("10000000.00"));
+        conversions = currencyCloud.findConversions(conversionCondition2, null).getConversions();
 
         assertFound(conversions, conversion);
     }
 
     @Test
     public void testFindConversions() throws Exception {
-        currencyCloud.findConversions(
-                Conversion.createExample(
-                        "ref", "awaiting_funds", "funds_sent", "GBP", "USD", "EURMXN", null
-                ),
-                Collections.<String>emptyList(),
-                new Date(),
-                new Date(),
-                new Date(),
-                new Date(),
-                new BigDecimal("1.00"),
-                new BigDecimal("100000.00"),
-                new BigDecimal("1.00"),
-                new BigDecimal("100000.00"),
-                new BigDecimal("1.00"),
-                new BigDecimal("100000.00"),
-                new BigDecimal("1.00"),
-                new BigDecimal("100000.00"),
-                null
-        );
+        Conversion conversionCondition = Conversion.create();
+        conversionCondition.setShortReference("ref");
+        conversionCondition.setStatus("awaiting_funds");
+        conversionCondition.setPartnerStatus("funds_sent");
+        conversionCondition.setBuyCurrency("GBP");
+        conversionCondition.setSellCurrency("USD");
+        conversionCondition.setCurrencyPair("EURMXN");
+        conversionCondition.setConversionIds(Collections.<String>emptyList());
+        conversionCondition.setCreatedAtFrom(new Date());
+        conversionCondition.setCreatedAtTo(new Date());
+        conversionCondition.setUpdatedAtFrom(new Date());
+        conversionCondition.setUpdatedAtTo(new Date());
+        conversionCondition.setPartnerBuyAmountFrom(new BigDecimal("1.00"));
+        conversionCondition.setPartnerBuyAmountTo(new BigDecimal("100000.00"));
+        conversionCondition.setPartnerSellAmountFrom(new BigDecimal("1.00"));
+        conversionCondition.setPartnerSellAmountTo( new BigDecimal("100000.00"));
+        conversionCondition.setBuyAmountFrom(new BigDecimal("1.00"));
+        conversionCondition.setBuyAmountTo(new BigDecimal("100000.00"));
+        conversionCondition.setSellAmountFrom(new BigDecimal("1.00"));
+        conversionCondition.setSellAmountTo(new BigDecimal("100000.00"));
+        currencyCloud.findConversions(conversionCondition, null);
     }
 
     @Test
@@ -309,24 +339,22 @@ public class DemoServerTest {
 
         Date from = getDate("2015-01-01");
 
-        List<Payment> payments = currencyCloud.findPayments(
-                payment,
-                amount.subtract(BigDecimal.ONE), payment.getAmount().add(BigDecimal.ONE), null,
-                null, null, null, null, null, from, null, null, null
-        ).getPayments();
+        payment.setAmountFrom(amount.subtract(BigDecimal.ONE));
+        payment.setAmountTo(payment.getAmount().add(BigDecimal.ONE));
+        payment.setUpdatedAtFrom(from);
+        List<Payment> payments = currencyCloud.findPayments(payment, null).getPayments();
 
         assertFound(payments, payment);
 
-        payments = currencyCloud.findPayments(
-                null,
-                amount.subtract(BigDecimal.ONE), payment.getAmount().add(BigDecimal.ONE), null,
-                null, null, null, from, null, null, null, null, null
-        ).getPayments();
+        Payment paymentCondition = Payment.create();
+        paymentCondition.setAmountFrom(amount.subtract(BigDecimal.ONE));
+        paymentCondition.setAmountTo(payment.getAmount().add(BigDecimal.ONE));
+        paymentCondition.setCreatedAtTo(from);
+        payments = currencyCloud.findPayments(paymentCondition, null).getPayments();
 
         assertFound(payments, payment);
 
         payer = currencyCloud.retrievePayer(payment.getPayerId());
-
         payment.setReason("A changed reason");
         payer.setCity("A different city.");
         currencyCloud.updatePayment(payment, payer);
@@ -339,23 +367,34 @@ public class DemoServerTest {
         log.debug("Created payment2 = {}", payment2);
 
         currencyCloud.deletePayment(payment.getId());
-
-        payments = currencyCloud
-                .findPayments(payment, null, null, null, null, null, null, null, null, null, null, null, null)
-                .getPayments();
+        payments = currencyCloud.findPayments(payment, null).getPayments();
 
         assertFound(payments, payment, false);
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Test
     public void testFindPaymentsByExample() throws Exception {
-        currencyCloud.findPayments(
-                Payment.createExample("USD",
-                                      SOME_UUID, new BigDecimal("12.44"), "Some reason",
-                                      SOME_UUID, "asdf", "ready_to_send", null),
-                BigDecimal.ONE, new BigDecimal("1000000.00"), new Date(),
-                new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), Pagination.first(), null
-        ).getPayments();
+        Payment payment = Payment.create();
+        payment.setCurrency("USD");
+        payment.setBeneficiaryId(SOME_UUID);
+        payment.setAmount(new BigDecimal("12.44"));
+        payment.setReason("Some reason");
+        payment.setConversionId(SOME_UUID);
+        payment.setShortReference("asdf");
+        payment.setStatus("ready_to_send");
+        payment.setAmountFrom(BigDecimal.ONE);
+        payment.setAmountTo(new BigDecimal("1000000.00"));
+        payment.setPaymentDateFrom(new Date());
+        payment.setPaymentDateTo(new Date());
+        payment.setTransferredAtFrom(new Date());
+        payment.setTransferredAtTo(new Date());
+        payment.setCreatedAtFrom(new Date());
+        payment.setCreatedAtTo(new Date());
+        payment.setUpdatedAtFrom(new Date());
+        payment.setUpdatedAtTo(new Date());
+        currencyCloud.findPayments(payment, Pagination.first()).getPayments();
     }
 
     @Test
@@ -363,10 +402,10 @@ public class DemoServerTest {
         Date to = getDate("2115-01-01");
 
         Settlement settlement = currencyCloud.createSettlement();
+        Settlement settlementCondition = currencyCloud.createSettlement();
+        settlementCondition.setShortReference(settlement.getShortReference());
 
-        List<Settlement> settlements = currencyCloud.findSettlements(
-                settlement.getShortReference(), null, null, to, null, to, null, null, null
-        ).getSettlements();
+        List<Settlement> settlements = currencyCloud.findSettlements(settlementCondition, null).getSettlements();
         assertFound(settlements, settlement);
         assertThat(settlement.getStatus(), equalTo("open"));
 
@@ -379,16 +418,15 @@ public class DemoServerTest {
         settlement = currencyCloud.addConversion(settlement.getId(), conversion.getId());
         assertThat(settlement.getStatus(), equalTo("open"));
 
-        settlements = currencyCloud.findSettlements(
-                settlement.getShortReference(), null, null, to, null, to, null, null, null
-        ).getSettlements();
+        settlementCondition.setShortReference(settlement.getShortReference());
+        settlements = currencyCloud.findSettlements(settlementCondition, null).getSettlements();
         assertFound(settlements, settlement);
 
         settlement = currencyCloud.releaseSettlement(settlement.getId());
         assertThat(settlement.getStatus(), equalTo("released"));
-        settlements = currencyCloud.findSettlements(
-                settlement.getShortReference(), null, null, to, null, to, null, to, null
-        ).getSettlements();
+
+        settlementCondition.setShortReference(settlement.getShortReference());
+        settlements = currencyCloud.findSettlements(settlementCondition, null).getSettlements();
         assertFound(settlements, settlement);
 
         settlement = currencyCloud.unreleaseSettlement(settlement.getId());
@@ -412,13 +450,17 @@ public class DemoServerTest {
     public void testTransactions() throws Exception {
         Date from = getDate("2015-01-01");
         Date to = getDate("2115-01-01");
-        List<Transaction> transactions = currencyCloud.findTransactions(
-                null, new BigDecimal("0.00"), new BigDecimal("1000000000.00"),
-                from, to,
-                from, to,
-                from, to,
-                Pagination.builder().pages(1, 10).build()
-        ).getTransactions();
+        Transaction transactionCondition = Transaction.create();
+        transactionCondition.setAmountFrom(new BigDecimal("0.00"));
+        transactionCondition.setAmountTo(new BigDecimal("1000000000.00"));
+        transactionCondition.setSettlesAtFrom(from);
+        transactionCondition.setSettlesAtTo(to);
+        transactionCondition.setCreatedAtFrom(from);
+        transactionCondition.setCreatedAtTo(to);
+        transactionCondition.setUpdatedAtFrom(from);
+        transactionCondition.setUpdatedAtTo(to);
+
+        List<Transaction> transactions = currencyCloud.findTransactions(transactionCondition, Pagination.builder().pages(1, 10).build()).getTransactions();
         log.debug("transactions = {}", transactions);
 
         // todo: we never get any transactions here
@@ -432,17 +474,25 @@ public class DemoServerTest {
     @Test
     public void testFindTransactionsByExample() throws Exception {
         Date now = new Date();
-        currencyCloud.findTransactions(
-                Transaction.createExample(
-                        "GBP", new BigDecimal("123.45"), "payment_failure", "inbound_funds", SOME_UUID, "ref",
-                        "pending", "debit", "Because"
-                ),
-                new BigDecimal("0.00"), new BigDecimal("1000000000.00"),
-                now, now,
-                now, now,
-                now, now,
-                Pagination.builder().pages(1, 10).build()
-        );
+        Transaction transactionCondition = Transaction.create();
+        transactionCondition.setCurrency("GBP");
+        transactionCondition.setAmount(new BigDecimal("123.45"));
+        transactionCondition.setAction("payment_failure");
+        transactionCondition.setRelatedEntityType("inbound_funds");
+        transactionCondition.setRelatedEntityId(SOME_UUID);
+        transactionCondition.setRelatedEntityShortReference("ref");
+        transactionCondition.setStatus("pending");
+        transactionCondition.setType("debit");
+        transactionCondition.setReason("Because");
+        transactionCondition.setAmountFrom(new BigDecimal("0.00"));
+        transactionCondition.setAmountTo(new BigDecimal("1000000000.00"));
+        transactionCondition.setSettlesAtFrom(now);
+        transactionCondition.setSettlesAtTo(now);
+        transactionCondition.setCreatedAtFrom(now);
+        transactionCondition.setCreatedAtTo(now);
+        transactionCondition.setUpdatedAtFrom(now);
+        transactionCondition.setUpdatedAtTo(now);
+        currencyCloud.findTransactions(transactionCondition, Pagination.builder().pages(1, 10).build());
     }
 
     @Test
@@ -455,39 +505,9 @@ public class DemoServerTest {
         }
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private static <T extends Entity> void assertFound(List<T> ts, T t) {
-        assertFound(ts, t, true);
-    }
-
-    private static <T extends Entity> void assertFound(List<T> ts, T t, boolean expectFound) {
-        boolean found = contains(ts, t);
-        assertThat(found, equalTo(expectFound));
-    }
-
-    private static <T extends Entity> boolean contains(List<T> ts, T t) {
-        boolean found = false;
-        for (T c : ts) {
-            if (c.getId().equals(t.getId())) {
-                found = true;
-                break;
-            }
-        }
-        return found;
-    }
-
     private Date getDate(String str) throws ParseException {
         synchronized (dateFormat) {
             return dateFormat.parse(str);
         }
-    }
-
-    private static String randomString() {
-        return new BigInteger(32, RND).toString(32);
-    }
-
-    private static BigDecimal randomAmount() {
-        return new BigDecimal(RND.nextInt(800000)).movePointLeft(2);
     }
 }

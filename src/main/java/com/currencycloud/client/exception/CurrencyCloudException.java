@@ -26,7 +26,7 @@ import java.util.Map;
  * This is the root of the Currency Cloud Exception hierarchy. It provides some information about the
  * HTTP request and the server response. The {@link #toString()} method returns YAML-formatted data.
  */
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonPropertyOrder({"platform", "request", "response", "errorCode", "errors"})
 public abstract class CurrencyCloudException extends RuntimeException {
 
@@ -94,7 +94,7 @@ public abstract class CurrencyCloudException extends RuntimeException {
         }
     }
 
-    @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static class Request {
 
         /** The parameters that were sent in the request (GET or POST) */

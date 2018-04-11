@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class CurrencyCloudCookbook {
 
-    public static void main(String... args) throws Exception {
+    public static void main(String[] args) throws Exception {
         // Please provide your login id and api key here to run this example.
         runCookBook("development@currencycloud.com", "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef");
     }
@@ -26,48 +26,50 @@ public class CurrencyCloudCookbook {
         In order to access the API you first need to authenticate with your login ID and API key.
         */
 
-        CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
-                CurrencyCloudClient.Environment.demo,
-                loginId, apiKey
-        );
+        CurrencyCloudClient currencyCloud = new CurrencyCloudClient(CurrencyCloudClient.Environment.demo, loginId, apiKey);
 
         /*
         2. Get a Quote
         Before creating the conversion it is useful to get an indication of how many GBP you will have to sell
-        to buy 10,000 EUR.
+        to buy 12,345.67 EUR.
         */
 
-        DetailedRate detailedRate = currencyCloud.detailedRates("EUR", "GBP", "buy", new BigDecimal("10000.00"), null);
+        DetailedRate detailedRate = currencyCloud.detailedRates(
+                "EUR",
+                "GBP",
+                "buy",
+                new BigDecimal("12345.67"),
+                null
+        );
 
-        System.out.printf("detailedRate: %s%n", detailedRate);
+        System.out.printf(detailedRate.toString());
 
         /*
         3. Convert
-        We are happy with the EURGBP rate indicated by Currency Cloud and now wish to create the conversion
+        We are happy with the EURGBP rate indicated by Currencycloud and now wish to create the conversion
         */
 
         Conversion conversion = Conversion.create("EUR", "GBP", "buy");
-        conversion = currencyCloud.createConversion( conversion, new BigDecimal("10000.00"), "Invoice Payment", true);
+        conversion = currencyCloud.createConversion( conversion, new BigDecimal("12345.67"), "Invoice Payment", true);
 
-        System.out.printf("conversion: %s%n", conversion);
+        System.out.printf(conversion.toString());
 
         /*
         A successful response means that the currency conversion has been executed and the amount of sold funds need to
-        arrive with Currency Cloud by the settlement_date. The bought funds will be available to pay after the
-        conversion has settled on the conversion_date.
+        arrive at Currencycloud by the settlement_date. The bought funds will be available to pay after the conversion
+        has settled on the conversion_date.
         */
 
         /*
         4. Add a Beneficiary
-
         We want to make a priority payment to a supplier based in Germany. To do this, we first need to check which
         details are required.
         */
 
         List<Map<String, String>> beneficiaryRequiredDetails =
-                currencyCloud.beneficiaryRequiredDetails("EUR", "DE", null);
+                currencyCloud.beneficiaryRequiredDetails("EUR", "DE", "DE");
 
-        System.out.printf("beneficiaryRequiredDetails: %s%n", beneficiaryRequiredDetails);
+        System.out.printf(beneficiaryRequiredDetails.toString());
 
         /*
         We know the IBAN and BIC/SWIFT numbers for the beneficiary, so we can use these details.
@@ -83,46 +85,53 @@ public class CurrencyCloudCookbook {
         beneficiary.setBeneficiaryAddress(beneficiaryAddress);
         beneficiary = currencyCloud.createBeneficiary(beneficiary);
 
-        System.out.printf("beneficiary: %s%n", beneficiary);
+        System.out.printf(beneficiary.toString());
 
         /*
         Validate this beneficiary before we attempt a payment to avoid any payment failures.
          */
 
-        currencyCloud.validateBeneficiary(beneficiary);
+        System.out.println(currencyCloud.validateBeneficiary(beneficiary).toString());
 
         /*
-        5. Provide details of the Payer
+        5. Provide details of the Payer and Pay
          */
+
         List<String> payerAddress = new ArrayList<String>();
         payerAddress.add("Payer Address Line 1");
         payerAddress.add("Payer Address Line 2");
         Payer payer = Payer.create(
                 "individual",
-                "Test Payer Company",
-                "Test Payer First Name",
-                "Test Payer Last Name",
+                "A Company",
+                "Troy",
+                "McClure",
                 payerAddress,
                 "Paris",
                 "FR",
-                new Date());
+                new Date()
+        );
 
         /*
-        5. Pay
-
         Finally we want to create a payment to send the funds to the beneficiary.
         */
 
         Payment payment = Payment.create(
-                "EUR", beneficiary.getId(), new BigDecimal("10000"), "Invoice Payment", "Invoice 1234",
-                null, "regular", conversion.getId(), null
+                "EUR",
+                beneficiary.getId(),
+                new BigDecimal("10000"),
+                "Invoice Payment",
+                "Invoice 1234",
+                null,
+                "regular",
+                conversion.getId(),
+                null
         );
         payment = currencyCloud.createPayment(payment, payer);
 
-        System.out.printf("payment: %s%n", payment);
+        System.out.printf(payment.toString());
 
         /*
-        Currency Cloud will make the payment when the related conversion settles.
+        Currencycloud will make the payment when the related conversion settles.
         */
     }
 }
