@@ -1,0 +1,27 @@
+name: internal_application_exception
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/authenticate/api
+    body: login_id=development%40currencycloud.com&api_key=deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+    headers:
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 500
+    headers:
+      Server:
+      - nginx
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Sat, 25 Apr 2015 06:52:42 GMT
+      X-Request-Id:
+      - '2771875643610572878'
+      X-Content-Type-Options:
+      - nosniff
+      Connection:
+      - close
+      Content-Length:
+      - '133'
+    body: '{"error_code":"internal_server_error","error_messages":{"base":[{"code":"internal_server_error","message":"Internal server error"}]}}'

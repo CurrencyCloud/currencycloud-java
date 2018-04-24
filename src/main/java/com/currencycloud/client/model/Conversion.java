@@ -3,6 +3,7 @@ package com.currencycloud.client.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
@@ -62,9 +63,31 @@ public class Conversion implements Entity {
     private Date settlementDateFrom;
     private Date settlementDateTo;
     private String bulkUploadId;
+    private BigDecimal unallocatedFunds;
+    private String reason;
+    private BigDecimal amount;
+    private Boolean termAgreement;
 
     protected Conversion() { }
 
+    private Conversion(
+            String buyCurrency,
+            String sellCurrency,
+            String fixedSide,
+            BigDecimal amount,
+            Boolean termAgreement
+    ) {
+        this.buyCurrency = buyCurrency;
+        this.sellCurrency = sellCurrency;
+        this.fixedSide = fixedSide;
+        this.amount = amount;
+        this.termAgreement = termAgreement;
+    }
+
+    /**
+     * @deprecated as of 1.2.3; use {@link #Conversion(String, String, String, BigDecimal, Boolean)} instead
+     */
+    @Deprecated
     private Conversion (
             String buyCurrency,
             String sellCurrency,
@@ -87,6 +110,10 @@ public class Conversion implements Entity {
         this.uniqueRequestId = uniqueRequestId;
     }
 
+    /**
+     * @deprecated as of 1.2.3; use {@link #Conversion(String, String, String, BigDecimal, Boolean)} instead
+     */
+    @Deprecated
     private Conversion(
             @Nullable String shortReference,
             @Nullable String status,
@@ -110,11 +137,21 @@ public class Conversion implements Entity {
     }
 
     /** Creates a Conversion with only the required properties for creation. */
+    public static Conversion create(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, Boolean termAgreement) {
+        return new Conversion(buyCurrency, sellCurrency, fixedSide, amount, termAgreement);
+    }
+
+    /**
+     * @deprecated as of 1.2.3; use {@link #create(String, String, String, BigDecimal, Boolean)} instead
+     */
     public static Conversion create(String buyCurrency, String sellCurrency, String fixedSide) {
         return new Conversion(buyCurrency, sellCurrency, fixedSide, null, null, null, null, null, null);
     }
 
-    /** Creates a Conversion with the required and the optional properties for creation. */
+    /**
+     * @deprecated as of 1.2.3; use {@link #create(String, String, String, BigDecimal, Boolean)} instead or
+     * {@link #create()} calling the appropiate setter methods
+     */
     public static Conversion create(
             String buyCurrency,
             String sellCurrency,
@@ -139,8 +176,10 @@ public class Conversion implements Entity {
         );
     }
 
-    /** Creates the Conversion with the properties that can be passed to the
-     * {@link com.currencycloud.client.CurrencyCloudClient#findConversions} method. */
+    /**
+     * @deprecated as of 1.2.3; use {@link #create()} calling the appropiate setter methods and pass the resulting
+     * object to CurrencyCloudClient.findConversions(Conversion, Pagination) instead
+     */
     public static Conversion createExample(
             @Nullable String shortReference,
             @Nullable String status,
@@ -538,9 +577,71 @@ public class Conversion implements Entity {
         this.bulkUploadId = bulkUploadId;
     }
 
+    public BigDecimal getUnallocatedFunds() {
+        return unallocatedFunds;
+    }
+
+    public void setUnallocatedFunds(BigDecimal unallocatedFunds) {
+        this.unallocatedFunds = unallocatedFunds;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public Boolean getTermAgreement() {
+        return termAgreement;
+    }
+
+    public void setTermAgreement(Boolean termAgreement) {
+        this.termAgreement = termAgreement;
+    }
+
     @Override
     public String toString() {
-        return String.format("Conversion{id='%s', accountId='%s', creatorContactId='%s', shortReference='%s', settlementDate=%s, conversionDate=%s, status='%s', partnerStatus='%s', currencyPair='%s', buyCurrency='%s', sellCurrency='%s', fixedSide='%s', partnerBuyAmount=%s, partnerSellAmount=%s, clientBuyAmount=%s, clientSellAmount=%s, midMarketRate=%s, coreRate=%s, partnerRate=%s, clientRate=%s, depositRequired=%s, depositAmount=%s, depositCurrency='%s', depositStatus='%s', depositRequiredAt=%s, paymentIds=%s, createdAt=%s, updatedAt=%s, uniqueRequestId=%s}",
-                id, accountId, creatorContactId, shortReference, settlementDate, conversionDate, status, partnerStatus, currencyPair, buyCurrency, sellCurrency, fixedSide, partnerBuyAmount, partnerSellAmount, clientBuyAmount, clientSellAmount, midMarketRate, coreRate, partnerRate, clientRate, depositRequired, depositAmount, depositCurrency, depositStatus, depositRequiredAt, paymentIds, createdAt, updatedAt, uniqueRequestId);
-    }
+        return new JSONObject()
+                .appendField("id", id)
+                .appendField("accountId", accountId)
+                .appendField("creatorContactId", creatorContactId)
+                .appendField("shortReference", shortReference)
+                .appendField("settlementDate", settlementDate)
+                .appendField("conversionDate", conversionDate)
+                .appendField("status", status)
+                .appendField("partnerStatus", partnerStatus)
+                .appendField("currencyPair", currencyPair)
+                .appendField("buyCurrency", buyCurrency)
+                .appendField("sellCurrency", sellCurrency)
+                .appendField("fixedSide", fixedSide)
+                .appendField("partnerBuyAmount", partnerBuyAmount)
+                .appendField("partnerSellAmount", partnerSellAmount)
+                .appendField("clientBuyAmount", clientBuyAmount)
+                .appendField("clientSellAmount", clientSellAmount)
+                .appendField("midMarketRate", midMarketRate)
+                .appendField("coreRate", coreRate)
+                .appendField("partnerRate", partnerRate)
+                .appendField("clientRate", clientRate)
+                .appendField("depositRequired", depositRequired)
+                .appendField("depositAmount", depositAmount)
+                .appendField("depositCurrency", depositCurrency)
+                .appendField("depositStatus", depositStatus)
+                .appendField("depositRequiredAt", depositRequiredAt)
+                .appendField("unallocatedFunds", unallocatedFunds)
+                .appendField("paymentIds", paymentIds)
+                .appendField("uniqueRequestId", uniqueRequestId)
+                .appendField("createdAt", createdAt)
+                .appendField("updatedAt", updatedAt)
+                .toString();
+        }
 }

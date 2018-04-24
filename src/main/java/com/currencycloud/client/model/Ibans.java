@@ -12,6 +12,6 @@ public class Ibans extends PaginatedData {
 
     @Override
     public String toString() {
-        return String.format("Ibans{ibans=%s, pagination=%s}", ibans, pagination);
+        return String.format("{\"ibans\":%s, \"pagination\":%s}", ibans, pagination);
     }
 }

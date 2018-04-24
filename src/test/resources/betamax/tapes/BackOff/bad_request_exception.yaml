@@ -1,0 +1,27 @@
+name: bad_request_exception
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/authenticate/api
+    body: login_id=development%40currencycloud.com&api_key=deadbeef
+    headers:
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 400
+    headers:
+      Server:
+      - nginx
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Fri, 24 Apr 2015 20:47:14 GMT
+      X-Request-Id:
+      - '2771569299808580066'
+      X-Content-Type-Options:
+      - nosniff
+      Connection:
+      - close
+      Content-Length:
+      - '190'
+    body: '{"error_code":"auth_invalid_user_login_details","error_messages":{"api_key":[{"code":"api_key_length_is_invalid","message":"api_key should be 64 character(s) long","params":{"length":64}}]}}'

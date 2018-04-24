@@ -12,6 +12,6 @@ public class Transfers extends PaginatedData {
 
     @Override
     public String toString() {
-        return String.format("Transfers{transfers=%s, pagination=%s}", transfers, pagination);
+        return String.format("{\"transfers\":%s, \"pagination\":%s}", transfers, pagination);
     }
 }

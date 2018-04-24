@@ -1,11 +1,11 @@
 package com.currencycloud.client.model;
 
-
 import com.currencycloud.client.dirty.DirtyWatcherDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
@@ -418,7 +418,31 @@ public class Payment implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Payment{id='%s', shortReference='%s', beneficiaryId='%s', conversionId='%s', amount=%s, currency='%s', status='%s', paymentType='%s', reference='%s', reason='%s', paymentDate=%s, transferredAt=%s, authorisationStepsRequired=%d, creatorContactId='%s', lastUpdaterContactId='%s', failureReason='%s', payerId='%s', createdAt=%s, updatedAt=%s, uniqueRequestId=%s}",
-                id, shortReference, beneficiaryId, conversionId, amount, currency, status, paymentType, reference, reason, paymentDate, transferredAt, authorisationStepsRequired, creatorContactId, lastUpdaterContactId, failureReason, payerId, createdAt, updatedAt, uniqueRequestId);
-    }
+        return new JSONObject()
+                .appendField("id", id)
+                .appendField("shortReference", shortReference)
+                .appendField("beneficiaryId", beneficiaryId)
+                .appendField("conversionId", conversionId)
+                .appendField("amount", amount)
+                .appendField("currency", currency)
+                .appendField("status", status)
+                .appendField("paymentType", paymentType)
+                .appendField("reference", reference)
+                .appendField("reason", reason)
+                .appendField("paymentDate", paymentDate)
+                .appendField("transferredAt", transferredAt)
+                .appendField("authorisationStepsRequired", authorisationStepsRequired)
+                .appendField("creatorContactId", creatorContactId)
+                .appendField("lastUpdaterContactId", lastUpdaterContactId)
+                .appendField("failureReason", failureReason)
+                .appendField("payerId", payerId)
+                .appendField("createdAt", createdAt)
+                .appendField("updatedAt", updatedAt)
+                .appendField("uniqueRequestId", uniqueRequestId)
+                .appendField("failureReturnedAmount", failureReturnedAmount)
+                .appendField("payerDetailsSource", payerDetailsSource)
+                .appendField("paymentGroupId", paymentGroupId)
+                .appendField("ultimateBeneficiaryName", ultimateBeneficiaryName)
+                .toString();
+        }
 }

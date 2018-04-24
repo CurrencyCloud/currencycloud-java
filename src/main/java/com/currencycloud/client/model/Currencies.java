@@ -18,6 +18,6 @@ public class Currencies {
 
     @Override
     public String toString() {
-        return String.format("Currencies{currencies=%s}", currencies);
+        return String.format("{\"currencies\":%s}", currencies);
     }
 }

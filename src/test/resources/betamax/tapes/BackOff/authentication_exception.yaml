@@ -1,0 +1,27 @@
+name: authentication_exception
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/authenticate/api
+    body: login_id=nobody%40currencycloud.com&api_key=deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+    headers:
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 401
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 24 Apr 2015 20:47:15 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '176'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2771569303323356643'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"error_code":"auth_failed","error_messages":{"username":[{"code":"invalid_supplied_credentials","message":"Authentication failed with the supplied credentials","params":{}}]}}'

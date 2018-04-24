@@ -1,0 +1,32 @@
+name: can_retrieve_subaccounts
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/virtual_accounts/subaccounts/87077161-91de-012f-e284-1e0030c7f353
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 47abdf69f25ea4e8f57a7a7b54fbc42e
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 20 Apr 2018 12:27:12 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '637'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2773736887435072673'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"virtual_accounts":[{"id":"00d272ee-fae5-4f97-b425-993a2d6e3a46","account_id":"2090939e-b2f7-3f2b-1363-4d235b3f58af","virtual_account_number":"8303723297",
+    "account_holder_name":"Account-ZXOANNAMKPRQ","bank_institution_name":"Community Federal Savings Bank","bank_institution_address":"Seventh Avenue, New York, NY 10019, US",
+    "bank_institution_country":"United States","routing_code":"026073150","created_at":"2014-01-12T00:00:00+00:00","updated_at":"2014-01-12T00:00:00+00:00"}],
+    "pagination":{"total_entries":1,"total_pages":1,"current_page":1,"per_page":25,"previous_page":-1,"next_page":2,"order":"created_at","order_asc_desc":"asc"}}'

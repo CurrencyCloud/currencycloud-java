@@ -5,6 +5,7 @@ import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.Balance;
 import com.currencycloud.client.model.Balances;
 import com.currencycloud.client.model.Pagination;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,6 +24,10 @@ public class BalancesTest extends BetamaxTestSupport {
     public void prepareClient() {
         client = prepareTestClient(null, null, "6f5f99d1b860fc47e8a186e3dce0d3f9");
     }
+
+    @Before
+    @After
+    public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
     @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})

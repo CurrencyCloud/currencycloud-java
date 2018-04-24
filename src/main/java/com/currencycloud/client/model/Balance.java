@@ -3,6 +3,7 @@ package com.currencycloud.client.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -110,7 +111,13 @@ public class Balance implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Balance{id='%s', accountId='%s', currency='%s', amount=%s, createdAt=%s, updatedAt=%s}",
-                id, accountId, currency, amount, createdAt, updatedAt);
+        return new JSONObject()
+                .appendField("id", id)
+                .appendField("accountId", accountId)
+                .appendField("currency", currency)
+                .appendField("amount", amount)
+                .appendField("createdAt", createdAt)
+                .appendField("updatedAt", updatedAt)
+                .toString();
     }
 }

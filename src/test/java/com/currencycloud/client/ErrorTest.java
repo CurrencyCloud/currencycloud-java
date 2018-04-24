@@ -5,6 +5,8 @@ import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.exception.*;
 import com.currencycloud.client.model.ErrorMessage;
 import org.eclipse.jetty.io.WriterOutputStream;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
@@ -21,6 +23,10 @@ public class ErrorTest extends BetamaxTestSupport {
 
     private String loginId = "development@currencycloud.com";
     private String apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
+
+    @Before
+    @After
+    public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
     @Betamax(tape = "contains_full_details_for_api_error", match = {MatchRule.method, MatchRule.uri, MatchRule.body})

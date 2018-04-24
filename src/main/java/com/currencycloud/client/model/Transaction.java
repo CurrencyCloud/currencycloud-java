@@ -3,6 +3,7 @@ package com.currencycloud.client.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class Transaction implements Entity {
     private Date settlesAt;
     private Date createdAt;
     private Date updatedAt;
+    private Date completedAt;
     private BigDecimal amountFrom;
     private BigDecimal amountTo;
     private Date settlesAtFrom;
@@ -225,6 +227,14 @@ public class Transaction implements Entity {
         this.updatedAt = updatedAt;
     }
 
+    public Date getCompletedAt() {
+        return completedAt;
+    }
+
+    public void setCompletedAt(Date completedAt) {
+        this.completedAt = completedAt;
+    }
+
     public BigDecimal getAmountFrom() {
         return amountFrom;
     }
@@ -331,7 +341,24 @@ public class Transaction implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Transaction{id='%s', balanceId='%s', accountId='%s', currency='%s', amount=%s, balanceAmount=%s, type='%s', action='%s', relatedEntityType='%s', relatedEntityId='%s', relatedEntityShortReference='%s', status='%s', reason='%s', settlesAt=%s, createdAt=%s, updatedAt=%s}",
-                id, balanceId, accountId, currency, amount, balanceAmount, type, action, relatedEntityType, relatedEntityId, relatedEntityShortReference, status, reason, settlesAt, createdAt, updatedAt);
+        return new JSONObject()
+                .appendField("id", id)
+                .appendField("balanceId", balanceId)
+                .appendField("accountId", accountId)
+                .appendField("currency", currency)
+                .appendField("amount", amount)
+                .appendField("balanceAmount", balanceAmount)
+                .appendField("type", type)
+                .appendField("action", action)
+                .appendField("relatedEntityType", relatedEntityType)
+                .appendField("relatedEntityId", relatedEntityId)
+                .appendField("relatedEntityShortReference", relatedEntityShortReference)
+                .appendField("status", status)
+                .appendField("reason", reason)
+                .appendField("settlesAt", settlesAt)
+                .appendField("createdAt", createdAt)
+                .appendField("updatedAt", updatedAt)
+                .appendField("completedAt", completedAt)
+                .toString();
     }
 }

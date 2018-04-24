@@ -1,0 +1,29 @@
+name: not_found_exception
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/beneficiaries/deadbeef-dead-beef-dead-beefdeadbeef
+    body: ''
+    headers:
+      X-Auth-Token:
+      - deadbeefdeadbeefdeadbeefdeadbeef
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 404
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sat, 25 Apr 2015 11:16:53 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '159'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2772007003121723883'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"error_code":"beneficiary_not_found","error_messages":{"id":[{"code":"beneficiary_not_found","message":"Beneficiary was not found for this id","params":{}}]}}'

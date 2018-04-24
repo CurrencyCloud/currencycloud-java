@@ -2,10 +2,18 @@ package com.currencycloud.client;
 
 import co.freeside.betamax.Recorder;
 import org.junit.Rule;
+import org.junit.rules.TestName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
 public class BetamaxTestSupport extends JsonTestSupport {
+
+    public static final Logger log = LoggerFactory.getLogger(CurrencyCloudClient.class);
+
+    @Rule
+    public final TestName name = new TestName();
 
     @Rule
     public Recorder createRecorder() {

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -178,8 +179,9 @@ public class Settlement implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Settlement{id='%s', shortReference='%s', status='%s', conversionIds=%s, entries=%s, createdAt=%s, updatedAt=%s, releasedAt=%s}",
+        return String.format("{\"id\":\"%s\", \"shortReference\":\"%s\", \"status\"\"%s\", \"conversionIds\":\"%s\", \"entries\":[\"%s\"], \"createdAt\":%s, \"updatedAt\":\"%s\", \"releasedAt\":\"%s\"}",
                 id, shortReference, status, conversionIds, entries, createdAt, updatedAt, releasedAt);
+        /*ToDo: Replace toString hack with Map<String, Entry> deserialization */
     }
 
     @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
@@ -220,7 +222,10 @@ public class Settlement implements Entity {
 
         @Override
         public String toString() {
-            return String.format("Entry{sendAmount=%s, receiveAmount=%s}", sendAmount, receiveAmount);
+            return new JSONObject()
+                    .appendField("sendAmount", sendAmount)
+                    .appendField("receiveAmount", receiveAmount)
+                    .toString();
         }
     }
 }

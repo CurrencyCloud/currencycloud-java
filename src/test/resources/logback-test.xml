@@ -8,7 +8,7 @@
         </encoder>
     </appender>
     <!-- Default level for all classes. Allowed values, from verbose to terse, are: TRACE > DEBUG > INFO > WARN > ERROR > OFF -->
-    <root level="INFO">
+    <root level="WARN">
         <appender-ref ref="CONSOLE_APPENDER"/>
     </root>
     <!-- Level for com.currencycloud.* classes -->

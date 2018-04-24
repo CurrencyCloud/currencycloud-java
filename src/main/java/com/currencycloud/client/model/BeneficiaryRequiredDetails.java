@@ -19,6 +19,6 @@ public class BeneficiaryRequiredDetails {
 
     @Override
     public String toString() {
-        return String.format("BeneficiaryRequiredDetails{details=%s}", details);
+        return String.format("{\"details\":%s}", details);
     }
 }

@@ -3,6 +3,7 @@ package com.currencycloud.client.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -16,7 +17,6 @@ public class Pagination {
     private Integer nextPage;
     private String order;
     private SortOrder orderAscDesc;
-
 
     public Pagination() {
     }
@@ -92,21 +92,15 @@ public class Pagination {
         return builder().limit(1).build();
     }
 
-    @Override
-    public String toString() {
-        return String.format("Pagination{totalEntries=%d, totalPages=%d, currentPage=%d, perPage=%d, previousPage=%d, nextPage=%d, order='%s', orderAscDesc=%s}",
-                totalEntries, totalPages, currentPage, perPage, previousPage, nextPage, order, orderAscDesc);
-    }
-
-    public enum SortOrder {asc, desc}
+    public enum SortOrder {asc, desc;}
 
     public static class Builder {
 
         private Integer currentPage;
+
         private Integer perPage;
         private String order;
         private SortOrder orderAscDesc;
-
         protected Builder() {
         }
 
@@ -135,5 +129,19 @@ public class Pagination {
         public Pagination build() {
             return new Pagination(currentPage, perPage, order, orderAscDesc);
         }
+    }
+
+    @Override
+    public String toString() {
+        return new JSONObject()
+                .appendField("totalEntries", totalEntries)
+                .appendField("totalPages", totalPages)
+                .appendField("currentPage", currentPage)
+                .appendField("perPage", perPage)
+                .appendField("previousPage", previousPage)
+                .appendField("nextPage", nextPage)
+                .appendField("order", order)
+                .appendField("orderAscDesc", orderAscDesc)
+                .toString();
     }
 }

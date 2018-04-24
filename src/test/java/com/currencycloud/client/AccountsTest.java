@@ -5,8 +5,11 @@ import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.Account;
 import com.currencycloud.client.model.Accounts;
 import com.currencycloud.client.model.Pagination;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -22,6 +25,10 @@ public class AccountsTest extends BetamaxTestSupport {
     public void prepareClient() {
         client = prepareTestClient(null, null, "acad59188ce6ddb54d4043bc4efb5f57");
     }
+
+    @Before
+    @After
+    public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
