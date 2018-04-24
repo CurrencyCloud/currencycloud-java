@@ -80,7 +80,7 @@ public class SettlementsTest extends BetamaxTestSupport {
         assertThat(entries, hasEntry("USD", new Settlement.Entry(new BigDecimal("0.00"), new BigDecimal("1511.70"))));
         assertThat(updatedSettlement.getUpdatedAt(), equalTo(parseDateTime("2015-05-04T20:40:56+00:00")));
 
-        System.out.println("Settlemet toString: " + updatedSettlement.toString());
+        System.out.println("Settlement toString: " + updatedSettlement.toString());
     }
 
     @Test
