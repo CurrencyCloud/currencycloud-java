@@ -4,6 +4,7 @@ import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.Conversion;
 import com.currencycloud.client.model.Settlement;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,11 +24,21 @@ public class SettlementsTest extends BetamaxTestSupport {
         client = prepareTestClient(null, null, "6f5f99d1b860fc47e8a186e3dce0d3f9");
     }
 
+    @Before
+    @After
+    public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
+
     @Test
     @Betamax(tape = "can_add_conversion", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanAddConversionToSettlement() throws Exception {
-        Conversion conversion = Conversion.create("GBP", "USD", "buy");
-        conversion = client.createConversion(conversion, new BigDecimal(1000), "mortgage payment", true);
+        Conversion conversion = Conversion.create();
+        conversion.setBuyCurrency("GBP");
+        conversion.setSellCurrency("USD");
+        conversion.setFixedSide("buy");
+        conversion.setAmount(new BigDecimal(1000));
+        conversion.setReason("mortgage payment");
+        conversion.setTermAgreement(true);
+        conversion = client.createConversion(conversion);
 
         assertThat(conversion.getId(), equalTo("24d2ee7f-c7a3-4181-979e-9c58dbace992"));
         assertThat(conversion.getSettlementDate(), equalTo(parseDateTime("2015-05-06T14:00:00+00:00")));
@@ -58,7 +69,7 @@ public class SettlementsTest extends BetamaxTestSupport {
         assertThat(conversion.getCreatedAt(), equalTo(parseDateTime("2015-05-04T20:28:29+00:00")));
         assertThat(conversion.getUpdatedAt(), equalTo(parseDateTime("2015-05-04T20:28:29+00:00")));
 
-        Settlement settlement = client.createSettlement();
+        Settlement settlement = client.createSettlement(Settlement.create());
         Settlement updatedSettlement = client.addConversion(settlement.getId(), conversion.getId());
 
         assertBasicPropertiesEqual(settlement, updatedSettlement);
@@ -68,6 +79,8 @@ public class SettlementsTest extends BetamaxTestSupport {
         assertThat(entries, hasEntry("GBP", new Settlement.Entry(new BigDecimal("1000.00"), new BigDecimal("0.00"))));
         assertThat(entries, hasEntry("USD", new Settlement.Entry(new BigDecimal("0.00"), new BigDecimal("1511.70"))));
         assertThat(updatedSettlement.getUpdatedAt(), equalTo(parseDateTime("2015-05-04T20:40:56+00:00")));
+
+        System.out.println("Settlemet toString: " + updatedSettlement.toString());
     }
 
     @Test

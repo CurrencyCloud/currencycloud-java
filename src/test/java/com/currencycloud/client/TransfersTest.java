@@ -4,6 +4,7 @@ import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.Transfer;
 import com.currencycloud.client.model.Transfers;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,6 +25,10 @@ public class TransfersTest extends BetamaxTestSupport {
     public void prepareClient() {
         client = prepareTestClient(null, null, "334cbfdb9ba9bfb6ffd499b0c6af6b12");
     }
+
+    @Before
+    @After
+    public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})

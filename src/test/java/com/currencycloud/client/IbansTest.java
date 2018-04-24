@@ -5,6 +5,9 @@ import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.Iban;
 import com.currencycloud.client.model.Ibans;
 import com.currencycloud.client.model.Pagination;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,6 +26,10 @@ public class IbansTest extends BetamaxTestSupport {
     public void prepareClient() {
         client = prepareTestClient(null, null, "8af871a5e8007f5073caceaf75d0bc72");
     }
+
+    @Before
+    @After
+    public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
@@ -47,10 +54,11 @@ public class IbansTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFindIban() throws Exception {
-        Pagination paginationCondition = new Pagination();
-        Ibans ibansData = client.findIbans(null, paginationCondition);
+        Ibans ibansData = client.findIbans(null, null);
         List<Iban> ibans = ibansData.getIbans();
         Pagination pagination = ibansData.getPagination();
+
+        System.out.println("IbansData: " + ibansData.toString());
 
         Iban iban = ibans.iterator().next();
         assertThat(ibans.size(), is(3));
@@ -104,14 +112,15 @@ public class IbansTest extends BetamaxTestSupport {
         Pagination paginationCondition = new Pagination();
         Ibans ibansData = client.findSubAccountsIbans(ibanCondition, paginationCondition);
         List<Iban> ibans = ibansData.getIbans();
+        JSONObject ibanJSON = (JSONObject) new JSONParser(JSONParser.MODE_RFC4627).parse(ibans.iterator().next().toString());
 
         assertThat(ibans, not(empty()));
         assertThat(ibans.size(), is(1));
-        assertThat(ibans.toString(), containsString("currency='EUR'"));
-        assertThat(ibans.toString(), containsString("id='01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe'"));
-        assertThat(ibans.toString(), containsString("ibanCode='GB51TCCL00997997989489'"));
-        assertThat(ibans.toString(), containsString("accountId='87077161-91de-012f-e284-1e0030c7f352'"));
-        assertThat(ibans.toString(), containsString("accountHolderName='Account-IGGLNHYTWFKI'"));
+        assertThat(ibanJSON.get("currency"), equalTo("EUR"));
+        assertThat(ibanJSON.get("id"), equalTo("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe"));
+        assertThat(ibanJSON.get("ibanCode"), equalTo("GB51TCCL00997997989489"));
+        assertThat(ibanJSON.get("accountId"), equalTo("87077161-91de-012f-e284-1e0030c7f352"));
+        assertThat(ibanJSON.get("accountHolderName"), equalTo("Account-IGGLNHYTWFKI"));
     }
 
     @Test
@@ -119,13 +128,15 @@ public class IbansTest extends BetamaxTestSupport {
     public void testCanRetrieveSubAccountIban() throws Exception {
         Ibans ibansData = client.retrieveSubAccountsIban("87077161-91de-012f-e284-1e0030c7f353", null);
         List<Iban> ibans = ibansData.getIbans();
+        JSONObject ibanJSON = (JSONObject) new JSONParser(JSONParser.MODE_RFC4627).parse(ibans.iterator().next().toString());
 
         assertThat(ibans, not(empty()));
         assertThat(ibans.size(), is(1));
-        assertThat(ibans.toString(), containsString("currency='JPY'"));
-        assertThat(ibans.toString(), containsString("id='01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe'"));
-        assertThat(ibans.toString(), containsString("ibanCode='GB51TCCL00997997989490'"));
-        assertThat(ibans.toString(), containsString("accountId='87077161-91de-012f-e284-1e0030c7f353'"));
-        assertThat(ibans.toString(), containsString("accountHolderName='Account-IGGLNHYTWFKI'"));
+        assertThat(ibanJSON.getAsString("currency"), equalTo("JPY"));
+        assertThat(ibanJSON.get("currency"), equalTo("JPY"));
+        assertThat(ibanJSON.get("id"), equalTo("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe"));
+        assertThat(ibanJSON.get("ibanCode"), equalTo("GB51TCCL00997997989490"));
+        assertThat(ibanJSON.get("accountId"), equalTo("87077161-91de-012f-e284-1e0030c7f353"));
+        assertThat(ibanJSON.get("accountHolderName"), equalTo("Account-IGGLNHYTWFKI"));
     }
 }
