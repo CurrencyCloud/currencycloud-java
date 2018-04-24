@@ -3,6 +3,7 @@ package com.currencycloud.client.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,11 @@ public class PayerRequiredDetail {
 
     @Override
     public String toString() {
-        return String.format("PayerRequiredDetail{payerEntityType='%s', paymentType='%s', requiredFields=%s, payerIdentificationType='%s'}",
-                payerEntityType, paymentType, requiredFields, payerIdentificationType);
+        return new JSONObject()
+                .appendField("payerEntityType", payerEntityType)
+                .appendField("paymentType", paymentType)
+                .appendField("requiredFields", requiredFields)
+                .appendField("payerIdentificationType", payerIdentificationType)
+                .toString();
     }
 }

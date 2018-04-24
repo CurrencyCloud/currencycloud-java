@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import java.util.Date;
 
@@ -233,7 +234,29 @@ public class Account implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Account{id='%s', legalEntityType='%s', accountName='%s', brand='%s', yourReference='%s', status='%s', street='%s', city='%s', stateOrProvince='%s', country='%s', postalCode='%s', spreadTable='%s', createdAt=%s, updatedAt=%s, identificationType='%s', identificationValue='%s', shortReference='%s', apiTrading='%s', onlineTrading='%s', phoneTrading='%s'}",
-                id, legalEntityType, accountName, brand, yourReference, status, street, city, stateOrProvince, country, postalCode, spreadTable, createdAt, updatedAt, identificationType, identificationValue, shortReference, apiTrading, onlineTrading, phoneTrading);
+        return new JSONObject()
+                .appendField("id", id)
+                .appendField("legalEntityType", legalEntityType)
+                .appendField("accountName", accountName)
+                .appendField("brand", brand)
+                .appendField("yourReference", yourReference)
+                .appendField("status", status)
+                .appendField("street", street)
+                .appendField("city", city)
+                .appendField("stateOrProvince", stateOrProvince)
+                .appendField("country", country)
+                .appendField("postalCode", postalCode)
+                .appendField("spreadTable", spreadTable)
+                .appendField("createdAt", createdAt)
+                .appendField("updatedAt", updatedAt)
+                .appendField("identificationType", identificationType)
+                .appendField("identificationValue", identificationValue)
+                .appendField("shortReference", shortReference)
+                .appendField("apiTrading", apiTrading)
+                .appendField("onlineTrading", onlineTrading)
+                .appendField("phoneTrading", phoneTrading)
+                .appendField("processThirdPartyFunds", processThirdPartyFunds)
+                .appendField("settlementType", settlementType)
+                .toString();
     }
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import java.util.Date;
 import java.util.List;
@@ -53,6 +54,7 @@ public class Beneficiary implements Entity {
     private String iban;
     private List<String> bankAddress;
     private String scope;
+    private String beneficiaryExternalReference;
 
     protected Beneficiary() { }
 
@@ -376,10 +378,52 @@ public class Beneficiary implements Entity {
         this.scope = scope;
     }
 
+    public String getBeneficiaryExternalReference() {
+        return beneficiaryExternalReference;
+    }
+
+    public void setBeneficiaryExternalReference(String beneficiaryExternalReference) {
+        this.beneficiaryExternalReference = beneficiaryExternalReference;
+    }
+
     @Override
     public String toString() {
-        return String.format("Beneficiary{id='%s', bankAccountHolderName='%s', name='%s', email='%s', defaultBeneficiary=%s, creatorContactId='%s', createdAt=%s, updatedAt=%s, paymentTypes=%s, bankCountry='%s', bankName='%s', currency='%s', accountNumber='%s', routingCodeType1='%s', bankAccountType='%s', beneficiaryAddress=%s, beneficiaryCountry='%s', beneficiaryEntityType='%s', beneficiaryCompanyName='%s', beneficiaryFirstName='%s', beneficiaryLastName='%s', beneficiaryCity='%s', beneficiaryPostcode='%s', beneficiaryStateOrProvince='%s', beneficiaryDateOfBirth='%s', beneficiaryIdentificationType='%s', beneficiaryIdentificationValue='%s', routingCodeValue1='%s', routingCodeType2='%s', routingCodeValue2='%s', bicSwift='%s', iban='%s', bankAddress=%s}",
-                id, bankAccountHolderName, name, email, defaultBeneficiary, creatorContactId, createdAt, updatedAt, paymentTypes, bankCountry, bankName, currency, accountNumber, routingCodeType1, bankAccountType, beneficiaryAddress, beneficiaryCountry, beneficiaryEntityType, beneficiaryCompanyName, beneficiaryFirstName, beneficiaryLastName, beneficiaryCity, beneficiaryPostcode, beneficiaryStateOrProvince, beneficiaryDateOfBirth, beneficiaryIdentificationType, beneficiaryIdentificationValue, routingCodeValue1, routingCodeType2, routingCodeValue2, bicSwift, iban, bankAddress);
+        return new JSONObject()
+                .appendField("id", id)
+                .appendField("bankAccountHolderName", bankAccountHolderName)
+                .appendField("name", name)
+                .appendField("email", email)
+                .appendField("defaultBeneficiary", defaultBeneficiary)
+                .appendField("creatorContactId", creatorContactId)
+                .appendField("createdAt", createdAt)
+                .appendField("updatedAt", updatedAt)
+                .appendField("paymentTypes", paymentTypes)
+                .appendField("bankCountry", bankCountry)
+                .appendField("bankName", bankName)
+                .appendField("currency", currency)
+                .appendField("accountNumber", accountNumber)
+                .appendField("routingCodeType1", routingCodeType1)
+                .appendField("bankAccountType", bankAccountType)
+                .appendField("beneficiaryAddress", beneficiaryAddress)
+                .appendField("beneficiaryCountry", beneficiaryCountry)
+                .appendField("beneficiaryEntityType", beneficiaryEntityType)
+                .appendField("beneficiaryCompanyName", beneficiaryCompanyName)
+                .appendField("beneficiaryFirstName", beneficiaryFirstName)
+                .appendField("beneficiaryLastName", beneficiaryLastName)
+                .appendField("beneficiaryCity", beneficiaryCity)
+                .appendField("beneficiaryPostcode", beneficiaryPostcode)
+                .appendField("beneficiaryStateOrProvince", beneficiaryStateOrProvince)
+                .appendField("beneficiaryDateOfBirth", beneficiaryDateOfBirth)
+                .appendField("beneficiaryIdentificationType", beneficiaryIdentificationType)
+                .appendField("beneficiaryIdentificationValue", beneficiaryIdentificationValue)
+                .appendField("routingCodeValue1", routingCodeValue1)
+                .appendField("routingCodeType2", routingCodeType2)
+                .appendField("routingCodeValue2", routingCodeValue2)
+                .appendField("bicSwift", bicSwift)
+                .appendField("iban", iban)
+                .appendField("bankAddress", bankAddress)
+                .appendField("beneficiaryExternalReference", beneficiaryExternalReference)
+                .toString();
     }
 }
 

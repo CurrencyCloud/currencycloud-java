@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import javax.annotation.Nullable;
 import java.util.Date;
@@ -246,7 +247,23 @@ public class Contact implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Contact{loginId='%s', id='%s', yourReference='%s', firstName='%s', lastName='%s', accountId='%s', accountName='%s', status='%s', phoneNumber='%s', mobilePhoneNumber='%s', locale='%s', timezone='%s', emailAddress='%s', dateOfBirth=%s, createdAt=%s, updatedAt=%s}",
-                loginId, id, yourReference, firstName, lastName, accountId, accountName, status, phoneNumber, mobilePhoneNumber, locale, timezone, emailAddress, dateOfBirth, createdAt, updatedAt);
-    }
+        return new JSONObject()
+                .appendField("loginId", loginId)
+                .appendField("id", id)
+                .appendField("yourReference", yourReference)
+                .appendField("firstName", firstName)
+                .appendField("lastName", lastName)
+                .appendField("accountId", accountId)
+                .appendField("accountName", accountName)
+                .appendField("status", status)
+                .appendField("phoneNumber", phoneNumber)
+                .appendField("mobilePhoneNumber", mobilePhoneNumber)
+                .appendField("locale", locale)
+                .appendField("timezone", timezone)
+                .appendField("emailAddress", emailAddress)
+                .appendField("dateOfBirth", dateOfBirth)
+                .appendField("createdAt", createdAt)
+                .appendField("updatedAt", updatedAt)
+                .toString();
+        }
 }

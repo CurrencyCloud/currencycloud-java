@@ -40,11 +40,6 @@ public class ResponseException extends HttpStatusExceptionSupport implements Inv
     }
 
     @Override
-    public String toString() {
-        return String.format("ResponseException{errorCode='%s', errorMessages=%s}", errorCode, errorMessages);
-    }
-
-    @Override
     public void setInvocation(RestInvocation invocation) {
         this.invocation = invocation;
     }
@@ -61,5 +56,10 @@ public class ResponseException extends HttpStatusExceptionSupport implements Inv
     @Override
     public Map<String, List<String>> getResponseHeaders() {
         return headers;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ResponseException{errorCode='%s', errorMessages=%s}", errorCode, errorMessages);
     }
 }

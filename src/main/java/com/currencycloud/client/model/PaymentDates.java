@@ -3,6 +3,7 @@ package com.currencycloud.client.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import java.util.Date;
 import java.util.Map;
@@ -25,6 +26,9 @@ public class PaymentDates {
 
     @Override
     public String toString() {
-        return String.format("PaymentDates{firstPaymentDate=%s, invalidPaymentDates=%s}", firstPaymentDate, invalidPaymentDates);
+        return new JSONObject()
+                .appendField("firstPaymentDate", firstPaymentDate)
+                .appendField("invalidPaymentDates", invalidPaymentDates)
+                .toString();
     }
 }

@@ -3,6 +3,7 @@ package com.currencycloud.client.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import java.util.Date;
 
@@ -24,6 +25,10 @@ public class Iban implements Entity {
 
     protected Iban() { }
 
+    /**
+     * @deprecated as of 1.2.3; IBANs are automatically created upon account creation
+     * */
+    @Deprecated
     private Iban(String currency) {
         this.currency = currency;
     }
@@ -33,9 +38,9 @@ public class Iban implements Entity {
     }
 
     /**
-     * Creates an IBAN as expected by the
-     * {@link com.currencycloud.client.CurrencyCloudClient#createIban(Iban)} method,
-     */
+     * @deprecated as of 1.2.3; IBANs are automatically created upon account creation
+     * */
+    @Deprecated
     public static Iban create(String currency) {
         return new Iban(currency);
     }
@@ -131,7 +136,18 @@ public class Iban implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Iban{id='%s', ibanCode='%s', accountId='%s', currency='%s', accountHolderName='%s', bankInstitutionName='%s', bankInstitutionAddress='%s', bankInstitutionCountry='%s', bicSwift='%s', createdAt=%s, updatedAt=%s}",
-                id, ibanCode, accountId, currency, accountHolderName, bankInstitutionName, bankInstitutionAddress, bankInstitutionCountry, bicSwift, createdAt, updatedAt);
-    }
+        return new JSONObject()
+                .appendField("id", id)
+                .appendField("ibanCode", ibanCode)
+                .appendField("accountId", accountId)
+                .appendField("currency", currency)
+                .appendField("accountHolderName", accountHolderName)
+                .appendField("bankInstitutionName", bankInstitutionName)
+                .appendField("bankInstitutionAddress", bankInstitutionAddress)
+                .appendField("bankInstitutionCountry", bankInstitutionCountry)
+                .appendField("bicSwift", bicSwift)
+                .appendField("createdAt", createdAt)
+                .appendField("updatedAt", updatedAt)
+                .toString();
+        }
 }

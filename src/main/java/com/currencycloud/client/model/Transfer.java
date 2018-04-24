@@ -3,6 +3,7 @@ package com.currencycloud.client.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
@@ -253,7 +254,20 @@ public class Transfer implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Transfer{id='%s', shortReference='%s', sourceAccountId='%s', destinationAccountId='%s', currency='%s', amount=%s, status='%s', createdAt=%s, updatedAt=%s, completedAt=%s, creatorAccountId='%s', creatorContactId='%s', reason='%s'}",
-                id, shortReference, sourceAccountId, destinationAccountId, currency, amount, status, createdAt, updatedAt, completedAt, creatorAccountId, creatorContactId, reason);
+        return new JSONObject()
+                .appendField("id", id)
+                .appendField("shortReference", shortReference)
+                .appendField("sourceAccountId", sourceAccountId)
+                .appendField("destinationAccountId", destinationAccountId)
+                .appendField("currency", currency)
+                .appendField("amount", amount)
+                .appendField("status", status)
+                .appendField("createdAt", createdAt)
+                .appendField("updatedAt", updatedAt)
+                .appendField("completedAt", completedAt)
+                .appendField("creatorAccountId", creatorAccountId)
+                .appendField("creatorContactId", creatorContactId)
+                .appendField("reason", reason)
+                .toString();
     }
 }

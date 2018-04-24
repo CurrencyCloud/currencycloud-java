@@ -18,6 +18,6 @@ public class SettlementAccounts {
 
     @Override
     public String toString() {
-        return String.format("SettlementAccounts{settlementAccounts=%s}", settlementAccounts);
+        return String.format("{\"settlementAccounts\":%s}", settlementAccounts);
     }
 }

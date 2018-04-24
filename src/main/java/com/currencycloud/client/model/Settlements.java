@@ -12,6 +12,6 @@ public class Settlements extends PaginatedData {
 
     @Override
     public String toString() {
-        return String.format("Settlements{settlements=%s, pagination=%s}", settlements, pagination);
+        return String.format("{\"settlements\":%s, \"pagination\":%s}", settlements, pagination);
     }
 }

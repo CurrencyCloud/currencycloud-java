@@ -20,6 +20,6 @@ public class PayerRequiredDetails {
 
     @Override
     public String toString() {
-        return String.format("PayerRequiredDetails{details=%s}", payerRequiredDetails);
+        return String.format("{\"details\":%s}", payerRequiredDetails);
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,14 @@ public class SettlementAccount {
     private String bicSwift;
     private String iban;
     private String accountNumber;
-    @JsonProperty("routing_code_type_1") private String routingCodeType1;
-    @JsonProperty("routing_code_value_1") private String routingCodeValue1;
-    @JsonProperty("routing_code_type_2") private String routingCodeType2;
-    @JsonProperty("routing_code_value_2") private String routingCodeValue2;
+    @JsonProperty("routing_code_type_1")
+    private String routingCodeType1;
+    @JsonProperty("routing_code_value_1")
+    private String routingCodeValue1;
+    @JsonProperty("routing_code_type_2")
+    private String routingCodeType2;
+    @JsonProperty("routing_code_value_2")
+    private String routingCodeValue2;
 
     public String getBankAccountHolderName() {
         return bankAccountHolderName;
@@ -85,7 +90,21 @@ public class SettlementAccount {
 
     @Override
     public String toString() {
-        return String.format("SettlementAccount{bankAccountHolderName='%s', beneficiaryAddress=%s, beneficiaryCountry='%s', bankName='%s', bankAddress=%s, bankCountry='%s', currency='%s', bicSwift='%s', iban='%s', accountNumber='%s', routingCodeType1='%s', routingCodeValue1='%s', routingCodeType2='%s', routingCodeValue2='%s'}",
-                bankAccountHolderName, beneficiaryAddress, beneficiaryCountry, bankName, bankAddress, bankCountry, currency, bicSwift, iban, accountNumber, routingCodeType1, routingCodeValue1, routingCodeType2, routingCodeValue2);
+        return new JSONObject()
+                .appendField("bankAccountHolderName", bankAccountHolderName)
+                .appendField("beneficiaryAddress", beneficiaryAddress)
+                .appendField("beneficiaryCountry", beneficiaryCountry)
+                .appendField("bankName", bankName)
+                .appendField("bankAddress", bankAddress)
+                .appendField("bankCountry", bankCountry)
+                .appendField("currency", currency)
+                .appendField("bicSwift", bicSwift)
+                .appendField("iban", iban)
+                .appendField("accountNumber", accountNumber)
+                .appendField("routingCodeType1", routingCodeType1)
+                .appendField("routingCodeValue1", routingCodeValue1)
+                .appendField("routingCodeType2", routingCodeType2)
+                .appendField("routingCodeValue2", routingCodeValue2)
+                .toString();
     }
 }
