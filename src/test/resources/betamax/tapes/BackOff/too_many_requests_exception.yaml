@@ -1,0 +1,29 @@
+name: too_many_requests_exception
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/rates/detailed?buy_currency=EUR&sell_currency=GBP&fixed_side=buy&amount=12345.67
+    body: ''
+    headers:
+      X-Auth-Token:
+      - deadbeefdeadbeefdeadbeefdeadbeef
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 429
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sat, 7 Apr 2018 12:45:44 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '218'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"error_code":"too_many_requests","error_messages":{"base":[{"code":"too_many_requests","message":"Too many requests have been made to the api. Please refer to the Developer Center for more information","params":{}}]}}'
