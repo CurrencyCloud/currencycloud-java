@@ -8,8 +8,9 @@ Many people have helped us along the way and we are sincerely grateful to all of
 
 |Name|Link/e-mail|
 |--|--|
-| | |
-| | |
+|Chris Campo|cccampo.progs@gmail.com|
+|Matija Mazi|matija.mazi@gmail.com|
+|||
 
  In our book, they have reached [**honorificabilitudinitatibus**][sesqui] :-)
 

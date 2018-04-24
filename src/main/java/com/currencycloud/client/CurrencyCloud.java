@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * This is the low-level Currency Cloud HTTP API Java implementation. This interface's methods map directly to
  * the HTTP endpoints, as described in the HTTP API documentation.
@@ -110,6 +109,7 @@ public interface CurrencyCloud {
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @Nullable @QueryParam("account_name") String accountName,
+            @Nullable @QueryParam("legal_entity_type") String legalEntityType,
             @Nullable @QueryParam("brand") String brand,
             @Nullable @QueryParam("your_reference") String yourReference,
             @Nullable @QueryParam("status") String status,
@@ -175,7 +175,8 @@ public interface CurrencyCloud {
     Balance retrieveBalance(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
-            @PathParam("currency") String currency
+            @PathParam("currency") String currency,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
     ///////////////////////////////////////////////////////////////////
@@ -190,6 +191,7 @@ public interface CurrencyCloud {
             @HeaderParam("User-Agent") String userAgent,
             @FormParam("bank_country") String bankCountry,
             @FormParam("currency") String currency,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
             @Nullable @FormParam("beneficiary_address") String beneficiaryAddress,
             @Nullable @FormParam("beneficiary_country") String beneficiaryCountry,
             @Nullable @FormParam("account_number") String accountNumber,
@@ -212,8 +214,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("beneficiary_date_of_birth") java.sql.Date beneficiaryDateOfBirth,
             @Nullable @FormParam("beneficiary_identification_type") String beneficiaryIdentificationType,
             @Nullable @FormParam("beneficiary_identification_value") String beneficiaryIdentificationValue,
-            @Nullable @FormParam("payment_types[]") List<String> paymentTypes,
-            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+            @Nullable @FormParam("payment_types[]") List<String> paymentTypes
     ) throws ResponseException;
 
     /** Create Beneficiary */
@@ -227,6 +228,7 @@ public interface CurrencyCloud {
             @FormParam("bank_country") String bankCountry,
             @FormParam("currency") String currency,
             @FormParam("name") String name,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
             @Nullable @FormParam("email") String email,
             @Nullable @FormParam("beneficiary_address") String beneficiaryAddress,
             @Nullable @FormParam("beneficiary_country") String beneficiaryCountry,
@@ -251,8 +253,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("beneficiary_date_of_birth") java.sql.Date beneficiaryDateOfBirth,
             @Nullable @FormParam("beneficiary_identification_type") String beneficiaryIdentificationType,
             @Nullable @FormParam("beneficiary_identification_value") String beneficiaryIdentificationValue,
-            @Nullable @FormParam("payment_types[]") List<String> paymentTypes,
-            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+            @Nullable @FormParam("payment_types[]") List<String> paymentTypes
     ) throws ResponseException;
 
     /** Retrieve a Beneficiary */
@@ -273,6 +274,7 @@ public interface CurrencyCloud {
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @PathParam("id") String beneficiaryId,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
             @Nullable @FormParam("bank_account_holder_name") String bankAccountHolderName,
             @Nullable @FormParam("bank_country") String bankCountry,
             @Nullable @FormParam("currency") String currency,
@@ -301,43 +303,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("beneficiary_date_of_birth") java.sql.Date beneficiaryDateOfBirth,
             @Nullable @FormParam("beneficiary_identification_type") String beneficiaryIdentificationType,
             @Nullable @FormParam("beneficiary_identification_value") String beneficiaryIdentificationValue,
-            @Nullable @FormParam("payment_types[]") List<String> paymentTypes,
-            @Nullable @FormParam("on_behalf_of") String onBehalfOf
-    ) throws ResponseException;
-
-    /** Find Beneficiaries */
-    @GET
-    @Path("beneficiaries/find")
-    @Deprecated
-    Beneficiaries findBeneficiaries(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("bank_account_holder_name") String bankAccountHolderName,
-            @Nullable @QueryParam("beneficiary_country") String beneficiaryCountry,
-            @Nullable @QueryParam("currency") String currency,
-            @Nullable @QueryParam("account_number") String accountNumber,
-            @Nullable @QueryParam("routing_code_type") String routingCodeType,
-            @Nullable @QueryParam("routing_code_value") String routingCodeValue,
-            @Nullable @QueryParam("payment_types[]") List<String> paymentTypes,
-            @Nullable @QueryParam("bic_swift") String bicSwift,
-            @Nullable @QueryParam("iban") String iban,
-            @Nullable @QueryParam("default_beneficiary") Boolean defaultBeneficiary,
-            @Nullable @QueryParam("bank_name") String bankName,
-            @Nullable @QueryParam("bank_account_type") String bankAccountType,
-            @Nullable @QueryParam("name") String name,
-            @Nullable @QueryParam("beneficiary_entity_type") String beneficiaryEntityType,
-            @Nullable @QueryParam("beneficiary_company_name") String beneficiaryCompanyName,
-            @Nullable @QueryParam("beneficiary_first_name") String beneficiaryFirstName,
-            @Nullable @QueryParam("beneficiary_last_name") String beneficiaryLastName,
-            @Nullable @QueryParam("beneficiary_city") String beneficiaryCity,
-            @Nullable @QueryParam("beneficiary_postcode") String beneficiaryPostcode,
-            @Nullable @QueryParam("beneficiary_state_or_province") String beneficiaryStateOrProvince,
-            @Nullable @QueryParam("beneficiary_date_of_birth") java.sql.Date beneficiaryDateOfBirth,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+            @Nullable @FormParam("payment_types[]") List<String> paymentTypes
     ) throws ResponseException;
 
     /** Find Beneficiaries */
@@ -478,6 +444,7 @@ public interface CurrencyCloud {
     @POST
     @Path("conversions/create")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Deprecated
     Conversion createConversion(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
@@ -485,15 +452,35 @@ public interface CurrencyCloud {
             @FormParam("sell_currency") String sellCurrency,
             @FormParam("fixed_side") String fixedSide,
             @FormParam("amount") BigDecimal amount,
-            @FormParam("reason") String reason,
             @FormParam("term_agreement") Boolean termAgreement,
-            @Nullable @FormParam("conversion_date") Date conversionDate, // must be a future date
+            @Nullable @FormParam("conversion_date") Date conversionDate,
             @Nullable @FormParam("client_rate") BigDecimal clientRate,
             @Nullable @FormParam("currency_pair") String currencyPair,
             @Nullable @FormParam("client_buy_amount") BigDecimal clientBuyAmount,
             @Nullable @FormParam("client_sell_amount") BigDecimal clientSellAmount,
+            @Nullable @FormParam("reason") String reason,
             @Nullable @FormParam("unique_request_id") String uniqueRequestId,
             @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws ResponseException;
+
+    /** Create a Conversion */
+    @POST
+    @Path("conversions/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Conversion createConversion(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @FormParam("buy_currency") String buyCurrency,
+            @FormParam("sell_currency") String sellCurrency,
+            @FormParam("fixed_side") String fixedSide,
+            @FormParam("amount") BigDecimal amount,
+            @FormParam("term_agreement") Boolean termAgreement,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
+            @Nullable @FormParam("conversion_date") Date conversionDate,
+            @Nullable @FormParam("client_buy_amount") BigDecimal clientBuyAmount,
+            @Nullable @FormParam("client_sell_amount") BigDecimal clientSellAmount,
+            @Nullable @FormParam("reason") String reason,
+            @Nullable @FormParam("unique_request_id") String uniqueRequestId
     ) throws ResponseException;
 
     /** Retrieve a Conversion */
@@ -570,6 +557,7 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("settlement_date_to") Date SettlementDateTo,
             @Nullable @QueryParam("unique_request_id") String uniqueRequestId,
             @Nullable @QueryParam("bulk_upload_id") String bulkUploadId,
+            @Nullable @QueryParam("unallocated_funds") BigDecimal unallocatedFunds,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
@@ -583,6 +571,7 @@ public interface CurrencyCloud {
     @POST
     @Path("ibans/create")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Deprecated
     Iban createIban(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
@@ -670,6 +659,7 @@ public interface CurrencyCloud {
             @FormParam("amount") BigDecimal amount,
             @FormParam("reason") String reason,
             @FormParam("reference") String reference,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
             @Nullable @FormParam("payment_date") java.sql.Date paymentDate,
             @Nullable @FormParam("payment_type") String paymentType,
             @Nullable @FormParam("conversion_id") String conversionId,
@@ -686,7 +676,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_identification_type") String payerIdentificationType,
             @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
             @Nullable @FormParam("unique_request_id") String uniqueRequestId,
-            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+            @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName
     ) throws ResponseException;
 
     /** Retrieve a Payment */
@@ -711,6 +701,7 @@ public interface CurrencyCloud {
             @FormParam("beneficiary_id") String beneficiaryId,
             @FormParam("amount") BigDecimal amount,
             @FormParam("reason") String reason,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
             @Nullable @FormParam("reference") String reference,
             @Nullable @FormParam("payment_date") java.sql.Date paymentDate,
             @Nullable @FormParam("payment_type") String paymentType,
@@ -726,8 +717,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_state_or_province") String payerStateOrProvince,
             @Nullable @FormParam("payer_date_of_birth") java.sql.Date payerDateOfBirth,
             @Nullable @FormParam("payer_identification_type") String payerIdentificationType,
-            @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
-            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+            @Nullable @FormParam("payer_identification_value") String payerIdentificationValue
     ) throws ResponseException;
 
     /** Find Payments */
@@ -828,8 +818,8 @@ public interface CurrencyCloud {
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @QueryParam("currency_pair") Collection<String> currencyPair,
-            @Nullable @QueryParam("ignore_invalid_pairs") Boolean ignoreInvalidPairs,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @Nullable @QueryParam("ignore_invalid_pairs") Boolean ignoreInvalidPairs
     ) throws ResponseException;
 
     /** Detailed Rates */
@@ -842,8 +832,8 @@ public interface CurrencyCloud {
             @QueryParam("sell_currency") String sellCurrency,
             @QueryParam("fixed_side") String fixedSide,
             @QueryParam("amount") BigDecimal amount,
-            @Nullable @QueryParam("conversion_date") java.sql.Date conversionDate,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @Nullable @QueryParam("conversion_date") java.sql.Date conversionDate
     ) throws ResponseException;
 
 
@@ -892,10 +882,21 @@ public interface CurrencyCloud {
     /** Settlement Accounts */
     @GET
     @Path("reference/settlement_accounts")
+    @Deprecated
     SettlementAccounts settlementAccounts(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @Nullable @QueryParam("currency") String currency
+    ) throws ResponseException;
+
+    /** Settlement Accounts */
+    @GET
+    @Path("reference/settlement_accounts")
+    SettlementAccounts settlementAccounts(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("currency") String currency,
+            @Nullable @QueryParam("account_id") String accountId
     ) throws ResponseException;
 
     /** Payer Required Details */
@@ -916,10 +917,22 @@ public interface CurrencyCloud {
     @POST
     @Path("settlements/create")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Deprecated
     Settlement createSettlement(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws ResponseException;
+
+    /** Create a Settlement */
+    @POST
+    @Path("settlements/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Settlement createSettlement(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
+            @Nullable @FormParam("type") String type
     ) throws ResponseException;
 
     /** Retrieve a Settlement */
@@ -1135,6 +1148,47 @@ public interface CurrencyCloud {
             @FormParam("currency") String currency,
             @FormParam("amount") BigDecimal amount,
             @Nullable @FormParam("reason") String reason
+    ) throws ResponseException;
+
+    ///// VANS API ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
+
+    /** Find VANs */
+    @GET
+    @Path("virtual_accounts")
+    VirtualAccounts findVirtualAccounts(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws ResponseException;
+
+    /** Retrieve VAN of Sub-Account(s) */
+    @GET
+    @Path("virtual_accounts/subaccounts/{id}")
+    VirtualAccounts retrieveSubAccountsVirtualAccount(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("id") String id,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws ResponseException;
+
+    /** Find VANs of Sub-Account(s) */
+    @GET
+    @Path("virtual_accounts/subaccounts/find")
+    VirtualAccounts findSubAccountsVirtualAccounts(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
 }

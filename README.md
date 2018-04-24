@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
 # Currencycloud API v2 Java client
-## Version: 1.0.3
+## Version: 1.2.3
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -26,7 +26,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>1.0.3</version>
+    <version>1.2.3</version>
 </dependency>
 ```
 
@@ -34,13 +34,13 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 Download the Currencycloud SDK jar:
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-1.0.3.jar 
+3. Download the currencycloud-java-1.2.3.jar 
 
 Get the list of all dependencies:
 ```Shell
 mvn dependency:list -DincludeScope=runtime
 ```
-As of version 1.0.3, this returns the following list:
+As of version 1.2.3, this returns the following list:
 ```
 cglib:cglib:3.2.6:compile
 ch.qos.logback:logback-classic:1.2.3:compile
@@ -52,6 +52,7 @@ com.github.mmazi:rescu:2.0.2:compile
 com.google.code.findbugs:jsr305:3.0.2:compile
 javax.ws.rs:javax.ws.rs-api:2.1:compile
 javax.ws.rs:jsr311-api:1.1.1:compile
+net.minidev:json-smart:2.3
 org.ow2.asm:asm:6.0:compile
 org.slf4j:slf4j-api:1.7.25:compile
 ```
@@ -82,11 +83,12 @@ currencyCloud.endSession();
 For a better example, see
 [CurrencyCloudCookbook.java](/src/test/java/com/currencycloud/examples/CurrencyCloudCookbook.java), which is an implementation of [the Cookbook](https://connect.currencycloud.com/documentation/getting-started/cookbook) from the documentation.
 
-## Common Misconceptions and Antipatterns
+## Common Misconceptions, Anti-patterns and Suggestions
 1. Avoid creating one client per request
 2. Sessions typically have a timeout of several tens of minutes; this is to allow customers to reuse existing sessions for as long as possible
-3. Write your application so that it establishes a single instance of the CurrencyCloudClient class on startup and shares this between threads, 
-keeping it alive until you shut the application down.  This will translate into fewer requests on your part and less server load on ours
+3. Write your application so that it establishes a single instance of the CurrencyCloudClient class on startup and shares this between threads, keeping it alive until you shut the application down. This will translate into fewer requests on your part and less server load on ours
+4. Requests over the internet will fail on occasion for seemingly no apparent reason, and the SDK includes a comprehensive set of [error handling capabilities](#errors) to help troubleshoot those situations. Sometimes however, the best strategy is simply to retry. This is the case particularly with transient errors like **HTTP 429 - Too Many Requests** but wrapping calls in for/while loops is discouraged as in some extreme cases this may trigger our anti-DoS defences.  As of version 1.2.3 we have introduced an [Exponential Backoff with Jitter][ebwj] retry feature which we recommend you use to safely handle retries. Please see CurrencyCloudCookbook.java and BackOffTest.java for examples
+5. API calls can throw exceptions. Try/Catch blocks are your friend. Use them generously
 
 ## On Behalf Of
 If you want to make calls on behalf of another user (e.g. someone who has a sub-account with you), you can execute certain commands 'on behalf of' the user's contact id. Here is an example:
@@ -213,22 +215,33 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 
 ### List of features being deprecated
 ```
+As of 1.0.3: Beneficiary.createForUpdate and Beneficiary.createForValidate
 As of 1.0.3: CurrencyCloudClient.findBalances(BigDecimal, BigDecimal, Date, Pagination) and corresponding CurrencyCloud.findBalances
-As of 1.0.3: CurrencyCloud.findBeneficiaries
 As of 1.0.3: CurrencyCloudClient.findConversions(Conversion, Collection<String>, Date, Date, Date, Date, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, String) and corresponding CurrencyCloud.findConversions
-As of 1.0.3: CurrencyCloudClient.retrieveIbans(String, Pagination) and corresponding CurrencyCloud.retrieveIbans
-As of 1.0.3: CurrencyCloudClient.findSubAccountsIbans(String, Pagination) and corresponding CurrencyCloud.retrieveIbans
 As of 1.0.3: CurrencyCloudClient.findPayments(Payment, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, Date, Date, Pagination, String) and corresponding CurrencyCloud.findPayments
 As of 1.0.3: CurrencyCloudClient.findSettlements(String, String, Date, Date, Date, Date, Date, Date, Pagination)
+As of 1.0.3: CurrencyCloudClient.findSubAccountsIbans(String, Pagination) and corresponding CurrencyCloud.retrieveIbans
 As of 1.0.3: CurrencyCloudClient.findTransactions(Transaction, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, Pagination)  and corresponding CurrencyCloud.findTransactions
 As of 1.0.3: CurrencyCloudClient.findTransfers(String, String, String, String, String, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, String, String, Pagination)
-As of 1.0.3: Beneficiary.createForUpdate and Beneficiary.createForValidate
+As of 1.0.3: CurrencyCloudClient.retrieveIbans(String, Pagination) and corresponding CurrencyCloud.retrieveIbans
+As of 1.2.3: Conversion.Conversion(String, String, String, Date, BigDecimal, String, BigDecimal, BigDecimal, String)
+As of 1.2.3: Conversion.Conversion(String, String, String, String, String, String, String)
+As of 1.2.3: Conversion.create(String, String, String)
+As of 1.2.3: Conversion.create(String, String, String, Date, BigDecimal, String, BigDecimal, BigDecimal, String)
+As of 1.2.3: Conversion.createExample
+As of 1.2.3: CurrencyCloudClient.createConversion(Conversion, BigDecimal, String, Boolean) and corresponding CurrencyCloud.createConversion
+As of 1.2.3: CurrencyCloudClient.createIban and corresponding CurrencyCloud.createIban
+As of 1.2.3: CurrencyCloudClient.firstBeneficiary(Beneficiary)
+As of 1.2.3: CurrencyCloudClient.settlementAccounts(String) and corresponding CurrencyCloud.settlementAccounts
+As of 1.2.3: Iban.Iban(String)
+As of 1.2.3: Iban.create(String)
 ```
 
 # Support
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [1.2.3] - Add VANs, add exponential backoff-and-retry, change toString in Currencycloud model classes to return RFC4627 compliant JSON, refactor ThreadSupport to private inner class and improve debug logging
 * [1.0.3] - Update com.github.mmazi.rescu to latest version, desupport Java 7, add support for Java 9 and Java 10, fix bug in Beneficiary Date of Birth (#55), introduce builder pattern for *find* query parameters, deprecate tight-coupled methods and add production logging settings filtering out token and key  
 * [0.9.1] - Add Transfers and IBANs, add missing API paths and operations (#42), update dependencies to newer versions, bug fixes (including #32 and #38), and other minor changes
 * [0.7.8] - Address a concurrency issue discovered in the onBehalfOf functionality (#48) 
@@ -247,6 +260,7 @@ Copyright (c) 2015-2018 Currencycloud. See [LICENSE][license] for details.
 [travis]:    https://travis-ci.org/CurrencyCloud/currencycloud-java
 [semver]:    http://semver.org/
 [sonatype]:  https://oss.sonatype.org/
+[ebwj]: https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
 [license]:   LICENSE.md
 [contr]:     CONTRIBUTING.md
 [hof]:       HALL_OF_FAME.md
