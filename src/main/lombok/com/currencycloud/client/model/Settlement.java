@@ -6,11 +6,13 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
+import lombok.Getter;
+import net.minidev.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class Settlement implements Entity {
@@ -25,6 +27,18 @@ public class Settlement implements Entity {
     private Date createdAt;
     private Date updatedAt;
     private Date releasedAt;
+    private Date createdAtFrom;
+    private Date createdAtTo;
+    private Date updatedAtFrom;
+    private Date updatedAtTo;
+    private Date releasedAtFrom;
+    private Date releasedAtTo;
+
+    protected Settlement() { }
+
+    public static Settlement create() {
+        return new Settlement();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -48,11 +62,12 @@ public class Settlement implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Settlement{id='%s', shortReference='%s', status='%s', conversionIds=%s, entries=%s, createdAt=%s, updatedAt=%s, releasedAt=%s}",
+        return String.format("{\"id\":\"%s\", \"shortReference\":\"%s\", \"status\"\"%s\", \"conversionIds\":\"%s\", \"entries\":[\"%s\"], \"createdAt\":%s, \"updatedAt\":\"%s\", \"releasedAt\":\"%s\"}",
                 id, shortReference, status, conversionIds, entries, createdAt, updatedAt, releasedAt);
+        /*ToDo: Replace toString hack with Map<String, Entry> deserialization */
     }
 
-    @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Entry {
 
@@ -90,7 +105,10 @@ public class Settlement implements Entity {
 
         @Override
         public String toString() {
-            return String.format("Entry{sendAmount=%s, receiveAmount=%s}", sendAmount, receiveAmount);
+            return new JSONObject()
+                    .appendField("sendAmount", sendAmount)
+                    .appendField("receiveAmount", receiveAmount)
+                    .toString();
         }
     }
 }

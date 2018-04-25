@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- logback -->
+<configuration>
+    <appender name="CONSOLE_APPENDER" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="com.currencycloud.client.logging.LogSecretsFilter"/>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%contextName] [%thread] %-5level %logger - %message %ex{short}%n</pattern>
+        </encoder>
+    </appender>
+    <!-- Default level for all classes. Allowed values, from verbose to terse, are: TRACE > DEBUG > INFO > WARN > ERROR > OFF -->
+    <root level="ERROR">
+        <appender-ref ref="CONSOLE_APPENDER"/>
+    </root>
+    <!-- Level for com.currencycloud.* classes -->
+    <logger name="com.currencycloud" level="WARN"/>
+    <!-- Level for si.mazi.rescu.* classes -->
+    <logger name="si.mazi.rescu" level="ERROR"/>
+</configuration>

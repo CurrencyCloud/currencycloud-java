@@ -14,10 +14,10 @@ import java.util.Map;
  * ResponseException instances are created and populated by the rescu library: When the HTTP response code
  * differs from 200, the response body json is interpreted as a ResponseException.
  *
- * Note that this works becaseu ResponseException is declared on the HTTP API interface methods
+ * Note that this works because ResponseException is declared on the HTTP API interface methods
  * ({@link com.currencycloud.client.CurrencyCloud}), and it is mapped to json using Jackson annotations.
  */
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class ResponseException extends HttpStatusExceptionSupport implements InvocationAware, HttpResponseAware {
 
     private String errorCode;
@@ -40,11 +40,6 @@ public class ResponseException extends HttpStatusExceptionSupport implements Inv
     }
 
     @Override
-    public String toString() {
-        return String.format("ResponseException{errorCode='%s', errorMessages=%s}", errorCode, errorMessages);
-    }
-
-    @Override
     public void setInvocation(RestInvocation invocation) {
         this.invocation = invocation;
     }
@@ -61,5 +56,10 @@ public class ResponseException extends HttpStatusExceptionSupport implements Inv
     @Override
     public Map<String, List<String>> getResponseHeaders() {
         return headers;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ResponseException{errorCode='%s', errorMessages=%s}", errorCode, errorMessages);
     }
 }

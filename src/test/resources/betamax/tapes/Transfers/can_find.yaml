@@ -1,0 +1,36 @@
+name: can_find
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/transfers/find
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 334cbfdb9ba9bfb6ffd499b0c6af6b12
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 12 Mar 2018 06:07:03 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '1250'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '3533986518805893484'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"transfers":[{"id":"993d63bd-e151-11e6-a5af-080027a79e8f","short_reference":"BT-20180101-JGCWQH","source_account_id":"a7117404-e150-11e6-a5af-080027a79e8f",
+    "destination_account_id":"946f2d58-e150-11e6-a5af-080027a79e8f","currency":"GBP","amount":"1250.00","status":"completed","created_at":"2018-01-01T12:34:56+00:00",
+    "updated_at":"2018-01-01T12:34:56+00:00","completed_at":"2018-01-01T12:34:56+00:00","creator_account_id":"262e3d2a-e152-11e6-a5af-080027a79e8f",
+    "creator_contact_id":"30cb8632-e152-11e6-a5af-080027a79e8f","reason":"Client funding"},{"id":"993d63bd-e151-11e6-a5af-080027a79e8f","short_reference":"BT-20180101-LEMQOX",
+    "source_account_id":"a7117404-e150-11e6-a5af-080027a79e8f","destination_account_id":"946f2d58-e150-11e6-a5af-080027a79e8f","currency":"GBP","amount":"1250.00",
+    "status":"completed","created_at":"2018-01-01T12:34:56+00:00","updated_at":"2018-01-01T12:34:56+00:00","completed_at":"2018-01-01T12:34:56+00:00",
+    "creator_account_id":"262e3d2a-e152-11e6-a5af-080027a79e8f","creator_contact_id":"30cb8632-e152-11e6-a5af-080027a79e8f","reason":"Client funding"}],
+    "pagination":{"total_entries":2,"total_pages":1,"current_page":1,"per_page":25,"previous_page":-1,"next_page":-1,"order":"created_at","order_asc_desc":"asc"}}'

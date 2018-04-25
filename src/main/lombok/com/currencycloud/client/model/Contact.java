@@ -6,47 +6,33 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
+import net.minidev.json.JSONObject;
 
 import javax.annotation.Nullable;
 import java.util.Date;
 
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize(converter = DirtyWatcherDeserializer.Contact.class)
 @Data
 public class Contact implements Entity {
 
-    private String loginId;  // john.smith
-
-    private String id;  // 543477161-91de-012f-e284-1e0030c7f352
-
-    private String yourReference;  // ACME12345
-
-    private String firstName;  // John
-
-    private String lastName;  // Smith
-
-    private String accountId;  // 87077161-91de-012f-e284-1e0030c7f352
-
-    private String accountName;  // Company PLC
-
-    private String status;  // enabled
-
-    private String phoneNumber;  // 06554 87845
-
-    private String mobilePhoneNumber;  // 07564 534 54
-
-    private String locale;  // en-US
-
-    private String timezone;  // Europe/London
-
-    private String emailAddress;  // john.smith@company.com
-
-    private Date dateOfBirth;  // 1980-01-22
-
-    private Date createdAt;  // 2014-01-12T00:00:00+00:00
-
-    private Date updatedAt;  // 2014-01-12T00:00:00+00:00
+    private String loginId;
+    private String id;
+    private String yourReference;
+    private String firstName;
+    private String lastName;
+    private String accountId;
+    private String accountName;
+    private String status;
+    private String phoneNumber;
+    private String mobilePhoneNumber;
+    private String locale;
+    private String timezone;
+    private String emailAddress;
+    private Date dateOfBirth;
+    private Date createdAt;
+    private Date updatedAt;
 
     protected Contact() { }
 
@@ -131,6 +117,28 @@ public class Contact implements Entity {
 
     public static Contact create() {
         return new Contact();
+    }
+
+    @Override
+    public String toString() {
+        return new JSONObject()
+                .appendField("loginId", loginId)
+                .appendField("id", id)
+                .appendField("yourReference", yourReference)
+                .appendField("firstName", firstName)
+                .appendField("lastName", lastName)
+                .appendField("accountId", accountId)
+                .appendField("accountName", accountName)
+                .appendField("status", status)
+                .appendField("phoneNumber", phoneNumber)
+                .appendField("mobilePhoneNumber", mobilePhoneNumber)
+                .appendField("locale", locale)
+                .appendField("timezone", timezone)
+                .appendField("emailAddress", emailAddress)
+                .appendField("dateOfBirth", dateOfBirth)
+                .appendField("createdAt", createdAt)
+                .appendField("updatedAt", updatedAt)
+                .toString();
     }
 
 }

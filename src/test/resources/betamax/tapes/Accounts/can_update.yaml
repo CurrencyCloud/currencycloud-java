@@ -1,0 +1,32 @@
+name: can_update
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/accounts/e277c9f9-679f-454f-8367-274b3ff977ff
+    body: your_reference=CCY-863032&state_or_province=London
+    headers:
+      X-Auth-Token:
+      - acad59188ce6ddb54d4043bc4efb5f57
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 23 Mar 2018 12:50:55 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '643'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2773776363343519430'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"id":"e277c9f9-679f-454f-8367-274b3ff977ff","account_name":"Development CM","brand":"currencycloud","your_reference":"CCY-863032","status":"enabled",
+    "street":"12 Steward Street","city":"London","state_or_province":"London","country":"GB","postal_code":"E1 6FQ","spread_table":"no_markup","legal_entity_type":"company",
+    "created_at":"2018-01-01T12:34:56+00:00","updated_at":"2018-01-01T12:34:56+00:00","identification_type":"incorporation_number","identification_value":"123456789",
+    "short_reference":"180213-00007","api_trading":true,"online_trading":true,"phone_trading":true,"process_third_party_funds":false,"settlement_type":"net"}'

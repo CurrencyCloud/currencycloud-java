@@ -6,10 +6,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
-
 import java.util.Date;
 
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
@@ -17,40 +13,28 @@ import java.util.Date;
 @JsonDeserialize(converter = DirtyWatcherDeserializer.Account.class)
 @Data
 public class Account implements Entity {
-
     private String id;
-
     private String legalEntityType;
-
     private String accountName;
-
     private String brand;
-
     private String yourReference;
-
     private String status;
-
     private String street;
-
     private String city;
-
     private String stateOrProvince;
-
     private String country;
-
     private String postalCode;
-
     private String spreadTable;
-
     private Date createdAt;
-
     private Date updatedAt;
-
     private String identificationType;
-
     private String identificationValue;
-
     private String shortReference;
+    private Boolean apiTrading;
+    private Boolean onlineTrading;
+    private Boolean phoneTrading;
+    private Boolean processThirdPartyFunds;
+    private String settlementType;
 
     protected Account() {
     }

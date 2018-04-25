@@ -21,7 +21,7 @@ import java.util.Collection;
  */
 public class LogSecretsFilter extends Filter<ILoggingEvent> {
 
-    private static final Collection<String> forbiddens = Arrays.asList("X-Auth-Token", "api_key", "apiKey");
+    private static final Collection<String> forbiddens = Arrays.asList("X-Auth-Token", "authToken", "auth_token", "api_key", "apiKey");
 
     @Override
     public FilterReply decide(ILoggingEvent event) {

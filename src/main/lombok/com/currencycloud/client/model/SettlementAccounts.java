@@ -10,12 +10,15 @@ import lombok.ToString;
 
 import java.util.List;
 
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@ToString
-@EqualsAndHashCode(callSuper = false)
 @Getter
 public class SettlementAccounts {
 
     private List<SettlementAccount> settlementAccounts;
+
+    @Override
+    public String toString() {
+        return String.format("{\"settlementAccounts\":%s}", settlementAccounts);
+    }
 }

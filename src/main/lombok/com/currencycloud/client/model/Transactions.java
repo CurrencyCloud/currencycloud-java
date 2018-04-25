@@ -14,4 +14,8 @@ public class Transactions extends PaginatedData {
 
     private List<Transaction> transactions;
 
+    @Override
+    public String toString() {
+        return String.format("{\"transactions\":%s, \"pagination\":%s}", transactions, pagination);
+    }
 }

@@ -13,4 +13,9 @@ import java.util.List;
 public class Settlements extends PaginatedData {
 
     private List<Settlement> settlements;
+
+    @Override
+    public String toString() {
+        return String.format("{\"settlements\":%s, \"pagination\":%s}", settlements, pagination);
+    }
 }

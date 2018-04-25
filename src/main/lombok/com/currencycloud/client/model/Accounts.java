@@ -12,4 +12,9 @@ import java.util.List;
 public class Accounts extends PaginatedData {
 
     private List<Account> accounts;
+
+    @Override
+    public String toString() {
+        return String.format("{\"accounts\":%s, \"pagination\":%s}", accounts, pagination);
+    }
 }

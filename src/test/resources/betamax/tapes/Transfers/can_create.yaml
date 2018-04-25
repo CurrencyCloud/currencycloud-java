@@ -1,0 +1,32 @@
+name: can_create
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/transfers/create
+    body: source_account_id=a7117404-e150-11e6-a5af-080027a79e8f&destination_account_id=946f2d58-e150-11e6-a5af-080027a79e8f&currency=GBP&amount=1250.0&reason=Client+funding
+    headers:
+      X-Auth-Token:
+      - 334cbfdb9ba9bfb6ffd499b0c6af6b12
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 12 Mar 2018 06:07:01 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '535'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '3533958966381289254'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"id":"993d63bd-e151-11e6-a5af-080027a79e8f","short_reference":"BT-20180101-JGCWQH","source_account_id":"a7117404-e150-11e6-a5af-080027a79e8f",
+    "destination_account_id":"946f2d58-e150-11e6-a5af-080027a79e8f","currency":"GBP","amount":"1250.0","status":"completed","created_at":"2018-01-01T12:34:56+00:00",
+    "updated_at":"2018-01-01T12:34:56+00:00","completed_at":"2018-01-01T12:34:56+00:00","creator_account_id":"262e3d2a-e152-11e6-a5af-080027a79e8f",
+    "creator_contact_id":"30cb8632-e152-11e6-a5af-080027a79e8f","reason":"Client funding"}'

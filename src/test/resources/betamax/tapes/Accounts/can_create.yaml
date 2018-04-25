@@ -1,0 +1,32 @@
+name: can_create
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/accounts/create
+    body: account_name=Acme+Ltd&legal_entity_type=company&street=12+Steward+St&city=London&postal_code=E1+6FQ&country=GB&state_or_province=City+of+London&brand=currencycloud&your_reference=POS-UID-23523&status=enabled&spread_table=no_markup&identification_type=passport&identification_value=AE02315508BF&api_trading=true&online_trading=true&phone_trading=true
+    headers:
+      X-Auth-Token:
+      - acad59188ce6ddb54d4043bc4efb5f57
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 05 Mar 2018 06:36:51 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '574'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2771948673934289802'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"id":"b7de235a-ff5d-4252-83c2-06a605267fea","legal_entity_type":"company","account_name":"Acme Ltd","brand":"currencycloud","your_reference":"POS-UID-23523",
+    "status":"enabled","street":"12 Steward St","city":"London","state_or_province":"City of London","country":"GB","postal_code":"E1 6FQ","spread_table":"no_markup",
+    "created_at":"2018-01-01T12:34:56+00:00","updated_at":"2018-01-01T12:34:56+00:00","identification_type":"passport","identification_value":"AE02315508BF",
+    "short_reference":"110104-00004","api_trading":"true","online_trading":"true","phone_trading":"true"}'

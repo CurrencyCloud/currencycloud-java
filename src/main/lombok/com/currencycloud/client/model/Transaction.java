@@ -3,12 +3,13 @@ package com.currencycloud.client.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import net.minidev.json.JSONObject;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class Transaction implements Entity {
@@ -29,6 +30,20 @@ public class Transaction implements Entity {
     private Date settlesAt;
     private Date createdAt;
     private Date updatedAt;
+    private Date completedAt;
+    private BigDecimal amountFrom;
+    private BigDecimal amountTo;
+    private Date settlesAtFrom;
+    private Date settlesAtTo;
+    private Date createdAtFrom;
+    private Date createdAtTo;
+    private Date updatedAtFrom;
+    private Date updatedAtTo;
+    private Date completedAtFrom;
+    private Date completedAtTo;
+    private String beneficiaryId;
+    private String currencyPair;
+    private String scope;
 
     protected Transaction() { }
 
@@ -86,4 +101,26 @@ public class Transaction implements Entity {
         );
     }
 
+    @Override
+    public String toString() {
+        return new JSONObject()
+                .appendField("id", id)
+                .appendField("balanceId", balanceId)
+                .appendField("accountId", accountId)
+                .appendField("currency", currency)
+                .appendField("amount", amount)
+                .appendField("balanceAmount", balanceAmount)
+                .appendField("type", type)
+                .appendField("action", action)
+                .appendField("relatedEntityType", relatedEntityType)
+                .appendField("relatedEntityId", relatedEntityId)
+                .appendField("relatedEntityShortReference", relatedEntityShortReference)
+                .appendField("status", status)
+                .appendField("reason", reason)
+                .appendField("settlesAt", settlesAt)
+                .appendField("createdAt", createdAt)
+                .appendField("updatedAt", updatedAt)
+                .appendField("completedAt", completedAt)
+                .toString();
+    }
 }

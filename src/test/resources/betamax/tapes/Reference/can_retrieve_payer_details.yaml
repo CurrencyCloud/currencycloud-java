@@ -1,0 +1,39 @@
+name: can_retrieve_payer_details
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/reference/payer_required_details?payer_country=GB
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 05 Mar 2018 06:14:58 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2070'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2775201676418056015'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"details":[{"payer_entity_type":"company","payment_type":"priority","required_fields":[{"name":"payer_country","validation_rule":"^[A-z]{2}$"},
+    {"name":"payer_city","validation_rule":"^.{1,255}"},{"name":"payer_address","validation_rule":"^.{1,255}"},{"name":"payer_company_name",
+    "validation_rule":"^.{1,255}"},{"name":"payer_identification_value","validation_rule":"^.{1,255}"}],"payer_identification_type":"incorporation_number"},
+    {"payer_entity_type":"individual","payment_type":"priority","required_fields":[{"name":"payer_country","validation_rule":"^[A-z]{2}$"},{"name":"payer_city",
+    "validation_rule":"^.{1,255}"},{"name":"payer_address","validation_rule":"^.{1,255}"},{"name":"payer_first_name","validation_rule":"^.{1,255}"},
+    {"name":"payer_last_name","validation_rule":"^.{1,255}"},{"name":"payer_date_of_birth","validation_rule":"/A([+-]?d{4}(?!d{2}))((-?)((0[1-9]|1[0-2])(([12]d|0[1-9]|3[01]))?|W([0-4]d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]d|[12]d{2}|3([0-5]d|6[1-6])))([T ]((([01]d|2[0-3])((:?)[0-5]d)?|24:?00)([.,]d+(?!:))?)?([0-5]d([.,]d+)?)?([zZ]|([+-])([01]d|2[0-3]):?([0-5]d)?)?)?)?Z/"}]},
+    {"payer_entity_type":"company","payment_type":"regular","required_fields":[{"name":"payer_country","validation_rule":"^[A-z]{2}$"},{"name":"payer_city",
+    "validation_rule":"^.{1,255}"},{"name":"payer_address","validation_rule":"^.{1,255}"},{"name":"payer_company_name","validation_rule":"^.{1,255}"}]},
+    {"payer_entity_type":"individual","payment_type":"regular","required_fields":[{"name":"payer_country","validation_rule":"^[A-z]{2}$"},{"name":"payer_city",
+    "validation_rule":"^.{1,255}"},{"name":"payer_address","validation_rule":"^.{1,255}"},{"name":"payer_first_name","validation_rule":"^.{1,255}"},
+    {"name":"payer_last_name","validation_rule":"^.{1,255}"},{"name":"payer_date_of_birth","validation_rule":"/A([+-]?d{4}(?!d{2}))((-?)((0[1-9]|1[0-2])(([12]d|0[1-9]|3[01]))?|W([0-4]d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]d|[12]d{2}|3([0-5]d|6[1-6])))([T ]((([01]d|2[0-3])((:?)[0-5]d)?|24:?00)([.,]d+(?!:))?)?([0-5]d([.,]d+)?)?([zZ]|([+-])([01]d|2[0-3]):?([0-5]d)?)?)?)?Z/"}]}]}'

@@ -5,6 +5,8 @@ import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.exception.*;
 import com.currencycloud.client.model.ErrorMessage;
 import org.eclipse.jetty.io.WriterOutputStream;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
@@ -19,21 +21,25 @@ import static org.hamcrest.Matchers.*;
 @SuppressWarnings({"ThrowableResultOfMethodCallIgnored", "UnnecessaryBoxing"})
 public class ErrorTest extends BetamaxTestSupport {
 
-    private String loginId = "rjnienaber@gmail.com";
-    private String apiKey = "ef0fd50fca1fb14c1fab3a8436b9ecb65f02f129fd87eafa45ded8ae257528f0";
+    private String loginId = "development@currencycloud.com";
+    private String apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
+
+    @Before
+    @After
+    public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
     @Betamax(tape = "contains_full_details_for_api_error", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testContainsFullDetailsForApiError() throws Exception {
         loginId = "non-existent-login-id";
-        apiKey = "ef0fd50fca1fb14c1fab3a8436b9ecb57528f0";
+        apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
         BadRequestException error = testFailedLogin("auth_invalid_user_login_details", 400, BadRequestException.class);
         ErrorMessage errorMessage = error.getErrors().get(0);
         assertThat(errorMessage.getField(), equalTo("api_key"));
         assertThat(errorMessage.getCode(), equalTo("api_key_length_is_invalid"));
         assertThat(errorMessage.getMessage(), equalTo("api_key should be 64 character(s) long"));
         assertThat(errorMessage.getParams().get("length"), instanceOf(Integer.class));
-        assertThat((Integer) errorMessage.getParams().get("length"), equalTo(new Integer(64)));
+        assertThat((Integer) errorMessage.getParams().get("length"), equalTo(Integer.valueOf(64)));
 
         String expectedErrorPattern = interpolate(
                 readFile("/errors/contains_full_details_for_api_error.yaml"),
@@ -47,21 +53,21 @@ public class ErrorTest extends BetamaxTestSupport {
     @Betamax(tape = "is_raised_on_a_bad_request", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testIsRaisedOnABadRequest() throws Exception {
         loginId = "non-existent-login-id";
-        apiKey = "ef0fd50fca1fb14c1fab3a8436b9ecb57528f0";
+        apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
         BadRequestException error = testFailedLogin("auth_invalid_user_login_details", 400, BadRequestException.class);
         ErrorMessage errorMessage = error.getErrors().get(0);
         assertThat(errorMessage.getField(), equalTo("api_key"));
         assertThat(errorMessage.getCode(), equalTo("api_key_length_is_invalid"));
         assertThat(errorMessage.getMessage(), equalTo("api_key should be 64 character(s) long"));
         assertThat(errorMessage.getParams().get("length"), instanceOf(Integer.class));
-        assertThat((Integer)errorMessage.getParams().get("length"), equalTo(new Integer(64)));
+        assertThat((Integer)errorMessage.getParams().get("length"), equalTo(Integer.valueOf(64)));
     }
 
     @Test
     @Betamax(tape = "is_raised_on_incorrect_authentication_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testIsRaisedOnIncorrectAuthenticationDetails() throws Exception {
         loginId = "non-existent-login-id";
-        apiKey = "efb5ae2af84978b7a37f18dd61c8bbe139b403009faea83484405a3dcb64c4d8";
+        apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
         AuthenticationException error = testFailedLogin("auth_failed", 401, AuthenticationException.class);
         assertThat(error.getErrors().size(), equalTo(1));
         assertThat(error.getErrors().get(0).getField(), equalTo("username"));
@@ -137,7 +143,7 @@ public class ErrorTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "is_raised_when_too_many_requests_have_been_issued", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testIsRaisedWhenTooManyRequestsHaveBeenIssued() throws Exception {
-        loginId = "rjnienaber@gmail.com2";
+        loginId = "development@currencycloud.com2";
         TooManyRequestsException error = testFailedLogin("too_many_requests", 429, TooManyRequestsException.class);
         ErrorMessage errorMessage = error.getErrors().get(0);
         assertThat(errorMessage.getField(), equalTo("base"));

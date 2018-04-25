@@ -1,0 +1,36 @@
+name: can_delete
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/beneficiaries/081596c9-02de-483e-9f2a-4cf55dcdf98c/delete
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sat, 25 Apr 2015 11:06:27 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '1168'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2772001754621411030'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"id":"081596c9-02de-483e-9f2a-4cf55dcdf98c","bank_account_holder_name":"Test User 2","name":"Test User","email":"development@currencycloud.com",
+    "payment_types":["regular"],"beneficiary_address":["12 Steward St, London E1 6FQ"],"beneficiary_country":"GB","beneficiary_entity_type":"individual",
+    "beneficiary_company_name":"Private","beneficiary_first_name":"Test","beneficiary_last_name":"User","beneficiary_city":"London","beneficiary_postcode":"E1 6FQ",
+    "beneficiary_state_or_province":"London","beneficiary_date_of_birth":"1968-03-23","beneficiary_identification_type":"passport","beneficiary_identification_value":"AE02315508BF",
+    "bank_country":"GB","bank_name":"Barclays Bank plc","bank_account_type":"checking","currency":"GBP","account_number":"13071472","routing_code_type_1":"sort_code",
+    "routing_code_value_1":"200605","routing_code_type_2":null,"routing_code_value_2":null,"bic_swift":"BARCGB22","iban":"GB06 BARC 2006 0513 0714 72","default_beneficiary":"false",
+    "creator_contact_id":"c4d838e8-1625-44c6-a9fb-39bcb1fe353d","bank_address":["1 Churchill Place","London","E14 5HP"],"created_at":"2018-01-01T12:34:56+00:00",
+    "updated_at":"2018-01-01T12:34:56+00:00"}'

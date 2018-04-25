@@ -1,0 +1,33 @@
+name: can_validate
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/beneficiaries/validate
+    body: bank_country=GB&currency=GBP&beneficiary_country=GB&account_number=1234567890&routing_code_type_1=sort_code&routing_code_value_1=123456&beneficiary_date_of_birth=1986-12-12&payment_types[]=regular
+    headers:
+      X-Auth-Token:
+      - 4df5b3e5882a412f148dcd08fa4e5b73
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 03 May 2015 16:55:03 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '724'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2777975414238700878'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"payment_types":["regular"],"bank_country":"GB","bank_name":"Sample bank name","currency":"GBP","account_number":"1234567890","routing_code_type_1":"sort_code",
+    "bank_account_type":"checking","beneficiary_address":[],"beneficiary_country":"GB","beneficiary_entity_type":"company","beneficiary_company_name":"Sample Company Name",
+    "beneficiary_first_name":"","beneficiary_last_name":"","beneficiary_city":"","beneficiary_postcode":"","beneficiary_state_or_province":"","beneficiary_date_of_birth":"1986-12-12",
+    "beneficiary_identification_type":"none","beneficiary_identification_value":"","routing_code_value_1":"123456","routing_code_type_2":"","routing_code_value_2":"","bic_swift":"",
+    "iban":"","bank_address":["Sample bank address"]}'

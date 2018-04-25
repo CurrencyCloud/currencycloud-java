@@ -13,4 +13,10 @@ import java.util.List;
 public class Contacts extends PaginatedData {
 
     private List<Contact> contacts;
+
+    @Override
+    public String toString() {
+        return String.format("{\"contacts\":%s, \"pagination\":%s}", contacts, pagination);
+    }
+
 }

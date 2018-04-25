@@ -1,0 +1,36 @@
+name: can_create
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/beneficiaries/create
+    body: bank_account_holder_name=Test+User&bank_country=GB&currency=GBP&name=Test+User&email=development%40currencycloud.com&beneficiary_address=12+Steward+St%2C+London+E1+6FQ&beneficiary_country=GB&account_number=13071472&routing_code_type_1=sort_code&routing_code_value_1=200605&bic_swift=BARCGB22&iban=GB06+BARC+2006+0513+0714+72&bank_address[]=1+Churchill+Place%2C+London%2C+E14+5HP&bank_name=Barclays+Bank+plc&bank_account_type=checking&beneficiary_entity_type=individual&beneficiary_company_name=Private&beneficiary_first_name=Test&beneficiary_last_name=User&beneficiary_city=London&beneficiary_postcode=E1+6FQ&beneficiary_state_or_province=London&beneficiary_date_of_birth=1986-12-12&beneficiary_identification_type=passport&beneficiary_identification_value=AE02315508BF&payment_types[]=regular
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sat, 25 Apr 2015 09:21:00 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '1166'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2771948673934289802'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"id":"081596c9-02de-483e-9f2a-4cf55dcdf98c","bank_account_holder_name":"Test User","name":"Test User","email":"development@currencycloud.com",
+    "payment_types":["regular"],"beneficiary_address":["12 Steward St, London E1 6FQ"],"beneficiary_country":"GB","beneficiary_entity_type":"individual",
+    "beneficiary_company_name":"Private","beneficiary_first_name":"Test","beneficiary_last_name":"User","beneficiary_city":"London","beneficiary_postcode":"E1 6FQ",
+    "beneficiary_state_or_province":"London","beneficiary_date_of_birth":"1986-12-12","beneficiary_identification_type":"passport","beneficiary_identification_value":"AE02315508BF",
+    "bank_country":"GB","bank_name":"Barclays Bank plc","bank_account_type":"checking","currency":"GBP","account_number":"13071472","routing_code_type_1":"sort_code",
+    "routing_code_value_1":"200605","routing_code_type_2":null,"routing_code_value_2":null,"bic_swift":"BARCGB22","iban":"GB06 BARC 2006 0513 0714 72","default_beneficiary":"false",
+    "creator_contact_id":"c4d838e8-1625-44c6-a9fb-39bcb1fe353d","bank_address":["1 Churchill Place","London","E14 5HP"],"created_at":"2018-01-01T12:34:56+00:00",
+    "updated_at":"2018-01-01T12:34:56+00:00"}'

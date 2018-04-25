@@ -13,4 +13,8 @@ public class Beneficiaries extends PaginatedData {
 
     private List<Beneficiary> beneficiaries;
 
+    @Override
+    public String toString() {
+        return String.format("{\"beneficiaries\":%s, \"pagination\":%s}", beneficiaries, pagination);
+    }
 }

@@ -3,14 +3,15 @@ package com.currencycloud.client.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.Data;
+import lombok.Getter;
+import net.minidev.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Data
+@Getter
 public class Rate {
 
     private BigDecimal bid;
@@ -26,4 +27,11 @@ public class Rate {
         return new Rate(bidOffer.get(0), bidOffer.get(1));
     }
 
+    @Override
+    public String toString() {
+        return new JSONObject()
+                .appendField("bid", bid)
+                .appendField("offer", offer)
+                .toString();
+    }
 }

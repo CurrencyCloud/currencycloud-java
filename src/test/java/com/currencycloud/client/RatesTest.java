@@ -6,6 +6,7 @@ import com.currencycloud.client.model.DetailedRate;
 import com.currencycloud.client.model.Rate;
 import com.currencycloud.client.model.Rates;
 import org.hamcrest.Matchers;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,9 +28,13 @@ public class RatesTest extends BetamaxTestSupport {
         client = prepareTestClient(null, null, "6f5f99d1b860fc47e8a186e3dce0d3f9");
     }
 
+    @Before
+    @After
+    public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
+
     @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFind() throws Exception {
+    public void testCanFindRates() throws Exception {
         Rates rates = client.findRates(Arrays.asList("GBPUSD", "EURGBP"), null);
 
         assertThat(rates, not(nullValue()));

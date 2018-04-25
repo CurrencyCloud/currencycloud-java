@@ -13,4 +13,9 @@ public class Balances extends PaginatedData {
 
     private List<Balance> balances;
 
+    @Override
+    public String toString() {
+        return String.format("{\"balances\":%s, \"pagination\":%s}", balances, pagination);
+    }
+
 }

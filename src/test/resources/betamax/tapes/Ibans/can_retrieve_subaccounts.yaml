@@ -1,0 +1,32 @@
+name: can_retrieve_subaccounts
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/ibans/subaccounts/87077161-91de-012f-e284-1e0030c7f353
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 8af871a5e8007f5073caceaf75d0bc72
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 28 Feb 2018 19:01:13 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '648'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2773736887435072673'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"ibans":[{"id":"01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe","iban_code":"GB51TCCL00997997989490","account_id":"87077161-91de-012f-e284-1e0030c7f353",
+    "currency":"JPY","account_holder_name":"Account-IGGLNHYTWFKI","bank_institution_name":"The Currency Cloud","bank_institution_address":"12 Steward Street, The Steward Building, London, E1 6FQ, GB",
+    "bank_institution_country":"United Kingdom","bic_swift":"TCCLGB31","created_at":"2018-01-01T12:34:56+00:00","updated_at":"2018-01-01T12:34:56+00:00"}],
+    "pagination":{"total_entries":1,"total_pages":1,"current_page":1,"per_page":25,"previous_page":-1,"next_page":2,"order":"created_at","order_asc_desc":"asc"}}'
