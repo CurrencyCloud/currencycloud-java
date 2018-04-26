@@ -42,6 +42,7 @@ public class AccountsTest extends BetamaxTestSupport {
         account.setApiTrading(true);
         account.setOnlineTrading(true);
         account.setPhoneTrading(true);
+        account.setPostalCode("E1 6FQ");
         account.setIdentificationType("passport");
         account.setIdentificationValue("AE02315508BF");
         account = client.createAccount(account);

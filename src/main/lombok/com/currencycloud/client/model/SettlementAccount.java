@@ -10,7 +10,7 @@ import net.minidev.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class SettlementAccount {

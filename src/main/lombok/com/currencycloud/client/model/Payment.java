@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize(converter = DirtyWatcherDeserializer.Payment.class)
 @Data
