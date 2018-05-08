@@ -564,6 +564,92 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
+    //cancellation - quote and process
+    @POST
+    @Path("conversions/{id}/cancel")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    ConversionProfitAndLoss cancelConversion(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @PathParam("id") String uuid,
+            @FormParam("notes") String notes
+    ) throws ResponseException;
+
+    @GET
+    @Path("conversions/{id}/cancellationQuote")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    ConversionCancellationQuote cancellationQuote(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @PathParam("id") String uuid) throws ResponseException;
+
+    // date change - quote, details and process
+    @GET
+    @Path("conversions/{id}/date_change_quote")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    DateChange dateChangeQuote(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @PathParam("id") String uuid,
+            @FormParam("new_settlement_date") Date newSettlementDate
+    ) throws ResponseException;
+
+    @GET
+    @Path("conversions/{id}/date_change/details")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    DateChangeDetails dateChangeDetails(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @PathParam("id") String uuid
+    ) throws ResponseException;
+
+    @POST
+    @Path("conversions/{id}/date_change")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    DateChange dateChange(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @PathParam("id") String uuid,
+            @FormParam("new_settlement_date") Date newSettlementDate
+    ) throws ResponseException;
+
+    @GET
+    @Path("conversions/{id}/split_preview")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    ConversionSplit conversionSplitPreview(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @PathParam("id") String uuid,
+            @QueryParam("amount") String amount
+    ) throws ResponseException;
+
+    @GET
+    @Path("conversions/{id}/split_history")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    ConversionSplitDetails conversionSplitHistory(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @PathParam("id") String uuid
+    ) throws ResponseException;
+
+    @POST
+    @Path("conversions/{id}/split")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    ConversionSplit conversionSplit(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @PathParam("id") String uuid,
+            @FormParam("amount") String amount
+    ) throws ResponseException;
+
     ///// IBANS API ///////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////
 

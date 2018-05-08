@@ -735,6 +735,40 @@ public class CurrencyCloudClient {
         );
     }
 
+    public ConversionProfitAndLoss cancelConversion(String uuid, String notes) {
+        return api.cancelConversion(authToken, userAgent, getOnBehalfOf(), uuid, notes);
+    }
+
+    public ConversionCancellationQuote cancellationQuote(String uuid) {
+        return api.cancellationQuote(authToken, userAgent, getOnBehalfOf(), uuid);
+    }
+
+    public DateChange dateChangeQuote(String uuid, Date newSettlementDate) {
+        return api.dateChangeQuote(authToken, userAgent, getOnBehalfOf(), uuid, newSettlementDate);
+    }
+
+    public DateChangeDetails dateChangeDetails(String uuid) {
+        return api.dateChangeDetails(authToken, userAgent, getOnBehalfOf(), uuid);
+    }
+
+    public DateChange dateChange(String uuid, Date newSettlementDate) {
+        return api.dateChange(authToken, userAgent, getOnBehalfOf(), uuid, newSettlementDate);
+    }
+
+    // conversion split
+
+    public ConversionSplit conversionSplitPreview(String uuid, String amount) {
+        return api.conversionSplitPreview(authToken, userAgent, getOnBehalfOf(), uuid, amount);
+    }
+
+    public ConversionSplit conversionSplit(String uuid, String amount) {
+        return api.conversionSplit(authToken, userAgent, getOnBehalfOf(), uuid, amount);
+    }
+
+    public ConversionSplitDetails conversionSplitHistory(String uuid) {
+        return api.conversionSplitHistory(authToken, userAgent, getOnBehalfOf(), uuid);
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// IBANS ///////////////////////////////////////////////////////
 
