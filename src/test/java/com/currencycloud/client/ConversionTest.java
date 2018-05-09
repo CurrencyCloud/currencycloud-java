@@ -69,7 +69,7 @@ public class ConversionTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_quote_date_change", match={MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanQuoteDateChange() throws Exception {
-        DateChange dc = client.dateChangeQuote("24d2ee7f-c7a3-4181-979e-9c58dbace992", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse("2018-05-08T17:00:00Z"));
+        DateChange dc = client.dateChangeQuote("24d2ee7f-c7a3-4181-979e-9c58dbace992", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX").parse("2018-05-08T17:00:00+00:00"));
         assertThat(dc.getProfitLoss(), equalTo("100.00"));
         assertThat(dc.getProfitLossCurrency(), equalTo("USD"));
     }
@@ -77,7 +77,7 @@ public class ConversionTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_date_change", match={MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanDateChange() throws Exception {
-        DateChange dc = client.dateChange("24d2ee7f-c7a3-4181-979e-9c58dbace992", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse("2018-05-08T17:00:00Z"));
+        DateChange dc = client.dateChange("24d2ee7f-c7a3-4181-979e-9c58dbace992", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX").parse("2018-05-08T17:00:00+00:00"));
         assertThat(dc.getProfitLoss(), equalTo("100.00"));
         assertThat(dc.getProfitLossCurrency(), equalTo("USD"));
     }
