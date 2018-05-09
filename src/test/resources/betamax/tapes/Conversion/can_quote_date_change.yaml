@@ -1,0 +1,29 @@
+name: can_quote_date_change
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/conversions/24d2ee7f-c7a3-4181-979e-9c58dbace992/date_change_quote?new_settlement_date=2018-05-08T16%3A00%3A00Z
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 04 May 2015 20:28:29 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '865'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2778807612227406608'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"id":"deadbeef-beef-dead-beaf-beadbeadbead","profit_loss":"100.00","profit_loss_currency":"USD","current_delivery_date":"2018-05-10T09:00:00Z","new_delivery_date":"2018-05-10T09:00:00Z","new_settlement_date":"2018-05-10T09:00:00Z","old_delivery_date":"2018-05-09T09:00:00Z","old_settlement_date":"2018-05-09T09:00:00Z","event_date_time":"2018-05-10T10:00:00Z"}'

@@ -1,0 +1,29 @@
+name: can_quote_cancel
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/conversions/24d2ee7f-c7a3-4181-979e-9c58dbace992/date_change/details
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 04 May 2015 20:28:29 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '865'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2778807612227406608'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"initial_value_date":"2018-05-09T09:00:00Z","current_value_date":"2018-05-09T09:00:00Z","initial_delivery_date":"2018-05-10T09:00:00Z","current_delivery_date":"2018-05-10T09:00:00Z","total_profit_and_loss":"100.00","floating_ccy":"USD", "changes":[{"requested_value_date":"2018-05-01T09:00:00Z","new_value_date":"2018-05-10T09:00:00Z","new_delivery_date":"2018-05-10T09:00:00Z","profit_and_loss":"50.00","admin_fee":"0.00","type":"self service date change"},{"requested_value_date":"2018-05-01T09:00:00Z","new_value_date":"2018-05-10T09:00:00Z","new_delivery_date":"2018-05-10T09:00:00Z","profit_and_loss":"50.00","admin_fee":"0.00","type":"self service date change"}]}'

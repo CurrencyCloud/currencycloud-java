@@ -89,88 +89,89 @@ public class DateChangeDetails {
                 .appendField("initialValueDate", initialValueDate)
                 .appendField("changes", changes)
                 .toString();
-        }
+    }
 
-    class Change {
-        private Date requestedValueDate;
-        private Date newValueDate;
-        private Date newDeliveryDate;
-        private String profitAndLoss;
-        private String adminFee;
-        private String type;
-        private String status;
+}
 
-        public Change() {
+class Change {
+    private Date requestedValueDate;
+    private Date newValueDate;
+    private Date newDeliveryDate;
+    private String profitAndLoss;
+    private String adminFee;
+    private String type;
+    private String status;
 
-        }
+    public Change() {
 
-        public Date getRequestedValueDate() {
-            return requestedValueDate;
-        }
+    }
 
-        public void setRequestedValueDate(Date requestedValueDate) {
-            this.requestedValueDate = requestedValueDate;
-        }
+    public Date getRequestedValueDate() {
+        return requestedValueDate;
+    }
 
-        public Date getNewValueDate() {
-            return newValueDate;
-        }
+    public void setRequestedValueDate(Date requestedValueDate) {
+        this.requestedValueDate = requestedValueDate;
+    }
 
-        public void setNewValueDate(Date newValueDate) {
-            this.newValueDate = newValueDate;
-        }
+    public Date getNewValueDate() {
+        return newValueDate;
+    }
 
-        public Date getNewDeliveryDate() {
-            return newDeliveryDate;
-        }
+    public void setNewValueDate(Date newValueDate) {
+        this.newValueDate = newValueDate;
+    }
 
-        public void setNewDeliveryDate(Date newDeliveryDate) {
-            this.newDeliveryDate = newDeliveryDate;
-        }
+    public Date getNewDeliveryDate() {
+        return newDeliveryDate;
+    }
 
-        public String getProfitAndLoss() {
-            return profitAndLoss;
-        }
+    public void setNewDeliveryDate(Date newDeliveryDate) {
+        this.newDeliveryDate = newDeliveryDate;
+    }
 
-        public void setProfitAndLoss(String profitAndLoss) {
-            this.profitAndLoss = profitAndLoss;
-        }
+    public String getProfitAndLoss() {
+        return profitAndLoss;
+    }
 
-        public String getAdminFee() {
-            return adminFee;
-        }
+    public void setProfitAndLoss(String profitAndLoss) {
+        this.profitAndLoss = profitAndLoss;
+    }
 
-        public void setAdminFee(String adminFee) {
-            this.adminFee = adminFee;
-        }
+    public String getAdminFee() {
+        return adminFee;
+    }
 
-        public String getType() {
-            return type;
-        }
+    public void setAdminFee(String adminFee) {
+        this.adminFee = adminFee;
+    }
 
-        public void setType(String type) {
-            this.type = type;
-        }
+    public String getType() {
+        return type;
+    }
 
-        public String getStatus() {
-            return status;
-        }
+    public void setType(String type) {
+        this.type = type;
+    }
 
-        public void setStatus(String status) {
-            this.status = status;
-        }
+    public String getStatus() {
+        return status;
+    }
 
-        @Override
-        public String toString() {
-            return new JSONObject()
-                    .appendField("requestedValueDate", requestedValueDate)
-                    .appendField("newValueDate", newValueDate)
-                    .appendField("newDeliveryDate", newDeliveryDate)
-                    .appendField("profitAndLoss", profitAndLoss)
-                    .appendField("adminFee", adminFee)
-                    .appendField("type", type)
-                    .appendField("status", status)
-                    .toString();
-        }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return new JSONObject()
+                .appendField("requestedValueDate", requestedValueDate)
+                .appendField("newValueDate", newValueDate)
+                .appendField("newDeliveryDate", newDeliveryDate)
+                .appendField("profitAndLoss", profitAndLoss)
+                .appendField("adminFee", adminFee)
+                .appendField("type", type)
+                .appendField("status", status)
+                .toString();
     }
 }

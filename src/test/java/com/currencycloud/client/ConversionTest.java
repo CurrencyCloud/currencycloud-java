@@ -69,7 +69,7 @@ public class ConversionTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_quote_date_change", match={MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanQuoteDateChange() throws Exception {
-        DateChange dc = client.dateChangeQuote("24d2ee7f-c7a3-4181-979e-9c58dbace992", new SimpleDateFormat("yyyy-MM-ddTHH:mm:ssZ").parse("2018-05-08T17:00:00Z"));
+        DateChange dc = client.dateChangeQuote("24d2ee7f-c7a3-4181-979e-9c58dbace992", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse("2018-05-08T17:00:00Z"));
         assertThat(dc.getProfitLoss(), equalTo("100.00"));
         assertThat(dc.getProfitLossCurrency(), equalTo("USD"));
     }
@@ -77,7 +77,7 @@ public class ConversionTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_date_change", match={MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanDateChange() throws Exception {
-        DateChange dc = client.dateChangeQuote("24d2ee7f-c7a3-4181-979e-9c58dbace992", new SimpleDateFormat("yyyy-MM-ddTHH:mm:ssZ").parse("2018-05-08T17:00:00Z"));
+        DateChange dc = client.dateChange("24d2ee7f-c7a3-4181-979e-9c58dbace992", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse("2018-05-08T17:00:00Z"));
         assertThat(dc.getProfitLoss(), equalTo("100.00"));
         assertThat(dc.getProfitLossCurrency(), equalTo("USD"));
     }
@@ -94,23 +94,31 @@ public class ConversionTest extends BetamaxTestSupport {
     @Betamax(tape = "can_quote_split", match={MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanQuoteSplit() throws Exception {
         ConversionSplit split = client.conversionSplitPreview("24d2ee7f-c7a3-4181-979e-9c58dbace992", "500.00");
-        assertThat(split.getParentConversion().getClientBuyAmt(), equalTo("200"));
-        assertThat(split.getChildConversion().getClientBuyAmt(), equalTo("500"));
+        assertThat(split.getParentConversion().getClientBuyAmt(), equalTo("500.00"));
+        assertThat(split.getParentConversion().getId(), equalTo("24d2ee7f-c7a3-4181-979e-9c58dbace992"));
+        assertThat(split.getChildConversion().getClientBuyAmt(), equalTo("500.00"));
+        assertThat(split.getChildConversion().getId(), equalTo("24d2ee7f-c7a3-4181-979e-9c58dbace993"));
     }
 
     @Test
     @Betamax(tape = "can_split", match={MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanSplit() throws Exception {
         ConversionSplit split = client.conversionSplit("24d2ee7f-c7a3-4181-979e-9c58dbace992", "500.00");
-        assertThat(split.getParentConversion().getClientBuyAmt(), equalTo("200"));
-        assertThat(split.getChildConversion().getClientBuyAmt(), equalTo("500"));
+        assertThat(split.getParentConversion().getClientBuyAmt(), equalTo("500.00"));
+        assertThat(split.getParentConversion().getId(), equalTo("24d2ee7f-c7a3-4181-979e-9c58dbace992"));
+        assertThat(split.getChildConversion().getClientBuyAmt(), equalTo("500.00"));
+        assertThat(split.getChildConversion().getId(), equalTo("24d2ee7f-c7a3-4181-979e-9c58dbace993"));
     }
 
     @Test
-    @Betamax(tape = "can_split_details", match={MatchRule.method, MatchRule.uri, MatchRule.body})
+    @Betamax(tape = "can_split_history", match={MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanSplitDetails() throws Exception {
-        ConversionSplitDetails det = client.conversionSplitHistory("24d2ee7f-c7a3-4181-979e-9c58dbace992");
+        ConversionSplitHistory det = client.conversionSplitHistory("24d2ee7f-c7a3-4181-979e-9c58dbace992");
 
-        assertThat(det.getDealRef(), equalTo("20180508-ABCDEF"));
+        assertThat(det.getOriginConversion().getDealRef(), equalTo("20150504-PGRNVJ"));
+        assertThat(det.getParentConversion().getDealRef(), equalTo("20150504-PGRNVJ"));
+        assertThat(det.getChildConversions().size(), equalTo(1));
+        assertThat(det.getChildConversions().get(0).getDealRef(), equalTo("20150504-PGRNVK"));
+
     }
 }

@@ -33,7 +33,7 @@ interactions:
     "deposit_currency":"","deposit_status":"not_required","deposit_required_at":"","payment_ids":[],"created_at":"2015-05-04T20:28:29+00:00","updated_at":"2015-05-04T20:28:29+00:00"}'
 - request:
     method: GET
-    uri: http://localhost:5555/v2/conversions/24d2ee7f-c7a3-4181-979e-9c58dbace992/cancellationQuote
+    uri: http://localhost:5555/v2/conversions/24d2ee7f-c7a3-4181-979e-9c58dbace992/cancellation_quote
     body: ''
     headers:
       X-Auth-Token:

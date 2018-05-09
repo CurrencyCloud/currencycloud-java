@@ -1,0 +1,65 @@
+name: can_split_history
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/conversions/24d2ee7f-c7a3-4181-979e-9c58dbace992/split_history
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 04 May 2015 20:28:29 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '1776'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2778807612227406608'
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      '{
+       	"parent_conversion": {
+       		"id": "24d2ee7f-c7a3-4181-979e-9c58dbace992",
+       		"settles_at": "2015-05-06T14:00:00+00:00",
+       		"delivery_at": "2015-05-06T14:00:00+00:00",
+       		"deal_ref": "20150504-PGRNVJ",
+       		"status": "awaiting_funds",
+       		"buy_ccy": "GBP",
+       		"sell_ccy": "USD",
+       		"client_buy_amt": "500.00",
+       		"client_sell_amt": "756.35"
+       	},
+       	"origin_conversion": {
+            "id": "24d2ee7f-c7a3-4181-979e-9c58dbace992",
+            "settles_at": "2015-05-06T14:00:00+00:00",
+            "delivery_at": "2015-05-06T14:00:00+00:00",
+            "deal_ref": "20150504-PGRNVJ",
+            "status": "awaiting_funds",
+            "buy_ccy": "GBP",
+            "sell_ccy": "USD",
+            "client_buy_amt": "1000.00",
+            "client_sell_amt": "1511.70"
+        },
+       	"child_conversions": [
+       	{
+       		"id": "24d2ee7f-c7a3-4181-979e-9c58dbace993",
+       		"settles_at": "2015-05-06T14:00:00+00:00",
+       		"delivery_at": "2015-05-06T14:00:00+00:00",
+       		"deal_ref": "20150504-PGRNVK",
+       		"status": "awaiting_funds",
+       		"buy_ccy": "GBP",
+       		"sell_ccy": "USD",
+       		"client_buy_amt": "500.00",
+       		"client_sell_amt": "756.35"
+       	}]
+       }'

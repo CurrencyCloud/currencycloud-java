@@ -765,7 +765,7 @@ public class CurrencyCloudClient {
         return api.conversionSplit(authToken, userAgent, getOnBehalfOf(), uuid, amount);
     }
 
-    public ConversionSplitDetails conversionSplitHistory(String uuid) {
+    public ConversionSplitHistory conversionSplitHistory(String uuid) {
         return api.conversionSplitHistory(authToken, userAgent, getOnBehalfOf(), uuid);
     }
 

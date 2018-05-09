@@ -577,7 +577,7 @@ public interface CurrencyCloud {
     ) throws ResponseException;
 
     @GET
-    @Path("conversions/{id}/cancellationQuote")
+    @Path("conversions/{id}/cancellation_quote")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     ConversionCancellationQuote cancellationQuote(
             @HeaderParam("X-Auth-Token") String authToken,
@@ -594,7 +594,7 @@ public interface CurrencyCloud {
             @HeaderParam("User-Agent") String userAgent,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @PathParam("id") String uuid,
-            @FormParam("new_settlement_date") Date newSettlementDate
+            @QueryParam("new_settlement_date") Date newSettlementDate
     ) throws ResponseException;
 
     @GET
@@ -632,7 +632,7 @@ public interface CurrencyCloud {
     @GET
     @Path("conversions/{id}/split_history")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    ConversionSplitDetails conversionSplitHistory(
+    ConversionSplitHistory conversionSplitHistory(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
