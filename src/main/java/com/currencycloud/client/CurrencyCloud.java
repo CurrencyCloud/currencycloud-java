@@ -800,7 +800,7 @@ public interface CurrencyCloud {
     /** Retrieve a Payment Submission*/
     @GET
     @Path("payments/{id}/submission")
-    Payment retrievePaymentSubmission(
+    PaymentSubmission retrievePaymentSubmission(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @PathParam("id") String id,
