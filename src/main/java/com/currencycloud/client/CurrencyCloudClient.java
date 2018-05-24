@@ -1037,7 +1037,7 @@ public class CurrencyCloudClient {
         );
     }
 
-    public Payment retrievePaymentSubmission(String id) throws CurrencyCloudException {
+    public PaymentSubmission retrievePaymentSubmission(String id) throws CurrencyCloudException {
         return api.retrievePaymentSubmission(
                 authToken,
                 userAgent,
