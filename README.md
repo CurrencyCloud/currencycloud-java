@@ -26,7 +26,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>1.2.3</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -34,13 +34,13 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 Download the Currencycloud SDK jar:
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-1.2.3.jar 
+3. Download the currencycloud-java-1.3.0.jar 
 
 Get the list of all dependencies:
 ```Shell
 mvn dependency:list -DincludeScope=runtime
 ```
-As of version 1.2.3, this returns the following list:
+As of version 1.3.0, this returns the following list:
 ```
 cglib:cglib:3.2.6:compile
 ch.qos.logback:logback-classic:1.2.3:compile
