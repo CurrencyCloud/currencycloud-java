@@ -10,7 +10,6 @@ Many people have helped us along the way and we are sincerely grateful to all of
 |--|--|
 |Chris Campo|cccampo.progs@gmail.com|
 |Matija Mazi|matija.mazi@gmail.com|
-|||
 
  In our book, they have reached [**honorificabilitudinitatibus**][sesqui] :-)
 
