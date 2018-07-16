@@ -1125,6 +1125,10 @@ public class CurrencyCloudClient {
         return api.paymentDates(authToken, userAgent, currency, startDate);
     }
 
+    public List<PaymentPurposeCode> paymentPurposeCodes(String currency, @Nullable String entityType) throws CurrencyCloudException {
+        return api.paymentPurposeCodes(authToken, userAgent, currency, entityType).getPurposeCodes();
+    }
+
     /**
      * @deprecated as of 1.2.3; use {@link #settlementAccounts(String, String)} instead.
      * */

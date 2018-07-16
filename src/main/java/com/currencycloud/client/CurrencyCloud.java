@@ -954,7 +954,7 @@ public interface CurrencyCloud {
             @QueryParam("conversion_pair") String conversionPair,
             @Nullable @QueryParam("start_date") Date startDate
     ) throws ResponseException;
-    
+
     /** Payment Dates */
     @GET
     @Path("reference/payment_dates")
@@ -963,6 +963,16 @@ public interface CurrencyCloud {
             @HeaderParam("User-Agent") String userAgent,
             @QueryParam("currency") String currency,
             @Nullable @QueryParam("start_date") Date startDate
+    ) throws ResponseException;
+
+    /** Payment Dates */
+    @GET
+    @Path("reference/payment_purpose_codes")
+    PaymentPurposeCodes paymentPurposeCodes(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @QueryParam("currency") String currency,
+            @Nullable @QueryParam("entity_type") String entityType
     ) throws ResponseException;
 
     /** Settlement Accounts */
