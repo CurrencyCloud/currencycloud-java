@@ -930,7 +930,7 @@ public class CurrencyCloudClient {
                 payments.stream().map(p -> p.getId()).collect(Collectors.toList())
         );
     }
-    
+
     public Payment retrievePayment(String id) throws CurrencyCloudException {
         return api.retrievePayment(authToken, userAgent, id, getOnBehalfOf());
     }

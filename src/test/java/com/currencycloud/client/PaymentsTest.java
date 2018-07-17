@@ -9,7 +9,6 @@ import com.currencycloud.client.model.PaymentAuthorisations;
 import com.currencycloud.client.model.PaymentSubmission;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -63,6 +62,22 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(auth.getAuthStepsTaken(), equalTo(3));
         assertThat(auth.getShortReference(), equalTo("TEST"));
 
+    }
+
+    @Test
+    @Betamax(tape = "error_when_authorised_with_incorrect_login", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testThrowInvalidAuthorisation() throws Exception {
+        Payment payment = Payment.create();
+        payment.setId("6f5f99d1b860fc47e8a186e3dce0d3f9");
+		List<Payment> payments =  Arrays.asList(payment );
+		PaymentAuthorisations authorisations = client.authorisePayment(payments);
+
+		assertThat(authorisations, notNullValue());
+		assertThat(authorisations.getAuthorisations(), notNullValue());
+        assertThat(authorisations.getAuthorisations().size(), equalTo(1));
+        PaymentAuthorisation auth = authorisations.getAuthorisations().get(0);
+        assertThat(auth.getId(), equalTo("6f5f99d1b860fc47e8a186e3dce0d3f9"));
+        assertThat(auth.getError(), equalTo("You cannot authorise this Payment as it was created by you."));
 
     }
 
