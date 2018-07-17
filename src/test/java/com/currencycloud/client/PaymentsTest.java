@@ -2,13 +2,22 @@ package com.currencycloud.client;
 
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
+
+import com.currencycloud.client.model.Payment;
+import com.currencycloud.client.model.PaymentAuthorisation;
+import com.currencycloud.client.model.PaymentAuthorisations;
 import com.currencycloud.client.model.PaymentSubmission;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class PaymentsTest extends BetamaxTestSupport {
 
@@ -33,6 +42,28 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat("MXGGYAGJULIIQKDV", equalTo(sub.getSubmissionRef()));
         assertThat(sub.getMt103().startsWith("{1:F01TCCLGB20AXXX0090000004}"), equalTo(true));
         assertThat(sub.getStatus(), equalTo("pending"));
+    }
+
+    @Test
+    @Betamax(tape = "can_authorise_payments", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanAuthorisePayments() throws Exception {
+        Payment payment = Payment.create();
+        payment.setId("1");
+		List<Payment> payments =  Arrays.asList(payment );
+		PaymentAuthorisations authorisations = client.authorisePayment(payments);
+
+		assertThat(authorisations, notNullValue());
+		assertThat(authorisations.getAuthorisations(), notNullValue());
+        assertThat(authorisations.getAuthorisations().size(), equalTo(1));
+        PaymentAuthorisation auth = authorisations.getAuthorisations().get(0);
+        assertThat(auth.getId(), equalTo("1"));
+        assertThat(auth.getPaymentStatus(), equalTo("approved"));
+        assertThat(auth.isUpdated(), equalTo(true));
+        assertThat(auth.getAuthStepsRequired(), equalTo(5));
+        assertThat(auth.getAuthStepsTaken(), equalTo(3));
+        assertThat(auth.getShortReference(), equalTo("TEST"));
+
+
     }
 
 }

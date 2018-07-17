@@ -10,14 +10,14 @@ import net.minidev.json.JSONObject;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonDeserialize(converter = DirtyWatcherDeserializer.Payment.class)
+@JsonDeserialize(converter = DirtyWatcherDeserializer.PaymentAuthorisation.class)
 public class PaymentAuthorisation implements Entity {
 
 	private String id;
 	private String paymentStatus;
 	private boolean updated;
-	private int authorisationStepsTaken;
-	private int authorisationStepsRequired;
+	private int authStepsTaken;
+	private int authStepsRequired;
 	private String shortReference;
 	private String error;
 
@@ -39,17 +39,17 @@ public class PaymentAuthorisation implements Entity {
 	public void setUpdated(boolean updated) {
 		this.updated = updated;
 	}
-	public int getAuthorisationStepsTaken() {
-		return authorisationStepsTaken;
+	public int getAuthStepsTaken() {
+		return authStepsTaken;
 	}
-	public void setAuthorisationStepsTaken(int authorisationStepsTaken) {
-		this.authorisationStepsTaken = authorisationStepsTaken;
+	public void setAuthStepsTaken(int authorisationStepsTaken) {
+		this.authStepsTaken = authorisationStepsTaken;
 	}
-	public int getAuthorisationStepsRequired() {
-		return authorisationStepsRequired;
+	public int getAuthStepsRequired() {
+		return authStepsRequired;
 	}
-	public void setAuthorisationStepsRequired(int authorisationStepsRequired) {
-		this.authorisationStepsRequired = authorisationStepsRequired;
+	public void setAuthStepsRequired(int authorisationStepsRequired) {
+		this.authStepsRequired = authorisationStepsRequired;
 	}
 	public String getShortReference() {
 		return shortReference;
@@ -68,8 +68,8 @@ public class PaymentAuthorisation implements Entity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + authorisationStepsRequired;
-		result = prime * result + authorisationStepsTaken;
+		result = prime * result + authStepsRequired;
+		result = prime * result + authStepsTaken;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((paymentStatus == null) ? 0 : paymentStatus.hashCode());
 		result = prime * result + ((shortReference == null) ? 0 : shortReference.hashCode());
@@ -85,9 +85,9 @@ public class PaymentAuthorisation implements Entity {
 		if (getClass() != obj.getClass())
 			return false;
 		PaymentAuthorisation other = (PaymentAuthorisation) obj;
-		if (authorisationStepsRequired != other.authorisationStepsRequired)
+		if (authStepsRequired != other.authStepsRequired)
 			return false;
-		if (authorisationStepsTaken != other.authorisationStepsTaken)
+		if (authStepsTaken != other.authStepsTaken)
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -115,8 +115,8 @@ public class PaymentAuthorisation implements Entity {
 				.appendField("id", id)
 				.appendField("paymentStatus", paymentStatus)
 				.appendField("updated", updated)
-				.appendField("authStepsTaken", authorisationStepsTaken)
-				.appendField("authStepsRequired", authorisationStepsRequired)
+				.appendField("authStepsTaken", authStepsTaken)
+				.appendField("authStepsRequired", authStepsRequired)
 				.appendField("shortReference", shortReference).toString();
 	}
 
