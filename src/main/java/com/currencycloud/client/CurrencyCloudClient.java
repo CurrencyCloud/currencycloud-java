@@ -935,7 +935,7 @@ public class CurrencyCloudClient {
         return api.retrievePayment(authToken, userAgent, id, getOnBehalfOf());
     }
 
-    /*TODO: is withDeleted a requried parameter? */
+    /*TODO: is withDeleted a required parameter? */
     public Payment updatePayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
         if (payer == null) {
             payer = Payer.create();
