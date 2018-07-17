@@ -765,6 +765,16 @@ public interface CurrencyCloud {
             @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName
     ) throws ResponseException;
 
+    /** Authorise a Payment */
+    @POST
+    @Path("payments/authorise")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    PaymentAuthorisations authorisePayment(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @QueryParam("paymentIds") List<String> paymentIds
+    ) throws ResponseException;
+
     /** Retrieve a Payment */
     @GET
     @Path("payments/{id}")
@@ -954,7 +964,7 @@ public interface CurrencyCloud {
             @QueryParam("conversion_pair") String conversionPair,
             @Nullable @QueryParam("start_date") Date startDate
     ) throws ResponseException;
-    
+
     /** Payment Dates */
     @GET
     @Path("reference/payment_dates")
