@@ -6,19 +6,39 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import net.minidev.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ConversionSplitHistory {
+public class ConversionSplitHistory implements Entity {
 
+    private String id;
     private ConversionSplitDetails parentConversion;
     private ConversionSplitDetails originConversion;
     private List<ConversionSplitDetails> childConversions;
 
     protected ConversionSplitHistory() {
-        childConversions = new ArrayList<>();
+
+    }
+
+    private ConversionSplitHistory(String id) {
+        this.id = id;
+    }
+
+    public static ConversionSplitHistory create() {
+        return new ConversionSplitHistory();
+    }
+
+    public static ConversionSplitHistory create(String id) {
+        return new ConversionSplitHistory(id);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public ConversionSplitDetails getParentConversion() {
@@ -48,9 +68,9 @@ public class ConversionSplitHistory {
     @Override
     public String toString() {
         return new JSONObject()
-                .appendField("parent_conversion", parentConversion)
-                .appendField("origin_conversion", originConversion)
-                .appendField("child_conversions", childConversions)
+                .appendField("parentConversion", parentConversion)
+                .appendField("originConversion", originConversion)
+                .appendField("childConversions", childConversions)
                 .toString();
     }
 }

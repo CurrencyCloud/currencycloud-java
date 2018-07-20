@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import net.minidev.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
@@ -12,18 +13,17 @@ import java.util.Date;
 public class ConversionSplitDetails implements Entity {
 
     private String id;
-    private String dealRef;
-    private String sellCcy;
-    private String buyCcy;
-    private String clientBuyAmt;
-    private String clientSellAmt;
-    private Date settlesAt;
-    private Date deliveryAt;
+    private String shortReference;
+    private BigDecimal sellAmount;
+    private String sellCurrency;
+    private BigDecimal buyAmount;
+    private String buyCurrency;
+    private Date settlementDate;
+    private Date conversionDate;
     private String status;
 
     protected ConversionSplitDetails() { }
 
-    @Override
     public String getId() {
         return id;
     }
@@ -32,60 +32,60 @@ public class ConversionSplitDetails implements Entity {
         this.id = id;
     }
 
-    public String getDealRef() {
-        return dealRef;
+    public String getShortReference() {
+        return shortReference;
     }
 
-    public void setDealRef(String dealRef) {
-        this.dealRef = dealRef;
+    public void setShortReference(String shortReference) {
+        this.shortReference = shortReference;
     }
 
-    public String getSellCcy() {
-        return sellCcy;
+    public BigDecimal getSellAmount() {
+        return sellAmount;
     }
 
-    public void setSellCcy(String sellCcy) {
-        this.sellCcy = sellCcy;
+    public void setSellAmount(BigDecimal sellAmount) {
+        this.sellAmount = sellAmount;
     }
 
-    public String getBuyCcy() {
-        return buyCcy;
+    public String getSellCurrency() {
+        return sellCurrency;
     }
 
-    public void setBuyCcy(String buyCcy) {
-        this.buyCcy = buyCcy;
+    public void setSellCurrency(String sellCurrency) {
+        this.sellCurrency = sellCurrency;
     }
 
-    public String getClientBuyAmt() {
-        return clientBuyAmt;
+    public BigDecimal getBuyAmount() {
+        return buyAmount;
     }
 
-    public void setClientBuyAmt(String clientBuyAmt) {
-        this.clientBuyAmt = clientBuyAmt;
+    public void setBuyAmount(BigDecimal buyAmount) {
+        this.buyAmount = buyAmount;
     }
 
-    public String getClientSellAmt() {
-        return clientSellAmt;
+    public String getBuyCurrency() {
+        return buyCurrency;
     }
 
-    public void setClientSellAmt(String clientSellAmt) {
-        this.clientSellAmt = clientSellAmt;
+    public void setBuyCurrency(String buyCurrency) {
+        this.buyCurrency = buyCurrency;
     }
 
-    public Date getSettlesAt() {
-        return settlesAt;
+    public Date getSettlementDate() {
+        return settlementDate;
     }
 
-    public void setSettlesAt(Date settlesAt) {
-        this.settlesAt = settlesAt;
+    public void setSettlementDate(Date settlementDate) {
+        this.settlementDate = settlementDate;
     }
 
-    public Date getDeliveryAt() {
-        return deliveryAt;
+    public Date getConversionDate() {
+        return conversionDate;
     }
 
-    public void setDeliveryAt(Date deliveryAt) {
-        this.deliveryAt = deliveryAt;
+    public void setConversionDate(Date conversionDate) {
+        this.conversionDate = conversionDate;
     }
 
     public String getStatus() {
@@ -100,13 +100,13 @@ public class ConversionSplitDetails implements Entity {
     public String toString() {
         return new JSONObject()
                 .appendField("id", id)
-                .appendField("dealRef", dealRef)
-                .appendField("buyCcy", buyCcy)
-                .appendField("sellCcy", sellCcy)
-                .appendField("clientBuyAmt", clientBuyAmt)
-                .appendField("clientSellAmt", clientSellAmt)
-                .appendField("settlesAt", settlesAt)
-                .appendField("deliveryAt", deliveryAt)
+                .appendField("shortReference", shortReference)
+                .appendField("sellAmount", sellAmount)
+                .appendField("sellCurrency", sellCurrency)
+                .appendField("buyAmount", buyAmount)
+                .appendField("buyCurrency", buyCurrency)
+                .appendField("settlementDate", settlementDate)
+                .appendField("conversionDate", conversionDate)
                 .appendField("status", status)
                 .toString();
     }

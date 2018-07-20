@@ -1,9 +1,9 @@
-name: can_split
+name: can_preview_split
 interactions:
 - request:
-    method: POST
-    uri: http://localhost:5555/v2/conversions/24d2ee7f-c7a3-4181-979e-9c58dbace992/split
-    body: 'amount=1500.00'
+    method: GET
+    uri: http://localhost:5555/v2/conversions/24d2ee7f-c7a3-4181-979e-9c58dbace992/split_preview?amount=1500.00
+    body: ''
     headers:
       X-Auth-Token:
       - 6f5f99d1b860fc47e8a186e3dce0d3f9

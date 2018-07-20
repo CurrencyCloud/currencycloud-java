@@ -41,8 +41,7 @@ public class CurrencyCloudClient {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
-    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/1.2.3";
-
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/1.4.4";
 
     private final CurrencyCloud api;
 
@@ -735,38 +734,101 @@ public class CurrencyCloudClient {
         );
     }
 
-    public ConversionProfitAndLoss cancelConversion(String uuid, String notes) {
-        return api.cancelConversion(authToken, userAgent, getOnBehalfOf(), uuid, notes);
+    public ConversionCancellation cancelConversion(ConversionCancellation conversion) throws CurrencyCloudException {
+        return api.cancelConversion(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                conversion.getId(),
+                conversion.getNotes());
     }
 
-    public ConversionCancellationQuote cancellationQuote(String uuid) {
-        return api.cancellationQuote(authToken, userAgent, getOnBehalfOf(), uuid);
+    public ConversionCancellationQuote quoteCancelConversion(ConversionCancellationQuote conversion) throws CurrencyCloudException {
+        return api.quoteCancelConversion(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                conversion.getId());
     }
 
-    public DateChange dateChangeQuote(String uuid, Date newSettlementDate) {
-        return api.dateChangeQuote(authToken, userAgent, getOnBehalfOf(), uuid, newSettlementDate);
+    public ConversionDateChange quoteChangeDateConversion(ConversionDateChange conversionDateChange) throws CurrencyCloudException {
+        return api.quoteChangeDateConversion(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                conversionDateChange.getId(),
+                conversionDateChange.getNewSettlementDate());
     }
 
-    public DateChangeDetails dateChangeDetails(String uuid) {
-        return api.dateChangeDetails(authToken, userAgent, getOnBehalfOf(), uuid);
+    public ConversionDateChange changeDateConversion(ConversionDateChange conversionDateChange) throws CurrencyCloudException {
+        return api.changeDateConversion(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                conversionDateChange.getId(),
+                conversionDateChange.getNewSettlementDate());
     }
 
-    public DateChange dateChange(String uuid, Date newSettlementDate) {
-        return api.dateChange(authToken, userAgent, getOnBehalfOf(), uuid, newSettlementDate);
+    public ConversionDateChangeDetails changeDateDetailsConversion(ConversionDateChangeDetails dateChange) throws CurrencyCloudException {
+        return api.changeDateDetailsConversion(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                dateChange.getId());
     }
 
-    // conversion split
-
-    public ConversionSplit conversionSplitPreview(String uuid, String amount) {
-        return api.conversionSplitPreview(authToken, userAgent, getOnBehalfOf(), uuid, amount);
+    public ConversionSplit previewSplitConversion(ConversionSplit conversion) throws CurrencyCloudException {
+        return api.previewSplitConversion(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                conversion.getId(),
+                conversion.getAmount());
     }
 
-    public ConversionSplit conversionSplit(String uuid, String amount) {
-        return api.conversionSplit(authToken, userAgent, getOnBehalfOf(), uuid, amount);
+    public ConversionSplit splitConversion(ConversionSplit conversion) throws CurrencyCloudException {
+        return api.splitConversion(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                conversion.getId(),
+                conversion.getAmount());
     }
 
-    public ConversionSplitHistory conversionSplitHistory(String uuid) {
-        return api.conversionSplitHistory(authToken, userAgent, getOnBehalfOf(), uuid);
+    public ConversionSplitHistory historySplitConversion(ConversionSplitHistory conversion) throws CurrencyCloudException {
+        return api.historySplitConversion(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                conversion.getId());
+    }
+
+    public ConversionProfitAndLosses retrieveProfitAndLossConversion(@Nullable ConversionProfitAndLoss profitAndLoss, @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        if (profitAndLoss == null) {
+            profitAndLoss = ConversionProfitAndLoss.create();
+        }
+        return api.retrieveProfitAndLossConversion(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                profitAndLoss.getAccountId(),
+                profitAndLoss.getContactId(),
+                profitAndLoss.getConversionId(),
+                profitAndLoss.getEventType(),
+                profitAndLoss.getEventDateTimeFrom(),
+                profitAndLoss.getEventDateTimeTo(),
+                profitAndLoss.getAmountFrom(),
+                profitAndLoss.getAmountTo(),
+                profitAndLoss.getCurrency(),
+                profitAndLoss.getScope(),
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc()
+        );
     }
 
     ///////////////////////////////////////////////////////////////////

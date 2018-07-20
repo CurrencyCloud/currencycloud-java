@@ -8,14 +8,14 @@ interactions:
       X-Auth-Token:
       - 6f5f99d1b860fc47e8a186e3dce0d3f9
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.2.3
+      - CurrencyCloudSDK/2.0 Java/1.4.4
   response:
     status: 200
     headers:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 20:28:29 GMT
+      - Fri, 04 May 2018 20:28:29 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
@@ -34,28 +34,29 @@ interactions:
 - request:
     method: POST
     uri: http://localhost:5555/v2/conversions/24d2ee7f-c7a3-4181-979e-9c58dbace992/cancel
-    body: notes=TEST
+    body: 'notes=TEST+CONVERSION+CANCEL'
     headers:
       X-Auth-Token:
       - 6f5f99d1b860fc47e8a186e3dce0d3f9
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.2.3
+      - CurrencyCloudSDK/2.0 Java/1.4.4
   response:
     status: 200
     headers:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 20:28:29 GMT
+      - Fri, 04 May 2018 20:28:29 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - '865'
+      - '431'
       Connection:
       - keep-alive
       X-Request-Id:
       - '2778807612227406608'
       X-Content-Type-Options:
       - nosniff
-    body: '{"account_id":"c4d838e8-1625-44c6-a9fb-39bcb1fe353d","contact_id":"c4d838e8-1625-44c6-a9fb-39bcb1fe353d","conversion_id":"24d2ee7f-c7a3-4181-979e-9c58dbace992","event_account_id":"c4d838e8-1625-44c6-a9fb-39bcb1fe353d",
-    "event_contact_id":"c4d838e8-1625-44c6-a9fb-39bcb1fe353d","event_type":"self_service_cancellation","external_amount":"100.00","currency":"USD","notes":"TEST CONVERSION CANCEL","event_date_time":"2015-05-04T20:28:29+00:00" }'
+    body: '{"account_id":"c4d838e8-1625-44c6-a9fb-39bcb1fe353d","contact_id":"c4d838e8-1625-44c6-a9fb-39bcb1fe353d","conversion_id":"24d2ee7f-c7a3-4181-979e-9c58dbace992",
+    "event_account_id":"c4d838e8-1625-44c6-a9fb-39bcb1fe353d","event_contact_id":"c4d838e8-1625-44c6-a9fb-39bcb1fe353d","event_type":"self_service_cancellation",
+    "amount":"100.00","currency":"USD","notes":"TEST CONVERSION CANCEL","event_date_time":"2015-05-04T20:28:29+00:00" }'

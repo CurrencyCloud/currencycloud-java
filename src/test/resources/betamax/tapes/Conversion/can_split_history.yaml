@@ -8,58 +8,29 @@ interactions:
       X-Auth-Token:
       - 6f5f99d1b860fc47e8a186e3dce0d3f9
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.2.3
+      - CurrencyCloudSDK/2.0 Java/1.4.4
   response:
     status: 200
     headers:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 20:28:29 GMT
+      - Fri, 04 May 2018 20:28:29 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - '1776'
+      - '1223'
       Connection:
       - keep-alive
       X-Request-Id:
       - '2778807612227406608'
       X-Content-Type-Options:
       - nosniff
-    body:
-      '{
-       	"parent_conversion": {
-       		"id": "24d2ee7f-c7a3-4181-979e-9c58dbace992",
-       		"settles_at": "2015-05-06T14:00:00+00:00",
-       		"delivery_at": "2015-05-06T14:00:00+00:00",
-       		"deal_ref": "20150504-PGRNVJ",
-       		"status": "awaiting_funds",
-       		"buy_ccy": "GBP",
-       		"sell_ccy": "USD",
-       		"client_buy_amt": "500.00",
-       		"client_sell_amt": "756.35"
-       	},
-       	"origin_conversion": {
-            "id": "24d2ee7f-c7a3-4181-979e-9c58dbace992",
-            "settles_at": "2015-05-06T14:00:00+00:00",
-            "delivery_at": "2015-05-06T14:00:00+00:00",
-            "deal_ref": "20150504-PGRNVJ",
-            "status": "awaiting_funds",
-            "buy_ccy": "GBP",
-            "sell_ccy": "USD",
-            "client_buy_amt": "1000.00",
-            "client_sell_amt": "1511.70"
-        },
-       	"child_conversions": [
-       	{
-       		"id": "24d2ee7f-c7a3-4181-979e-9c58dbace993",
-       		"settles_at": "2015-05-06T14:00:00+00:00",
-       		"delivery_at": "2015-05-06T14:00:00+00:00",
-       		"deal_ref": "20150504-PGRNVK",
-       		"status": "awaiting_funds",
-       		"buy_ccy": "GBP",
-       		"sell_ccy": "USD",
-       		"client_buy_amt": "500.00",
-       		"client_sell_amt": "756.35"
-       	}]
-       }'
+    body: '{"parent_conversion":{"id":"24d2ee7f-c7a3-4181-979e-9c58dbace992","short_reference":"20180716-XMXMMS","sell_amount":"2417.10","sell_currency":"GBP",
+    "buy_amount":"3000.00","buy_currency":"EUR","settlement_date":"2018-06-28T13:00:00+00:00","conversion_date":"2018-06-28T00:00:00+00:00","status":"awaiting_funds"},
+    "origin_conversion":{"id":"9d7919b5-c72d-41e1-9745-d2d5dc35e338","short_reference":"20180626-YVRVTT","sell_amount":"3222.80","sell_currency":"GBP",
+    "buy_amount":"4000.00","buy_currency":"EUR","settlement_date":"2018-06-28T13:00:00+00:00","conversion_date":"2018-06-28T00:00:00+00:00","status":"awaiting_funds"},
+    "child_conversions":[{"id":"c8a323d8-7366-4bf3-b7c5-a6590e07eda3","short_reference":"20180716-KWQYDK","sell_amount":"1208.55","sell_currency":"GBP",
+    "buy_amount":"1500.00","buy_currency":"EUR","settlement_date":"2018-06-28T13:00:00+00:00","conversion_date":"2018-06-28T00:00:00+00:00","status":"awaiting_funds"},
+    {"id":"615227c4-a955-4a6c-a415-68accc3ae47f","short_reference":"20180716-EARWAY","sell_amount":"1208.55","sell_currency":"GBP","buy_amount":"1500.00",
+    "buy_currency":"EUR","settlement_date":"2018-06-28T13:00:00+00:00","conversion_date":"2018-06-28T00:00:00+00:00","status":"awaiting_funds"}]}'

@@ -10,7 +10,7 @@ import java.util.Date;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ConversionProfitAndLoss implements Entity {
+public class ConversionCancellation implements Entity {
 
     private String id;
     private String accountId;
@@ -23,32 +23,28 @@ public class ConversionProfitAndLoss implements Entity {
     private String currency;
     private String notes;
     private Date eventDateTime;
-    private Date eventDateTimeFrom;
-    private Date eventDateTimeTo;
-    private BigDecimal amountFrom;
-    private BigDecimal amountTo;
-    private String scope;
 
-    protected ConversionProfitAndLoss() {}
+    protected ConversionCancellation() { }
 
-    public static ConversionProfitAndLoss create() {
-        return new ConversionProfitAndLoss();
+    private ConversionCancellation(String id) {
+        this.id = id;
+    }
+
+    public static ConversionCancellation create() {
+        return new ConversionCancellation();
+    }
+
+    public static ConversionCancellation create(String id) {
+        return new ConversionCancellation(id);
     }
 
     public String getId() {
+
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
     }
 
     public String getContactId() {
@@ -123,44 +119,13 @@ public class ConversionProfitAndLoss implements Entity {
         this.eventDateTime = eventDateTime;
     }
 
-    public Date getEventDateTimeFrom() {
-        return eventDateTimeFrom;
+    public String getAccountId() {
+
+        return accountId;
     }
 
-    public void setEventDateTimeFrom(Date eventDateTimeFrom) {
-        this.eventDateTimeFrom = eventDateTimeFrom;
-    }
-
-    public Date getEventDateTimeTo() {
-        return eventDateTimeTo;
-    }
-
-    public void setEventDateTimeTo(Date eventDateTimeTo) {
-        this.eventDateTimeTo = eventDateTimeTo;
-    }
-
-    public BigDecimal getAmountFrom() {
-        return amountFrom;
-    }
-
-    public void setAmountFrom(BigDecimal amountFrom) {
-        this.amountFrom = amountFrom;
-    }
-
-    public BigDecimal getAmountTo() {
-        return amountTo;
-    }
-
-    public void setAmountTo(BigDecimal amountTo) {
-        this.amountTo = amountTo;
-    }
-
-    public String getScope() {
-        return scope;
-    }
-
-    public void setScope(String scope) {
-        this.scope = scope;
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     @Override
@@ -177,5 +142,5 @@ public class ConversionProfitAndLoss implements Entity {
                 .appendField("notes", notes)
                 .appendField("eventDateTime", eventDateTime)
                 .toString();
-    }
+        }
 }
