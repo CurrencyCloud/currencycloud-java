@@ -4,33 +4,55 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import net.minidev.json.JSONObject;
-
+import java.math.BigDecimal;
 import java.util.Date;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ConversionCancellationQuote {
+public class ConversionCancellationQuote implements Entity {
 
-    private String floatingCcy;
-    private String overallProfitAndLoss;
+    private String id;
+    private BigDecimal amount;
+    private String currency;
     private Date eventDateTime;
 
     protected ConversionCancellationQuote() { }
 
-    public String getFloatingCcy() {
-        return floatingCcy;
+    private ConversionCancellationQuote(String id) {
+        this.id = id;
     }
 
-    public void setFloatingCcy(String floatingCcy) {
-        this.floatingCcy = floatingCcy;
+    public static ConversionCancellationQuote create() {
+        return new ConversionCancellationQuote();
     }
 
-    public String getOverallProfitAndLoss() {
-        return overallProfitAndLoss;
+    public static ConversionCancellationQuote create(String id) {
+        return new ConversionCancellationQuote(id);
     }
 
-    public void setOverallProfitAndLoss(String overallProfitAndLoss) {
-        this.overallProfitAndLoss = overallProfitAndLoss;
+    public String getId() {
+
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public Date getEventDateTime() {
@@ -44,8 +66,8 @@ public class ConversionCancellationQuote {
     @Override
     public String toString() {
         return new JSONObject()
-                .appendField("floatingCcy", floatingCcy)
-                .appendField("overallProfitAndLoss", overallProfitAndLoss)
+                .appendField("amount", amount)
+                .appendField("currency", currency)
                 .appendField("eventDateTime", eventDateTime)
                 .toString();
         }

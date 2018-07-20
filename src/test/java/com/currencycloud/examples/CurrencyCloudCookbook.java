@@ -15,11 +15,11 @@ import java.util.*;
  * All API calls are wrapped in try/catch blocks and executed using an exponential backoff-and-retry policy.
  *
  * The default parameters used are:
- * - BackOff.<T>builder().withMaxAttempts(7) - Maximum number of retries set to 7
- * - BackOff.<T>builder().withBase(125) - Minimum wait time in milliseconds set to 125
- * - BackOff.<T>builder().withCap (90000) - Maximum wait time in milliseconds set to 90000
- * - BackOff.<T>builder().withExceptionType(TooManyRequestsException.class) - ApiException type to retry on. All other
- * exceptions are passed up the call stack
+ * - BackOff.<T>builder().withMaxAttempts - Maximum number of retries set to 7
+ * - BackOff.<T>builder().withBase - Minimum wait time in milliseconds set to a random value between 125 and 750
+ * - BackOff.<T>builder().withCap - Maximum wait time in milliseconds set to a random value between 60000 and 90000
+ * - BackOff.<T>builder().withExceptionType(TooManyRequestsException.class) - TooManyRequestsException. All other
+ * exceptions are rethrown
  *
  * Please see BackOffTest.java for a comprehensive set of test cases
  */

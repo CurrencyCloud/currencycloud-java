@@ -1,0 +1,38 @@
+name: can_retrieve_profit_and_losses
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/conversions/profit_and_loss
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.4.4
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 04 May 2018 20:28:29 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '1424'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2778807612227406608'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"conversion_profit_and_losses":[{"account_id":"e277c9f9-679f-454f-8367-274b3ff977ff","contact_id":"590cea0d-0daa-48dc-882b-049107c1471f",
+    "event_account_id":"e277c9f9-679f-454f-8367-274b3ff977ff","event_contact_id":"590cea0d-0daa-48dc-882b-049107c1471f","conversion_id":"337342f6-b4e3-46d4-a934-bd7d6aa74585",
+    "event_type":"self_service_cancellation","amount":"-2.00","currency":"GBP","notes":"","event_date_time":"2018-02-19T17:30:37+00:00"},
+    {"account_id":"e277c9f9-679f-454f-8367-274b3ff977ff","contact_id":"590cea0d-0daa-48dc-882b-049107c1471f","event_account_id":"e277c9f9-679f-454f-8367-274b3ff977ff",
+    "event_contact_id":"590cea0d-0daa-48dc-882b-049107c1471f","conversion_id":"45f080b7-17d4-4215-860e-4cb4be259208","event_type":"self_service_cancellation",
+    "amount":"-2.00","currency":"GBP","notes":"","event_date_time":"2018-02-19T17:31:20+00:00"},{"account_id":"e277c9f9-679f-454f-8367-274b3ff977ff",
+    "contact_id":"590cea0d-0daa-48dc-882b-049107c1471f","event_account_id":"e277c9f9-679f-454f-8367-274b3ff977ff","event_contact_id":"590cea0d-0daa-48dc-882b-049107c1471f",
+    "conversion_id":"dec4d817-573d-4927-9f84-d37885fec01a","event_type":"self_service_cancellation","amount":"-2.00","currency":"GBP","notes":"",
+    "event_date_time":"2018-02-19T17:31:52+00:00"}],"pagination":{"total_entries":3,"total_pages":1,"current_page":1,"per_page":25,"previous_page":-1,
+    "next_page":-1,"order":"event_date_time","order_asc_desc":"asc"}}'

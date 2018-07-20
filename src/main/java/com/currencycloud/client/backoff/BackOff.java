@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2016 Chris Campo
  * With additions and modifications by Currencycloud, 2018
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
+import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
@@ -53,8 +54,8 @@ import java.util.function.Predicate;
 public class BackOff<T> {
 
     protected static final int DEFAULT_MAX_ATTEMPTS = 7;
-    protected static final int DEFAULT_WAIT_CAP_MILLIS = 90000;
-    protected static final int DEFAULT_WAIT_BASE_MILLIS = 125;
+    protected static final int DEFAULT_WAIT_CAP_MILLIS = new Random().nextInt(30000) + 60000;
+    protected static final int DEFAULT_WAIT_BASE_MILLIS = new Random().nextInt(625) + 125;
 
     private final int cap;
     private final int base;

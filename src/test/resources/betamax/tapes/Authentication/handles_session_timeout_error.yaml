@@ -10,13 +10,13 @@ interactions:
       Accept-Charset:
       - UTF-8
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.2.3
+      - CurrencyCloudSDK/2.0 Java/1.4.4
       Accept:
       - application/json
       Host:
       - localhost:5555
       Connection:
-      - keep-alive 
+      - keep-alive
   response:
     status: 401
     headers:
@@ -43,7 +43,7 @@ interactions:
       Accept-Charset:
       - UTF-8
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.2.3
+      - CurrencyCloudSDK/2.0 Java/1.4.4
       Accept:
       - application/json
       Host:
@@ -82,7 +82,7 @@ interactions:
       Accept-Charset:
       - UTF-8
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.2.3
+      - CurrencyCloudSDK/2.0 Java/1.4.4
       Accept:
       - application/json
       Host:
