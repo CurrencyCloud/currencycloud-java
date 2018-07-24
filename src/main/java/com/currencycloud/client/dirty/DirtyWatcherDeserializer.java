@@ -19,6 +19,5 @@ public abstract class DirtyWatcherDeserializer<E extends Entity> extends StdConv
     public static class Contact extends DirtyWatcherDeserializer<com.currencycloud.client.model.Contact> {}
     public static class Beneficiary extends DirtyWatcherDeserializer<com.currencycloud.client.model.Beneficiary> {}
     public static class Payment extends DirtyWatcherDeserializer<com.currencycloud.client.model.Payment> {}
-    public static class PaymentAuthorisation extends DirtyWatcherDeserializer<com.currencycloud.client.model.PaymentAuthorisation> {}
     public static class Payer extends DirtyWatcherDeserializer<com.currencycloud.client.model.Payer> {}
 }

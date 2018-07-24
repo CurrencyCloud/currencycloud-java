@@ -10,7 +10,6 @@ import net.minidev.json.JSONObject;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonDeserialize(converter = DirtyWatcherDeserializer.PaymentAuthorisation.class)
 public class PaymentAuthorisation implements Entity {
 
 	private String id;
