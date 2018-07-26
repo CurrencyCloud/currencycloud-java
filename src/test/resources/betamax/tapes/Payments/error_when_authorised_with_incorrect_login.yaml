@@ -1,0 +1,29 @@
+name: error_when_authorised_with_incorrect_login
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/payments/authorise?paymentIds=6f5f99d1b860fc47e8a186e3dce0d3f9
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.2.3
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 04 May 2015 20:28:29 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '865'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2778807612227406608'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{ "authorisations": [{  "id": "6f5f99d1b860fc47e8a186e3dce0d3f9", "error": "You cannot authorise this Payment as it was created by you." }] }'

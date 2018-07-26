@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * This is the high-lever entry point to the Currency Cloud API. It provides access to the HTTP API while providing
@@ -984,11 +985,19 @@ public class CurrencyCloudClient {
         );
     }
 
+    public PaymentAuthorisations authorisePayment(List<Payment> payments) throws CurrencyCloudException {
+         return api.authorisePayment(
+                authToken,
+                userAgent,
+                payments.stream().map(p -> p.getId()).collect(Collectors.toList())
+        );
+    }
+
     public Payment retrievePayment(String id) throws CurrencyCloudException {
         return api.retrievePayment(authToken, userAgent, id, getOnBehalfOf());
     }
 
-    /*TODO: is withDeleted a requried parameter? */
+    /*TODO: is withDeleted a required parameter? */
     public Payment updatePayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
         if (payer == null) {
             payer = Payer.create();
