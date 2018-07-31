@@ -33,7 +33,7 @@ public class AccountsTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanCreateAccount() throws Exception {
-        Account account = Account.create("Acme Ltd", "company", "12 Steward St", "London", "E1 6FQ", "GB");
+        Account account = Account.create("Acme Ltd", "company", "12 Steward St", "London", "GB");
         account.setBrand("currencycloud");
         account.setYourReference("POS-UID-23523");
         account.setStatus("enabled");
@@ -42,6 +42,7 @@ public class AccountsTest extends BetamaxTestSupport {
         account.setApiTrading(true);
         account.setOnlineTrading(true);
         account.setPhoneTrading(true);
+        account.setPostalCode("E1 6FQ");
         account.setIdentificationType("passport");
         account.setIdentificationValue("AE02315508BF");
         account = client.createAccount(account);

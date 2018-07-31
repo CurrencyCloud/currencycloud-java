@@ -150,7 +150,7 @@ public class DemoServerTest {
 
     @Test
     public void testFindNoAccountsWithABadExample() throws Exception {
-        Account badExample = Account.create("No such account", "individual", "No street", "No city", "No Code", "DE");
+        Account badExample = Account.create("No such account", "individual", "No street", "No city", "DE");
         badExample.setIdentificationValue("1111111");
         badExample.setIdentificationType("drivers_licence");
         badExample.setBrand("Brand");
@@ -169,7 +169,7 @@ public class DemoServerTest {
 
     @Test
     public void testCreateUpdateAccount() throws Exception {
-        Account account = currencyCloud.createAccount(Account.create("New Account xyz", "individual" , " 12 Steward St", "London", "E1 6FQ", "GB"));
+        Account account = currencyCloud.createAccount(Account.create("New Account xyz", "individual" , " 12 Steward St", "London", "GB"));
 
         assertThat(account.getYourReference(), is(nullValue()));
 
