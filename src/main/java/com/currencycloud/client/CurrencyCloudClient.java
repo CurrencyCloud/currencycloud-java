@@ -18,7 +18,18 @@ import si.mazi.rescu.serialization.jackson.DefaultJacksonObjectMapperFactory;
 import si.mazi.rescu.serialization.jackson.JacksonObjectMapperFactory;
 
 import javax.annotation.Nullable;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -1587,6 +1598,229 @@ public class CurrencyCloudClient {
                 pagination.getPerPage(),
                 pagination.getOrder(),
                 pagination.getOrderAscDesc());
+    }
+
+    /**
+     * Generate Conversion Report
+     *
+     * @param authToken
+     * @param userAgent
+     * @param onBehalfOf
+     * @param description
+     * @param buyCurrency
+     * @param sellCurrency
+     * @param clientBuyAmountFrom
+     * @param clientBuyAmountTo
+     * @param clientSellAmountFrom
+     * @param clientSellAmountTo
+     * @param partnerBuyAmountFrom
+     * @param partnerBuyAmountTo
+     * @param partnerSellAmountFrom
+     * @param partnerSellAmountTo
+     * @param clientStatus
+     * @param partnerStatus
+     * @param conversionDateFrom
+     * @param conversionDateTo
+     * @param settlementDateFrom
+     * @param settlementDateTo
+     * @param createdAtFrom
+     * @param createdAtTo
+     * @param updatedAtFrom
+     * @param updatedAtTo
+     * @param uniqueRequestId
+     * @param scope
+     * @return the report
+     * @throws CurrencyCloudException
+     */
+    public Report createConversionsReport(
+            String description,
+            String buyCurrency,
+            String sellCurrency,
+            BigDecimal clientBuyAmountFrom,
+            BigDecimal clientBuyAmountTo,
+            BigDecimal clientSellAmountFrom,
+            BigDecimal clientSellAmountTo,
+            BigDecimal partnerBuyAmountFrom,
+            BigDecimal partnerBuyAmountTo,
+            BigDecimal partnerSellAmountFrom,
+            BigDecimal partnerSellAmountTo,
+            String clientStatus,
+            String partnerStatus,
+            Date conversionDateFrom,
+            Date conversionDateTo,
+            Date settlementDateFrom,
+            Date settlementDateTo,
+            Date createdAtFrom,
+            Date createdAtTo,
+            Date updatedAtFrom,
+            Date updatedAtTo,
+            String uniqueRequestId,
+            String scope
+    ) throws CurrencyCloudException {
+    	return api.createConversionsReport(
+    			getAuthToken(),
+    			userAgent,
+    			getOnBehalfOf(),
+    			description,
+    			buyCurrency,
+    			sellCurrency,
+    			clientBuyAmountFrom,
+    			clientBuyAmountTo,
+    			clientSellAmountFrom,
+    			clientSellAmountTo,
+    			partnerBuyAmountFrom,
+    			partnerBuyAmountTo,
+    			partnerSellAmountFrom,
+    			partnerSellAmountTo,
+    			clientStatus,
+    			partnerStatus,
+    			conversionDateFrom,
+    			conversionDateTo,
+    			settlementDateFrom,
+    			settlementDateTo,
+    			createdAtFrom,
+    			createdAtTo,
+    			updatedAtFrom,
+    			updatedAtTo,
+    			uniqueRequestId,
+    			scope);
+    }
+
+    /**
+     * Generate Payments Report
+     *
+     * @param authToken
+     * @param userAgent
+     * @param onBehalfOf
+     * @param description
+     * @param currency
+     * @param amountFrom
+     * @param amountTo
+     * @param status
+     * @param paymentDateFrom
+     * @param paymentDateTo
+     * @param transferredDateFrom
+     * @param transferredDateTo
+     * @param createdAtFrom
+     * @param createdAtTo
+     * @param updatedAtFrom
+     * @param updatedAtTo
+     * @param benficiaryId
+     * @param conversionId
+     * @param withDeleted
+     * @param paymentGroupId
+     * @param uniqueRequestId
+     * @param scope
+     * @return the report
+     * @throws CurrencyCloudException
+     */
+    public Report createPaymentsReport(Payment payment,
+    		String description,
+    		String currency,
+            BigDecimal amountFrom,
+            BigDecimal amountTo,
+            String status,
+            Date paymentDateFrom,
+            Date paymentDateTo,
+            Date transferredDateFrom,
+            Date transferredDateTo,
+            Date createdAtFrom,
+            Date createdAtTo,
+            Date updatedAtFrom,
+            Date updatedAtTo,
+            String benficiaryId,
+            String conversionId,
+            String withDeleted,
+            String paymentGroupId,
+            String uniqueRequestId,
+            String scope
+    ) throws CurrencyCloudException {
+    	return api.createPaymentsReport(
+    			getAuthToken(),
+    			userAgent,
+    			getOnBehalfOf(),
+    			description,
+    			payment.getCurrency(),
+    			payment.getAmountFrom(),
+    			payment.getAmountTo(),
+    			payment.getStatus(),
+    			paymentDateFrom,
+    			paymentDateTo,
+    			transferredDateFrom,
+    			transferredDateTo,
+    			createdAtFrom,
+    			createdAtTo,
+    			updatedAtFrom,
+    			updatedAtTo,
+    			benficiaryId,
+    			conversionId,
+    			withDeleted,
+    			paymentGroupId,
+    			uniqueRequestId,
+    			scope);
+    }
+
+    /**
+     * Find Report Requests
+     *
+     * @param shortReference
+     * @param description
+     * @param accountId
+     * @param contactId
+     * @param createdAtFrom
+     * @param createdAtTo
+     * @param expirationDateFrom
+     * @param expirationDateTo
+     * @param status
+     * @param reportType
+     * @param pagination
+     * @return the list of reports
+     * @throws CurrencyCloudException
+     */
+    public List<Report> findReportRequests (
+            	String shortReference,
+            	String description,
+            	String accountId,
+            	String contactId,
+            	Date createdAtFrom,
+            	Date createdAtTo,
+            	Date expirationDateFrom,
+            	Date expirationDateTo,
+            	String status,
+            	String reportType,
+            	Pagination pagination
+    ) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+    	return api.findReportRequests(
+    			getAuthToken(),
+    			userAgent,
+    			shortReference,
+    			description,
+    			accountId,
+    			contactId,
+    			createdAtFrom,
+    			createdAtTo,
+    			expirationDateFrom,
+    			expirationDateTo,
+    			status,
+    			reportType,
+    			pagination.getPage(),
+    			pagination.getPerPage(),
+    			pagination.getOrder(),
+    			pagination.getOrderAscDesc()).getReportRequests();
+    }
+
+    /**
+     * Retrieve a Report Request
+     *
+     * @param id ID of the report
+     * @return the report
+     * @throws ResponseException
+     */
+    public Report findReportRequest(String id) throws CurrencyCloudException {
+    	return api.findReportRequest(getAuthToken(), userAgent,  id, getOnBehalfOf());
     }
 
     ///////////////////////////////////////////////////////////////////

@@ -1,5 +1,7 @@
 package com.currencycloud.client.model;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -9,15 +11,15 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 public class Report implements Entity {
 
 	String id;
-	String shortreference;
+	String shortReference;
 	String reportType;
 	String status;
-	String expirationDate;
+	Date expirationDate;
 	String reportUrl;
 	String accountId;
 	String contactId;
-	String createdAt;
-	String updatedAt;
+	Date createdAt;
+	Date updatedAt;
 
 	@Override
 	public String getId() {
