@@ -1,0 +1,32 @@
+name: can_retrieve_purpose_codes
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/reference/payment_purpose_codes?currency=CNY
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 1c9da5726314246acfb09ec5651307a5
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.5.1
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 01 Jan 2018 12:34:56 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '640'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2775201681275056976'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"purpose_codes":[{"currency":"CNY","entity_type":"company","purpose_code":"current_account_payment","purpose_description":"Payment to Current Account"},
+    {"currency":"CNY","entity_type":"company","purpose_code":"services","purpose_description":"Trade Settlement for Services"},{"currency":"CNY","entity_type":"company",
+    "purpose_code":"donations","purpose_description":"Charity Donation"},{"currency":"CNY","entity_type":"company","purpose_code":"goods","purpose_description":"Trade Settlement for Goods"},
+    {"currency":"CNY","entity_type":"company","purpose_code":"capital_account_payment","purpose_description":"Payment to Capital Account"}]}'
