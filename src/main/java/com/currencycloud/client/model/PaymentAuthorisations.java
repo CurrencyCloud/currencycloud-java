@@ -1,17 +1,19 @@
 package com.currencycloud.client.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
-public class PaymentAuthorisations extends PaginatedData {
+public class PaymentAuthorisations {
+    @JsonProperty("authorisations")
+    private List<PaymentAuthorisation> paymentAuthorisations;
 
-	private List<PaymentAuthorisation> authorisations;
-
-    public List<PaymentAuthorisation> getAuthorisations() {
-        return authorisations;
+    public List<PaymentAuthorisation> getPaymentAuthorisations() {
+        return paymentAuthorisations;
     }
 
     @Override
     public String toString() {
-        return String.format("{\"authorisations\":%s, \"pagination\":%s}", authorisations, pagination);
+        return String.format("{\"authorisations\":%s}", paymentAuthorisations);
     }
 }

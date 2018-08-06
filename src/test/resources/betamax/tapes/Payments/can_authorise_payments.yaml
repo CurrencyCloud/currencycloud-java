@@ -2,29 +2,32 @@ name: can_authorise_payment
 interactions:
 - request:
     method: POST
-    uri: http://localhost:5555/v2/payments/authorise?paymentIds=1
+    uri: http://localhost:5555/v2/payments/authorise?paymentIds[]=8e3aeeb8-deeb-4665-96de-54b880a953ac&paymentIds[]=f16cafe4-1f8f-472e-99d9-8c828918d4f8&paymentIds[]=d025f90f-a23c-46f9-979a-35a9f98d9491
     body: ''
     headers:
       X-Auth-Token:
       - 6f5f99d1b860fc47e8a186e3dce0d3f9
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.2.3
+      - CurrencyCloudSDK/2.0 Java/1.5.1
   response:
     status: 200
     headers:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 20:28:29 GMT
+      - Mon, 01 Jan 2018 12:34:56 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - '865'
+      - '683'
       Connection:
       - keep-alive
       X-Request-Id:
       - '2778807612227406608'
       X-Content-Type-Options:
       - nosniff
-    body: '{ "authorisations": [{  "id": "1","payment_status": "approved","updated": "true","auth_steps_taken": "3","auth_steps_required": "5","short_reference": "TEST"}],"pagination":{"total_entries":2,"total_pages":1,"current_page":1,"per_page":10,"previous_page":-1,"next_page":-1,"order":"created_at",
-    "order_asc_desc":"asc"}}'
+    body: '{"authorisations":[{"payment_id":"8e3aeeb8-deeb-4665-96de-54b880a953ac","payment_status":"awaiting_authorisation","updated":false,
+    "error":"","auth_steps_taken":1,"auth_steps_required":0,"short_reference":"180802-YKGDVV001"},{"payment_id":"f16cafe4-1f8f-472e-99d9-8c828918d4f8",
+    "payment_status":"awaiting_authorisation","updated":false,"error":"Cannot authorise the payment more than one time.","auth_steps_taken":1,
+    "auth_steps_required":0,"short_reference":"180802-BXXTBP001"},{"payment_id":"d025f90f-a23c-46f9-979a-35a9f98d9491","payment_status":"awaiting_authorisation",
+    "updated":false,"error":"","auth_steps_taken":1,"auth_steps_required":0,"short_reference":"180802-ZVTTLF001"}]}'
