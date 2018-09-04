@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * This is the high-lever entry point to the Currency Cloud API. It provides access to the HTTP API while providing
@@ -42,7 +41,7 @@ public class CurrencyCloudClient {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
-    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/1.4.4";
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/1.5.1";
 
     private final CurrencyCloud api;
 
@@ -985,11 +984,11 @@ public class CurrencyCloudClient {
         );
     }
 
-    public PaymentAuthorisations authorisePayment(List<Payment> payments) throws CurrencyCloudException {
+    public PaymentAuthorisations authorisePayment(List<String> paymentIds) throws CurrencyCloudException {
          return api.authorisePayment(
                 authToken,
                 userAgent,
-                payments.stream().map(p -> p.getId()).collect(Collectors.toList())
+                paymentIds
         );
     }
 
@@ -997,7 +996,6 @@ public class CurrencyCloudClient {
         return api.retrievePayment(authToken, userAgent, id, getOnBehalfOf());
     }
 
-    /*TODO: is withDeleted a required parameter? */
     public Payment updatePayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
         if (payer == null) {
             payer = Payer.create();
@@ -1210,6 +1208,11 @@ public class CurrencyCloudClient {
     public List<PayerRequiredDetail> payerRequiredDetails(String payerCountry, @Nullable String payerEntityType, @Nullable String paymentType) throws CurrencyCloudException {
         return api.payerRequiredDetails(authToken, userAgent, payerCountry, payerEntityType, paymentType).getPayerRequiredDetails();
     }
+
+    public List<PaymentPurposeCode> paymentPurposeCodes(String currency, @Nullable String entityType) throws CurrencyCloudException {
+        return api.paymentPurposeCodes(authToken, userAgent, currency, entityType).getPurposeCodes();
+    }
+
 
     ///////////////////////////////////////////////////////////////////
     ///// SETTLEMENTS /////////////////////////////////////////////////

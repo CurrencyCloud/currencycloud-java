@@ -795,7 +795,7 @@ public interface CurrencyCloud {
     PaymentAuthorisations authorisePayment(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
-            @QueryParam("paymentIds") List<String> paymentIds
+            @QueryParam("paymentIds[]") List<String> paymentIds
     ) throws ResponseException;
 
     /** Retrieve a Payment */
@@ -1027,6 +1027,16 @@ public interface CurrencyCloud {
             @QueryParam("payer_country") String payerCountry,
             @Nullable @QueryParam("payer_entity_type") String payerEntityType,
             @Nullable @QueryParam("payment_type") String paymentType
+    ) throws ResponseException;
+
+    /** Payment Purpose Codes */
+    @GET
+    @Path("reference/payment_purpose_codes")
+    PaymentPurposeCodes paymentPurposeCodes(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @QueryParam("currency") String currency,
+            @Nullable @QueryParam("entity_type") String entityType
     ) throws ResponseException;
 
     ///////////////////////////////////////////////////////////////////

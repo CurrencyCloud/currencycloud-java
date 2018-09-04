@@ -58,7 +58,7 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(dates.getFirstConversionDate(), equalTo(parseDate("2015-04-30")));
         assertThat(dates.getDefaultConversionDate(), equalTo(parseDate("2015-04-30")));
     }
-    
+
     @Test
     @Betamax(tape = "can_retrieve_payment_dates", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrievePaymentDates() throws Exception {
@@ -106,5 +106,19 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(payerDetail.getPaymentType(), equalTo("priority"));
         assertThat(payerDetail.getRequiredFields().size(), equalTo(5));
         assertThat(payerDetail.getPayerIdentificationType(), equalTo("incorporation_number"));
+    }
+
+    @Test
+    @Betamax(tape = "can_retrieve_purpose_codes", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanRetrievePaymentPurposeCodes() throws Exception {
+        List<PaymentPurposeCode> purposeCodeData = client.paymentPurposeCodes("CNY", null);
+        assertThat(purposeCodeData, not(empty()));
+        assertThat(purposeCodeData.size(), equalTo(5));
+
+        PaymentPurposeCode paymentPurposeCode = purposeCodeData.iterator().next();
+        assertThat(paymentPurposeCode.getCurrency(), equalTo("CNY"));
+        assertThat(paymentPurposeCode.getEntityType(), equalTo("company"));
+        assertThat(paymentPurposeCode.getPurposeCode(), equalTo("current_account_payment"));
+        assertThat(paymentPurposeCode.getPurposeDescription(), equalTo("Payment to Current Account"));
     }
 }
