@@ -111,12 +111,13 @@ public class ReferenceTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_retrieve_purpose_codes", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrievePaymentPurposeCodes() throws Exception {
-        List<PaymentPurposeCode> purposeCodeData = client.paymentPurposeCodes("CNY", null);
+        List<PaymentPurposeCode> purposeCodeData = client.paymentPurposeCodes("CNY", "CN", null);
         assertThat(purposeCodeData, not(empty()));
         assertThat(purposeCodeData.size(), equalTo(5));
 
         PaymentPurposeCode paymentPurposeCode = purposeCodeData.iterator().next();
         assertThat(paymentPurposeCode.getCurrency(), equalTo("CNY"));
+        assertThat(paymentPurposeCode.getBankAccountCountry(), equalTo("CN"));
         assertThat(paymentPurposeCode.getEntityType(), equalTo("company"));
         assertThat(paymentPurposeCode.getPurposeCode(), equalTo("current_account_payment"));
         assertThat(paymentPurposeCode.getPurposeDescription(), equalTo("Payment to Current Account"));

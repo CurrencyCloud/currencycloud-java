@@ -785,7 +785,8 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_identification_type") String payerIdentificationType,
             @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
             @Nullable @FormParam("unique_request_id") String uniqueRequestId,
-            @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName
+            @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName,
+            @Nullable @FormParam("purpose_code") String purposeCode
     ) throws ResponseException;
 
     /** Authorise a Payment */
@@ -836,7 +837,8 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_state_or_province") String payerStateOrProvince,
             @Nullable @FormParam("payer_date_of_birth") java.sql.Date payerDateOfBirth,
             @Nullable @FormParam("payer_identification_type") String payerIdentificationType,
-            @Nullable @FormParam("payer_identification_value") String payerIdentificationValue
+            @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
+            @Nullable @FormParam("purpose_code") String purposeCode
     ) throws ResponseException;
 
     /** Find Payments */
@@ -868,7 +870,8 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order") String order,
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
             @Nullable @QueryParam("unique_request_id") String uniqueRequestId,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @Nullable @FormParam("purpose_code") String purposeCode
     ) throws ResponseException;
 
     /** Find Payments */
@@ -903,7 +906,8 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
+            @Nullable @FormParam("purpose_code") String purposeCode
     ) throws ResponseException;
 
     /** Delete a Payment */
@@ -1036,6 +1040,7 @@ public interface CurrencyCloud {
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @QueryParam("currency") String currency,
+            @QueryParam("bank_account_country") String bankAccountCountry,
             @Nullable @QueryParam("entity_type") String entityType
     ) throws ResponseException;
 

@@ -13,6 +13,7 @@ public class PaymentPurposeCode {
     private String entityType;
     private String purposeCode;
     private String purposeDescription;
+    private String bankAccountCountry;
 
     public String getCurrency() {
         return currency;
@@ -46,6 +47,14 @@ public class PaymentPurposeCode {
         this.purposeDescription = purposeDescription;
     }
 
+    public String getBankAccountCountry() {
+        return bankAccountCountry;
+    }
+
+    public void setBankAccountCountry(String bankAccountCountry) {
+        this.bankAccountCountry = bankAccountCountry;
+    }
+
     @Override
     public String toString() {
         return new JSONObject()
@@ -53,6 +62,7 @@ public class PaymentPurposeCode {
                 .appendField("entityType", entityType)
                 .appendField("purposeCode", purposeCode)
                 .appendField("purposeDescription", purposeDescription)
+                .appendField("bankAccountCountry", bankAccountCountry)
                 .toString();
     }
 }

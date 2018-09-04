@@ -53,6 +53,7 @@ public class Payment implements Entity {
     private Boolean withDeleted;
     private String scope;
     private String bulkUploadId;
+    private String purposeCode;
 
     protected Payment() { }
 
@@ -416,6 +417,14 @@ public class Payment implements Entity {
         this.bulkUploadId = bulkUploadId;
     }
 
+    public String getPurposeCode() {
+        return purposeCode;
+    }
+
+    public void setPurposeCode(String purposeCode) {
+        this.purposeCode = purposeCode;
+    }
+
     @Override
     public String toString() {
         return new JSONObject()
@@ -443,6 +452,7 @@ public class Payment implements Entity {
                 .appendField("payerDetailsSource", payerDetailsSource)
                 .appendField("paymentGroupId", paymentGroupId)
                 .appendField("ultimateBeneficiaryName", ultimateBeneficiaryName)
+                .appendField("purposeCode", purposeCode)
                 .toString();
         }
 }

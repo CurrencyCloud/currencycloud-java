@@ -980,7 +980,8 @@ public class CurrencyCloudClient {
                 payer.getIdentificationType(),
                 payer.getIdentificationValue(),
                 payment.getUniqueRequestId(),
-                payment.getUltimateBeneficiaryName()
+                payment.getUltimateBeneficiaryName(),
+                payment.getPurposeCode()
         );
     }
 
@@ -1030,7 +1031,8 @@ public class CurrencyCloudClient {
                 payer.getStateOrProvince(),
                 dateOnly(payer.getDateOfBirth()),
                 payer.getIdentificationType(),
-                payer.getIdentificationValue()
+                payer.getIdentificationValue(),
+                payment.getPurposeCode()
         );
     }
 
@@ -1081,7 +1083,8 @@ public class CurrencyCloudClient {
                                 pagination.getOrder(),
                                 pagination.getOrderAscDesc(),
                                 uniqueRequestId,
-                                getOnBehalfOf()
+                                getOnBehalfOf(),
+                                payment.getPurposeCode()
         );
     }
 
@@ -1124,6 +1127,7 @@ public class CurrencyCloudClient {
                 payment.getUniqueRequestId(),
                 payment.getScope(),
                 payment.getBulkUploadId(),
+                payment.getPurposeCode(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
@@ -1209,8 +1213,8 @@ public class CurrencyCloudClient {
         return api.payerRequiredDetails(authToken, userAgent, payerCountry, payerEntityType, paymentType).getPayerRequiredDetails();
     }
 
-    public List<PaymentPurposeCode> paymentPurposeCodes(String currency, @Nullable String entityType) throws CurrencyCloudException {
-        return api.paymentPurposeCodes(authToken, userAgent, currency, entityType).getPurposeCodes();
+    public List<PaymentPurposeCode> paymentPurposeCodes(String currency, String bankAccountCountry, @Nullable String entityType) throws CurrencyCloudException {
+        return api.paymentPurposeCodes(authToken, userAgent, currency, bankAccountCountry, entityType).getPurposeCodes();
     }
 
 
