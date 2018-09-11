@@ -4,7 +4,7 @@
   "beneficiary_id": "543477161-91de-012f-e284-1e0030c7f352",
   "conversion_id" : "049bab6d-fe2a-42e1-be0f-531c59f838ea",
   "amount": "1250000.00",
-  "currency": "GBP",
+  "currency": "INR",
   "status": "ready_to_send",
   "payment_type": "regular",
   "reference": "INVOICE 9876",
@@ -17,5 +17,6 @@
   "failure_reason": "",
   "payer_id":"",
   "created_at": "2014-01-12T12:24:19+00:00",
-  "updated_at": "2014-01-12T12:24:19+00:00"
+  "updated_at": "2014-01-12T12:24:19+00:00",
+  "purpose_code": "office"
 }
