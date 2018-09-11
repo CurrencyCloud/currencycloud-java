@@ -1,0 +1,29 @@
+name: can_retrieve_submission
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/payments/f5ac435d-1fa8-486d-b2a1-ada89904fb97
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.5.1
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 04 May 2015 20:28:29 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '865'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2778807612227406608'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{ "id": "f5ac435d-1fa8-486d-b2a1-ada89904fb97", "amount": "10.00", "beneficiary_id": "6e5a40d3-b413-4b60-850b-c411f67735ce", "currency": "INR", "reference": "This is a test reference.", "reason": "This is a test payment.", "status": "ready_to_send", "creator_contact_id": "a66ca63f-e668-47af-8bb9-74363240d781", "payment_type": "regular",  "payment_date": "2018-09-11",  "transferred_at": "",  "authorisation_steps_required": "0",  "last_updater_contact_id": "a66ca63f-e668-47af-8bb9-74363240d781", "short_reference": "180911-YSFRZX001", "conversion_id": null, "failure_reason": "", "payer_id": "68561f01-b5d8-4fad-9bcb-d1712a1bc0c8", "payer_details_source": "account", "created_at": "2018-09-11T14:00:19+00:00", "updated_at": "2018-09-11T14:00:19+00:00", "payment_group_id": null, "unique_request_id": null, "failure_returned_amount": "0.00", "ultimate_beneficiary_name": null, "purpose_code": "office" }'

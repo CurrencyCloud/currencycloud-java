@@ -2,6 +2,7 @@ package com.currencycloud.client;
 
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
+import com.currencycloud.client.model.Payment;
 import com.currencycloud.client.model.PaymentAuthorisation;
 import com.currencycloud.client.model.PaymentAuthorisations;
 import com.currencycloud.client.model.PaymentSubmission;
@@ -62,6 +63,16 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(authorisations.get(0).getAuthStepsTaken(), equalTo(1));
         assertThat(authorisations.get(0).getShortReference(), equalTo("180802-YKGDVV001"));
 
+    }
+
+    @Test
+    @Betamax(tape = "can_retrieve_payment", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanRetrievePayment() throws Exception {
+        Payment payment = client.retrievePayment("f5ac435d-1fa8-486d-b2a1-ada89904fb97");
+
+        assertThat("f5ac435d-1fa8-486d-b2a1-ada89904fb97", equalTo(payment.getId()));
+        assertThat("INR", equalTo(payment.getCurrency()));
+        assertThat("office", equalTo(payment.getPurposeCode()));
     }
 
 }
