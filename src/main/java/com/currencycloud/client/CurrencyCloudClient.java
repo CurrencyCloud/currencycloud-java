@@ -41,7 +41,7 @@ public class CurrencyCloudClient {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
-    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/1.5.1";
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/1.6.0";
 
     private final CurrencyCloud api;
 
@@ -980,7 +980,8 @@ public class CurrencyCloudClient {
                 payer.getIdentificationType(),
                 payer.getIdentificationValue(),
                 payment.getUniqueRequestId(),
-                payment.getUltimateBeneficiaryName()
+                payment.getUltimateBeneficiaryName(),
+                payment.getPurposeCode()
         );
     }
 
@@ -992,8 +993,15 @@ public class CurrencyCloudClient {
         );
     }
 
+    /**
+     * @deprecated as of 1.5.1; use {@link #retrievePayment(String, Boolean)} instead.
+     * */
     public Payment retrievePayment(String id) throws CurrencyCloudException {
-        return api.retrievePayment(authToken, userAgent, id, getOnBehalfOf());
+        return api.retrievePayment(authToken, userAgent, id, null, getOnBehalfOf());
+    }
+
+    public Payment retrievePayment(String id, @Nullable Boolean withDeleted ) throws CurrencyCloudException {
+        return api.retrievePayment(authToken, userAgent, id, withDeleted, getOnBehalfOf());
     }
 
     public Payment updatePayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
@@ -1030,7 +1038,10 @@ public class CurrencyCloudClient {
                 payer.getStateOrProvince(),
                 dateOnly(payer.getDateOfBirth()),
                 payer.getIdentificationType(),
-                payer.getIdentificationValue()
+                payer.getIdentificationValue(),
+                payment.getPayerDetailsSource(),
+                payment.getUltimateBeneficiaryName(),
+                payment.getPurposeCode()
         );
     }
 
@@ -1124,6 +1135,7 @@ public class CurrencyCloudClient {
                 payment.getUniqueRequestId(),
                 payment.getScope(),
                 payment.getBulkUploadId(),
+                payment.getPurposeCode(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
@@ -1209,8 +1221,8 @@ public class CurrencyCloudClient {
         return api.payerRequiredDetails(authToken, userAgent, payerCountry, payerEntityType, paymentType).getPayerRequiredDetails();
     }
 
-    public List<PaymentPurposeCode> paymentPurposeCodes(String currency, @Nullable String entityType) throws CurrencyCloudException {
-        return api.paymentPurposeCodes(authToken, userAgent, currency, entityType).getPurposeCodes();
+    public List<PaymentPurposeCode> paymentPurposeCodes(String currency, String bankAccountCountry, @Nullable String entityType) throws CurrencyCloudException {
+        return api.paymentPurposeCodes(authToken, userAgent, currency, bankAccountCountry, entityType).getPurposeCodes();
     }
 
 
