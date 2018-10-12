@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
 # Currencycloud API v2 Java client
-## Version: 1.5.1
+## Version: 1.6.0
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -26,7 +26,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>1.5.1</version>
+    <version>1.6.0</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 Download the Currencycloud SDK jar:
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-1.5.1.jar 
+3. Download the currencycloud-java-1.6.0.jar 
 
 Get the list of all dependencies:
 ```Shell
@@ -215,32 +215,42 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 
 ### List of features being deprecated
 ```
-As of 1.0.3: Beneficiary.createForUpdate and Beneficiary.createForValidate
-As of 1.0.3: CurrencyCloudClient.findBalances(BigDecimal, BigDecimal, Date, Pagination) and corresponding CurrencyCloud.findBalances
-As of 1.0.3: CurrencyCloudClient.findConversions(Conversion, Collection<String>, Date, Date, Date, Date, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, String) and corresponding CurrencyCloud.findConversions
-As of 1.0.3: CurrencyCloudClient.findPayments(Payment, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, Date, Date, Pagination, String) and corresponding CurrencyCloud.findPayments
-As of 1.0.3: CurrencyCloudClient.findSettlements(String, String, Date, Date, Date, Date, Date, Date, Pagination)
-As of 1.0.3: CurrencyCloudClient.findSubAccountsIbans(String, Pagination) and corresponding CurrencyCloud.retrieveIbans
-As of 1.0.3: CurrencyCloudClient.findTransactions(Transaction, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, Pagination)  and corresponding CurrencyCloud.findTransactions
-As of 1.0.3: CurrencyCloudClient.findTransfers(String, String, String, String, String, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, String, String, Pagination)
-As of 1.0.3: CurrencyCloudClient.retrieveIbans(String, Pagination) and corresponding CurrencyCloud.retrieveIbans
-As of 1.2.3: Conversion.Conversion(String, String, String, Date, BigDecimal, String, BigDecimal, BigDecimal, String)
-As of 1.2.3: Conversion.Conversion(String, String, String, String, String, String, String)
-As of 1.2.3: Conversion.create(String, String, String)
-As of 1.2.3: Conversion.create(String, String, String, Date, BigDecimal, String, BigDecimal, BigDecimal, String)
-As of 1.2.3: Conversion.createExample
-As of 1.2.3: CurrencyCloudClient.createConversion(Conversion, BigDecimal, String, Boolean) and corresponding CurrencyCloud.createConversion
-As of 1.2.3: CurrencyCloudClient.createIban and corresponding CurrencyCloud.createIban
-As of 1.2.3: CurrencyCloudClient.firstBeneficiary(Beneficiary)
-As of 1.2.3: CurrencyCloudClient.settlementAccounts(String) and corresponding CurrencyCloud.settlementAccounts
-As of 1.2.3: Iban.Iban(String)
-As of 1.2.3: Iban.create(String)
+As of 1.0.3:
+------------
+Beneficiary.createForUpdate and Beneficiary.createForValidate
+CurrencyCloudClient.findBalances(BigDecimal, BigDecimal, Date, Pagination) and corresponding CurrencyCloud.findBalances
+CurrencyCloudClient.findConversions(Conversion, Collection<String>, Date, Date, Date, Date, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, String) and corresponding CurrencyCloud.findConversions
+CurrencyCloudClient.findPayments(Payment, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, Date, Date, Pagination, String) and corresponding CurrencyCloud.findPayments
+CurrencyCloudClient.findSettlements(String, String, Date, Date, Date, Date, Date, Date, Pagination)
+CurrencyCloudClient.findSubAccountsIbans(String, Pagination) and corresponding CurrencyCloud.retrieveIbans
+CurrencyCloudClient.findTransactions(Transaction, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, Pagination)  and corresponding CurrencyCloud.findTransactions
+CurrencyCloudClient.findTransfers(String, String, String, String, String, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, String, String, Pagination)
+CurrencyCloudClient.retrieveIbans(String, Pagination) and corresponding CurrencyCloud.retrieveIbans
+
+As of 1.2.3:
+------------
+Conversion.Conversion(String, String, String, Date, BigDecimal, String, BigDecimal, BigDecimal, String)
+Conversion.Conversion(String, String, String, String, String, String, String)
+Conversion.create(String, String, String)
+Conversion.create(String, String, String, Date, BigDecimal, String, BigDecimal, BigDecimal, String)
+Conversion.createExample
+CurrencyCloudClient.createConversion(Conversion, BigDecimal, String, Boolean) and corresponding CurrencyCloud.createConversion
+CurrencyCloudClient.createIban and corresponding CurrencyCloud.createIban
+CurrencyCloudClient.firstBeneficiary(Beneficiary)
+CurrencyCloudClient.settlementAccounts(String) and corresponding CurrencyCloud.settlementAccounts
+Iban.Iban(String)
+Iban.create(String)
+
+As of 1.5.1:
+------------
+CurrencyCloudClient.retrievePayment(String)
 ```
 
 # Support
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [1.6.0] - Update Payment Purpose Code, add Payment tests, fix Javadoc warnings and update Maven plugins
 * [1.5.1] - Add Payment Authorisation and Payment Purpose Code
 * [1.4.4] - Add Conversion Quote Cancel, Conversion Cancel, Conversion Date Change Quote, Conversion Date Change, Conversion Date Change History, Conversion Split Preview, Conversion Split, Conversion Split History and Conversion Profit and Loss
 * [1.3.0] - Add PaymentSubmission class and fix retrievePaymentSubmission
