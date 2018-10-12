@@ -67,7 +67,7 @@ public class DeserialisationTest extends JsonTestSupport {
         assertThat(payment.getBeneficiaryId(), equalTo("543477161-91de-012f-e284-1e0030c7f352"));
         assertThat(payment.getConversionId(), equalTo("049bab6d-fe2a-42e1-be0f-531c59f838ea"));
         assertThat(payment.getAmount(), equalTo(new BigDecimal("1250000.00")));
-        assertThat(payment.getCurrency(), equalTo("INR"));
+        assertThat(payment.getCurrency(), equalTo("GBP"));
         assertThat(payment.getStatus(), equalTo("ready_to_send"));
         assertThat(payment.getPaymentType(), equalTo("regular"));
         assertThat(payment.getReference(), equalTo("INVOICE 9876"));
@@ -81,7 +81,6 @@ public class DeserialisationTest extends JsonTestSupport {
         assertThat(payment.getPayerId(), equalTo(""));
         assertThat(payment.getCreatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
         assertThat(payment.getUpdatedAt(), equalTo(parseDateTime("2014-01-12T12:24:19+00:00")));
-        assertThat(payment.getPurposeCode(), equalTo("office"));
     }
 
     @Test
