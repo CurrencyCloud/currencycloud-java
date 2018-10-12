@@ -103,7 +103,6 @@ public class Payer implements Entity {
      * @param city
      * @param country
      * @param dateOfBirth
-     * @return
      */
     public static Payer create(String entityType,
                                String companyName,

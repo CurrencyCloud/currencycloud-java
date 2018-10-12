@@ -47,7 +47,7 @@ import java.util.function.Predicate;
  * The task's return value (if any) is stored in the data field of the result object {@link BackOffResult}.
  *
  * {@link BackOff} objects are created via the Builder class, configuring the relevant fields and supplying the task,
- * which can then be executed with the BackOff.<T>builder().execute() method.
+ * which can then be executed with the BackOff.builder().execute() method.
  *
  * @param <T> The return type of the task executed with exponential backoff.
  */
