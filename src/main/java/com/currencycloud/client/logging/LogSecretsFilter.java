@@ -9,13 +9,8 @@ import java.util.Collection;
 
 /**
  * This can be used to help avoid logging sensitive data in application logs, if you are using logback.
- * Add the filter to your appender configuration in logback.xml:
- *
- * <pre>
- * &lt;appender ...>
- *    &lt;filter class="com.currencycloud.client.logging.LogSecretsFilter" />
- * &lt;/appender>
- * </pre>
+ * Add the filter class="com.currencycloud.client.logging.LogSecretsFilter" to your appender configuration
+ * in logback.xml
  *
  * Note that this depends on Logback, so the project must use Logback as the slf4j logging provider.
  */

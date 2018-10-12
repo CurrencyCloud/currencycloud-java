@@ -346,7 +346,7 @@ public class DemoServerTest {
         payment = currencyCloud.createPayment(payment, payer);
         log.debug("Created payment = {}", payment);
 
-        payment = currencyCloud.retrievePayment(payment.getId());
+        payment = currencyCloud.retrievePayment(payment.getId(), null);
         log.debug("Retrieved payment = {}", payment);
 
         Date from = getDate("2015-01-01");

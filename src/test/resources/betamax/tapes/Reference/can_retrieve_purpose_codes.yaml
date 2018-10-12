@@ -2,13 +2,13 @@ name: can_retrieve_purpose_codes
 interactions:
 - request:
     method: GET
-    uri: http://localhost:5555/v2/reference/payment_purpose_codes?currency=CNY
+    uri: http://localhost:5555/v2/reference/payment_purpose_codes?currency=INR&bank_account_country=IN
     body: ''
     headers:
       X-Auth-Token:
       - 1c9da5726314246acfb09ec5651307a5
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.5.1
+      - CurrencyCloudSDK/2.0 Java/1.6.0
   response:
     status: 200
     headers:
@@ -19,14 +19,66 @@ interactions:
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - '640'
+      - '8527'
       Connection:
       - keep-alive
       X-Request-Id:
       - '2775201681275056976'
       X-Content-Type-Options:
       - nosniff
-    body: '{"purpose_codes":[{"currency":"CNY","entity_type":"company","purpose_code":"current_account_payment","purpose_description":"Payment to Current Account"},
-    {"currency":"CNY","entity_type":"company","purpose_code":"services","purpose_description":"Trade Settlement for Services"},{"currency":"CNY","entity_type":"company",
-    "purpose_code":"donations","purpose_description":"Charity Donation"},{"currency":"CNY","entity_type":"company","purpose_code":"goods","purpose_description":"Trade Settlement for Goods"},
-    {"currency":"CNY","entity_type":"company","purpose_code":"capital_account_payment","purpose_description":"Payment to Capital Account"}]}'
+    body: '{"purpose_codes":[{"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"property_purchase",
+    "purpose_description":"Purchase of residential property"},{"bank_account_country":"IN","currency":"INR","entity_type":"company",
+    "purpose_code":"construction","purpose_description":"Construction costs/expenses"},{"bank_account_country":"IN","currency":"INR",
+    "entity_type":"company","purpose_code":"travel","purpose_description":"Travel"},{"bank_account_country":"IN","currency":"INR",
+    "entity_type":"company","purpose_code":"office","purpose_description":"Representative office expenses"},{"bank_account_country":"IN",
+    "currency":"INR","entity_type":"company","purpose_code":"exports","purpose_description":"Payments for exported goods"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"travel","purpose_description":"Travel"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"services","purpose_description":"Information service charges"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"education","purpose_description":"Education-related student expenses"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"transfer","purpose_description":"Transfer to own account"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"office","purpose_description":"Representative office expenses"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"delivery","purpose_description":"Delivery fees for goods"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"goods","purpose_description":"Trade settlement for goods and general goods trades"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"services","purpose_description":"Information service charges"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"medical","purpose_description":"Medical treatment and expenses"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"royalties","purpose_description":"Royalty, trademark, patent and copyright fees"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"advisor_fees","purpose_description":"Fees for advisory, technical, academic or specialist asssitance"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"loan_repayment","purpose_description":"Repayment of loans"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"insurance_claims","purpose_description":"Insurance claims payment"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"advertising","purpose_description":"Advertising and public relations-related expenses"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"insurance_claims","purpose_description":"Insurance claims payment"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"construction","purpose_description":"Construction costs/expenses"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"other_fees","purpose_description":"Broker, front end, commitment, guarantee and custodian fees"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"transfer","purpose_description":"Transfer to own account"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"family","purpose_description":"Family maintenance"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"advertising","purpose_description":"Advertising and public relations-related expenses"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"business_insurance","purpose_description":"Product indemnity insurance"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"property_purchase","purpose_description":"Purchase of residential property"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"exports","purpose_description":"Payments for exported goods"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"goods","purpose_description":"Trade settlement for goods and general goods trades"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"advisor_fees","purpose_description":"Fees for advisory, technical, academic or specialist asssitance"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"insurance_premium","purpose_description":"Insurance premium"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"donations","purpose_description":"Donations and charitable donations"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"share_investment","purpose_description":"Investment in shares"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"hotel","purpose_description":"Hotel accommodation"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"insurance_premium","purpose_description":"Insurance premium"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"share_investment","purpose_description":"Investment in shares"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"other_fees","purpose_description":"Broker, front end, commitment, guarantee and custodian fees"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"education","purpose_description":"Education-related student expenses"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"utilities","purpose_description":"Utility bills"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"transportation","purpose_description":"Transportation fees for goods"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"property_rental","purpose_description":"Property rental payment"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"delivery","purpose_description":"Delivery fees for goods"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"family","purpose_description":"Family maintenance"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"tax","purpose_description":"Tax payment"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"medical","purpose_description":"Medical treatment and expenses"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"transportation","purpose_description":"Transportation fees for goods"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"property_rental","purpose_description":"Property rental payment"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"fund_investment","purpose_description":"Mutual fund investment"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"utilities","purpose_description":"Utility bills"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"fund_investment","purpose_description":"Mutual fund investment"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"business_insurance","purpose_description":"Product indemnity insurance"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"hotel","purpose_description":"Hotel accommodation"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"individual","purpose_code":"royalties","purpose_description":"Royalty, trademark, patent and copyright fees"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"tax","purpose_description":"Tax payment"},
+    {"bank_account_country":"IN","currency":"INR","entity_type":"company","purpose_code":"donations","purpose_description":"Donations and charitable donations"}]}'

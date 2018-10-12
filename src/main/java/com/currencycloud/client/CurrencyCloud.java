@@ -785,7 +785,8 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_identification_type") String payerIdentificationType,
             @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
             @Nullable @FormParam("unique_request_id") String uniqueRequestId,
-            @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName
+            @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName,
+            @Nullable @FormParam("purpose_code") String purposeCode
     ) throws ResponseException;
 
     /** Authorise a Payment */
@@ -805,6 +806,7 @@ public interface CurrencyCloud {
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @PathParam("id") String id,
+            @Nullable @QueryParam("with_deleted") Boolean withDeleted,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
@@ -836,7 +838,10 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_state_or_province") String payerStateOrProvince,
             @Nullable @FormParam("payer_date_of_birth") java.sql.Date payerDateOfBirth,
             @Nullable @FormParam("payer_identification_type") String payerIdentificationType,
-            @Nullable @FormParam("payer_identification_value") String payerIdentificationValue
+            @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
+            @Nullable @FormParam("payer_details_source") String payerDetailsSource,
+            @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName,
+            @Nullable @FormParam("purpose_code") String purposeCode
     ) throws ResponseException;
 
     /** Find Payments */
@@ -900,6 +905,7 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("unique_request_id") String uniqueRequestId,
             @Nullable @QueryParam("scope") String scope,
             @Nullable @QueryParam("bulk_upload_id") String bulkUploadId,
+            @Nullable @QueryParam("purpose_code") String purposeCode,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
@@ -1036,6 +1042,7 @@ public interface CurrencyCloud {
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @QueryParam("currency") String currency,
+            @QueryParam("bank_account_country") String bankAccountCountry,
             @Nullable @QueryParam("entity_type") String entityType
     ) throws ResponseException;
 
