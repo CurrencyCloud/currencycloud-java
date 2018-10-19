@@ -1,12 +1,21 @@
 language: java
 
-jdk:
-  - openjdk8
-  - oraclejdk8
-  - openjdk9
-  - oraclejdk9
-  - openjdk10
-  - oraclejdk10
+matrix:
+  include:
+  - jdk: oraclejdk8
+  - jdk: openjdk8
+  - jdk: oraclejdk9
+  - jdk: openjdk9
+  - jdk: oraclejdk10
+  - jdk: openjdk10
+  - jdk: oraclejdk11
+  - jdk: openjdk11
+    
+  allow_failures:
+  - jdk: oraclejdk8
+  - jdk: oraclejdk9
+  - jdk: oraclejdk10
+  - jdk: oraclejdk11
 
 script: mvn clean install
 
