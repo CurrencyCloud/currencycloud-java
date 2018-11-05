@@ -1,9 +1,15 @@
 package com.currencycloud.client.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -81,14 +87,22 @@ public class PaymentAuthorisation {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("paymentId", paymentId)
-                .appendField("paymentStatus", paymentStatus)
-                .appendField("updated", updated)
-                .appendField("authStepsTaken", authStepsTaken)
-                .appendField("authStepsRequired", authStepsRequired)
-                .appendField("shortReference", shortReference)
-                .appendField("error", error)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("paymentId", paymentId);
+        map.put("paymentStatus", paymentStatus);
+        map.put("updated", updated);
+        map.put("authStepsTaken", authStepsTaken);
+        map.put("authStepsRequired", authStepsRequired);
+        map.put("shortReference", shortReference);
+        map.put("error", error);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
+        }
     }
 }

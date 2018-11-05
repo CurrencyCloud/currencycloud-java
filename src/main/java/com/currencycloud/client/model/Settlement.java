@@ -2,12 +2,15 @@ package com.currencycloud.client.model;
 
 import com.currencycloud.client.jackson.SettlementEntryDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
@@ -158,30 +161,25 @@ public class Settlement implements Entity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Settlement that = (Settlement) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(shortReference, that.shortReference) &&
-                Objects.equals(status, that.status) &&
-                Objects.equals(conversionIds, that.conversionIds) &&
-                Objects.equals(entries, that.entries) &&
-                Objects.equals(createdAt, that.createdAt) &&
-                Objects.equals(updatedAt, that.updatedAt) &&
-                Objects.equals(releasedAt, that.releasedAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, shortReference, status, conversionIds, entries, createdAt, updatedAt, releasedAt);
-    }
-
-    @Override
     public String toString() {
-        return String.format("{\"id\":\"%s\", \"shortReference\":\"%s\", \"status\"\"%s\", \"conversionIds\":\"%s\", \"entries\":[\"%s\"], \"createdAt\":%s, \"updatedAt\":\"%s\", \"releasedAt\":\"%s\"}",
-                id, shortReference, status, conversionIds, entries, createdAt, updatedAt, releasedAt);
-        /*ToDo: Replace toString hack with Map<String, Entry> deserialization */
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("shortReference", shortReference);
+        map.put("status", status);
+        map.put("conversionIds", conversionIds);
+        map.put("entries", entries);
+        map.put("createdAt", createdAt);
+        map.put("updatedAt", updatedAt);
+        map.put("releasedAt", releasedAt);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
+        }
     }
 
     @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
@@ -207,25 +205,19 @@ public class Settlement implements Entity {
         }
 
         @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Entry entry = (Entry) o;
-            return Objects.equals(sendAmount, entry.sendAmount) &&
-                    Objects.equals(receiveAmount, entry.receiveAmount);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(sendAmount, receiveAmount);
-        }
-
-        @Override
         public String toString() {
-            return new JSONObject()
-                    .appendField("sendAmount", sendAmount)
-                    .appendField("receiveAmount", receiveAmount)
-                    .toString();
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+            Map<String, Object> map = new HashMap<>();
+            map.put("sendAmount", sendAmount);
+            map.put("receiveAmount", receiveAmount);
+
+            try {
+                return objectMapper.writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                return String.format("{\"error\": \"%s\"}", e.getMessage());
+            }
         }
     }
 }

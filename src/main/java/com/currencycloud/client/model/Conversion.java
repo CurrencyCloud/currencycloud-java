@@ -1,15 +1,16 @@
 package com.currencycloud.client.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -611,37 +612,45 @@ public class Conversion implements Entity {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("id", id)
-                .appendField("accountId", accountId)
-                .appendField("creatorContactId", creatorContactId)
-                .appendField("shortReference", shortReference)
-                .appendField("settlementDate", settlementDate)
-                .appendField("conversionDate", conversionDate)
-                .appendField("status", status)
-                .appendField("partnerStatus", partnerStatus)
-                .appendField("currencyPair", currencyPair)
-                .appendField("buyCurrency", buyCurrency)
-                .appendField("sellCurrency", sellCurrency)
-                .appendField("fixedSide", fixedSide)
-                .appendField("partnerBuyAmount", partnerBuyAmount)
-                .appendField("partnerSellAmount", partnerSellAmount)
-                .appendField("clientBuyAmount", clientBuyAmount)
-                .appendField("clientSellAmount", clientSellAmount)
-                .appendField("midMarketRate", midMarketRate)
-                .appendField("coreRate", coreRate)
-                .appendField("partnerRate", partnerRate)
-                .appendField("clientRate", clientRate)
-                .appendField("depositRequired", depositRequired)
-                .appendField("depositAmount", depositAmount)
-                .appendField("depositCurrency", depositCurrency)
-                .appendField("depositStatus", depositStatus)
-                .appendField("depositRequiredAt", depositRequiredAt)
-                .appendField("unallocatedFunds", unallocatedFunds)
-                .appendField("paymentIds", paymentIds)
-                .appendField("uniqueRequestId", uniqueRequestId)
-                .appendField("createdAt", createdAt)
-                .appendField("updatedAt", updatedAt)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("accountId", accountId);
+        map.put("creatorContactId", creatorContactId);
+        map.put("shortReference", shortReference);
+        map.put("settlementDate", settlementDate);
+        map.put("conversionDate", conversionDate);
+        map.put("status", status);
+        map.put("partnerStatus", partnerStatus);
+        map.put("currencyPair", currencyPair);
+        map.put("buyCurrency", buyCurrency);
+        map.put("sellCurrency", sellCurrency);
+        map.put("fixedSide", fixedSide);
+        map.put("partnerBuyAmount", partnerBuyAmount);
+        map.put("partnerSellAmount", partnerSellAmount);
+        map.put("clientBuyAmount", clientBuyAmount);
+        map.put("clientSellAmount", clientSellAmount);
+        map.put("midMarketRate", midMarketRate);
+        map.put("coreRate", coreRate);
+        map.put("partnerRate", partnerRate);
+        map.put("clientRate", clientRate);
+        map.put("depositRequired", depositRequired);
+        map.put("depositAmount", depositAmount);
+        map.put("depositCurrency", depositCurrency);
+        map.put("depositStatus", depositStatus);
+        map.put("depositRequiredAt", depositRequiredAt);
+        map.put("unallocatedFunds", unallocatedFunds);
+        map.put("paymentIds", paymentIds);
+        map.put("uniqueRequestId", uniqueRequestId);
+        map.put("createdAt", createdAt);
+        map.put("updatedAt", updatedAt);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
         }
+    }
 }

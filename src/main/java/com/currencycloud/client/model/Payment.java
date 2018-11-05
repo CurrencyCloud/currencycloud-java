@@ -2,14 +2,19 @@ package com.currencycloud.client.model;
 
 import com.currencycloud.client.dirty.DirtyWatcherDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -427,32 +432,40 @@ public class Payment implements Entity {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("id", id)
-                .appendField("shortReference", shortReference)
-                .appendField("beneficiaryId", beneficiaryId)
-                .appendField("conversionId", conversionId)
-                .appendField("amount", amount)
-                .appendField("currency", currency)
-                .appendField("status", status)
-                .appendField("paymentType", paymentType)
-                .appendField("reference", reference)
-                .appendField("reason", reason)
-                .appendField("paymentDate", paymentDate)
-                .appendField("transferredAt", transferredAt)
-                .appendField("authorisationStepsRequired", authorisationStepsRequired)
-                .appendField("creatorContactId", creatorContactId)
-                .appendField("lastUpdaterContactId", lastUpdaterContactId)
-                .appendField("failureReason", failureReason)
-                .appendField("payerId", payerId)
-                .appendField("createdAt", createdAt)
-                .appendField("updatedAt", updatedAt)
-                .appendField("uniqueRequestId", uniqueRequestId)
-                .appendField("failureReturnedAmount", failureReturnedAmount)
-                .appendField("payerDetailsSource", payerDetailsSource)
-                .appendField("paymentGroupId", paymentGroupId)
-                .appendField("ultimateBeneficiaryName", ultimateBeneficiaryName)
-                .appendField("purposeCode", purposeCode)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("shortReference", shortReference);
+        map.put("beneficiaryId", beneficiaryId);
+        map.put("conversionId", conversionId);
+        map.put("amount", amount);
+        map.put("currency", currency);
+        map.put("status", status);
+        map.put("paymentType", paymentType);
+        map.put("reference", reference);
+        map.put("reason", reason);
+        map.put("paymentDate", paymentDate);
+        map.put("transferredAt", transferredAt);
+        map.put("authorisationStepsRequired", authorisationStepsRequired);
+        map.put("creatorContactId", creatorContactId);
+        map.put("lastUpdaterContactId", lastUpdaterContactId);
+        map.put("failureReason", failureReason);
+        map.put("payerId", payerId);
+        map.put("createdAt", createdAt);
+        map.put("updatedAt", updatedAt);
+        map.put("uniqueRequestId", uniqueRequestId);
+        map.put("failureReturnedAmount", failureReturnedAmount);
+        map.put("payerDetailsSource", payerDetailsSource);
+        map.put("paymentGroupId", paymentGroupId);
+        map.put("ultimateBeneficiaryName", ultimateBeneficiaryName);
+        map.put("purposeCode", purposeCode);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
         }
+    }
 }

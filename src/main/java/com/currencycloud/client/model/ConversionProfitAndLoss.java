@@ -1,12 +1,17 @@
 package com.currencycloud.client.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -165,17 +170,25 @@ public class ConversionProfitAndLoss implements Entity {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("accountId", accountId)
-                .appendField("contactId", contactId)
-                .appendField("eventAccountId", eventAccountId)
-                .appendField("eventContactId", eventContactId)
-                .appendField("conversionId", conversionId)
-                .appendField("eventType", eventType)
-                .appendField("amount", amount)
-                .appendField("currency", currency)
-                .appendField("notes", notes)
-                .appendField("eventDateTime", eventDateTime)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("accountId", accountId);
+        map.put("contactId", contactId);
+        map.put("eventAccountId", eventAccountId);
+        map.put("eventContactId", eventContactId);
+        map.put("conversionId", conversionId);
+        map.put("eventType", eventType);
+        map.put("amount", amount);
+        map.put("currency", currency);
+        map.put("notes", notes);
+        map.put("eventDateTime", eventDateTime);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
+        }
     }
 }

@@ -2,14 +2,15 @@ package com.currencycloud.client.model;
 
 import com.currencycloud.client.dirty.DirtyWatcherDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -250,22 +251,30 @@ public class Payer implements Entity {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("id", id)
-                .appendField("legalEntityType", legalEntityType)
-                .appendField("companyName", companyName)
-                .appendField("firstName", firstName)
-                .appendField("lastName", lastName)
-                .appendField("address", address)
-                .appendField("city", city)
-                .appendField("stateOrProvince", stateOrProvince)
-                .appendField("country", country)
-                .appendField("identificationType", identificationType)
-                .appendField("identificationValue", identificationValue)
-                .appendField("postcode", postcode)
-                .appendField("dateOfBirth", dateOfBirth)
-                .appendField("createdAt", createdAt)
-                .appendField("updatedAt", updatedAt)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("legalEntityType", legalEntityType);
+        map.put("companyName", companyName);
+        map.put("firstName", firstName);
+        map.put("lastName", lastName);
+        map.put("address", address);
+        map.put("city", city);
+        map.put("stateOrProvince", stateOrProvince);
+        map.put("country", country);
+        map.put("identificationType", identificationType);
+        map.put("identificationValue", identificationValue);
+        map.put("postcode", postcode);
+        map.put("dateOfBirth", dateOfBirth);
+        map.put("createdAt", createdAt);
+        map.put("updatedAt", updatedAt);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
         }
+    }
 }

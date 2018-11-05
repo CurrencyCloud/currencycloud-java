@@ -2,14 +2,15 @@ package com.currencycloud.client.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -104,15 +105,23 @@ public class ConversionDateChangeDetails implements Entity {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("initialValueDate", initialValueDate)
-                .appendField("currentValueDate", currentValueDate)
-                .appendField("initialDeliveryDate", initialDeliveryDate)
-                .appendField("currentDeliveryDate", currentDeliveryDate)
-                .appendField("totalProfitAndLoss", totalProfitAndLoss)
-                .appendField("floatingCurrency", floatingCurrency)
-                .appendField("dateChanges", dateChanges)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("initialValueDate", initialValueDate);
+        map.put("currentValueDate", currentValueDate);
+        map.put("initialDeliveryDate", initialDeliveryDate);
+        map.put("currentDeliveryDate", currentDeliveryDate);
+        map.put("totalProfitAndLoss", totalProfitAndLoss);
+        map.put("floatingCurrency", floatingCurrency);
+        map.put("dateChanges", dateChanges);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
+        }
     }
 
     @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
@@ -182,6 +191,27 @@ public class ConversionDateChangeDetails implements Entity {
 
         public void setStatus(String status) {
             this.status = status;
+        }
+
+        @Override
+        public String toString() {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+            Map<String, Object> map = new HashMap<>();
+            map.put("requestedValueDate", requestedValueDate);
+            map.put("newValueDate", newValueDate);
+            map.put("newDeliveryDate", newDeliveryDate);
+            map.put("profitAndLoss", profitAndLoss);
+            map.put("adminFee", adminFee);
+            map.put("type", type);
+            map.put("status", status);
+
+            try {
+                return objectMapper.writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                return String.format("{\"error\": \"%s\"}", e.getMessage());
+            }
         }
     }
 }

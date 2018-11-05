@@ -1,13 +1,18 @@
 package com.currencycloud.client.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -121,21 +126,29 @@ public class DetailedRate {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("settlementCutOffTime", settlementCutOffTime)
-                .appendField("currencyPair", currencyPair)
-                .appendField("clientBuyCurrency", clientBuyCurrency)
-                .appendField("clientSellCurrency", clientSellCurrency)
-                .appendField("clientBuyAmount", clientBuyAmount)
-                .appendField("clientSellAmount", clientSellAmount)
-                .appendField("fixedSide", fixedSide)
-                .appendField("midMarketRate", midMarketRate)
-                .appendField("coreRate", coreRate)
-                .appendField("partnerRate", partnerRate)
-                .appendField("clientRate", clientRate)
-                .appendField("depositRequired", depositRequired)
-                .appendField("depositAmount", depositAmount)
-                .appendField("depositCurrency", depositCurrency)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("settlementCutOffTime", settlementCutOffTime);
+        map.put("currencyPair", currencyPair);
+        map.put("clientBuyCurrency", clientBuyCurrency);
+        map.put("clientSellCurrency", clientSellCurrency);
+        map.put("clientBuyAmount", clientBuyAmount);
+        map.put("clientSellAmount", clientSellAmount);
+        map.put("fixedSide", fixedSide);
+        map.put("midMarketRate", midMarketRate);
+        map.put("coreRate", coreRate);
+        map.put("partnerRate", partnerRate);
+        map.put("clientRate", clientRate);
+        map.put("depositRequired", depositRequired);
+        map.put("depositAmount", depositAmount);
+        map.put("depositCurrency", depositCurrency);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
+        }
     }
 }

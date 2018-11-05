@@ -1,12 +1,17 @@
 package com.currencycloud.client.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -98,16 +103,24 @@ public class ConversionSplitDetails implements Entity {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("id", id)
-                .appendField("shortReference", shortReference)
-                .appendField("sellAmount", sellAmount)
-                .appendField("sellCurrency", sellCurrency)
-                .appendField("buyAmount", buyAmount)
-                .appendField("buyCurrency", buyCurrency)
-                .appendField("settlementDate", settlementDate)
-                .appendField("conversionDate", conversionDate)
-                .appendField("status", status)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("shortReference", shortReference);
+        map.put("sellAmount", sellAmount);
+        map.put("sellCurrency", sellCurrency);
+        map.put("buyAmount", buyAmount);
+        map.put("buyCurrency", buyCurrency);
+        map.put("settlementDate", settlementDate);
+        map.put("conversionDate", conversionDate);
+        map.put("status", status);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
+        }
     }
 }

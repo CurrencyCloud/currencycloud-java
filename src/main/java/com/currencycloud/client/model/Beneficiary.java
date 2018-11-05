@@ -3,13 +3,18 @@ package com.currencycloud.client.model;
 import com.currencycloud.client.dirty.DirtyWatcherDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -388,42 +393,50 @@ public class Beneficiary implements Entity {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("id", id)
-                .appendField("bankAccountHolderName", bankAccountHolderName)
-                .appendField("name", name)
-                .appendField("email", email)
-                .appendField("defaultBeneficiary", defaultBeneficiary)
-                .appendField("creatorContactId", creatorContactId)
-                .appendField("createdAt", createdAt)
-                .appendField("updatedAt", updatedAt)
-                .appendField("paymentTypes", paymentTypes)
-                .appendField("bankCountry", bankCountry)
-                .appendField("bankName", bankName)
-                .appendField("currency", currency)
-                .appendField("accountNumber", accountNumber)
-                .appendField("routingCodeType1", routingCodeType1)
-                .appendField("bankAccountType", bankAccountType)
-                .appendField("beneficiaryAddress", beneficiaryAddress)
-                .appendField("beneficiaryCountry", beneficiaryCountry)
-                .appendField("beneficiaryEntityType", beneficiaryEntityType)
-                .appendField("beneficiaryCompanyName", beneficiaryCompanyName)
-                .appendField("beneficiaryFirstName", beneficiaryFirstName)
-                .appendField("beneficiaryLastName", beneficiaryLastName)
-                .appendField("beneficiaryCity", beneficiaryCity)
-                .appendField("beneficiaryPostcode", beneficiaryPostcode)
-                .appendField("beneficiaryStateOrProvince", beneficiaryStateOrProvince)
-                .appendField("beneficiaryDateOfBirth", beneficiaryDateOfBirth)
-                .appendField("beneficiaryIdentificationType", beneficiaryIdentificationType)
-                .appendField("beneficiaryIdentificationValue", beneficiaryIdentificationValue)
-                .appendField("routingCodeValue1", routingCodeValue1)
-                .appendField("routingCodeType2", routingCodeType2)
-                .appendField("routingCodeValue2", routingCodeValue2)
-                .appendField("bicSwift", bicSwift)
-                .appendField("iban", iban)
-                .appendField("bankAddress", bankAddress)
-                .appendField("beneficiaryExternalReference", beneficiaryExternalReference)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("bankAccountHolderName", bankAccountHolderName);
+        map.put("name", name);
+        map.put("email", email);
+        map.put("defaultBeneficiary", defaultBeneficiary);
+        map.put("creatorContactId", creatorContactId);
+        map.put("createdAt", createdAt);
+        map.put("updatedAt", updatedAt);
+        map.put("paymentTypes", paymentTypes);
+        map.put("bankCountry", bankCountry);
+        map.put("bankName", bankName);
+        map.put("currency", currency);
+        map.put("accountNumber", accountNumber);
+        map.put("routingCodeType1", routingCodeType1);
+        map.put("bankAccountType", bankAccountType);
+        map.put("beneficiaryAddress", beneficiaryAddress);
+        map.put("beneficiaryCountry", beneficiaryCountry);
+        map.put("beneficiaryEntityType", beneficiaryEntityType);
+        map.put("beneficiaryCompanyName", beneficiaryCompanyName);
+        map.put("beneficiaryFirstName", beneficiaryFirstName);
+        map.put("beneficiaryLastName", beneficiaryLastName);
+        map.put("beneficiaryCity", beneficiaryCity);
+        map.put("beneficiaryPostcode", beneficiaryPostcode);
+        map.put("beneficiaryStateOrProvince", beneficiaryStateOrProvince);
+        map.put("beneficiaryDateOfBirth", beneficiaryDateOfBirth);
+        map.put("beneficiaryIdentificationType", beneficiaryIdentificationType);
+        map.put("beneficiaryIdentificationValue", beneficiaryIdentificationValue);
+        map.put("routingCodeValue1", routingCodeValue1);
+        map.put("routingCodeType2", routingCodeType2);
+        map.put("routingCodeValue2", routingCodeValue2);
+        map.put("bicSwift", bicSwift);
+        map.put("iban", iban);
+        map.put("bankAddress", bankAddress);
+        map.put("beneficiaryExternalReference", beneficiaryExternalReference);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
+        }
     }
 }
 

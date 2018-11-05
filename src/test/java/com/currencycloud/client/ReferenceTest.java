@@ -81,6 +81,9 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(currency.getCode(), equalTo("AED"));
         assertThat(currency.getName(), equalTo("United Arab Emirates Dirham"));
         assertThat(currency.getDecimalPlaces(), equalTo(2));
+        assertThat(currency.getOnlineTrading(), is(true));
+        assertThat(currency.getCanBuy(), is(true));
+        assertThat(currency.getCanSell(), is(true));
     }
 
     @Test

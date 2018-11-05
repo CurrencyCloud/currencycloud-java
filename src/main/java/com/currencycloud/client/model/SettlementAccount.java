@@ -2,12 +2,17 @@ package com.currencycloud.client.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -90,21 +95,29 @@ public class SettlementAccount {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("bankAccountHolderName", bankAccountHolderName)
-                .appendField("beneficiaryAddress", beneficiaryAddress)
-                .appendField("beneficiaryCountry", beneficiaryCountry)
-                .appendField("bankName", bankName)
-                .appendField("bankAddress", bankAddress)
-                .appendField("bankCountry", bankCountry)
-                .appendField("currency", currency)
-                .appendField("bicSwift", bicSwift)
-                .appendField("iban", iban)
-                .appendField("accountNumber", accountNumber)
-                .appendField("routingCodeType1", routingCodeType1)
-                .appendField("routingCodeValue1", routingCodeValue1)
-                .appendField("routingCodeType2", routingCodeType2)
-                .appendField("routingCodeValue2", routingCodeValue2)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("bankAccountHolderName", bankAccountHolderName);
+        map.put("beneficiaryAddress", beneficiaryAddress);
+        map.put("beneficiaryCountry", beneficiaryCountry);
+        map.put("bankName", bankName);
+        map.put("bankAddress", bankAddress);
+        map.put("bankCountry", bankCountry);
+        map.put("currency", currency);
+        map.put("bicSwift", bicSwift);
+        map.put("iban", iban);
+        map.put("accountNumber", accountNumber);
+        map.put("routingCodeType1", routingCodeType1);
+        map.put("routingCodeValue1", routingCodeValue1);
+        map.put("routingCodeType2", routingCodeType2);
+        map.put("routingCodeValue2", routingCodeValue2);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
+        }
     }
 }

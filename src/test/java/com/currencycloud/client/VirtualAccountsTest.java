@@ -2,19 +2,17 @@ package com.currencycloud.client;
 
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
+import com.currencycloud.client.model.Pagination;
 import com.currencycloud.client.model.VirtualAccount;
 import com.currencycloud.client.model.VirtualAccounts;
-import com.currencycloud.client.model.Pagination;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -64,7 +62,7 @@ public class VirtualAccountsTest extends BetamaxTestSupport {
         Pagination paginationCondition = new Pagination();
         paginationCondition.setOrder("created_at");
         paginationCondition.setOrderAscDesc(Pagination.SortOrder.desc);
-        VirtualAccounts virtualAccountsData = client.findVirtualAccounts(null, paginationCondition);
+        VirtualAccounts virtualAccountsData = client.retrieveVirtualAccount(paginationCondition);
         List<VirtualAccount> virtualAccounts = virtualAccountsData.getVirtualAccounts();
         Pagination pagination = virtualAccountsData.getPagination();
 
@@ -95,18 +93,17 @@ public class VirtualAccountsTest extends BetamaxTestSupport {
         Pagination paginationCondition = new Pagination();
         VirtualAccounts virtualAccountsData = client.findSubAccountsVirtualAccounts(virtualAccountCondition, paginationCondition);
         List<VirtualAccount> virtualAccounts = virtualAccountsData.getVirtualAccounts();
-        JSONObject virtualAccountJSON = (JSONObject) new JSONParser(JSONParser.MODE_RFC4627).parse(virtualAccounts.iterator().next().toString());
+        VirtualAccount virtualAccount = virtualAccounts.iterator().next();
 
         assertThat(virtualAccounts, not(empty()));
         assertThat(virtualAccounts.size(), is(1));
-        assertThat(virtualAccountJSON.get("id"), equalTo("00d272ee-fae5-4f97-b425-993a2d6e3a46"));
-        assertThat(virtualAccountJSON.get("accountId"), equalTo("2090939e-b2f7-3f2b-1363-4d235b3f58af"));
-        assertThat(virtualAccountJSON.get("virtualAccountNumber"), equalTo("8303723297"));
-        assertThat(virtualAccountJSON.get("accountHolderName"), equalTo("Account-ZXOANNAMKPRQ"));
-        assertThat(virtualAccountJSON.get("bankInstitutionName"), equalTo("Community Federal Savings Bank"));
-        assertThat(virtualAccountJSON.get("bankInstitutionAddress"), equalTo("Seventh Avenue, New York, NY 10019, US"));
-        assertThat(virtualAccountJSON.get("bankInstitutionCountry"), equalTo("United States"));
-
+        assertThat(virtualAccount.getId(), equalTo("00d272ee-fae5-4f97-b425-993a2d6e3a46"));
+        assertThat(virtualAccount.getAccountId(), equalTo("2090939e-b2f7-3f2b-1363-4d235b3f58af"));
+        assertThat(virtualAccount.getVirtualAccountNumber(), equalTo("8303723297"));
+        assertThat(virtualAccount.getAccountHolderName(), equalTo("Account-ZXOANNAMKPRQ"));
+        assertThat(virtualAccount.getBankInstitutionName(), equalTo("Community Federal Savings Bank"));
+        assertThat(virtualAccount.getBankInstitutionAddress(), equalTo("Seventh Avenue, New York, NY 10019, US"));
+        assertThat(virtualAccount.getBankInstitutionCountry(), equalTo("United States"));
     }
 
     @Test
@@ -114,16 +111,16 @@ public class VirtualAccountsTest extends BetamaxTestSupport {
     public void testCanRetrieveSubAccountVirtualAccount() throws Exception {
         VirtualAccounts virtualAccountsData = client.retrieveSubAccountsVirtualAccount("87077161-91de-012f-e284-1e0030c7f353", null);
         List<VirtualAccount> virtualAccounts = virtualAccountsData.getVirtualAccounts();
-        JSONObject virtualAccountJSON = (JSONObject) new JSONParser(JSONParser.MODE_RFC4627).parse(virtualAccounts.iterator().next().toString());
+        VirtualAccount virtualAccount = virtualAccounts.iterator().next();
 
         assertThat(virtualAccounts, not(empty()));
         assertThat(virtualAccounts.size(), is(1));
-        assertThat(virtualAccountJSON.get("id"), equalTo("00d272ee-fae5-4f97-b425-993a2d6e3a46"));
-        assertThat(virtualAccountJSON.get("accountId"), equalTo("2090939e-b2f7-3f2b-1363-4d235b3f58af"));
-        assertThat(virtualAccountJSON.get("virtualAccountNumber"), equalTo("8303723297"));
-        assertThat(virtualAccountJSON.get("accountHolderName"), equalTo("Account-ZXOANNAMKPRQ"));
-        assertThat(virtualAccountJSON.get("bankInstitutionName"), equalTo("Community Federal Savings Bank"));
-        assertThat(virtualAccountJSON.get("bankInstitutionAddress"), equalTo("Seventh Avenue, New York, NY 10019, US"));
-        assertThat(virtualAccountJSON.get("bankInstitutionCountry"), equalTo("United States"));
+        assertThat(virtualAccount.getId(), equalTo("00d272ee-fae5-4f97-b425-993a2d6e3a46"));
+        assertThat(virtualAccount.getAccountId(), equalTo("2090939e-b2f7-3f2b-1363-4d235b3f58af"));
+        assertThat(virtualAccount.getVirtualAccountNumber(), equalTo("8303723297"));
+        assertThat(virtualAccount.getAccountHolderName(), equalTo("Account-ZXOANNAMKPRQ"));
+        assertThat(virtualAccount.getBankInstitutionName(), equalTo("Community Federal Savings Bank"));
+        assertThat(virtualAccount.getBankInstitutionAddress(), equalTo("Seventh Avenue, New York, NY 10019, US"));
+        assertThat(virtualAccount.getBankInstitutionCountry(), equalTo("United States"));
     }
 }

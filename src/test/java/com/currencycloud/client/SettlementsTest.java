@@ -76,11 +76,11 @@ public class SettlementsTest extends BetamaxTestSupport {
         assertThat(updatedSettlement.getConversionIds(), equalTo(Collections.singletonList("24d2ee7f-c7a3-4181-979e-9c58dbace992")));
         Map<String, Settlement.Entry> entries = updatedSettlement.getEntries();
         assertThat(entries, not(anEmptyMap()));
-        assertThat(entries, hasEntry("GBP", new Settlement.Entry(new BigDecimal("1000.00"), new BigDecimal("0.00"))));
-        assertThat(entries, hasEntry("USD", new Settlement.Entry(new BigDecimal("0.00"), new BigDecimal("1511.70"))));
+        assertThat(entries.get("GBP").getReceiveAmount(), equalTo(new BigDecimal("1000.00")));
+        assertThat(entries.get("GBP").getSendAmount(), equalTo(new BigDecimal("0.00")));
+        assertThat(entries.get("USD").getReceiveAmount(), equalTo(new BigDecimal("0.00")));
+        assertThat(entries.get("USD").getSendAmount(), equalTo(new BigDecimal("1511.70")));
         assertThat(updatedSettlement.getUpdatedAt(), equalTo(parseDateTime("2015-05-04T20:40:56+00:00")));
-
-        System.out.println("Settlement toString: " + updatedSettlement.toString());
     }
 
     @Test

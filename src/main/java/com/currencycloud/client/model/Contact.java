@@ -2,13 +2,18 @@ package com.currencycloud.client.model;
 
 import com.currencycloud.client.dirty.DirtyWatcherDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
 import javax.annotation.Nullable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -247,23 +252,31 @@ public class Contact implements Entity {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("loginId", loginId)
-                .appendField("id", id)
-                .appendField("yourReference", yourReference)
-                .appendField("firstName", firstName)
-                .appendField("lastName", lastName)
-                .appendField("accountId", accountId)
-                .appendField("accountName", accountName)
-                .appendField("status", status)
-                .appendField("phoneNumber", phoneNumber)
-                .appendField("mobilePhoneNumber", mobilePhoneNumber)
-                .appendField("locale", locale)
-                .appendField("timezone", timezone)
-                .appendField("emailAddress", emailAddress)
-                .appendField("dateOfBirth", dateOfBirth)
-                .appendField("createdAt", createdAt)
-                .appendField("updatedAt", updatedAt)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("loginId", loginId);
+        map.put("id", id);
+        map.put("yourReference", yourReference);
+        map.put("firstName", firstName);
+        map.put("lastName", lastName);
+        map.put("accountId", accountId);
+        map.put("accountName", accountName);
+        map.put("status", status);
+        map.put("phoneNumber", phoneNumber);
+        map.put("mobilePhoneNumber", mobilePhoneNumber);
+        map.put("locale", locale);
+        map.put("timezone", timezone);
+        map.put("emailAddress", emailAddress);
+        map.put("dateOfBirth", dateOfBirth);
+        map.put("createdAt", createdAt);
+        map.put("updatedAt", updatedAt);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
         }
+    }
 }
