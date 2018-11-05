@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
-[![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22) 
+[![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22)
 # Currencycloud API v2 Java client
-## Version: 1.6.1
+## Version: 1.7.4
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -27,7 +27,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>1.6.1</version>
+    <version>1.7.4</version>
 </dependency>
 ```
 
@@ -35,13 +35,13 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 Download the Currencycloud SDK jar:
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-1.6.1.jar 
+3. Download the currencycloud-java-1.7.4.jar 
 
 Get the list of all dependencies:
 ```Shell
 mvn dependency:list -DincludeScope=runtime
 ```
-As of version 1.3.0, this returns the following list:
+As of version 1.7.4, this returns the following list:
 ```
 cglib:cglib:3.2.6:compile
 ch.qos.logback:logback-classic:1.2.3:compile
@@ -53,7 +53,6 @@ com.github.mmazi:rescu:2.0.2:compile
 com.google.code.findbugs:jsr305:3.0.2:compile
 javax.ws.rs:javax.ws.rs-api:2.1:compile
 javax.ws.rs:jsr311-api:1.1.1:compile
-net.minidev:json-smart:2.3
 org.ow2.asm:asm:6.0:compile
 org.slf4j:slf4j-api:1.7.25:compile
 ```
@@ -245,12 +244,20 @@ Iban.create(String)
 As of 1.5.1:
 ------------
 CurrencyCloudClient.retrievePayment(String)
+
+As of 1.7.4:
+------------
+CurrencyCloudClient.retrieveSubAccountsIban(String, Pagination) and corresponding CurrencyCloud.retrieveSubAccountsIban
+CurrencyCloudClient.findSubAccountsIbans(Iban, Pagination) and corresponding CurrencyCloud.findSubAccountsIbans
+CurrencyCloudClient.retrieveSubAccountsVirtualAccount(String, Pagination) and corresponding CurrencyCloud.retrieveSubAccountsVirtualAccount
+CurrencyCloudClient.findSubAccountsVirtualAccounts(VirtualAccount, Pagination) and corresponding CurrencyCloud.findSubAccountsVirtualAccounts
 ```
 
 # Support
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [1.7.4] - Add Reporting paths and operations, remove json-smart dependency, change toString implementation, add missing Currency fields, update IBAN and VirtualAccounts, and deprecate obsolete IBAN and VirtualAccounts methods
 * [1.6.1] - Add support for JDK 11
 * [1.6.0] - Update Payment Purpose Code, add Payment tests, fix Javadoc warnings and update Maven plugins
 * [1.5.1] - Add Payment Authorisation and Payment Purpose Code
@@ -275,7 +282,7 @@ Copyright (c) 2015-2018 Currencycloud. See [LICENSE][license] for details.
 [travis]:    https://travis-ci.org/CurrencyCloud/currencycloud-java
 [semver]:    http://semver.org/
 [sonatype]:  https://oss.sonatype.org/
-[ebwj]: https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
+[ebwj]:      https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
 [license]:   LICENSE.md
 [contr]:     CONTRIBUTING.md
 [hof]:       HALL_OF_FAME.md
