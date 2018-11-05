@@ -2,13 +2,13 @@ name: can_finds
 interactions:
 - request:
     method: GET
-    uri: http://localhost:5555/v2/virtual_accounts
+    uri: http://localhost:5555/v2/virtual_accounts/find
     body: ''
     headers:
       X-Auth-Token:
       - 47abdf69f25ea4e8f57a7a7b54fbc42e
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.6.0
+      - CurrencyCloudSDK/2.0 Java/1.7.4
   response:
     status: 200
     headers:

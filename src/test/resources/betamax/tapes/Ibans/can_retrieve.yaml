@@ -2,13 +2,13 @@ name: can_retrieve
 interactions:
 - request:
     method: GET
-    uri: http://localhost:5555/v2/ibans?currency=GBP
+    uri: http://localhost:5555/v2/ibans/find?currency=GBP
     body: ''
     headers:
       X-Auth-Token:
       - 8af871a5e8007f5073caceaf75d0bc72
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.6.0
+      - CurrencyCloudSDK/2.0 Java/1.7.4
   response:
     status: 200
     headers:

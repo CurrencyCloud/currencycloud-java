@@ -6,7 +6,7 @@ interactions:
     body: login_id=non-existent-login-id&api_key=deadbeefdeadbeefdeadbeefdeadbeefdeadbeef
     headers:
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.6.0
+      - CurrencyCloudSDK/2.0 Java/1.7.4
   response:
     status: 400
     headers:
@@ -24,5 +24,5 @@ interactions:
       - close
       Content-Length:
       - '190'
-    body: '{"error_code":"auth_invalid_user_login_details","error_messages":{"api_key":[{"code":"api_key_length_is_invalid","message":"api_key
-        should be 64 character(s) long","params":{"length":64}}]}}'
+    body: '{"error_code":"auth_invalid_user_login_details","error_messages":{"api_key":[{"code":"api_key_length_is_invalid","message":"api_key should be 64 character(s) long",
+    "params":{"length":64}}]}}'
