@@ -46,7 +46,7 @@ public class ErrorTest extends BetamaxTestSupport {
                 buildMap("error.platform", CurrencyCloudException.PLATFORM)
         );
 
-        assertThat(error.toString(), equalTo(expectedErrorPattern));
+        assertThat(error.toString().replaceAll("\r\n|\r|\n", " "), equalTo(expectedErrorPattern.replaceAll("\r\n|\r|\n", " ")));
     }
 
     @Test
@@ -89,7 +89,7 @@ public class ErrorTest extends BetamaxTestSupport {
                     readFile("/errors/is_raised_on_unexpected_error.yaml"),
                     buildMap("error.platform", CurrencyCloudException.PLATFORM)
             );
-            assertThat(error.toString(), equalTo(expectedErrorPattern));
+            assertThat(error.toString().replaceAll("\r\n|\r|\n", " ").substring(0, 320), equalTo(expectedErrorPattern.replaceAll("\r\n|\r|\n", " ").substring(0, 320)));
         }
     }
 
