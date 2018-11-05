@@ -1,11 +1,16 @@
 package com.currencycloud.client.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -21,6 +26,7 @@ public class VirtualAccount implements Entity {
     private String routingCode;
     private Date createdAt;
     private Date updatedAt;
+    private String scope;
 
     protected VirtualAccount() { }
 
@@ -109,19 +115,35 @@ public class VirtualAccount implements Entity {
         this.updatedAt = updatedAt;
     }
 
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("id", id)
-                .appendField("accountId", accountId)
-                .appendField("virtualAccountNumber", virtualAccountNumber)
-                .appendField("accountHolderName", accountHolderName)
-                .appendField("bankInstitutionName", bankInstitutionName)
-                .appendField("bankInstitutionAddress", bankInstitutionAddress)
-                .appendField("bankInstitutionCountry", bankInstitutionCountry)
-                .appendField("routingCode", routingCode)
-                .appendField("createdAt", createdAt)
-                .appendField("updatedAt", updatedAt)
-                .toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("accountId", accountId);
+        map.put("virtualAccountNumber", virtualAccountNumber);
+        map.put("accountHolderName", accountHolderName);
+        map.put("bankInstitutionName", bankInstitutionName);
+        map.put("bankInstitutionAddress", bankInstitutionAddress);
+        map.put("bankInstitutionCountry", bankInstitutionCountry);
+        map.put("routingCode", routingCode);
+        map.put("createdAt", createdAt);
+        map.put("updatedAt", updatedAt);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
         }
+    }
 }
