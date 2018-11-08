@@ -1,5 +1,6 @@
 package com.currencycloud.client.model;
 
+import com.currencycloud.client.Utils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -43,6 +44,7 @@ public class ConversionDateChangeDetails implements Entity {
         return new ConversionDateChangeDetails(id);
     }
 
+    @Override
     public String getId() {
         return id;
     }
@@ -105,9 +107,10 @@ public class ConversionDateChangeDetails implements Entity {
 
     @Override
     public String toString() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        final ObjectMapper objectMapper = new ObjectMapper()
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .setDateFormat(new SimpleDateFormat(Utils.dateFormat));
+
         Map<String, Object> map = new HashMap<>();
         map.put("initialValueDate", initialValueDate);
         map.put("currentValueDate", currentValueDate);
@@ -195,9 +198,10 @@ public class ConversionDateChangeDetails implements Entity {
 
         @Override
         public String toString() {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-            objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+            final ObjectMapper objectMapper = new ObjectMapper()
+                    .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                    .setDateFormat(new SimpleDateFormat(Utils.dateFormat));
+
             Map<String, Object> map = new HashMap<>();
             map.put("requestedValueDate", requestedValueDate);
             map.put("newValueDate", newValueDate);

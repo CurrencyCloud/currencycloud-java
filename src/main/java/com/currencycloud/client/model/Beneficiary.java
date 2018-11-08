@@ -1,5 +1,6 @@
 package com.currencycloud.client.model;
 
+import com.currencycloud.client.Utils;
 import com.currencycloud.client.dirty.DirtyWatcherDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -111,6 +112,7 @@ public class Beneficiary implements Entity {
         return new Beneficiary(bankAccountHolderName, bankCountry, currency, name);
     }
 
+    @Override
     public String getId() {
         return id;
     }
@@ -393,9 +395,10 @@ public class Beneficiary implements Entity {
 
     @Override
     public String toString() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"));
+        final ObjectMapper objectMapper = new ObjectMapper()
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .setDateFormat(new SimpleDateFormat(Utils.dateFormat));
+
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
         map.put("bankAccountHolderName", bankAccountHolderName);

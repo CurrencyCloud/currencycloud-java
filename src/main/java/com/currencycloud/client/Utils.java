@@ -5,6 +5,8 @@ import java.util.List;
 public enum Utils {
     ;
 
+    public static final String dateFormat = "yyyy-MM-dd'T'HH:mm:ssX";
+
     public static String join(Iterable<String> strings, String separator) {
         if (strings == null) {
             return null;
