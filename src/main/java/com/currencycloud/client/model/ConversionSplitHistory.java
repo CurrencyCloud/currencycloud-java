@@ -1,12 +1,17 @@
 package com.currencycloud.client.model;
 
-
+import com.currencycloud.client.Utils;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -33,6 +38,7 @@ public class ConversionSplitHistory implements Entity {
         return new ConversionSplitHistory(id);
     }
 
+    @Override
     public String getId() {
         return id;
     }
@@ -67,10 +73,19 @@ public class ConversionSplitHistory implements Entity {
 
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("parentConversion", parentConversion)
-                .appendField("originConversion", originConversion)
-                .appendField("childConversions", childConversions)
-                .toString();
+        final ObjectMapper objectMapper = new ObjectMapper()
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .setDateFormat(new SimpleDateFormat(Utils.dateFormat));
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("parentConversion", parentConversion);
+        map.put("originConversion", originConversion);
+        map.put("childConversions", childConversions);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
+        }
     }
 }

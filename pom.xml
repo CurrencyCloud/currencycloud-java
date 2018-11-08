@@ -4,7 +4,7 @@
 
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>1.6.2-SNAPSHOT</version>
+    <version>1.7.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Currencycloud</name>
@@ -200,11 +200,6 @@
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
             <version>2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>net.minidev</groupId>
-            <artifactId>json-smart</artifactId>
-            <version>2.3</version>
         </dependency>
         <!-- Test dependencies: -->
         <dependency>

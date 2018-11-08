@@ -5,16 +5,14 @@ import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.Iban;
 import com.currencycloud.client.model.Ibans;
 import com.currencycloud.client.model.Pagination;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -112,15 +110,15 @@ public class IbansTest extends BetamaxTestSupport {
         Pagination paginationCondition = new Pagination();
         Ibans ibansData = client.findSubAccountsIbans(ibanCondition, paginationCondition);
         List<Iban> ibans = ibansData.getIbans();
-        JSONObject ibanJSON = (JSONObject) new JSONParser(JSONParser.MODE_RFC4627).parse(ibans.iterator().next().toString());
+        Iban iban = ibans.iterator().next();
 
         assertThat(ibans, not(empty()));
         assertThat(ibans.size(), is(1));
-        assertThat(ibanJSON.get("currency"), equalTo("EUR"));
-        assertThat(ibanJSON.get("id"), equalTo("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe"));
-        assertThat(ibanJSON.get("ibanCode"), equalTo("GB51TCCL00997997989489"));
-        assertThat(ibanJSON.get("accountId"), equalTo("87077161-91de-012f-e284-1e0030c7f352"));
-        assertThat(ibanJSON.get("accountHolderName"), equalTo("Account-IGGLNHYTWFKI"));
+        assertThat(iban.getCurrency(), equalTo("EUR"));
+        assertThat(iban.getId(), equalTo("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe"));
+        assertThat(iban.getIbanCode(), equalTo("GB51TCCL00997997989489"));
+        assertThat(iban.getAccountId(), equalTo("87077161-91de-012f-e284-1e0030c7f352"));
+        assertThat(iban.getAccountHolderName(), equalTo("Account-IGGLNHYTWFKI"));
     }
 
     @Test
@@ -128,15 +126,14 @@ public class IbansTest extends BetamaxTestSupport {
     public void testCanRetrieveSubAccountIban() throws Exception {
         Ibans ibansData = client.retrieveSubAccountsIban("87077161-91de-012f-e284-1e0030c7f353", null);
         List<Iban> ibans = ibansData.getIbans();
-        JSONObject ibanJSON = (JSONObject) new JSONParser(JSONParser.MODE_RFC4627).parse(ibans.iterator().next().toString());
+        Iban iban = ibans.iterator().next();
 
         assertThat(ibans, not(empty()));
         assertThat(ibans.size(), is(1));
-        assertThat(ibanJSON.getAsString("currency"), equalTo("JPY"));
-        assertThat(ibanJSON.get("currency"), equalTo("JPY"));
-        assertThat(ibanJSON.get("id"), equalTo("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe"));
-        assertThat(ibanJSON.get("ibanCode"), equalTo("GB51TCCL00997997989490"));
-        assertThat(ibanJSON.get("accountId"), equalTo("87077161-91de-012f-e284-1e0030c7f353"));
-        assertThat(ibanJSON.get("accountHolderName"), equalTo("Account-IGGLNHYTWFKI"));
+        assertThat(iban.getCurrency(), equalTo("JPY"));
+        assertThat(iban.getId(), equalTo("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe"));
+        assertThat(iban.getIbanCode(), equalTo("GB51TCCL00997997989490"));
+        assertThat(iban.getAccountId(), equalTo("87077161-91de-012f-e284-1e0030c7f353"));
+        assertThat(iban.getAccountHolderName(), equalTo("Account-IGGLNHYTWFKI"));
     }
 }

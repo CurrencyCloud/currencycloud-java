@@ -6,6 +6,7 @@ import net.sf.cglib.proxy.Enhancer;
 
 public abstract class DirtyWatcherDeserializer<E extends Entity> extends StdConverter<E, E> {
 
+    @SuppressWarnings("unchecked")
     @Override
     public E convert(E watched) {
         Enhancer enhancer = new Enhancer();

@@ -1,11 +1,17 @@
 package com.currencycloud.client.model;
 
+import com.currencycloud.client.Utils;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.minidev.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -22,6 +28,7 @@ public class Iban implements Entity {
     private String bicSwift;
     private Date createdAt;
     private Date updatedAt;
+    private String scope;
 
     protected Iban() { }
 
@@ -134,20 +141,37 @@ public class Iban implements Entity {
         this.updatedAt = updatedAt;
     }
 
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
     @Override
     public String toString() {
-        return new JSONObject()
-                .appendField("id", id)
-                .appendField("ibanCode", ibanCode)
-                .appendField("accountId", accountId)
-                .appendField("currency", currency)
-                .appendField("accountHolderName", accountHolderName)
-                .appendField("bankInstitutionName", bankInstitutionName)
-                .appendField("bankInstitutionAddress", bankInstitutionAddress)
-                .appendField("bankInstitutionCountry", bankInstitutionCountry)
-                .appendField("bicSwift", bicSwift)
-                .appendField("createdAt", createdAt)
-                .appendField("updatedAt", updatedAt)
-                .toString();
+        final ObjectMapper objectMapper = new ObjectMapper()
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .setDateFormat(new SimpleDateFormat(Utils.dateFormat));
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("ibanCode", ibanCode);
+        map.put("accountId", accountId);
+        map.put("currency", currency);
+        map.put("accountHolderName", accountHolderName);
+        map.put("bankInstitutionName", bankInstitutionName);
+        map.put("bankInstitutionAddress", bankInstitutionAddress);
+        map.put("bankInstitutionCountry", bankInstitutionCountry);
+        map.put("bicSwift", bicSwift);
+        map.put("createdAt", createdAt);
+        map.put("updatedAt", updatedAt);
+
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"error\": \"%s\"}", e.getMessage());
         }
+    }
 }

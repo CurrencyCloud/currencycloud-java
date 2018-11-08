@@ -39,7 +39,7 @@ public class ReflectionUtils {
         return new String(chars);
     }
 
-    public static Method getGetterFromProperty(Class clazz, String property)
+    public static Method getGetterFromProperty(Class<?> clazz, String property)
             throws NoSuchMethodException {
         char[] chars = property.toCharArray();
         chars[0] = Character.toUpperCase(chars[0]);
