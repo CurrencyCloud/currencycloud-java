@@ -252,4 +252,20 @@ public class PaymentsTest extends BetamaxTestSupport {
 
     }
 
+    @Test
+    @Betamax(tape = "can_retrieve_confirmation", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanRetrieveConfirmation() throws Exception {
+        PaymentConfirmation confirmation = client.retrievePaymentConfirmation("e6b30f2d-0088-4d99-bb47-c6b136fcf447");
+
+        assertThat(confirmation, notNullValue());
+        assertThat(confirmation.getId(), equalTo("e6b30f2d-0088-4d99-bb47-c6b136fcf447"));
+        assertThat(confirmation.getPaymentId(), equalTo("796e0d7d-bae6-4d8a-b217-3cf9ee80a350"));
+        assertThat(confirmation.getAccountId(), equalTo("72970a7c-7921-431c-b95f-3438724ba16f"));
+        assertThat(confirmation.getShortReference(), equalTo("PC-2436231-LYODVS"));
+        assertThat(confirmation.getStatus(), equalTo("completed"));
+        assertThat(confirmation.getConfirmationUrl(),  is(not(emptyString())));
+        assertThat(confirmation.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(confirmation.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(confirmation.getExpiresAt(), equalTo(parseDateTime("2018-01-03T00:00:00+00:00")));
+    }
 }

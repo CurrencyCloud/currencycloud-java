@@ -1165,6 +1165,14 @@ public class CurrencyCloudClient {
         );
     }
 
+    public PaymentConfirmation retrievePaymentConfirmation(String id) throws CurrencyCloudException {
+        return api.retrievePaymentConfirmation(
+                authToken,
+                userAgent,
+                id,
+                getOnBehalfOf());
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 
@@ -1188,6 +1196,105 @@ public class CurrencyCloudClient {
                 amount,
                 getOnBehalfOf(),
                 dateOnly(conversionDate)
+        );
+    }
+
+    ////////////////////////////////////////////////////////////////////
+    ///// REPORTS //////////////////////////////////////////////////////
+
+    /**
+     * @param reportRequest Non-null properties will be used for querying. Null values will be ignored.
+     * @param pagination     pagination settings
+     * @return               The paginated ReportRequest search result
+     * @throws               CurrencyCloudException When an error occurs
+     */
+    public ReportRequests findReportRequests(@Nullable ReportRequest reportRequest, @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        if (reportRequest == null) {
+            reportRequest = ReportRequest.create();
+        }
+        return api.findReportRequests(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                reportRequest.getShortReference(),
+                reportRequest.getDescription(),
+                reportRequest.getAccountId(),
+                reportRequest.getContactId(),
+                reportRequest.getCreatedAtFrom(),
+                reportRequest.getCreatedAtTo(),
+                reportRequest.getExpirationDateFrom(),
+                reportRequest.getExpirationDateTo(),
+                reportRequest.getStatus(),
+                reportRequest.getReportType(),
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc()
+        );
+    }
+
+    public ReportRequest retrieveReportRequests(String id) throws CurrencyCloudException {
+        return api.retrieveReportRequests(authToken, userAgent, id, getOnBehalfOf());
+    }
+
+    public ConversionReport createConversionReport(ConversionReport conversionReport) throws CurrencyCloudException {
+        return api.createConversionReport(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                conversionReport.getDescription(),
+                conversionReport.getBuyCurrency(),
+                conversionReport.getSellCurrency(),
+                conversionReport.getClientBuyAmountFrom(),
+                conversionReport.getClientBuyAmountTo(),
+                conversionReport.getClientSellAmountFrom(),
+                conversionReport.getClientSellAmountTo(),
+                conversionReport.getPartnerBuyAmountFrom(),
+                conversionReport.getPartnerBuyAmountTo(),
+                conversionReport.getPartnerSellAmountFrom(),
+                conversionReport.getPartnerSellAmountTo(),
+                conversionReport.getClientStatus(),
+                conversionReport.getPartnerStatus(),
+                conversionReport.getConversionDateFrom(),
+                conversionReport.getConversionDateTo(),
+                conversionReport.getSettlementDateFrom(),
+                conversionReport.getSettlementDateTo(),
+                conversionReport.getCreatedAtFrom(),
+                conversionReport.getCreatedAtTo(),
+                conversionReport.getUpdatedAtFrom(),
+                conversionReport.getUpdatedAtTo(),
+                conversionReport.getUniqueRequestId(),
+                conversionReport.getScope()
+        );
+    }
+
+    public PaymentReport createPaymentReport(PaymentReport paymentReport) throws CurrencyCloudException {
+        return api.createPaymentReport(
+                authToken,
+                userAgent,
+                getOnBehalfOf(),
+                paymentReport.getDescription(),
+                paymentReport.getCurrency(),
+                paymentReport.getAmountFrom(),
+                paymentReport.getAmountTo(),
+                paymentReport.getStatus(),
+                paymentReport.getPaymentDateFrom(),
+                paymentReport.getPaymentDateTo(),
+                paymentReport.getTransferredAtFrom(),
+                paymentReport.getTransferredAtTo(),
+                paymentReport.getCreatedAtFrom(),
+                paymentReport.getCreatedAtTo(),
+                paymentReport.getUpdatedAtFrom(),
+                paymentReport.getUpdatedAtTo(),
+                paymentReport.getBeneficiaryId(),
+                paymentReport.getConversionId(),
+                paymentReport.getWithDeleted(),
+                paymentReport.getPaymentGroupId(),
+                paymentReport.getUniqueRequestId(),
+                paymentReport.getScope()
         );
     }
 
@@ -1229,6 +1336,16 @@ public class CurrencyCloudClient {
         return api.paymentPurposeCodes(authToken, userAgent, currency, bankAccountCountry, entityType).getPurposeCodes();
     }
 
+    ///////////////////////////////////////////////////////////////////
+    ///// SENDER //////////////////////////////////////////////////////
+
+    public SenderDetails retrieveSenderDetails(String id) throws CurrencyCloudException {
+        return api.retrieveSenderDetails(
+                authToken,
+                userAgent,
+                id,
+                getOnBehalfOf());
+    }
 
     ///////////////////////////////////////////////////////////////////
     ///// SETTLEMENTS /////////////////////////////////////////////////
@@ -1622,105 +1739,6 @@ public class CurrencyCloudClient {
                 pagination.getPerPage(),
                 pagination.getOrder(),
                 pagination.getOrderAscDesc());
-    }
-
-    ////////////////////////////////////////////////////////////////////
-    ///// REPORTING API ////////////////////////////////////////////////
-
-    /**
-     * @param reportRequest Non-null properties will be used for querying. Null values will be ignored.
-     * @param pagination     pagination settings
-     * @return               The paginated ReportRequest search result
-     * @throws               CurrencyCloudException When an error occurs
-     */
-    public ReportRequests findReportRequests(@Nullable ReportRequest reportRequest, @Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        if (reportRequest == null) {
-            reportRequest = ReportRequest.create();
-        }
-        return api.findReportRequests(
-                authToken,
-                userAgent,
-                getOnBehalfOf(),
-                reportRequest.getShortReference(),
-                reportRequest.getDescription(),
-                reportRequest.getAccountId(),
-                reportRequest.getContactId(),
-                reportRequest.getCreatedAtFrom(),
-                reportRequest.getCreatedAtTo(),
-                reportRequest.getExpirationDateFrom(),
-                reportRequest.getExpirationDateTo(),
-                reportRequest.getStatus(),
-                reportRequest.getReportType(),
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc()
-        );
-    }
-
-    public ReportRequest retrieveReportRequests(String id) throws CurrencyCloudException {
-        return api.retrieveReportRequests(authToken, userAgent, id, getOnBehalfOf());
-    }
-
-    public ConversionReport createConversionReport(ConversionReport conversionReport) throws CurrencyCloudException {
-        return api.createConversionReport(
-                authToken,
-                userAgent,
-                getOnBehalfOf(),
-                conversionReport.getDescription(),
-                conversionReport.getBuyCurrency(),
-                conversionReport.getSellCurrency(),
-                conversionReport.getClientBuyAmountFrom(),
-                conversionReport.getClientBuyAmountTo(),
-                conversionReport.getClientSellAmountFrom(),
-                conversionReport.getClientSellAmountTo(),
-                conversionReport.getPartnerBuyAmountFrom(),
-                conversionReport.getPartnerBuyAmountTo(),
-                conversionReport.getPartnerSellAmountFrom(),
-                conversionReport.getPartnerSellAmountTo(),
-                conversionReport.getClientStatus(),
-                conversionReport.getPartnerStatus(),
-                conversionReport.getConversionDateFrom(),
-                conversionReport.getConversionDateTo(),
-                conversionReport.getSettlementDateFrom(),
-                conversionReport.getSettlementDateTo(),
-                conversionReport.getCreatedAtFrom(),
-                conversionReport.getCreatedAtTo(),
-                conversionReport.getUpdatedAtFrom(),
-                conversionReport.getUpdatedAtTo(),
-                conversionReport.getUniqueRequestId(),
-                conversionReport.getScope()
-                );
-    }
-
-    public PaymentReport createPaymentReport(PaymentReport paymentReport) throws CurrencyCloudException {
-        return api.createPaymentReport(
-                authToken,
-                userAgent,
-                getOnBehalfOf(),
-                paymentReport.getDescription(),
-                paymentReport.getCurrency(),
-                paymentReport.getAmountFrom(),
-                paymentReport.getAmountTo(),
-                paymentReport.getStatus(),
-                paymentReport.getPaymentDateFrom(),
-                paymentReport.getPaymentDateTo(),
-                paymentReport.getTransferredAtFrom(),
-                paymentReport.getTransferredAtTo(),
-                paymentReport.getCreatedAtFrom(),
-                paymentReport.getCreatedAtTo(),
-                paymentReport.getUpdatedAtFrom(),
-                paymentReport.getUpdatedAtTo(),
-                paymentReport.getBeneficiaryId(),
-                paymentReport.getConversionId(),
-                paymentReport.getWithDeleted(),
-                paymentReport.getPaymentGroupId(),
-                paymentReport.getUniqueRequestId(),
-                paymentReport.getScope()
-        );
     }
 
     ///////////////////////////////////////////////////////////////////

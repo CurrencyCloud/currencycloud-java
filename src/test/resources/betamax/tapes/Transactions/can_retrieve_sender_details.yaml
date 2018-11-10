@@ -1,0 +1,31 @@
+name: can_retrieve_sender_details
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/transactions/sender/e68301d3-5b04-4c1d-8f8b-13a9b8437040
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 334cbfdb9ba9bfb6ffd499b0c6af6b12
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/1.7.4
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 01 Jan 2018 12:34:56 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '402'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '3533986674859068810'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"id":"e68301d3-5b04-4c1d-8f8b-13a9b8437040","amount":"1701.51","currency":"EUR","additional_information":"USTRD-0001","value_date":"2018-07-04T00:00:00+00:00",
+    "sender":"FR7615589290001234567890113, CMBRFR2BARK, Debtor, FR, Centre ville","receiving_account_number":null,"receiving_account_iban":"GB99OXPH94665099600083",
+    "created_at":"2018-01-01T12:34:56+00:00","updated_at":"2018-01-01T12:34:56+00:00"}'

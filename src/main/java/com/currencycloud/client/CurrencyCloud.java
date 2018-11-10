@@ -673,8 +673,8 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
-    ///// IBANS API ///////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////
+    ///// IBANS API ///////////////////////////////////////////////////
 
     /** Create an IBAN */
     @POST
@@ -744,8 +744,8 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
-    ///// PAYERS API ///////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////
+    ///// PAYERS API ///////////////////////////////////////////////////
 
     /** Retrieve a Payer */
     @GET
@@ -935,6 +935,16 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
+    /** Retrieve a Payment Confirmation */
+    @GET
+    @Path("payments/{id}/confirmation")
+    PaymentConfirmation retrievePaymentConfirmation(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("id") String id,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws ResponseException;
+
 
     ///////////////////////////////////////////////////////////////////
     ///// RATES API ///////////////////////////////////////////////////
@@ -964,6 +974,103 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("conversion_date") java.sql.Date conversionDate
     ) throws ResponseException;
 
+    ////////////////////////////////////////////////////////////////////
+    ///// REPORTS API //////////////////////////////////////////////////
+
+    /** Find Report Requests */
+    @GET
+    @Path("reports/report_requests/find")
+    ReportRequests findReportRequests(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
+            @Nullable @QueryParam("short_reference") String shortReference,
+            @Nullable @QueryParam("description") String description,
+            @Nullable @QueryParam("account_id") String accountId,
+            @Nullable @QueryParam("contact_id") String contactId,
+            @Nullable @QueryParam("created_at_from") Date createdAtFrom,
+            @Nullable @QueryParam("created_at_to") Date createdAtTo,
+            @Nullable @QueryParam("expiration_date_from") Date expirationDateFrom,
+            @Nullable @QueryParam("expiration_date_to") Date expirationDateTo,
+            @Nullable @QueryParam("status") String status,
+            @Nullable @QueryParam("report_type") String reportType,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws ResponseException;
+
+    /** Retrieve a Report Request */
+    @GET
+    @Path("reports/report_requests/{id}")
+    ReportRequest retrieveReportRequests(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("id") String id,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws ResponseException;
+
+    /** Generate Conversion Report */
+    @POST
+    @Path("reports/conversions/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    ConversionReport createConversionReport(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
+            @Nullable @FormParam("description") String description,
+            @Nullable @FormParam("buy_currency") String buyCurrency,
+            @Nullable @FormParam("sell_currency") String sellCurrency,
+            @Nullable @FormParam("client_buy_amount_from") BigDecimal clientBuyAmountFrom,
+            @Nullable @FormParam("client_buy_amount_to") BigDecimal clientBuyAmountTo,
+            @Nullable @FormParam("client_sell_amount_from") BigDecimal clientSellAmountFrom,
+            @Nullable @FormParam("client_Sell_amount_to") BigDecimal clientSellAmountTo,
+            @Nullable @FormParam("partner_buy_amount_from") BigDecimal partnerBuyAmountFrom,
+            @Nullable @FormParam("partner_buy_amount_to") BigDecimal partnerBuyAmountTo,
+            @Nullable @FormParam("partner_sell_amount_from") BigDecimal partnerSellAmountFrom,
+            @Nullable @FormParam("partner_Sell_amount_to") BigDecimal partnerSellAmountTo,
+            @Nullable @FormParam("client_status") String clientStatus,
+            @Nullable @FormParam("partner_status") String partnerStatus,
+            @Nullable @FormParam("conversion_date_from") Date conversionDateFrom,
+            @Nullable @FormParam("conversion_date_to") Date conversionDateTo,
+            @Nullable @FormParam("settlement_date_from") Date settlementDateFrom,
+            @Nullable @FormParam("settlement_date_to") Date settlementDateTo,
+            @Nullable @FormParam("created_at_from") Date createdAtFrom,
+            @Nullable @FormParam("created_at_to") Date createdAtTo,
+            @Nullable @FormParam("updated_at_from") Date updatedAtFrom,
+            @Nullable @FormParam("updated_at_to") Date updatedAtTo,
+            @Nullable @FormParam("unique_request_id") String uniqueRequestId,
+            @Nullable @FormParam("scope") String scope
+    ) throws ResponseException;
+
+    /** Generate Payment Report */
+    @POST
+    @Path("reports/payments/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    PaymentReport createPaymentReport(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
+            @Nullable @FormParam("description") String description,
+            @Nullable @FormParam("currency") String currency,
+            @Nullable @FormParam("amount_from") BigDecimal amountFrom,
+            @Nullable @FormParam("amount_to") BigDecimal amountTo,
+            @Nullable @FormParam("status") String status,
+            @Nullable @FormParam("payment_date_from") Date paymentDateFrom,
+            @Nullable @FormParam("payment_date_to") Date paymentDateTo,
+            @Nullable @FormParam("transferred_at_from") Date transferredAtFrom,
+            @Nullable @FormParam("transferred_at_to") Date transferredAtTo,
+            @Nullable @FormParam("created_at_from") Date createdAtFrom,
+            @Nullable @FormParam("created_at_to") Date createdAtTo,
+            @Nullable @FormParam("updated_at_from") Date updatedAtFrom,
+            @Nullable @FormParam("updated_at_to") Date updatedAtTo,
+            @Nullable @FormParam("beneficiary_id") String beneficiaryId,
+            @Nullable @FormParam("conversion_id") String conversionId,
+            @Nullable @FormParam("with_deleted") Boolean withDeleted,
+            @Nullable @FormParam("payment_group_id") String paymentGroupId,
+            @Nullable @FormParam("unique_request_id") String uniqueRequestId,
+            @Nullable @FormParam("scope") String scope
+    ) throws ResponseException;
 
     ///////////////////////////////////////////////////////////////////
     ///// REFERENCE API ///////////////////////////////////////////////
@@ -1047,6 +1154,19 @@ public interface CurrencyCloud {
             @QueryParam("currency") String currency,
             @QueryParam("bank_account_country") String bankAccountCountry,
             @Nullable @QueryParam("entity_type") String entityType
+    ) throws ResponseException;
+
+    ///////////////////////////////////////////////////////////////////
+    ///// SENDER API //////////////////////////////////////////////////
+
+    /** Retrieve Sender Details */
+    @GET
+    @Path("transactions/sender/{id}")
+    SenderDetails retrieveSenderDetails(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("id") String id,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
     ///////////////////////////////////////////////////////////////////
@@ -1289,8 +1409,8 @@ public interface CurrencyCloud {
             @Nullable @FormParam("reason") String reason
     ) throws ResponseException;
 
-    ///// VANS API ///////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////
+    ///// VANS API ///////////////////////////////////////////////////
 
     /** Find VANs */
     @GET
@@ -1343,103 +1463,5 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
-    ) throws ResponseException;
-
-    ///// REPORTING API ////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////
-
-    /** Find Report Requests */
-    @GET
-    @Path("reports/report_requests/find")
-    ReportRequests findReportRequests(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
-            @Nullable @QueryParam("short_reference") String shortReference,
-            @Nullable @QueryParam("description") String description,
-            @Nullable @QueryParam("account_id") String accountId,
-            @Nullable @QueryParam("contact_id") String contactId,
-            @Nullable @QueryParam("created_at_from") Date createdAtFrom,
-            @Nullable @QueryParam("created_at_to") Date createdAtTo,
-            @Nullable @QueryParam("expiration_date_from") Date expirationDateFrom,
-            @Nullable @QueryParam("expiration_date_to") Date expirationDateTo,
-            @Nullable @QueryParam("status") String status,
-            @Nullable @QueryParam("report_type") String reportType,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
-    ) throws ResponseException;
-
-    /** Retrieve a Report Request */
-    @GET
-    @Path("reports/report_requests/{id}")
-    ReportRequest retrieveReportRequests(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @PathParam("id") String id,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
-    ) throws ResponseException;
-
-    /** Generate Conversion Report */
-    @POST
-    @Path("reports/conversions/create")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    ConversionReport createConversionReport(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
-            @Nullable @FormParam("description") String description,
-            @Nullable @FormParam("buy_currency") String buyCurrency,
-            @Nullable @FormParam("sell_currency") String sellCurrency,
-            @Nullable @FormParam("client_buy_amount_from") BigDecimal clientBuyAmountFrom,
-            @Nullable @FormParam("client_buy_amount_to") BigDecimal clientBuyAmountTo,
-            @Nullable @FormParam("client_sell_amount_from") BigDecimal clientSellAmountFrom,
-            @Nullable @FormParam("client_Sell_amount_to") BigDecimal clientSellAmountTo,
-            @Nullable @FormParam("partner_buy_amount_from") BigDecimal partnerBuyAmountFrom,
-            @Nullable @FormParam("partner_buy_amount_to") BigDecimal partnerBuyAmountTo,
-            @Nullable @FormParam("partner_sell_amount_from") BigDecimal partnerSellAmountFrom,
-            @Nullable @FormParam("partner_Sell_amount_to") BigDecimal partnerSellAmountTo,
-            @Nullable @FormParam("client_status") String clientStatus,
-            @Nullable @FormParam("partner_status") String partnerStatus,
-            @Nullable @FormParam("conversion_date_from") Date conversionDateFrom,
-            @Nullable @FormParam("conversion_date_to") Date conversionDateTo,
-            @Nullable @FormParam("settlement_date_from") Date settlementDateFrom,
-            @Nullable @FormParam("settlement_date_to") Date settlementDateTo,
-            @Nullable @FormParam("created_at_from") Date createdAtFrom,
-            @Nullable @FormParam("created_at_to") Date createdAtTo,
-            @Nullable @FormParam("updated_at_from") Date updatedAtFrom,
-            @Nullable @FormParam("updated_at_to") Date updatedAtTo,
-            @Nullable @FormParam("unique_request_id") String uniqueRequestId,
-            @Nullable @FormParam("scope") String scope
-    ) throws ResponseException;
-
-    /** Generate Payment Report */
-    @POST
-    @Path("reports/payments/create")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    PaymentReport createPaymentReport(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
-            @Nullable @FormParam("description") String description,
-            @Nullable @FormParam("currency") String currency,
-            @Nullable @FormParam("amount_from") BigDecimal amountFrom,
-            @Nullable @FormParam("amount_to") BigDecimal amountTo,
-            @Nullable @FormParam("status") String status,
-            @Nullable @FormParam("payment_date_from") Date paymentDateFrom,
-            @Nullable @FormParam("payment_date_to") Date paymentDateTo,
-            @Nullable @FormParam("transferred_at_from") Date transferredAtFrom,
-            @Nullable @FormParam("transferred_at_to") Date transferredAtTo,
-            @Nullable @FormParam("created_at_from") Date createdAtFrom,
-            @Nullable @FormParam("created_at_to") Date createdAtTo,
-            @Nullable @FormParam("updated_at_from") Date updatedAtFrom,
-            @Nullable @FormParam("updated_at_to") Date updatedAtTo,
-            @Nullable @FormParam("beneficiary_id") String beneficiaryId,
-            @Nullable @FormParam("conversion_id") String conversionId,
-            @Nullable @FormParam("with_deleted") Boolean withDeleted,
-            @Nullable @FormParam("payment_group_id") String paymentGroupId,
-            @Nullable @FormParam("unique_request_id") String uniqueRequestId,
-            @Nullable @FormParam("scope") String scope
     ) throws ResponseException;
 }
