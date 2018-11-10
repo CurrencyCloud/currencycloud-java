@@ -6,7 +6,7 @@ interactions:
     body: login_id=development%40currencycloud.com&api_key=deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
     headers:
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/1.7.4
+      - CurrencyCloudSDK/2.0 Java/1.8.1
   response:
     status: 500
     headers:
