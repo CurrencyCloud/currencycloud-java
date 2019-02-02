@@ -134,20 +134,6 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_first", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFirstBeneficiary() throws Exception {
-        Beneficiary beneficiary = client.firstBeneficiary(Beneficiary.create("Test User", null, null, null));
-
-        assertThat(beneficiary, is(notNullValue()));
-        assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
-        assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
-        assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
-        assertThat(beneficiary.getBeneficiaryDateOfBirth(), equalTo(parseDate("1986-12-12")));
-        assertThat(beneficiary.getCreatedAt(), equalTo(parseDateTime("2015-04-25T09:21:00+00:00")));
-        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDateTime("2015-04-25T10:58:21+00:00")));
-    }
-
-    @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFindBeneficiary() throws Exception {
         Beneficiary beneficiaryCondition = Beneficiary.create();

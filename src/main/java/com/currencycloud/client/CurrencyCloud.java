@@ -428,29 +428,6 @@ public interface CurrencyCloud {
     @POST
     @Path("conversions/create")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Deprecated
-    Conversion createConversion(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @FormParam("buy_currency") String buyCurrency,
-            @FormParam("sell_currency") String sellCurrency,
-            @FormParam("fixed_side") String fixedSide,
-            @FormParam("amount") BigDecimal amount,
-            @FormParam("term_agreement") Boolean termAgreement,
-            @Nullable @FormParam("conversion_date") Date conversionDate,
-            @Nullable @FormParam("client_rate") BigDecimal clientRate,
-            @Nullable @FormParam("currency_pair") String currencyPair,
-            @Nullable @FormParam("client_buy_amount") BigDecimal clientBuyAmount,
-            @Nullable @FormParam("client_sell_amount") BigDecimal clientSellAmount,
-            @Nullable @FormParam("reason") String reason,
-            @Nullable @FormParam("unique_request_id") String uniqueRequestId,
-            @Nullable @FormParam("on_behalf_of") String onBehalfOf
-    ) throws ResponseException;
-
-    /** Create a Conversion */
-    @POST
-    @Path("conversions/create")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     Conversion createConversion(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
@@ -628,17 +605,6 @@ public interface CurrencyCloud {
 
     ///////////////////////////////////////////////////////////////////
     ///// IBANS API ///////////////////////////////////////////////////
-
-    /** Create an IBAN */
-    @POST
-    @Path("ibans/create")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Deprecated
-    Iban createIban(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @FormParam("currency") String currency
-    ) throws ResponseException;
 
     /** Find IBANs */
     @GET
@@ -1019,16 +985,6 @@ public interface CurrencyCloud {
             @HeaderParam("User-Agent") String userAgent,
             @QueryParam("currency") String currency,
             @Nullable @QueryParam("start_date") Date startDate
-    ) throws ResponseException;
-
-    /** Settlement Accounts */
-    @GET
-    @Path("reference/settlement_accounts")
-    @Deprecated
-    SettlementAccounts settlementAccounts(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("currency") String currency
     ) throws ResponseException;
 
     /** Settlement Accounts */

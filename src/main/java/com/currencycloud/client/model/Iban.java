@@ -32,24 +32,8 @@ public class Iban implements Entity {
 
     protected Iban() { }
 
-    /**
-     * @deprecated as of 1.2.3; IBANs are automatically created upon account creation
-     * */
-    @Deprecated
-    private Iban(String currency) {
-        this.currency = currency;
-    }
-
     public static Iban create() {
         return new Iban();
-    }
-
-    /**
-     * @deprecated as of 1.2.3; IBANs are automatically created upon account creation
-     * */
-    @Deprecated
-    public static Iban create(String currency) {
-        return new Iban(currency);
     }
 
     @Override

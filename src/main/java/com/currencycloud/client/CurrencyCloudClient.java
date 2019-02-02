@@ -455,14 +455,6 @@ public class CurrencyCloudClient {
         );
     }
 
-    /**
-     * @deprecated as of 1.2.3; use {@link #findBeneficiaries(Beneficiary, Pagination)} instead and limit the number of
-     * results via Pagination setters.
-     */
-    public Beneficiary firstBeneficiary(@Nullable Beneficiary beneficiary) throws CurrencyCloudException {
-        return findBeneficiaries(beneficiary, Pagination.first()).getBeneficiaries().iterator().next();
-    }
-
     public Beneficiary deleteBeneficiary(String id) throws CurrencyCloudException {
         return api.deleteBeneficiary(authToken, userAgent, id, getOnBehalfOf());
     }
@@ -557,35 +549,6 @@ public class CurrencyCloudClient {
 
     ///////////////////////////////////////////////////////////////////
     ///// CONVERSIONS /////////////////////////////////////////////////
-
-    /**
-     * @deprecated as of 1.2.3; use {@link #createConversion(Conversion)}
-     */
-    @Deprecated
-    public Conversion createConversion(
-            Conversion conversion,
-            BigDecimal amount,
-            String reason,
-            Boolean termAgreement
-    ) throws CurrencyCloudException {
-        return api.createConversion(
-                authToken,
-                userAgent,
-                conversion.getBuyCurrency(),
-                conversion.getSellCurrency(),
-                conversion.getFixedSide(),
-                amount,
-                termAgreement,
-                conversion.getConversionDate(),
-                conversion.getClientRate(),
-                conversion.getCurrencyPair(),
-                conversion.getClientBuyAmount(),
-                conversion.getClientSellAmount(),
-                reason,
-                conversion.getUniqueRequestId(),
-                getOnBehalfOf()
-        );
-    }
 
     public Conversion createConversion(
             Conversion conversion
@@ -761,18 +724,6 @@ public class CurrencyCloudClient {
 
     ///////////////////////////////////////////////////////////////////
     ///// IBANS ///////////////////////////////////////////////////////
-
-    /**
-     * @deprecated as of 1.2.3; IBANs are automatically created upon account creation
-     * */
-    @Deprecated
-    public Iban createIban(Iban iban) throws CurrencyCloudException {
-        return api.createIban(
-                authToken,
-                userAgent,
-                iban.getCurrency()
-        );
-    }
 
     /**
      * @param iban        Non-null properties will be used for querying. Null values will be ignored.
@@ -1155,13 +1106,6 @@ public class CurrencyCloudClient {
 
     public PaymentDates paymentDates(String currency, @Nullable Date startDate) throws CurrencyCloudException {
         return api.paymentDates(authToken, userAgent, currency, startDate);
-    }
-
-    /**
-     * @deprecated as of 1.2.3; use {@link #settlementAccounts(String, String)} instead.
-     * */
-    public List<SettlementAccount> settlementAccounts(@Nullable String currency) throws CurrencyCloudException {
-        return api.settlementAccounts(authToken, userAgent, currency).getSettlementAccounts();
     }
 
     public List<SettlementAccount> settlementAccounts(@Nullable String currency, @Nullable String accountId) throws CurrencyCloudException {

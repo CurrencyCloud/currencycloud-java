@@ -30,26 +30,6 @@ public class IbansTest extends BetamaxTestSupport {
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanCreateIban() throws Exception {
-        Iban ibanCondition = Iban.create();
-        ibanCondition.setCurrency("JPY");
-        Iban iban = client.createIban(ibanCondition);
-
-        assertThat(iban, is(notNullValue()));
-        assertThat(iban.getId(), equalTo("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe"));
-        assertThat(iban.getIbanCode(), equalTo("GB51TCCL00997997989489"));
-        assertThat(iban.getCurrency(), equalTo("JPY"));
-        assertThat(iban.getAccountHolderName(), equalTo("Account-IGGLNHYTWFKI"));
-        assertThat(iban.getBankInstitutionName(), equalTo("The Currency Cloud"));
-        assertThat(iban.getBankInstitutionAddress(), equalTo("12 Steward Street, The Steward Building, London, E1 6FQ, GB"));
-        assertThat(iban.getBankInstitutionCountry(), equalTo("United Kingdom"));
-        assertThat(iban.getBicSwift(), equalTo("TCCLGB31"));
-        assertThat(iban.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
-        assertThat(iban.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
-    }
-
-    @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFindIban() throws Exception {
         Ibans ibansData = client.findIbans(null, null);
