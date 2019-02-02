@@ -139,22 +139,6 @@ public interface CurrencyCloud {
     /** Find Balances */
     @GET
     @Path("balances/find")
-    @Deprecated
-    Balances findBalances(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("amount_from") BigDecimal amountFrom,
-            @Nullable @QueryParam("amount_to") BigDecimal amountTo,
-            @Nullable @QueryParam("as_at_date") Date asAtDate,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
-    ) throws ResponseException;
-
-    /** Find Balances */
-    @GET
-    @Path("balances/find")
     Balances findBalances(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
@@ -496,37 +480,6 @@ public interface CurrencyCloud {
     @GET
     @Path("conversions/find")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Deprecated
-    Conversions findConversions(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("short_reference") String shortReference,
-            @Nullable @QueryParam("status") String status,
-            @Nullable @QueryParam("partner_status") String partnerStatus,
-            @Nullable @QueryParam("buy_currency") String buyCurrency,
-            @Nullable @QueryParam("sell_currency") String sellCurrency,
-            @Nullable @QueryParam("conversion_ids[]") Collection<String> conversionIds,
-            @Nullable @QueryParam("created_at_from") Date createdAtFrom,
-            @Nullable @QueryParam("created_at_to") Date createdAtTo,
-            @Nullable @QueryParam("updated_at_from") Date updatedAtFrom,
-            @Nullable @QueryParam("updated_at_to") Date updatedAtTo,
-            @Nullable @QueryParam("currency_pair") String currencyPair,
-            @Nullable @QueryParam("partner_buy_amount_from") BigDecimal partnerBuyAmountFrom,
-            @Nullable @QueryParam("partner_buy_amount_to") BigDecimal partnerBuyAmountTo,
-            @Nullable @QueryParam("partner_sell_amount_from") BigDecimal partnerSellAmountFrom,
-            @Nullable @QueryParam("partner_sell_amount_to") BigDecimal partnerSellAmountTo,
-            @Nullable @QueryParam("buy_amount_from") BigDecimal buyAmountFrom,
-            @Nullable @QueryParam("buy_amount_to") BigDecimal buyAmountTo,
-            @Nullable @QueryParam("sell_amount_from") BigDecimal sellAmountFrom,
-            @Nullable @QueryParam("sell_amount_to") BigDecimal sellAmountTo,
-            @Nullable @QueryParam("unique_request_id") String uniqueRequestId,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
-    ) throws ResponseException;
-
-    /** Find a Conversion */
-    @GET
-    @Path("conversions/find")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     Conversions findConversions(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
@@ -687,20 +640,6 @@ public interface CurrencyCloud {
             @FormParam("currency") String currency
     ) throws ResponseException;
 
-    /** Retrieve an IBAN */
-    @GET
-    @Path("ibans")
-    @Deprecated
-    Ibans retrieveIbans(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("currency") String currency,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
-    ) throws ResponseException;
-
     /** Find IBANs */
     @GET
     @Path("ibans/find")
@@ -845,38 +784,6 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_details_source") String payerDetailsSource,
             @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName,
             @Nullable @FormParam("purpose_code") String purposeCode
-    ) throws ResponseException;
-
-    /** Find Payments */
-    @GET
-    @Path("payments/find")
-    @Deprecated
-    Payments findPayments(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("short_reference") String shortReference,
-            @Nullable @QueryParam("currency") String currency,
-            @Nullable @QueryParam("amount") BigDecimal amount,
-            @Nullable @QueryParam("amount_from") BigDecimal amountFrom,
-            @Nullable @QueryParam("amount_to") BigDecimal amountTo,
-            @Nullable @QueryParam("status") String status,
-            @Nullable @QueryParam("reason") String reason,
-            @Nullable @QueryParam("payment_date_from") java.sql.Date paymentDateFrom,
-            @Nullable @QueryParam("payment_date_to") java.sql.Date paymentDateTo,
-            @Nullable @QueryParam("transferred_at_from") Date transferredAtFrom,
-            @Nullable @QueryParam("transferred_at_to") Date transferredAtTo,
-            @Nullable @QueryParam("created_at_from") Date createdAtFrom,
-            @Nullable @QueryParam("created_at_to") Date createdAtTo,
-            @Nullable @QueryParam("updated_at_from") Date updatedAtFrom,
-            @Nullable @QueryParam("updated_at_to") Date updatedAtTo,
-            @Nullable @QueryParam("beneficiary_id") String beneficiaryId,
-            @Nullable @QueryParam("conversion_id") String conversionId,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
-            @Nullable @QueryParam("unique_request_id") String uniqueRequestId,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
     /** Find Payments */
@@ -1287,37 +1194,6 @@ public interface CurrencyCloud {
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @PathParam("id") String id,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
-    ) throws ResponseException;
-
-    /** Find Transactions */
-    @GET
-    @Path("transactions/find")
-    @Deprecated
-    Transactions findTransactions(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("currency") String currency,
-            @Nullable @QueryParam("amount") BigDecimal amount,
-            @Nullable @QueryParam("amount_from") BigDecimal amountFrom,
-            @Nullable @QueryParam("amount_to") BigDecimal amountTo,
-            @Nullable @QueryParam("action") String action,
-            @Nullable @QueryParam("related_entity_type") String relatedEntityType,
-            @Nullable @QueryParam("related_entity_id") String relatedEntityId,
-            @Nullable @QueryParam("related_entity_short_reference") String relatedEntityShortReference,
-            @Nullable @QueryParam("status") String status,
-            @Nullable @QueryParam("type") String type,
-            @Nullable @QueryParam("reason") String reason,
-            @Nullable @QueryParam("settles_at_from") java.sql.Date settlesAtFrom,
-            @Nullable @QueryParam("settles_at_to") java.sql.Date settlesAtTo,
-            @Nullable @QueryParam("created_at_from") java.sql.Date createdAtFrom,
-            @Nullable @QueryParam("created_at_to") java.sql.Date createdAtTo,
-            @Nullable @QueryParam("updated_at_from") java.sql.Date updatedAtFrom,
-            @Nullable @QueryParam("updated_at_to") java.sql.Date updatedAtTo,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 

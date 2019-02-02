@@ -86,25 +86,6 @@ public class Beneficiary implements Entity {
     }
 
     /**
-     * Creates a Beneficiary with all the required properties for the update beneficiaries method. Note that this
-     * is just a simple helper factory method and can be used for any other purpose.
-     * @deprecated as of 1.0.3; use {@link #create()} instead and add required fields via setters.
-     * */
-    @Deprecated
-    public static Beneficiary createForUpdate(String id) {
-        return new Beneficiary(id);
-    }
-
-    /**
-     * Creates a Beneficiary with all the required properties for the validate beneficiary method. Note that this
-     * @deprecated as of 1.0.3; use {@link #create()} instead and add required fields via setters.
-     */
-    @Deprecated
-    public static Beneficiary createForValidate(String bankCountry, String currency, String beneficiaryCountry) {
-        return new Beneficiary(bankCountry, currency, beneficiaryCountry);
-    }
-
-    /**
      * Creates a Beneficiary with all the required properties for the create beneficiary method. Note that this
      * is just a simple helper factory method and can be used for any other purpose.
      */
