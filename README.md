@@ -41,19 +41,19 @@ Get the list of all dependencies:
 ```Shell
 mvn dependency:list -DincludeScope=runtime
 ```
-As of version 1.7.4, this returns the following list:
+As of version 2.0.0, this returns the following list:
 ```
-cglib:cglib:3.2.6:compile
+cglib:cglib:3.2.10:compile
 ch.qos.logback:logback-classic:1.2.3:compile
 ch.qos.logback:logback-core:1.2.3:compile
-com.fasterxml.jackson.core:jackson-annotations:2.9.4:compile
-com.fasterxml.jackson.core:jackson-core:2.9.4:compile
-com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.4:compile
+com.fasterxml.jackson.core:jackson-annotations:2.9.8:compile
+com.fasterxml.jackson.core:jackson-core:2.9.8:compile
+com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8:compile
 com.github.mmazi:rescu:2.0.2:compile
 com.google.code.findbugs:jsr305:3.0.2:compile
-javax.ws.rs:javax.ws.rs-api:2.1:compile
+javax.ws.rs:javax.ws.rs-api:2.1.1:compile
 javax.ws.rs:jsr311-api:1.1.1:compile
-org.ow2.asm:asm:6.0:compile
+org.ow2.asm:asm:7.0:compile
 org.slf4j:slf4j-api:1.7.25:compile
 ```
 You will need to find each of these dependencies and download it from the [Sonatype Nexus][sonatype] as described above.
@@ -188,9 +188,9 @@ Test cases can be run with `mvn test`
 ```
 co.freeside:betamax:1.1.2:compile
 junit:junit:4.12:compile
-org.codehaus.groovy:groovy-all:2.4.13:compile
+org.codehaus.groovy:groovy-all:2.4.16:compile
 org.hamcrest:hamcrest-junit:2.0.0.0:compile
-org.yaml:snakeyaml:1.19:compile
+org.yaml:snakeyaml:1.23:compile
 ```
 
 ## Contributing
