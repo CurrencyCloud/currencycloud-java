@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22)
 # Currencycloud API v2 Java client
-## Version: 1.8.1
+## Version: 2.0.0
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -27,7 +27,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>1.8.1</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
@@ -35,25 +35,25 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 Download the Currencycloud SDK jar:
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-1.8.1.jar 
+3. Download the currencycloud-java-2.0.0.jar 
 
 Get the list of all dependencies:
 ```Shell
 mvn dependency:list -DincludeScope=runtime
 ```
-As of version 1.7.4, this returns the following list:
+As of version 2.0.0, this returns the following list:
 ```
-cglib:cglib:3.2.6:compile
+cglib:cglib:3.2.10:compile
 ch.qos.logback:logback-classic:1.2.3:compile
 ch.qos.logback:logback-core:1.2.3:compile
-com.fasterxml.jackson.core:jackson-annotations:2.9.4:compile
-com.fasterxml.jackson.core:jackson-core:2.9.4:compile
-com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.4:compile
+com.fasterxml.jackson.core:jackson-annotations:2.9.8:compile
+com.fasterxml.jackson.core:jackson-core:2.9.8:compile
+com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8:compile
 com.github.mmazi:rescu:2.0.2:compile
 com.google.code.findbugs:jsr305:3.0.2:compile
-javax.ws.rs:javax.ws.rs-api:2.1:compile
+javax.ws.rs:javax.ws.rs-api:2.1.1:compile
 javax.ws.rs:jsr311-api:1.1.1:compile
-org.ow2.asm:asm:6.0:compile
+org.ow2.asm:asm:7.0:compile
 org.slf4j:slf4j-api:1.7.25:compile
 ```
 You will need to find each of these dependencies and download it from the [Sonatype Nexus][sonatype] as described above.
@@ -188,9 +188,9 @@ Test cases can be run with `mvn test`
 ```
 co.freeside:betamax:1.1.2:compile
 junit:junit:4.12:compile
-org.codehaus.groovy:groovy-all:2.4.13:compile
+org.codehaus.groovy:groovy-all:2.4.16:compile
 org.hamcrest:hamcrest-junit:2.0.0.0:compile
-org.yaml:snakeyaml:1.19:compile
+org.yaml:snakeyaml:1.23:compile
 ```
 
 ## Contributing
@@ -207,44 +207,14 @@ Technology evolves quickly and we are always looking for better ways to serve ou
 
 Deprecation means that we discourage the use of a feature, design or practice because it has been superseded or is no longer considered efficient or safe but instead of removing it immediately, we mark it as **@Deprecated** to provide backwards compatibility and time for you to update your projects. While the deprecated feature remains in the SDK for a period of time, we advise that you replace it with the recommended alternative which is explained in the relevant section of the code.
 
-We remove deprecated features after **six months** from the time of announcement.
+We remove deprecated features after **three months** from the time of announcement.
 
-The security of our customers' assets is of paramount importance to us and sometimes we have to deprecate features because they may pose a security threat or because new, more secure, ways are available. On such occasions we reserve the right to set a different deprecation period which may range from **immediate removal** to the standard **six months**. 
+The security of our customers' assets is of paramount importance to us and sometimes we have to deprecate features because they may pose a security threat or because new, more secure, ways are available. On such occasions we reserve the right to set a different deprecation period which may range from **immediate removal** to the standard **three months**. 
 
 Once a feature has been marked as deprecated, we no longer develop the code or implement bug fixes. We only do security fixes.
 
 ### List of features being deprecated
 ```
-As of 1.0.3:
-------------
-Beneficiary.createForUpdate and Beneficiary.createForValidate
-CurrencyCloudClient.findBalances(BigDecimal, BigDecimal, Date, Pagination) and corresponding CurrencyCloud.findBalances
-CurrencyCloudClient.findConversions(Conversion, Collection<String>, Date, Date, Date, Date, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, String) and corresponding CurrencyCloud.findConversions
-CurrencyCloudClient.findPayments(Payment, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, Date, Date, Pagination, String) and corresponding CurrencyCloud.findPayments
-CurrencyCloudClient.findSettlements(String, String, Date, Date, Date, Date, Date, Date, Pagination)
-CurrencyCloudClient.findSubAccountsIbans(String, Pagination) and corresponding CurrencyCloud.retrieveIbans
-CurrencyCloudClient.findTransactions(Transaction, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, Pagination)  and corresponding CurrencyCloud.findTransactions
-CurrencyCloudClient.findTransfers(String, String, String, String, String, BigDecimal, BigDecimal, Date, Date, Date, Date, Date, Date, String, String, Pagination)
-CurrencyCloudClient.retrieveIbans(String, Pagination) and corresponding CurrencyCloud.retrieveIbans
-
-As of 1.2.3:
-------------
-Conversion.Conversion(String, String, String, Date, BigDecimal, String, BigDecimal, BigDecimal, String)
-Conversion.Conversion(String, String, String, String, String, String, String)
-Conversion.create(String, String, String)
-Conversion.create(String, String, String, Date, BigDecimal, String, BigDecimal, BigDecimal, String)
-Conversion.createExample
-CurrencyCloudClient.createConversion(Conversion, BigDecimal, String, Boolean) and corresponding CurrencyCloud.createConversion
-CurrencyCloudClient.createIban and corresponding CurrencyCloud.createIban
-CurrencyCloudClient.firstBeneficiary(Beneficiary)
-CurrencyCloudClient.settlementAccounts(String) and corresponding CurrencyCloud.settlementAccounts
-Iban.Iban(String)
-Iban.create(String)
-
-As of 1.5.1:
-------------
-CurrencyCloudClient.retrievePayment(String)
-
 As of 1.7.4:
 ------------
 CurrencyCloudClient.retrieveSubAccountsIban(String, Pagination) and corresponding CurrencyCloud.retrieveSubAccountsIban
@@ -257,6 +227,7 @@ CurrencyCloudClient.findSubAccountsVirtualAccounts(VirtualAccount, Pagination) a
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [2.0.0] - Remove deprecated methods, update dependencies and copyright
 * [1.8.1] - Add Payment Confirmation and Sender Details
 * [1.7.4] - Add Reporting paths and operations, remove json-smart dependency, change toString implementation, add missing Currency fields, update IBAN and VirtualAccounts, and deprecate obsolete IBAN and VirtualAccounts methods
 * [1.6.1] - Add support for JDK 11
@@ -270,7 +241,7 @@ We actively support the latest version of the SDK. We support the immediate prev
 * [0.7.8] - Address a concurrency issue discovered in the onBehalfOf functionality (#48) 
 
 # Copyright
-Copyright (c) 2015-2018 Currencycloud. See [LICENSE][license] for details.
+Copyright (c) 2015-2019 Currencycloud. See [LICENSE][license] for details.
 
 [maven]:     https://maven.apache.org/index.html
 [nexus]:     http://www.sonatype.org/nexus/

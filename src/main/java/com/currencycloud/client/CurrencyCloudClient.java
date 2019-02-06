@@ -41,7 +41,7 @@ public class CurrencyCloudClient {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
-    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/1.8.1";
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/2.0.0";
 
     private final CurrencyCloud api;
 
@@ -251,27 +251,6 @@ public class CurrencyCloudClient {
     ///// BALANCES ////////////////////////////////////////////////////
 
     /**
-     * @deprecated as of 1.0.3; use generic {@link #findBalances(Balance, Pagination)} instead.
-     * */
-    @Deprecated
-    public Balances findBalances(@Nullable BigDecimal amountFrom, @Nullable BigDecimal amountTo, @Nullable Date asAtDate, @Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        return api.findBalances(
-                authToken,
-                userAgent,
-                amountFrom,
-                amountTo,
-                asAtDate,
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc()
-        );
-    }
-
-    /**
      * @param balance     Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Balances search result
@@ -476,14 +455,6 @@ public class CurrencyCloudClient {
         );
     }
 
-    /**
-     * @deprecated as of 1.2.3; use {@link #findBeneficiaries(Beneficiary, Pagination)} instead and limit the number of
-     * results via Pagination setters.
-     */
-    public Beneficiary firstBeneficiary(@Nullable Beneficiary beneficiary) throws CurrencyCloudException {
-        return findBeneficiaries(beneficiary, Pagination.first()).getBeneficiaries().iterator().next();
-    }
-
     public Beneficiary deleteBeneficiary(String id) throws CurrencyCloudException {
         return api.deleteBeneficiary(authToken, userAgent, id, getOnBehalfOf());
     }
@@ -579,35 +550,6 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// CONVERSIONS /////////////////////////////////////////////////
 
-    /**
-     * @deprecated as of 1.2.3; use {@link #createConversion(Conversion)}
-     */
-    @Deprecated
-    public Conversion createConversion(
-            Conversion conversion,
-            BigDecimal amount,
-            String reason,
-            Boolean termAgreement
-    ) throws CurrencyCloudException {
-        return api.createConversion(
-                authToken,
-                userAgent,
-                conversion.getBuyCurrency(),
-                conversion.getSellCurrency(),
-                conversion.getFixedSide(),
-                amount,
-                termAgreement,
-                conversion.getConversionDate(),
-                conversion.getClientRate(),
-                conversion.getCurrencyPair(),
-                conversion.getClientBuyAmount(),
-                conversion.getClientSellAmount(),
-                reason,
-                conversion.getUniqueRequestId(),
-                getOnBehalfOf()
-        );
-    }
-
     public Conversion createConversion(
             Conversion conversion
     ) throws CurrencyCloudException {
@@ -630,57 +572,6 @@ public class CurrencyCloudClient {
 
     public Conversion retrieveConversion(String conversionId) throws CurrencyCloudException {
         return api.retrieveConversion(authToken, userAgent, conversionId);
-    }
-
-    /**
-     * @deprecated as of 1.0.3; use generic {@link #findConversions(Conversion, Pagination)} instead.
-     * */
-    @Deprecated
-    public Conversions findConversions(
-            @Nullable Conversion conversion,
-            @Nullable Collection<String> conversionIds,
-            @Nullable Date createdAtFrom,
-            @Nullable Date createdAtTo,
-            @Nullable Date updatedAtFrom,
-            @Nullable Date updatedAtTo,
-            @Nullable BigDecimal partnerBuyAmountFrom,
-            @Nullable BigDecimal partnerBuyAmountTo,
-            @Nullable BigDecimal partnerSellAmountFrom,
-            @Nullable BigDecimal partnerSellAmountTo,
-            @Nullable BigDecimal buyAmountFrom,
-            @Nullable BigDecimal buyAmountTo,
-            @Nullable BigDecimal sellAmountFrom,
-            @Nullable BigDecimal sellAmountTo,
-            @Nullable String uniqueRequestId
-    ) throws CurrencyCloudException {
-        if (conversion == null) {
-            conversion = Conversion.create();
-        }
-        return api.findConversions(
-                authToken,
-                userAgent,
-                conversion.getShortReference(),
-                conversion.getStatus(),
-                conversion.getPartnerStatus(),
-                conversion.getBuyCurrency(),
-                conversion.getSellCurrency(),
-                conversionIds,
-                createdAtFrom,
-                createdAtTo,
-                updatedAtFrom,
-                updatedAtTo,
-                conversion.getCurrencyPair(),
-                partnerBuyAmountFrom,
-                partnerBuyAmountTo,
-                partnerSellAmountFrom,
-                partnerSellAmountTo,
-                buyAmountFrom,
-                buyAmountTo,
-                sellAmountFrom,
-                sellAmountTo,
-                uniqueRequestId,
-                getOnBehalfOf()
-        );
     }
 
     /**
@@ -835,37 +726,6 @@ public class CurrencyCloudClient {
     ///// IBANS ///////////////////////////////////////////////////////
 
     /**
-     * @deprecated as of 1.2.3; IBANs are automatically created upon account creation
-     * */
-    @Deprecated
-    public Iban createIban(Iban iban) throws CurrencyCloudException {
-        return api.createIban(
-                authToken,
-                userAgent,
-                iban.getCurrency()
-        );
-    }
-
-    /**
-     * @deprecated as of 1.0.3; use generic {@link #findIbans(Iban, Pagination)} instead.
-     * */
-    @Deprecated
-    public Ibans retrieveIbans(@Nullable String currency, @Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        return api.retrieveIbans(
-                authToken,
-                userAgent,
-                currency,
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc()
-        );
-    }
-
-    /**
      * @param iban        Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Ibans search result
@@ -903,24 +763,6 @@ public class CurrencyCloudClient {
                 authToken,
                 userAgent,
                 id,
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc());
-    }
-
-    /**
-     * @deprecated as of 1.0.3; use generic {@link #findSubAccountsIbans(Iban, Pagination)} instead.
-     * */
-    @Deprecated
-    public Ibans findSubAccountsIbans(@Nullable String currency, @Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        return api.findSubAccountsIbans(
-                authToken,
-                userAgent,
-                currency,
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
@@ -997,13 +839,6 @@ public class CurrencyCloudClient {
         );
     }
 
-    /**
-     * @deprecated as of 1.5.1; use {@link #retrievePayment(String, Boolean)} instead.
-     * */
-    public Payment retrievePayment(String id) throws CurrencyCloudException {
-        return api.retrievePayment(authToken, userAgent, id, null, getOnBehalfOf());
-    }
-
     public Payment retrievePayment(String id, @Nullable Boolean withDeleted ) throws CurrencyCloudException {
         return api.retrievePayment(authToken, userAgent, id, withDeleted, getOnBehalfOf());
     }
@@ -1046,57 +881,6 @@ public class CurrencyCloudClient {
                 payment.getPayerDetailsSource(),
                 payment.getUltimateBeneficiaryName(),
                 payment.getPurposeCode()
-        );
-    }
-
-    /**
-     * @deprecated as of 1.0.3; use generic {@link #findPayments(Payment, Pagination)} instead.
-     * */
-    public Payments findPayments(@Nullable Payment payment,
-                                 @Nullable BigDecimal amountFrom,
-                                 @Nullable BigDecimal amountTo,
-                                 @Nullable Date paymentDateFrom,
-                                 @Nullable Date paymentDateTo,
-                                 @Nullable Date transferredAtFrom,
-                                 @Nullable Date transferredAtTo,
-                                 @Nullable Date createdAtFrom,
-                                 @Nullable Date createdAtTo,
-                                 @Nullable Date updatedAtFrom,
-                                 @Nullable Date updatedAtTo,
-                                 @Nullable Pagination pagination,
-                                 @Nullable String uniqueRequestId
-    ) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        if (payment == null) {
-            payment = Payment.create();
-        }
-        return api.findPayments(authToken,
-                                userAgent,
-                                payment.getShortReference(),
-                                payment.getCurrency(),
-                                payment.getAmount(),
-                                amountFrom,
-                                amountTo,
-                                payment.getStatus(),
-                                payment.getReason(),
-                                dateOnly(paymentDateFrom),
-                                dateOnly(paymentDateTo),
-                                transferredAtFrom,
-                                transferredAtTo,
-                                createdAtFrom,
-                                createdAtTo,
-                                updatedAtFrom,
-                                updatedAtTo,
-                                payment.getBeneficiaryId(),
-                                payment.getConversionId(),
-                                pagination.getPage(),
-                                pagination.getPerPage(),
-                                pagination.getOrder(),
-                                pagination.getOrderAscDesc(),
-                                uniqueRequestId,
-                                getOnBehalfOf()
         );
     }
 
@@ -1317,13 +1101,6 @@ public class CurrencyCloudClient {
         return api.paymentDates(authToken, userAgent, currency, startDate);
     }
 
-    /**
-     * @deprecated as of 1.2.3; use {@link #settlementAccounts(String, String)} instead.
-     * */
-    public List<SettlementAccount> settlementAccounts(@Nullable String currency) throws CurrencyCloudException {
-        return api.settlementAccounts(authToken, userAgent, currency).getSettlementAccounts();
-    }
-
     public List<SettlementAccount> settlementAccounts(@Nullable String currency, @Nullable String accountId) throws CurrencyCloudException {
         return api.settlementAccounts(authToken, userAgent, currency, accountId).getSettlementAccounts();
     }
@@ -1363,42 +1140,6 @@ public class CurrencyCloudClient {
 
     public Settlement retrieveSettlement(String id) throws CurrencyCloudException {
         return api.retrieveSettlement(authToken, userAgent, id, getOnBehalfOf());
-    }
-
-    /**
-     * @deprecated as of 1.0.3; use generic {@link #findSettlements(Settlement, Pagination)} instead.
-     * */
-    public Settlements findSettlements(
-            @Nullable String shortReference,
-            @Nullable String status,
-            @Nullable Date createdAtFrom,
-            @Nullable Date createdAtTo,
-            @Nullable Date updatedAtFrom,
-            @Nullable Date updatedAtTo,
-            @Nullable Date releasedAtFrom,
-            @Nullable Date releasedAtTo,
-            @Nullable Pagination pagination
-    ) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        return api.findSettlements(
-                authToken,
-                userAgent,
-                getOnBehalfOf(),
-                shortReference,
-                status,
-                createdAtFrom,
-                createdAtTo,
-                updatedAtFrom,
-                updatedAtTo,
-                releasedAtFrom,
-                releasedAtTo,
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc()
-        );
     }
 
     /**
@@ -1461,55 +1202,6 @@ public class CurrencyCloudClient {
     }
 
     /**
-     * @deprecated as of 1.0.3; use generic {@link #findTransactions(Transaction, Pagination)} instead.
-     * */
-    public Transactions findTransactions(
-            @Nullable Transaction transaction,
-            @Nullable BigDecimal amountFrom,
-            @Nullable BigDecimal amountTo,
-            @Nullable Date settlesAtFrom,
-            @Nullable Date settlesAtTo,
-            @Nullable Date createdAtFrom,
-            @Nullable Date createdAtTo,
-            @Nullable Date updatedAtFrom,
-            @Nullable Date updatedAtTo,
-            @Nullable Pagination pagination
-    ) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        if (transaction == null) {
-            transaction = Transaction.create();
-        }
-        return api.findTransactions(
-                authToken,
-                userAgent,
-                transaction.getCurrency(),
-                transaction.getAmount(),
-                amountFrom,
-                amountTo,
-                transaction.getAction(),
-                transaction.getRelatedEntityType(),
-                transaction.getRelatedEntityId(),
-                transaction.getRelatedEntityShortReference(),
-                transaction.getStatus(),
-                transaction.getType(),
-                transaction.getReason(),
-                dateOnly(settlesAtFrom),
-                dateOnly(settlesAtTo),
-                dateOnly(createdAtFrom),
-                dateOnly(createdAtTo),
-                dateOnly(updatedAtFrom),
-                dateOnly(updatedAtTo),
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc(),
-                getOnBehalfOf()
-        );
-    }
-
-    /**
      * @param transaction Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Transactions search result
@@ -1560,58 +1252,6 @@ public class CurrencyCloudClient {
 
     public Transfer retrieveTransfer(String id) throws CurrencyCloudException {
         return api.retrieveTransfer(authToken, userAgent, id, getOnBehalfOf());
-    }
-
-    /**
-     * @deprecated as of 1.0.3; use generic {@link #findTransfers(Transfer, Pagination)} instead.
-     * */
-    @Deprecated
-    public Transfers findTransfers(
-            @Nullable String shortReference,
-            @Nullable String sourceAccountId,
-            @Nullable String destinationAccountId,
-            @Nullable String status,
-            @Nullable String currency,
-            @Nullable BigDecimal amountFrom,
-            @Nullable BigDecimal amountTo,
-            @Nullable Date createdAtFrom,
-            @Nullable Date createdAtTo,
-            @Nullable Date updatedAtFrom,
-            @Nullable Date updatedAtTo,
-            @Nullable Date completedAtFrom,
-            @Nullable Date completedAtTo,
-            @Nullable String creatorContactId,
-            @Nullable String creatorAccountId,
-            @Nullable Pagination pagination,
-            @Nullable String onBehalfOf
-            ) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        return api.findTransfers(
-                authToken,
-                userAgent,
-                getOnBehalfOf(),
-                shortReference,
-                sourceAccountId,
-                destinationAccountId,
-                status,
-                currency,
-                amountFrom,
-                amountTo,
-                dateOnly(createdAtFrom),
-                dateOnly(createdAtTo),
-                dateOnly(updatedAtFrom),
-                dateOnly(updatedAtTo),
-                dateOnly(completedAtFrom),
-                dateOnly(completedAtTo),
-                creatorContactId,
-                creatorAccountId,
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc()
-        );
     }
 
     /**
