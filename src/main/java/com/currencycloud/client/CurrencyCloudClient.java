@@ -247,6 +247,25 @@ public class CurrencyCloudClient {
         return api.currentAccount(authToken, userAgent);
     }
 
+    public AccountPaymentChargesSettings retrieveAccountsPaymentChargeSettings(final String accountId) throws CurrencyCloudException {
+        return api.retrieveAccountsPaymentChargeSettings(
+                authToken,
+                userAgent,
+                accountId
+        );
+    }
+
+    public AccountPaymentChargesSetting updateAccountsPaymentChargeSetting(final AccountPaymentChargesSetting chargeSettings) throws CurrencyCloudException {
+        return api.updateAccountsPaymentChargeSettings(
+                authToken,
+                userAgent,
+                chargeSettings.getAccountId(),
+                chargeSettings.getChargeSettingsId(),
+                chargeSettings.isEnabled(),
+                chargeSettings.isDefault()
+        );
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// BALANCES ////////////////////////////////////////////////////
 

@@ -133,6 +133,29 @@ public interface CurrencyCloud {
             @HeaderParam("User-Agent") String userAgent
     ) throws ResponseException;
 
+
+    /** Retrieve an Accounts Payment Charge Settings */
+    @GET
+    @Path("/accounts/{account_id}/payment_charges_settings")
+    AccountPaymentChargesSettings retrieveAccountsPaymentChargeSettings(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("account_id") String accountId
+    ) throws ResponseException;
+
+    /** Update an Accounts Payment Charge Settings */
+    @POST
+    @Path("/accounts/{account_id}/payment_charges_settings/{charge_settings_id}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    AccountPaymentChargesSetting updateAccountsPaymentChargeSettings(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("account_id") String accountId,
+            @PathParam("charge_settings_id") String chargeSettingsId,
+            @Nullable @FormParam("enabled") Boolean enabled,
+            @Nullable @FormParam("default") Boolean isDefault
+    ) throws ResponseException;
+
     ///////////////////////////////////////////////////////////////////
     ///// BALANCES API ////////////////////////////////////////////////
 
