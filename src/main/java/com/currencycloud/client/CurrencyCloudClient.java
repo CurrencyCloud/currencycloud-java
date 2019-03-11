@@ -827,7 +827,8 @@ public class CurrencyCloudClient {
                 payer.getIdentificationValue(),
                 payment.getUniqueRequestId(),
                 payment.getUltimateBeneficiaryName(),
-                payment.getPurposeCode()
+                payment.getPurposeCode(),
+                payment.getChargeType()
         );
     }
 
@@ -880,7 +881,8 @@ public class CurrencyCloudClient {
                 payer.getIdentificationValue(),
                 payment.getPayerDetailsSource(),
                 payment.getUltimateBeneficiaryName(),
-                payment.getPurposeCode()
+                payment.getPurposeCode(),
+                payment.getChargeType()
         );
     }
 
@@ -927,7 +929,8 @@ public class CurrencyCloudClient {
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
-                pagination.getOrderAscDesc()
+                pagination.getOrderAscDesc(),
+                payment.getChargeType()
         );
     }
 

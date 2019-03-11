@@ -60,6 +60,7 @@ public class Payment implements Entity {
     private String scope;
     private String bulkUploadId;
     private String purposeCode;
+    private String chargeType;
 
     protected Payment() { }
 
@@ -432,6 +433,10 @@ public class Payment implements Entity {
         this.purposeCode = purposeCode;
     }
 
+    public String getChargeType() { return chargeType; }
+
+    public void setChargeType(String chargeType) { this.chargeType = chargeType; }
+
     @Override
     public String toString() {
         final ObjectMapper objectMapper = new ObjectMapper()
@@ -464,6 +469,7 @@ public class Payment implements Entity {
         map.put("paymentGroupId", paymentGroupId);
         map.put("ultimateBeneficiaryName", ultimateBeneficiaryName);
         map.put("purposeCode", purposeCode);
+        map.put("chargeType", chargeType);
 
         try {
             return objectMapper.writeValueAsString(map);

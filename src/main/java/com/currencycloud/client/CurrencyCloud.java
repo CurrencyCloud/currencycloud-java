@@ -694,7 +694,8 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
             @Nullable @FormParam("unique_request_id") String uniqueRequestId,
             @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName,
-            @Nullable @FormParam("purpose_code") String purposeCode
+            @Nullable @FormParam("purpose_code") String purposeCode,
+            @Nullable @FormParam("charge_type") String chargeType
     ) throws ResponseException;
 
     /** Authorise a Payment */
@@ -749,7 +750,8 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
             @Nullable @FormParam("payer_details_source") String payerDetailsSource,
             @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName,
-            @Nullable @FormParam("purpose_code") String purposeCode
+            @Nullable @FormParam("purpose_code") String purposeCode,
+            @Nullable @FormParam("charge_type") String chargeType
     ) throws ResponseException;
 
     /** Find Payments */
@@ -785,7 +787,8 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
+            @Nullable @QueryParam("charge_type") String chargeType
     ) throws ResponseException;
 
     /** Delete a Payment */
