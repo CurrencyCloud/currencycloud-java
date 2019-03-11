@@ -945,11 +945,11 @@ public class CurrencyCloudClient {
                 payment.getScope(),
                 payment.getBulkUploadId(),
                 payment.getPurposeCode(),
+                payment.getChargeType(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
-                pagination.getOrderAscDesc(),
-                payment.getChargeType()
+                pagination.getOrderAscDesc()
         );
     }
 

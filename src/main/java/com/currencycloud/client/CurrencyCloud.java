@@ -807,11 +807,11 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("scope") String scope,
             @Nullable @QueryParam("bulk_upload_id") String bulkUploadId,
             @Nullable @QueryParam("purpose_code") String purposeCode,
+            @Nullable @QueryParam("charge_type") String chargeType,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc,
-            @Nullable @QueryParam("charge_type") String chargeType
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
     /** Delete a Payment */
