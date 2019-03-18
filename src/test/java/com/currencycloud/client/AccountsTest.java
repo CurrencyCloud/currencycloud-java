@@ -2,9 +2,7 @@ package com.currencycloud.client;
 
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.Account;
-import com.currencycloud.client.model.Accounts;
-import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -204,4 +202,47 @@ public class AccountsTest extends BetamaxTestSupport {
         assertThat(account.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
         assertThat(account.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
     }
+
+    @Test
+    @Betamax(tape = "can_retrieve_accounts_payment_charge_settings", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanRetrieveAccountsPaymentChargeSettings() throws Exception {
+        final AccountPaymentChargesSettings accountChargeSettings = client.retrieveAccountsPaymentChargeSettings("e277c9f9-679f-454f-8367-274b3ff977ff");
+        assertThat(accountChargeSettings, is(notNullValue()));
+        assertThat(accountChargeSettings.getPaymentChargesSettings(), is(notNullValue()));
+        assertThat(accountChargeSettings.getPaymentChargesSettings().size(), equalTo(2));
+        final AccountPaymentChargesSetting chargeSetting0 = accountChargeSettings.getPaymentChargesSettings().get(0);
+        assertThat(chargeSetting0, is(notNullValue()));
+        assertThat(chargeSetting0.getAccountId(), equalTo("e277c9f9-679f-454f-8367-274b3ff977ff"));
+        assertThat(chargeSetting0.getChargeSettingsId(), equalTo("090baf6d-5cfd-4bfd-9b7b-ad3f8a310995"));
+        assertThat(chargeSetting0.getChargeType(), equalTo("ours"));
+        assertThat(chargeSetting0.isEnabled(), is(false));
+        assertThat(chargeSetting0.isDefault(), is(false));
+        final AccountPaymentChargesSetting chargeSetting1 = accountChargeSettings.getPaymentChargesSettings().get(1);
+        assertThat(chargeSetting1, is(notNullValue()));
+        assertThat(chargeSetting1.getAccountId(), equalTo("e277c9f9-679f-454f-8367-274b3ff977ff"));
+        assertThat(chargeSetting1.getChargeSettingsId(), equalTo("87203052-24d5-4af4-b88f-3bb35de4c6ea"));
+        assertThat(chargeSetting1.getChargeType(), equalTo("shared"));
+        assertThat(chargeSetting1.isEnabled(), is(true));
+        assertThat(chargeSetting1.isDefault(), is(true));
+    }
+
+    @Test
+    @Betamax(tape = "can_update_accounts_payment_charge_settings", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanUpdateAccountsPaymentChargeSettings() throws Exception {
+        final AccountPaymentChargesSetting setting = new  AccountPaymentChargesSetting();
+        setting.setAccountId("e277c9f9-679f-454f-8367-274b3ff977ff");
+        setting.setChargeSettingsId("090baf6d-5cfd-4bfd-9b7b-ad3f8a310995");
+        setting.setChargeType("ours");
+        setting.setEnabled(false);
+        setting.setDefault(true);
+        final AccountPaymentChargesSetting updatedSetting = client.updateAccountsPaymentChargeSetting(setting);
+        assertThat(updatedSetting, is(notNullValue()));
+        assertThat(updatedSetting.getAccountId(), equalTo("e277c9f9-679f-454f-8367-274b3ff977ff"));
+        assertThat(updatedSetting.getChargeSettingsId(), equalTo("090baf6d-5cfd-4bfd-9b7b-ad3f8a310995"));
+        assertThat(updatedSetting.getChargeType(), equalTo("ours"));
+        assertThat(updatedSetting.isEnabled(), is(false));
+        assertThat(updatedSetting.isDefault(), is(true));
+
+    }
+
 }

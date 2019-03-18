@@ -247,6 +247,25 @@ public class CurrencyCloudClient {
         return api.currentAccount(authToken, userAgent);
     }
 
+    public AccountPaymentChargesSettings retrieveAccountsPaymentChargeSettings(final String accountId) throws CurrencyCloudException {
+        return api.retrieveAccountsPaymentChargeSettings(
+                authToken,
+                userAgent,
+                accountId
+        );
+    }
+
+    public AccountPaymentChargesSetting updateAccountsPaymentChargeSetting(final AccountPaymentChargesSetting chargeSettings) throws CurrencyCloudException {
+        return api.updateAccountsPaymentChargeSettings(
+                authToken,
+                userAgent,
+                chargeSettings.getAccountId(),
+                chargeSettings.getChargeSettingsId(),
+                chargeSettings.isEnabled(),
+                chargeSettings.isDefault()
+        );
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// BALANCES ////////////////////////////////////////////////////
 
@@ -827,7 +846,8 @@ public class CurrencyCloudClient {
                 payer.getIdentificationValue(),
                 payment.getUniqueRequestId(),
                 payment.getUltimateBeneficiaryName(),
-                payment.getPurposeCode()
+                payment.getPurposeCode(),
+                payment.getChargeType()
         );
     }
 
@@ -880,7 +900,8 @@ public class CurrencyCloudClient {
                 payer.getIdentificationValue(),
                 payment.getPayerDetailsSource(),
                 payment.getUltimateBeneficiaryName(),
-                payment.getPurposeCode()
+                payment.getPurposeCode(),
+                payment.getChargeType()
         );
     }
 
@@ -924,6 +945,7 @@ public class CurrencyCloudClient {
                 payment.getScope(),
                 payment.getBulkUploadId(),
                 payment.getPurposeCode(),
+                payment.getChargeType(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),

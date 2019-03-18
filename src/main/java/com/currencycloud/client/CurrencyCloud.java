@@ -133,6 +133,29 @@ public interface CurrencyCloud {
             @HeaderParam("User-Agent") String userAgent
     ) throws ResponseException;
 
+
+    /** Retrieve an Accounts Payment Charge Settings */
+    @GET
+    @Path("/accounts/{account_id}/payment_charges_settings")
+    AccountPaymentChargesSettings retrieveAccountsPaymentChargeSettings(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("account_id") String accountId
+    ) throws ResponseException;
+
+    /** Update an Accounts Payment Charge Settings */
+    @POST
+    @Path("/accounts/{account_id}/payment_charges_settings/{charge_settings_id}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    AccountPaymentChargesSetting updateAccountsPaymentChargeSettings(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("account_id") String accountId,
+            @PathParam("charge_settings_id") String chargeSettingsId,
+            @Nullable @FormParam("enabled") Boolean enabled,
+            @Nullable @FormParam("default") Boolean isDefault
+    ) throws ResponseException;
+
     ///////////////////////////////////////////////////////////////////
     ///// BALANCES API ////////////////////////////////////////////////
 
@@ -694,7 +717,8 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
             @Nullable @FormParam("unique_request_id") String uniqueRequestId,
             @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName,
-            @Nullable @FormParam("purpose_code") String purposeCode
+            @Nullable @FormParam("purpose_code") String purposeCode,
+            @Nullable @FormParam("charge_type") String chargeType
     ) throws ResponseException;
 
     /** Authorise a Payment */
@@ -749,7 +773,8 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
             @Nullable @FormParam("payer_details_source") String payerDetailsSource,
             @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName,
-            @Nullable @FormParam("purpose_code") String purposeCode
+            @Nullable @FormParam("purpose_code") String purposeCode,
+            @Nullable @FormParam("charge_type") String chargeType
     ) throws ResponseException;
 
     /** Find Payments */
@@ -782,6 +807,7 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("scope") String scope,
             @Nullable @QueryParam("bulk_upload_id") String bulkUploadId,
             @Nullable @QueryParam("purpose_code") String purposeCode,
+            @Nullable @QueryParam("charge_type") String chargeType,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
