@@ -648,7 +648,6 @@ public class CurrencyCloudClient {
         return api.cancelConversion(
                 authToken,
                 userAgent,
-                getOnBehalfOf(),
                 conversion.getId(),
                 conversion.getNotes());
     }
@@ -657,7 +656,6 @@ public class CurrencyCloudClient {
         return api.quoteCancelConversion(
                 authToken,
                 userAgent,
-                getOnBehalfOf(),
                 conversion.getId());
     }
 
@@ -665,7 +663,6 @@ public class CurrencyCloudClient {
         return api.quoteChangeDateConversion(
                 authToken,
                 userAgent,
-                getOnBehalfOf(),
                 conversionDateChange.getId(),
                 conversionDateChange.getNewSettlementDate());
     }
@@ -674,7 +671,6 @@ public class CurrencyCloudClient {
         return api.changeDateConversion(
                 authToken,
                 userAgent,
-                getOnBehalfOf(),
                 conversionDateChange.getId(),
                 conversionDateChange.getNewSettlementDate());
     }
@@ -691,7 +687,6 @@ public class CurrencyCloudClient {
         return api.previewSplitConversion(
                 authToken,
                 userAgent,
-                getOnBehalfOf(),
                 conversion.getId(),
                 conversion.getAmount());
     }
@@ -700,7 +695,6 @@ public class CurrencyCloudClient {
         return api.splitConversion(
                 authToken,
                 userAgent,
-                getOnBehalfOf(),
                 conversion.getId(),
                 conversion.getAmount());
     }
@@ -709,7 +703,6 @@ public class CurrencyCloudClient {
         return api.historySplitConversion(
                 authToken,
                 userAgent,
-                getOnBehalfOf(),
                 conversion.getId());
     }
 
@@ -723,7 +716,6 @@ public class CurrencyCloudClient {
         return api.retrieveProfitAndLossConversion(
                 authToken,
                 userAgent,
-                getOnBehalfOf(),
                 profitAndLoss.getAccountId(),
                 profitAndLoss.getContactId(),
                 profitAndLoss.getConversionId(),

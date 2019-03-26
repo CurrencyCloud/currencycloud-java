@@ -524,7 +524,6 @@ public interface CurrencyCloud {
     ConversionCancellation cancelConversion(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @PathParam("id") String id,
             @Nullable @FormParam("notes") String notes
     ) throws ResponseException;
@@ -535,7 +534,6 @@ public interface CurrencyCloud {
     ConversionCancellationQuote quoteCancelConversion(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @PathParam("id") String id
     ) throws ResponseException;
 
@@ -545,7 +543,6 @@ public interface CurrencyCloud {
     ConversionDateChange quoteChangeDateConversion(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @PathParam("id") String id,
             @QueryParam("new_settlement_date") Date newSettlementDate
     ) throws ResponseException;
@@ -556,7 +553,6 @@ public interface CurrencyCloud {
     ConversionDateChange changeDateConversion(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @PathParam("id") String id,
             @FormParam("new_settlement_date") Date newSettlementDate
     ) throws ResponseException;
@@ -577,7 +573,6 @@ public interface CurrencyCloud {
     ConversionSplit previewSplitConversion(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @PathParam("id") String id,
             @QueryParam("amount") BigDecimal amount
     ) throws ResponseException;
@@ -588,7 +583,6 @@ public interface CurrencyCloud {
     ConversionSplit splitConversion(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @PathParam("id") String id,
             @FormParam("amount") BigDecimal amount
     ) throws ResponseException;
@@ -599,7 +593,6 @@ public interface CurrencyCloud {
     ConversionSplitHistory historySplitConversion(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @PathParam("id") String id
     ) throws ResponseException;
 
@@ -609,7 +602,6 @@ public interface CurrencyCloud {
     ConversionProfitAndLosses retrieveProfitAndLossConversion(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @Nullable @QueryParam("account_id") String accountId,
             @Nullable @QueryParam("contact_id") String contactId,
             @Nullable @QueryParam("conversion_id") String conversionId,
