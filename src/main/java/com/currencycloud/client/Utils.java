@@ -9,28 +9,25 @@ public enum Utils {
 
     public static final String dateFormat = "yyyy-MM-dd'T'HH:mm:ssX";
 
-    public static String join(Iterable<String> strings, String separator) {
-        if (strings == null) {
+    public static String join(List<String> strings, String separator) {
+        if (!validInput(strings, separator)) {
             return null;
         }
-        StringBuilder sb = new StringBuilder();
-        for (String string : strings) {
-            if (sb.length() > 0) {
-                sb.append(separator);
-            }
-            sb.append(string);
-        }
-        return sb.toString();
+        return String.join(separator, strings);
     }
 
     public static String joinInverse(List<String> strings, String separator) {
-        if (strings == null || separator == null) {
+        if (!validInput(strings, separator)) {
             return null;
         }
 
         List<String> reversed = new ArrayList<>(strings);
         Collections.reverse(reversed);
-        return String.join(separator, reversed);
+        return join(reversed, separator);
+    }
+
+    private static boolean validInput(List<String> strings, String separator) {
+        return strings != null && separator != null;
     }
 
     public static Throwable getRootCause(Throwable t) {
