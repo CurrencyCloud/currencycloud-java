@@ -2,8 +2,7 @@ package com.currencycloud.client;
 
 import java.util.List;
 
-public enum Utils {
-    ;
+public class Utils {
 
     public static final String dateFormat = "yyyy-MM-dd'T'HH:mm:ssX";
 
