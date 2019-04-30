@@ -1,5 +1,7 @@
 package com.currencycloud.client;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public enum Utils {
@@ -22,18 +24,13 @@ public enum Utils {
     }
 
     public static String joinInverse(List<String> strings, String separator) {
-        if (strings == null) {
+        if (strings == null || separator == null) {
             return null;
         }
-        StringBuilder sb = new StringBuilder();
-        for (int i = strings.size() - 1; i >= 0; i--) {
-            String string = strings.get(i);
-            if (sb.length() > 0) {
-                sb.append(separator);
-            }
-            sb.append(string);
-        }
-        return sb.toString();
+
+        List<String> reversed = new ArrayList<>(strings);
+        Collections.reverse(reversed);
+        return String.join(separator, reversed);
     }
 
     public static Throwable getRootCause(Throwable t) {
