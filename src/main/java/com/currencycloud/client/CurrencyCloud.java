@@ -260,6 +260,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("beneficiary_date_of_birth") java.sql.Date beneficiaryDateOfBirth,
             @Nullable @FormParam("beneficiary_identification_type") String beneficiaryIdentificationType,
             @Nullable @FormParam("beneficiary_identification_value") String beneficiaryIdentificationValue,
+            @Nullable @FormParam("beneficiary_external_reference") String beneficiaryExternalReference,
             @Nullable @FormParam("payment_types[]") List<String> paymentTypes
     ) throws ResponseException;
 
@@ -310,6 +311,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("beneficiary_date_of_birth") java.sql.Date beneficiaryDateOfBirth,
             @Nullable @FormParam("beneficiary_identification_type") String beneficiaryIdentificationType,
             @Nullable @FormParam("beneficiary_identification_value") String beneficiaryIdentificationValue,
+            @Nullable @FormParam("beneficiary_external_reference") String beneficiaryExternalReference,
             @Nullable @FormParam("payment_types[]") List<String> paymentTypes
     ) throws ResponseException;
 
@@ -341,6 +343,7 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("beneficiary_postcode") String beneficiaryPostcode,
             @Nullable @QueryParam("beneficiary_state_or_province") String beneficiaryStateOrProvince,
             @Nullable @QueryParam("beneficiary_date_of_birth") java.sql.Date beneficiaryDateOfBirth,
+            @Nullable @QueryParam("beneficiary_external_reference") String beneficiaryExternalReference,
             @Nullable @QueryParam("scope") String scope,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
