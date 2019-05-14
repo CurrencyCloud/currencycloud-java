@@ -48,6 +48,7 @@ public class Beneficiary implements Entity {
     private Date beneficiaryDateOfBirth;
     private String beneficiaryIdentificationType;
     private String beneficiaryIdentificationValue;
+    private String beneficiaryExternalReference;
     @JsonProperty("routing_code_type_1")
     private String routingCodeType1;
     @JsonProperty("routing_code_value_1")
@@ -60,7 +61,6 @@ public class Beneficiary implements Entity {
     private String iban;
     private List<String> bankAddress;
     private String scope;
-    private String beneficiaryExternalReference;
 
     protected Beneficiary() { }
 

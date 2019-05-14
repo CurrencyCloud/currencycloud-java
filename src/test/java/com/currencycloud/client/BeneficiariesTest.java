@@ -61,6 +61,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
         beneficiary.setBeneficiaryDateOfBirth(parseDate("1986-12-12"));
         beneficiary.setBeneficiaryIdentificationType("passport");
         beneficiary.setBeneficiaryIdentificationValue("AE02315508BF");
+        beneficiary.setBeneficiaryExternalReference("External Reference One");
         beneficiary.setPaymentTypes(Collections.singletonList("regular"));
         beneficiary = client.createBeneficiary(beneficiary);
 
@@ -92,6 +93,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
         assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
         assertThat(beneficiary.getBeneficiaryIdentificationType(), equalTo("passport"));
         assertThat(beneficiary.getBeneficiaryIdentificationValue(), equalTo("AE02315508BF"));
+        assertThat(beneficiary.getBeneficiaryExternalReference(), equalTo("External Reference One"));
         assertThat(beneficiary.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
         assertThat(beneficiary.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
     }
@@ -167,6 +169,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
         beneficiary.setId("081596c9-02de-483e-9f2a-4cf55dcdf98c");
         beneficiary.setBankAccountHolderName("Test User 2");
         beneficiary.setBeneficiaryDateOfBirth(parseDate("1968-03-23"));
+        beneficiary.setBeneficiaryExternalReference("External Reference Two");
         beneficiary = client.updateBeneficiary(beneficiary);
 
         assertThat(beneficiary, is(notNullValue()));
@@ -197,6 +200,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
         assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
         assertThat(beneficiary.getBeneficiaryIdentificationType(), equalTo("passport"));
         assertThat(beneficiary.getBeneficiaryIdentificationValue(), equalTo("AE02315508BF"));
+        assertThat(beneficiary.getBeneficiaryExternalReference(), equalTo("External Reference Two"));
         assertThat(beneficiary.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
         assertThat(beneficiary.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
     }

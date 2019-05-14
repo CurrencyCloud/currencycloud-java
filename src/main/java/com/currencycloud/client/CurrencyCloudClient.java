@@ -375,6 +375,7 @@ public class CurrencyCloudClient {
                 dateOnly(beneficiary.getBeneficiaryDateOfBirth()),
                 beneficiary.getBeneficiaryIdentificationType(),
                 beneficiary.getBeneficiaryIdentificationValue(),
+                beneficiary.getBeneficiaryExternalReference(),
                 beneficiary.getPaymentTypes()
         );
     }
@@ -422,6 +423,7 @@ public class CurrencyCloudClient {
                 dateOnly(beneficiary.getBeneficiaryDateOfBirth()),
                 beneficiary.getBeneficiaryIdentificationType(),
                 beneficiary.getBeneficiaryIdentificationValue(),
+                beneficiary.getBeneficiaryExternalReference(),
                 beneficiary.getPaymentTypes()
         );
     }
@@ -466,6 +468,7 @@ public class CurrencyCloudClient {
                 beneficiary.getBeneficiaryPostcode(),
                 beneficiary.getBeneficiaryStateOrProvince(),
                 dateOnly(beneficiary.getBeneficiaryDateOfBirth()),
+                beneficiary.getBeneficiaryExternalReference(),
                 beneficiary.getScope(),
                 pagination.getPage(),
                 pagination.getPerPage(),
