@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22)
 # Currencycloud API v2 Java client
-## Version: 2.1.3
+## Version: 2.2.1
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -27,7 +27,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>2.0.0</version>
+    <version>2.2.1</version>
 </dependency>
 ```
 
@@ -227,6 +227,8 @@ CurrencyCloudClient.findSubAccountsVirtualAccounts(VirtualAccount, Pagination) a
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [2.2.1] - Removes erroneous "on behalf of" parameter from conversions api endpoints. Adds beneficiary_external_reference to beneficiary create, update and find endpoints
+* [2.1.3] - Adds Accounts "payment charges settings" End points. Adds "charge type" parameter to Payments Endpoints
 * [2.0.0] - Remove deprecated methods, update dependencies and copyright
 * [1.8.1] - Add Payment Confirmation and Sender Details
 * [1.7.4] - Add Reporting paths and operations, remove json-smart dependency, change toString implementation, add missing Currency fields, update IBAN and VirtualAccounts, and deprecate obsolete IBAN and VirtualAccounts methods
