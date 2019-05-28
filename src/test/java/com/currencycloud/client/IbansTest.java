@@ -12,9 +12,9 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class IbansTest extends BetamaxTestSupport {
 
@@ -81,39 +81,5 @@ public class IbansTest extends BetamaxTestSupport {
         assertThat(pagination.getNextPage(), equalTo(-1));
         assertThat(pagination.getOrder(), equalTo("created_at"));
         assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
-    }
-
-    @Test
-    @Betamax(tape = "can_find_subaccounts", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindSubAccountsIban() throws Exception {
-        Iban ibanCondition = Iban.create();
-        Pagination paginationCondition = new Pagination();
-        Ibans ibansData = client.findSubAccountsIbans(ibanCondition, paginationCondition);
-        List<Iban> ibans = ibansData.getIbans();
-        Iban iban = ibans.iterator().next();
-
-        assertThat(ibans, not(empty()));
-        assertThat(ibans.size(), is(1));
-        assertThat(iban.getCurrency(), equalTo("EUR"));
-        assertThat(iban.getId(), equalTo("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe"));
-        assertThat(iban.getIbanCode(), equalTo("GB51TCCL00997997989489"));
-        assertThat(iban.getAccountId(), equalTo("87077161-91de-012f-e284-1e0030c7f352"));
-        assertThat(iban.getAccountHolderName(), equalTo("Account-IGGLNHYTWFKI"));
-    }
-
-    @Test
-    @Betamax(tape = "can_retrieve_subaccounts", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveSubAccountIban() throws Exception {
-        Ibans ibansData = client.retrieveSubAccountsIban("87077161-91de-012f-e284-1e0030c7f353", null);
-        List<Iban> ibans = ibansData.getIbans();
-        Iban iban = ibans.iterator().next();
-
-        assertThat(ibans, not(empty()));
-        assertThat(ibans.size(), is(1));
-        assertThat(iban.getCurrency(), equalTo("JPY"));
-        assertThat(iban.getId(), equalTo("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe"));
-        assertThat(iban.getIbanCode(), equalTo("GB51TCCL00997997989490"));
-        assertThat(iban.getAccountId(), equalTo("87077161-91de-012f-e284-1e0030c7f353"));
-        assertThat(iban.getAccountHolderName(), equalTo("Account-IGGLNHYTWFKI"));
     }
 }

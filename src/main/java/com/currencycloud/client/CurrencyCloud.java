@@ -639,34 +639,6 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
-    /** Retrieve IBAN of Sub-Account(s) */
-    @GET
-    @Path("ibans/subaccounts/{id}")
-    @Deprecated
-    Ibans retrieveSubAccountsIban(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @PathParam("id") String id,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
-    ) throws ResponseException;
-
-    /** Find IBANs of Sub-Account(s) */
-    @GET
-    @Path("ibans/subaccounts/find")
-    @Deprecated
-    Ibans findSubAccountsIbans(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("currency") String currency,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
-    ) throws ResponseException;
-
     ///////////////////////////////////////////////////////////////////
     ///// PAYERS API ///////////////////////////////////////////////////
 
@@ -1294,45 +1266,6 @@ public interface CurrencyCloud {
             @HeaderParam("User-Agent") String userAgent,
             @Nullable @QueryParam("scope") String scope,
             @Nullable @QueryParam("account_id") String accountId,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
-    ) throws ResponseException;
-
-    /** Retrieve VAN of Sub-Account(s) */
-    @GET
-    @Path("virtual_accounts")
-    VirtualAccounts retrieveVirtualAccount(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
-    ) throws ResponseException;
-
-    /** Retrieve VAN of Sub-Account(s) */
-    @GET
-    @Path("virtual_accounts/subaccounts/{id}")
-    @Deprecated
-    VirtualAccounts retrieveSubAccountsVirtualAccount(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @PathParam("id") String id,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
-    ) throws ResponseException;
-
-    /** Find VANs of Sub-Account(s) */
-    @GET
-    @Path("virtual_accounts/subaccounts/find")
-    @Deprecated
-    VirtualAccounts findSubAccountsVirtualAccounts(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,

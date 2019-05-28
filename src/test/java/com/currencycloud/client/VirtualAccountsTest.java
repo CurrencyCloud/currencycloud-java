@@ -12,9 +12,9 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class VirtualAccountsTest extends BetamaxTestSupport {
 
@@ -54,73 +54,5 @@ public class VirtualAccountsTest extends BetamaxTestSupport {
         assertThat(pagination.getNextPage(), equalTo(2));
         assertThat(pagination.getOrder(), equalTo("created_at"));
         assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
-    }
-
-    @Test
-    @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveVirtualAccount() throws Exception {
-        Pagination paginationCondition = new Pagination();
-        paginationCondition.setOrder("created_at");
-        paginationCondition.setOrderAscDesc(Pagination.SortOrder.desc);
-        VirtualAccounts virtualAccountsData = client.retrieveVirtualAccount(paginationCondition);
-        List<VirtualAccount> virtualAccounts = virtualAccountsData.getVirtualAccounts();
-        Pagination pagination = virtualAccountsData.getPagination();
-
-        VirtualAccount virtualAccount = virtualAccounts.iterator().next();
-        assertThat(virtualAccounts.size(), is(1));
-        assertThat(virtualAccount, is(notNullValue()));
-        assertThat(virtualAccount.getId(), equalTo("00d272ee-fae5-4f97-b425-993a2d6e3a46"));
-        assertThat(virtualAccount.getVirtualAccountNumber(), equalTo("8303723297"));
-        assertThat(virtualAccount.getAccountId(), equalTo("2090939e-b2f7-3f2b-1363-4d235b3f58af"));
-        assertThat(virtualAccount.getAccountHolderName(), equalTo("Account-ZXOANNAMKPRQ"));
-        assertThat(virtualAccount.getBankInstitutionName(), equalTo("Community Federal Savings Bank"));
-        assertThat(virtualAccount.getBankInstitutionAddress(), equalTo("Seventh Avenue, New York, NY 10019, US"));
-        assertThat(virtualAccount.getBankInstitutionCountry(), equalTo("United States"));
-        assertThat(pagination.getTotalEntries(), equalTo(1));
-        assertThat(pagination.getTotalPages(), equalTo(1));
-        assertThat(pagination.getCurrentPage(), equalTo(1));
-        assertThat(pagination.getPerPage(), equalTo(25));
-        assertThat(pagination.getPreviousPage(), equalTo(-1));
-        assertThat(pagination.getNextPage(), equalTo(2));
-        assertThat(pagination.getOrder(), equalTo("created_at"));
-        assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.desc));
-    }
-
-    @Test
-    @Betamax(tape = "can_find_subaccounts", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindSubAccountsVirtualAccount() throws Exception {
-        VirtualAccount virtualAccountCondition = VirtualAccount.create();
-        Pagination paginationCondition = new Pagination();
-        VirtualAccounts virtualAccountsData = client.findSubAccountsVirtualAccounts(virtualAccountCondition, paginationCondition);
-        List<VirtualAccount> virtualAccounts = virtualAccountsData.getVirtualAccounts();
-        VirtualAccount virtualAccount = virtualAccounts.iterator().next();
-
-        assertThat(virtualAccounts, not(empty()));
-        assertThat(virtualAccounts.size(), is(1));
-        assertThat(virtualAccount.getId(), equalTo("00d272ee-fae5-4f97-b425-993a2d6e3a46"));
-        assertThat(virtualAccount.getAccountId(), equalTo("2090939e-b2f7-3f2b-1363-4d235b3f58af"));
-        assertThat(virtualAccount.getVirtualAccountNumber(), equalTo("8303723297"));
-        assertThat(virtualAccount.getAccountHolderName(), equalTo("Account-ZXOANNAMKPRQ"));
-        assertThat(virtualAccount.getBankInstitutionName(), equalTo("Community Federal Savings Bank"));
-        assertThat(virtualAccount.getBankInstitutionAddress(), equalTo("Seventh Avenue, New York, NY 10019, US"));
-        assertThat(virtualAccount.getBankInstitutionCountry(), equalTo("United States"));
-    }
-
-    @Test
-    @Betamax(tape = "can_retrieve_subaccounts", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveSubAccountVirtualAccount() throws Exception {
-        VirtualAccounts virtualAccountsData = client.retrieveSubAccountsVirtualAccount("87077161-91de-012f-e284-1e0030c7f353", null);
-        List<VirtualAccount> virtualAccounts = virtualAccountsData.getVirtualAccounts();
-        VirtualAccount virtualAccount = virtualAccounts.iterator().next();
-
-        assertThat(virtualAccounts, not(empty()));
-        assertThat(virtualAccounts.size(), is(1));
-        assertThat(virtualAccount.getId(), equalTo("00d272ee-fae5-4f97-b425-993a2d6e3a46"));
-        assertThat(virtualAccount.getAccountId(), equalTo("2090939e-b2f7-3f2b-1363-4d235b3f58af"));
-        assertThat(virtualAccount.getVirtualAccountNumber(), equalTo("8303723297"));
-        assertThat(virtualAccount.getAccountHolderName(), equalTo("Account-ZXOANNAMKPRQ"));
-        assertThat(virtualAccount.getBankInstitutionName(), equalTo("Community Federal Savings Bank"));
-        assertThat(virtualAccount.getBankInstitutionAddress(), equalTo("Seventh Avenue, New York, NY 10019, US"));
-        assertThat(virtualAccount.getBankInstitutionCountry(), equalTo("United States"));
     }
 }
