@@ -124,4 +124,24 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(paymentPurposeCode.getPurposeCode(), equalTo("property_purchase"));
         assertThat(paymentPurposeCode.getPurposeDescription(), equalTo("Purchase of residential property"));
     }
+
+    @Test
+    @Betamax(tape = "can_retrieve_bank_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanRetrieveBankDetails() throws Exception {
+        final BankDetails bankDetails = client.bankDetails("iban", "GB19TCCL00997901654515");
+        assertThat(bankDetails.getIdentifierType(), equalTo("iban"));
+        assertThat(bankDetails.getIdentifierValue(), equalTo("GB19TCCL00997901654515"));
+        assertThat(bankDetails.getAccountNumber(), equalTo("GB19TCCL00997901654515"));
+        assertThat(bankDetails.getBicSwift(), equalTo("TCCLGB22XXX"));
+        assertThat(bankDetails.getBankName(), equalTo("THE CURRENCY CLOUD LIMITED"));
+        assertThat(bankDetails.getBankBranch(), equalTo(""));
+        assertThat(bankDetails.getBankAddress(), equalTo("12 STEWARD STREET  THE STEWARD BUILDING FLOOR 0"));
+        assertThat(bankDetails.getBankCity(), equalTo("LONDON"));
+        assertThat(bankDetails.getBankState(), equalTo("LONDON"));
+        assertThat(bankDetails.getBankPostCode(), equalTo("E1 6FQ"));
+        assertThat(bankDetails.getBankCountry(), equalTo("UNITED KINGDOM"));
+        assertThat(bankDetails.getBankCountryISO(), equalTo("GB"));
+        assertThat(bankDetails.getCurrency(), nullValue());
+    }
 }
+

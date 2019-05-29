@@ -969,6 +969,16 @@ public interface CurrencyCloud {
     ///////////////////////////////////////////////////////////////////
     ///// REFERENCE API ///////////////////////////////////////////////
 
+    /** Bank Details */
+    @GET
+    @Path("reference/bank_details")
+    BankDetails bankDetails(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @QueryParam("identifier_type") String identifierType,
+            @QueryParam("identifier_value") String identifierValue
+    ) throws ResponseException;
+
     /** Beneficiary Required Details */
     @GET
     @Path("reference/beneficiary_required_details")
