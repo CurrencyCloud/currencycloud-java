@@ -1,4 +1,4 @@
-name: can_retrieve_beneficiary_required_details
+name: can_retrieve_bank_details
 interactions:
   - request:
       method: GET
