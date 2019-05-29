@@ -1121,13 +1121,6 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// SETTLEMENTS /////////////////////////////////////////////////
 
-    /**
-     * @deprecated as of 1.2.3; use {@link #createSettlement(Settlement)} instead.
-     * */
-    public Settlement createSettlement() throws CurrencyCloudException {
-        return api.createSettlement(authToken, userAgent, getOnBehalfOf());
-    }
-
     public Settlement createSettlement(Settlement settlement) throws CurrencyCloudException {
         return api.createSettlement(authToken, userAgent, getOnBehalfOf(), settlement.getType());
     }
