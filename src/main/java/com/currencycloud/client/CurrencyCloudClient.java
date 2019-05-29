@@ -1102,7 +1102,7 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// REFERENCE ///////////////////////////////////////////////////
 
-    public BankDetails bankDetails(String identifierType, String identifierValue) {
+    public BankDetails bankDetails(String identifierType, String identifierValue) throws CurrencyCloudException {
         return api.bankDetails(authToken, userAgent, identifierType, identifierValue);
     }
     public List<Map<String, String>> beneficiaryRequiredDetails(@Nullable String currency, @Nullable String bankAccountCountry, @Nullable String beneficiaryCountry) throws CurrencyCloudException {
