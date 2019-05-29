@@ -838,9 +838,9 @@ public interface CurrencyCloud {
             @PathParam("id") String id,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
-    @GET
 
     /** Retrieve a payments delivery date */
+    @GET
     @Path("payments/payment_delivery_date")
     PaymentDeliveryDate getPaymentDeliveryDate(
             @HeaderParam("X-Auth-Token") String authToken,
