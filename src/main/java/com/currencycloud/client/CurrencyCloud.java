@@ -839,6 +839,17 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
+    /** Retrieve a payments delivery date */
+    @GET
+    @Path("payments/payment_delivery_date")
+    PaymentDeliveryDate getPaymentDeliveryDate(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @QueryParam("payment_date") java.sql.Date paymentDate,
+            @QueryParam("payment_type") String paymentType,
+            @QueryParam("currency") String currency,
+            @QueryParam("bank_country") String bankCountry
+    ) throws ResponseException;
 
     ///////////////////////////////////////////////////////////////////
     ///// RATES API ///////////////////////////////////////////////////
