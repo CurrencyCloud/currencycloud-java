@@ -974,6 +974,16 @@ public class CurrencyCloudClient {
                 getOnBehalfOf());
     }
 
+    public PaymentDeliveryDate getPaymentDeliveryDate(Date paymentDate, String paymentType,String currency, String bankCountry) throws CurrencyCloudException {
+        return api.getPaymentDeliveryDate(
+                authToken,
+                userAgent,
+                dateOnly(paymentDate),
+                paymentType,
+                currency,
+                bankCountry);
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 
