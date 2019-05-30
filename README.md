@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22)
 # Currencycloud API v2 Java client
-## Version: 2.2.1
+## Version: 3.2.2
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -27,7 +27,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>2.2.1</version>
+    <version>3.2.2</version>
 </dependency>
 ```
 
@@ -35,7 +35,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 Download the Currencycloud SDK jar:
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-2.0.0.jar 
+3. Download the currencycloud-java-3.2.2.jar 
 
 Get the list of all dependencies:
 ```Shell
@@ -43,18 +43,18 @@ mvn dependency:list -DincludeScope=runtime
 ```
 As of version 2.0.0, this returns the following list:
 ```
-cglib:cglib:3.2.10:compile
+cglib:cglib:3.2.12:compile
 ch.qos.logback:logback-classic:1.2.3:compile
 ch.qos.logback:logback-core:1.2.3:compile
-com.fasterxml.jackson.core:jackson-annotations:2.9.8:compile
-com.fasterxml.jackson.core:jackson-core:2.9.8:compile
-com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8:compile
+com.fasterxml.jackson.core:jackson-annotations:2.9.9:compile
+com.fasterxml.jackson.core:jackson-core:2.9.9:compile
+com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.9:compile
 com.github.mmazi:rescu:2.0.2:compile
 com.google.code.findbugs:jsr305:3.0.2:compile
 javax.ws.rs:javax.ws.rs-api:2.1.1:compile
 javax.ws.rs:jsr311-api:1.1.1:compile
-org.ow2.asm:asm:7.0:compile
-org.slf4j:slf4j-api:1.7.25:compile
+org.ow2.asm:asm:7.1:compile
+org.slf4j:slf4j-api:1.7.26:compile
 ```
 You will need to find each of these dependencies and download it from the [Sonatype Nexus][sonatype] as described above.
 
@@ -188,9 +188,9 @@ Test cases can be run with `mvn test`
 ```
 co.freeside:betamax:1.1.2:compile
 junit:junit:4.12:compile
-org.codehaus.groovy:groovy-all:2.4.16:compile
+org.codehaus.groovy:groovy-all:2.4.17:compile
 org.hamcrest:hamcrest-junit:2.0.0.0:compile
-org.yaml:snakeyaml:1.23:compile
+org.yaml:snakeyaml:1.24:compile
 ```
 
 ## Contributing
@@ -215,20 +215,16 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 
 ### List of features being deprecated
 ```
-As of 1.7.4:
-------------
-CurrencyCloudClient.retrieveSubAccountsIban(String, Pagination) and corresponding CurrencyCloud.retrieveSubAccountsIban
-CurrencyCloudClient.findSubAccountsIbans(Iban, Pagination) and corresponding CurrencyCloud.findSubAccountsIbans
-CurrencyCloudClient.retrieveSubAccountsVirtualAccount(String, Pagination) and corresponding CurrencyCloud.retrieveSubAccountsVirtualAccount
-CurrencyCloudClient.findSubAccountsVirtualAccounts(VirtualAccount, Pagination) and corresponding CurrencyCloud.findSubAccountsVirtualAccounts
+(No features are currently being deprecated)
 ```
 
 # Support
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
-* [2.2.1] - Removes erroneous "on behalf of" parameter from conversions api endpoints. Adds beneficiary_external_reference to beneficiary create, update and find endpoints
-* [2.1.3] - Adds Accounts "payment charges settings" End points. Adds "charge type" parameter to Payments Endpoints
+* [3.2.2] - Add Reference Bank Details and Payment Delivery Date endpoints, remove deprecated IBAN and VAN endpoints, remove deprecated CurrencyCloudClient.createSettlement() method, update dependencies and add support for JDK 12
+* [2.2.1] - Remove erroneous On Behalf Of parameter from conversions api endpoints. Adds beneficiary_external_reference to beneficiary create, update and find endpoints
+* [2.1.3] - Add Accounts Payment Charges Settings endpoints. Adds Charge Type parameter to Payments Endpoints
 * [2.0.0] - Remove deprecated methods, update dependencies and copyright
 * [1.8.1] - Add Payment Confirmation and Sender Details
 * [1.7.4] - Add Reporting paths and operations, remove json-smart dependency, change toString implementation, add missing Currency fields, update IBAN and VirtualAccounts, and deprecate obsolete IBAN and VirtualAccounts methods
