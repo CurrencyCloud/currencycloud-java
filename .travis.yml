@@ -10,12 +10,13 @@ matrix:
   - jdk: openjdk10
   - jdk: oraclejdk11
   - jdk: openjdk11
-    
+  - jdk: oraclejdk12
+  - jdk: openjdk12
+
   allow_failures:
-  - jdk: oraclejdk8
   - jdk: oraclejdk9
   - jdk: oraclejdk10
-  - jdk: oraclejdk11
+  - jdk: oraclejdk12
 
 script: mvn clean install
 

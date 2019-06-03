@@ -6,7 +6,7 @@ interactions:
     body: login_id=non-existent-login-id&api_key=deadbeefdeadbeefdeadbeefdeadbeefdeadbeef
     headers:
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/2.0.0
+      - CurrencyCloudSDK/2.0 Java/3.2.2
   response:
     status: 400
     headers:

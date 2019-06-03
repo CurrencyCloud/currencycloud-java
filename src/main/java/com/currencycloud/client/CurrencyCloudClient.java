@@ -41,7 +41,7 @@ public class CurrencyCloudClient {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
-    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/2.0.0";
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/3.2.2";
 
     private final CurrencyCloud api;
 
@@ -765,42 +765,6 @@ public class CurrencyCloudClient {
         );
     }
 
-    /**
-     * @deprecated as of 1.7.4; use generic {@link #findIbans(Iban, Pagination)} instead.
-     * */
-    @Deprecated
-    public Ibans retrieveSubAccountsIban(String id, Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        return api.retrieveSubAccountsIban(
-                authToken,
-                userAgent,
-                id,
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc());
-    }
-
-    /**
-     * @deprecated as of 1.7.4; use generic {@link #findIbans(Iban, Pagination)} instead.
-     * */
-    @Deprecated
-    public Ibans findSubAccountsIbans(@Nullable Iban iban, @Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        return api.findSubAccountsIbans(
-                authToken,
-                userAgent,
-                iban.getCurrency(),
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc());
-    }
-
     ///////////////////////////////////////////////////////////////////
     ///// PAYERS ///////////////////////////////////////////////////////
 
@@ -1157,13 +1121,6 @@ public class CurrencyCloudClient {
     ///////////////////////////////////////////////////////////////////
     ///// SETTLEMENTS /////////////////////////////////////////////////
 
-    /**
-     * @deprecated as of 1.2.3; use {@link #createSettlement(Settlement)} instead.
-     * */
-    public Settlement createSettlement() throws CurrencyCloudException {
-        return api.createSettlement(authToken, userAgent, getOnBehalfOf());
-    }
-
     public Settlement createSettlement(Settlement settlement) throws CurrencyCloudException {
         return api.createSettlement(authToken, userAgent, getOnBehalfOf(), settlement.getType());
     }
@@ -1361,54 +1318,6 @@ public class CurrencyCloudClient {
                 pagination.getOrder(),
                 pagination.getOrderAscDesc()
         );
-    }
-
-    public VirtualAccounts retrieveVirtualAccount(@Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        return api.retrieveVirtualAccount(
-                authToken,
-                userAgent,
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc());
-    }
-
-    /**
-     * @deprecated as of 1.7.4; use generic {@link #findVirtualAccounts(VirtualAccount, Pagination)} instead.
-     * */
-    @Deprecated
-    public VirtualAccounts retrieveSubAccountsVirtualAccount(String id, Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        return api.retrieveSubAccountsVirtualAccount(
-                authToken,
-                userAgent,
-                id,
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc());
-    }
-
-    /**
-     * @deprecated as of 1.7.4; use generic {@link #findVirtualAccounts(VirtualAccount, Pagination)} instead.
-     * */
-    @Deprecated
-    public VirtualAccounts findSubAccountsVirtualAccounts(@Nullable VirtualAccount virtualAccount, @Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        return api.findSubAccountsVirtualAccounts(
-                authToken,
-                userAgent,
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc());
     }
 
     ///////////////////////////////////////////////////////////////////
