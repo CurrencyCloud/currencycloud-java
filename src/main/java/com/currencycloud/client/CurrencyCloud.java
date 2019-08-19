@@ -695,7 +695,7 @@ public interface CurrencyCloud {
     PaymentAuthorisations authorisePayment(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
-            @QueryParam("paymentIds[]") List<String> paymentIds
+            @QueryParam("payment_ids[]") List<String> paymentIds
     ) throws ResponseException;
 
     /** Retrieve a Payment */
