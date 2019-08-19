@@ -2,7 +2,7 @@ name: can_authorise_payment
 interactions:
 - request:
     method: POST
-    uri: http://localhost:5555/v2/payments/authorise?paymentIds[]=8e3aeeb8-deeb-4665-96de-54b880a953ac&paymentIds[]=f16cafe4-1f8f-472e-99d9-8c828918d4f8&paymentIds[]=d025f90f-a23c-46f9-979a-35a9f98d9491
+    uri: http://localhost:5555/v2/payments/authorise?payment_ids[]=8e3aeeb8-deeb-4665-96de-54b880a953ac&payment_ids[]=f16cafe4-1f8f-472e-99d9-8c828918d4f8&payment_ids[]=d025f90f-a23c-46f9-979a-35a9f98d9491
     body: ''
     headers:
       X-Auth-Token:
