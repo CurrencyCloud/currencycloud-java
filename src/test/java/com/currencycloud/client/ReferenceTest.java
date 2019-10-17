@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -143,5 +144,43 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(bankDetails.getBankCountryISO(), equalTo("GB"));
         assertThat(bankDetails.getCurrency(), nullValue());
     }
-}
 
+    @Test
+    @Betamax(tape = "can_retrieve_payment_fee_rules", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanRetrievePaymentFeeRules() throws Exception {
+        final List<PaymentFeeRule> paymentFeeRules1 = client.paymentFeeRules(null, null, null);
+        assertThat(paymentFeeRules1.size(), equalTo(3));
+        final PaymentFeeRule feeRule1_1 = paymentFeeRules1.get(0);
+        assertThat(feeRule1_1.getChargeType(), equalTo("shared"));
+        assertThat(feeRule1_1.getFeeAmount(), equalTo(new BigDecimal("2.00")));
+        assertThat(feeRule1_1.getFeeCurrency(), equalTo("AED"));
+        assertThat(feeRule1_1.getPaymentType(), equalTo("priority"));
+        final PaymentFeeRule feeRule1_2 = paymentFeeRules1.get(1);
+        assertThat(feeRule1_2.getChargeType(), equalTo("shared"));
+        assertThat(feeRule1_2.getFeeAmount(), equalTo(new BigDecimal("12.00")));
+        assertThat(feeRule1_2.getFeeCurrency(), equalTo("USD"));
+        assertThat(feeRule1_2.getPaymentType(), equalTo("regular"));
+        final PaymentFeeRule feeRule1_3 = paymentFeeRules1.get(2);
+        assertThat(feeRule1_3.getChargeType(), equalTo("ours"));
+        assertThat(feeRule1_3.getFeeAmount(), equalTo(new BigDecimal("5.25")));
+        assertThat(feeRule1_3.getFeeCurrency(), equalTo("GBP"));
+        assertThat(feeRule1_3.getPaymentType(), equalTo("priority"));
+
+
+        final List<PaymentFeeRule> paymentFeeRules2 = client.paymentFeeRules(null, "regular", null);
+        assertThat(paymentFeeRules2.size(), equalTo(1));
+        final PaymentFeeRule feeRule2_1 = paymentFeeRules2.get(0);
+        assertThat(feeRule2_1.getChargeType(), equalTo("shared"));
+        assertThat(feeRule2_1.getFeeAmount(), equalTo(new BigDecimal("12.00")));
+        assertThat(feeRule2_1.getFeeCurrency(), equalTo("USD"));
+        assertThat(feeRule2_1.getPaymentType(), equalTo("regular"));
+
+        final List<PaymentFeeRule> paymentFeeRules3 = client.paymentFeeRules(null, null, "ours");
+        assertThat(paymentFeeRules3.size(), equalTo(1));
+        final PaymentFeeRule feeRule3_1 = paymentFeeRules3.get(0);
+        assertThat(feeRule3_1.getChargeType(), equalTo("ours"));
+        assertThat(feeRule3_1.getFeeAmount(), equalTo(new BigDecimal("5.25")));
+        assertThat(feeRule3_1.getFeeCurrency(), equalTo("GBP"));
+        assertThat(feeRule3_1.getPaymentType(), equalTo("priority"));
+    }
+}

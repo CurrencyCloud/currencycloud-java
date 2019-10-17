@@ -1033,6 +1033,17 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("entity_type") String entityType
     ) throws ResponseException;
 
+    /** Payment Fee Rules */
+    @GET
+    @Path("reference/payment_fee_rules")
+    PaymentFeeRules paymentFeeRules(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("account_id") String accountId,
+            @Nullable @QueryParam("payment_type") String paymentType,
+            @Nullable @QueryParam("charge_type") String chargeType
+    ) throws ResponseException;
+
     ///////////////////////////////////////////////////////////////////
     ///// SENDER API //////////////////////////////////////////////////
 

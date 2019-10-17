@@ -1107,6 +1107,10 @@ public class CurrencyCloudClient {
         return api.paymentPurposeCodes(authToken, userAgent, currency, bankAccountCountry, entityType).getPurposeCodes();
     }
 
+    public List<PaymentFeeRule> paymentFeeRules(@Nullable String accountId, @Nullable String paymentType, @Nullable String chargeType) throws CurrencyCloudException {
+        return api.paymentFeeRules(authToken, userAgent, accountId, paymentType, chargeType).getPaymentFeeRules();
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// SENDER //////////////////////////////////////////////////////
 
