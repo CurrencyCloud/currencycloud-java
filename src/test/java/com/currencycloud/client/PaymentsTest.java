@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -291,5 +292,29 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(paymentDeliveryDate.getBankCountry(), equalTo(bankCountry));
         assertThat(paymentDeliveryDate.getPaymentDeliveryDate(), equalTo(parseDateTime("2019-05-29T00:00:00+00:00")));
         assertThat(paymentDeliveryDate.getPaymentCutoffTime(), equalTo(parseDateTime("2019-05-29T14:30:00+00:00")));
+    }
+
+    @Test
+    @Betamax(tape = "can_get_quote_payment_fee", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testGetQuotePaymentFee() throws Exception {
+
+        final String authAccountId = "0534aaf2-2egg-0134-2f36-10b11cd33cfb";
+        final BigDecimal feeAmount = new BigDecimal("10.00");
+        final String feeCurrency = "EUR";
+        final String accountId = null;
+        final String paymentCurrency = "USD";
+        final String paymentDestinationCountry = "US";
+        final String paymentType = "regular";
+        final String chargeType = null;
+
+        final QuotePaymentFee quotePaymentFee = client.getQuotePaymentFee(accountId, paymentCurrency, paymentDestinationCountry, paymentType, chargeType);
+        assertThat(quotePaymentFee, notNullValue());
+        assertThat(quotePaymentFee.getAccountId(), equalTo(authAccountId));
+        assertThat(quotePaymentFee.getChargeType(), nullValue());
+        assertThat(quotePaymentFee.getFeeAmount(), equalTo(feeAmount));
+        assertThat(quotePaymentFee.getFeeCurrency(), equalTo(feeCurrency));
+        assertThat(quotePaymentFee.getPaymentCurrency(), equalTo(paymentCurrency));
+        assertThat(quotePaymentFee.getPaymentDestinationCountry(), equalTo(paymentDestinationCountry));
+        assertThat(quotePaymentFee.getPaymentType(), equalTo(paymentType));
     }
 }
