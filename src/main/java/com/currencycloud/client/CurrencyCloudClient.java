@@ -948,6 +948,16 @@ public class CurrencyCloudClient {
                 bankCountry);
     }
 
+    public QuotePaymentFee getQuotePaymentFee(@Nullable String accountId, String paymentCurrency, String paymentDestinationCountry, String paymentType, @Nullable String chargeType) throws CurrencyCloudException {
+        return api.getQuotePaymentFee(
+                authToken,
+                userAgent,
+                accountId,
+                paymentCurrency,
+                paymentDestinationCountry,
+                paymentType,
+                chargeType);
+    }
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 

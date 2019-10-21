@@ -823,6 +823,19 @@ public interface CurrencyCloud {
             @QueryParam("bank_country") String bankCountry
     ) throws ResponseException;
 
+    /** Gets the calculated quote for the fee that will be applied against a payment */
+    @GET
+    @Path("payments/quote_payment_fee")
+    QuotePaymentFee getQuotePaymentFee(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("account_id") String accountId,
+            @QueryParam("payment_currency") String paymentCurrency,
+            @QueryParam("payment_destination_country") String paymentDestinationCountry,
+            @QueryParam("payment_type") String paymentType,
+            @Nullable @QueryParam("charge_type") String chargeType
+    ) throws ResponseException;
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES API ///////////////////////////////////////////////////
 
