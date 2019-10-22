@@ -685,7 +685,9 @@ public interface CurrencyCloud {
             @Nullable @FormParam("unique_request_id") String uniqueRequestId,
             @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName,
             @Nullable @FormParam("purpose_code") String purposeCode,
-            @Nullable @FormParam("charge_type") String chargeType
+            @Nullable @FormParam("charge_type") String chargeType,
+            @Nullable @FormParam("fee_amount") BigDecimal feeAmount,
+            @Nullable @FormParam("fee_currency") String feeCurrency
     ) throws ResponseException;
 
     /** Authorise a Payment */
@@ -741,7 +743,9 @@ public interface CurrencyCloud {
             @Nullable @FormParam("payer_details_source") String payerDetailsSource,
             @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName,
             @Nullable @FormParam("purpose_code") String purposeCode,
-            @Nullable @FormParam("charge_type") String chargeType
+            @Nullable @FormParam("charge_type") String chargeType,
+            @Nullable @FormParam("fee_amount") BigDecimal feeAmount,
+            @Nullable @FormParam("fee_currency") String feeCurrency
     ) throws ResponseException;
 
     /** Find Payments */
@@ -775,6 +779,8 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("bulk_upload_id") String bulkUploadId,
             @Nullable @QueryParam("purpose_code") String purposeCode,
             @Nullable @QueryParam("charge_type") String chargeType,
+            @Nullable @FormParam("fee_amount") BigDecimal feeAmount,
+            @Nullable @FormParam("fee_currency") String feeCurrency,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
