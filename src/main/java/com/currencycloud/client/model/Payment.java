@@ -61,6 +61,8 @@ public class Payment implements Entity {
     private String bulkUploadId;
     private String purposeCode;
     private String chargeType;
+    private BigDecimal feeAmount;
+    private String feeCurrency;
 
     protected Payment() { }
 
@@ -437,6 +439,14 @@ public class Payment implements Entity {
 
     public void setChargeType(String chargeType) { this.chargeType = chargeType; }
 
+    public BigDecimal getFeeAmount() { return feeAmount; }
+
+    public void setFeeAmount(BigDecimal feeAmount) { this.feeAmount = feeAmount; }
+
+    public String getFeeCurrency() { return feeCurrency; }
+
+    public void setFeeCurrency(String feeCurrency) { this.feeCurrency = feeCurrency; }
+
     @Override
     public String toString() {
         final ObjectMapper objectMapper = new ObjectMapper()
@@ -470,6 +480,8 @@ public class Payment implements Entity {
         map.put("ultimateBeneficiaryName", ultimateBeneficiaryName);
         map.put("purposeCode", purposeCode);
         map.put("chargeType", chargeType);
+        map.put("feeAmount", feeAmount);
+        map.put("feeCurrency", feeCurrency);
 
         try {
             return objectMapper.writeValueAsString(map);
