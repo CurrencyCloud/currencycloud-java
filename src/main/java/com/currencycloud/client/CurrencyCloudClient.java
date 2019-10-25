@@ -41,7 +41,7 @@ public class CurrencyCloudClient {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
-    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/3.2.5";
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/3.3.1";
 
     private final CurrencyCloud api;
 
