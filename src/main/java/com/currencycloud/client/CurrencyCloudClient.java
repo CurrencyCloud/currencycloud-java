@@ -18,6 +18,8 @@ import si.mazi.rescu.serialization.jackson.DefaultJacksonObjectMapperFactory;
 import si.mazi.rescu.serialization.jackson.JacksonObjectMapperFactory;
 
 import javax.annotation.Nullable;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.HeaderParam;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -302,6 +304,16 @@ public class CurrencyCloudClient {
                 authToken,
                 userAgent,
                 currency,
+                getOnBehalfOf()
+        );
+    }
+
+    public MarginBalanceTopUp topUpMarginBalance(final String currency,final BigDecimal amount) throws CurrencyCloudException {
+        return api.topUpMarginBalance(
+                authToken,
+                userAgent,
+                currency,
+                amount,
                 getOnBehalfOf()
         );
     }
