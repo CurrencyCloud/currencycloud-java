@@ -45,10 +45,8 @@ public class FundingTest extends BetamaxTestSupport {
         assertThat(account.getBankCountry(), equalTo("UK"));
         assertThat(account.getCurrency(), equalTo("GBP"));
         assertThat(account.getPaymentType(), equalTo("regular"));
-        assertThat(account.getRegularRoutingCode(), equalTo("010203"));
-        assertThat(account.getRegularRoutingCodeType(), equalTo("sort_code"));
-        assertThat(account.getPriorityRoutingCode(), is(emptyOrNullString()));
-        assertThat(account.getPriorityRoutingCodeType(), is(emptyOrNullString()));
+        assertThat(account.getRoutingCode(), equalTo("010203"));
+        assertThat(account.getRoutingCodeType(), equalTo("sort_code"));
         assertThat(account.getCreatedAt(), equalTo(parseDateTime("2018-05-14T14:18:30+00:00")));
         assertThat(account.getUpdatedAt(), equalTo(parseDateTime("2018-05-14T14:19:30+00:00")));
         assertThat(pagination.getTotalEntries(), equalTo(1));

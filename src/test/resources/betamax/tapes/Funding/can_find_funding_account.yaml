@@ -39,10 +39,8 @@ interactions:
                 "bank_country": "UK",
                 "currency": "GBP",
                 "payment_type": "regular",
-                "regular_routing_code": "010203",
-                "regular_routing_code_type": "sort_code",
-                "priority_routing_code": "",
-                "priority_routing_code_type": "",
+                "routing_code": "010203",
+                "routing_code_type": "sort_code",
                 "created_at": "2018-05-14T14:18:30+00:00",
                 "updated_at": "2018-05-14T14:19:30+00:00"
               }

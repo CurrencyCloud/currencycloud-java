@@ -1,13 +1,11 @@
 package com.currencycloud.client.model;
 
 import com.currencycloud.client.Utils;
-import com.currencycloud.client.dirty.DirtyWatcherDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.text.SimpleDateFormat;
@@ -29,14 +27,13 @@ public class FundingAccount implements Entity {
     private String bankCountry;
     private String currency;
     private String paymentType;
-    private String regularRoutingCode;
-    private String regularRoutingCodeType;
-    private String priorityRoutingCode;
-    private String priorityRoutingCodeType;
+    private String routingCode;
+    private String routingCodeType;
     private Date createdAt;
     private Date updatedAt;
 
-    protected FundingAccount() { }
+    protected FundingAccount() {
+    }
 
     @Override
     public String getId() {
@@ -119,52 +116,36 @@ public class FundingAccount implements Entity {
         this.paymentType = paymentType;
     }
 
-    public String getRegularRoutingCode() {
-        return regularRoutingCode;
+    public String getRoutingCode() {
+        return routingCode;
     }
 
-    public void setRegularRoutingCode(String regularRoutingCode) {
-        this.regularRoutingCode = regularRoutingCode;
+    public void setRoutingCode(String routingCode) {
+        this.routingCode = routingCode;
     }
 
-    public String getRegularRoutingCodeType() {
-        return regularRoutingCodeType;
+    public String getRoutingCodeType() {
+        return routingCodeType;
     }
 
-    public void setRegularRoutingCodeType(String regularRoutingCodeType) {
-        this.regularRoutingCodeType = regularRoutingCodeType;
-    }
-
-    public String getPriorityRoutingCode() {
-        return priorityRoutingCode;
-    }
-
-    public void setPriorityRoutingCode(String priorityRoutingCode) {
-        this.priorityRoutingCode = priorityRoutingCode;
-    }
-
-    public String getPriorityRoutingCodeType() {
-        return priorityRoutingCodeType;
-    }
-
-    public void setPriorityRoutingCodeType(String priorityRoutingCodeType) {
-        this.priorityRoutingCodeType = priorityRoutingCodeType;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setRoutingCodeType(String routingCodeType) {
+        this.routingCodeType = routingCodeType;
     }
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
@@ -184,10 +165,8 @@ public class FundingAccount implements Entity {
         map.put("bankCountry", bankCountry);
         map.put("currency", currency);
         map.put("paymentType", paymentType);
-        map.put("regularRoutingCode", regularRoutingCode);
-        map.put("regularRoutingCodeType", regularRoutingCodeType);
-        map.put("priorityRoutingCode", priorityRoutingCode);
-        map.put("priorityRoutingCodeType", priorityRoutingCodeType);
+        map.put("routingCode", routingCode);
+        map.put("routingCodeType", routingCodeType);
         map.put("createdAt", createdAt);
         map.put("updatedAt", updatedAt);
 
