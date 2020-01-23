@@ -737,6 +737,35 @@ public class CurrencyCloudClient {
     }
 
     ///////////////////////////////////////////////////////////////////
+    ///// FUNDING ///////////////////////////////////////////////////////
+
+    /**
+     * @param currency    Current of funding Account.
+     * @param accountId   Id of Account which the funding Account applies to.
+     * @param paymentType Type of payments funding account is used for.
+     * @param pagination  pagination settings
+     * @return            The paginated Accounts search result
+     * @throws            CurrencyCloudException When an error occurs
+     */
+    public FundingAccounts findFundingAccounts(String currency, @Nullable String accountId, @Nullable String paymentType,
+                                               @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        return api.findFundingAccounts(
+                authToken,
+                userAgent,
+                currency,
+                accountId,
+                paymentType,
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc()
+        );
+    }
+
+    ///////////////////////////////////////////////////////////////////
     ///// IBANS ///////////////////////////////////////////////////////
 
     /**

@@ -1,0 +1,58 @@
+name: can_find_funding_account
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/funding_accounts/find?currency=GBP
+    body: ''
+    headers:
+      X-Auth-Token:
+      - acad59188ce6ddb54d4043bc4efb5f57
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/3.3.1
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 23 Mar 2018 12:50:53 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '791'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2773776363343519430'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{
+            "funding_accounts": [
+              {
+                "id": "b7981972-8e29-485b-8a4a-9643fc6ae3sa",
+                "account_id": "8d98bdc8-e8e3-47dc-bd08-3dd0f4f7ea7b",
+                "account_number": "012345678",
+                "account_number_type":"account_number",
+                "account_holder_name": "Jon Doe",
+                "bank_name": "Starling",
+                "bank_address": "3rd floor, 2 Finsbury Avenue, London, EC2M 2PP, GB",
+                "bank_country": "UK",
+                "currency": "GBP",
+                "payment_type": "regular",
+                "routing_code": "010203",
+                "routing_code_type": "sort_code",
+                "created_at": "2018-05-14T14:18:30+00:00",
+                "updated_at": "2018-05-14T14:19:30+00:00"
+              }
+            ],
+            "pagination": {
+              "total_entries": 1,
+              "total_pages": 1,
+              "current_page": 1,
+              "per_page": 5,
+              "previous_page": -1,
+              "next_page": -1,
+              "order": "created_at",
+              "order_asc_desc": "desc"
+            }
+          }'

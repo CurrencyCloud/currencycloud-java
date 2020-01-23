@@ -622,6 +622,24 @@ public interface CurrencyCloud {
     ) throws ResponseException;
 
     ///////////////////////////////////////////////////////////////////
+    ///// FUNDING API ///////////////////////////////////////////////////
+
+    /** Find FundingAccounts */
+    @GET
+    @Path("funding_accounts/find")
+    FundingAccounts findFundingAccounts(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @QueryParam("currency") String currency,
+            @Nullable @QueryParam("account_id") String accountId,
+            @Nullable @QueryParam("payment_type") String paymentType,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws ResponseException;
+
+    ///////////////////////////////////////////////////////////////////
     ///// IBANS API ///////////////////////////////////////////////////
 
     /** Find IBANs */
