@@ -186,6 +186,18 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
+    /** Top Up Margin Balance */
+    @POST
+    @Path("balances/top_up_margin")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    MarginBalanceTopUp topUpMarginBalance(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @FormParam("currency") String currency,
+            @FormParam("amount") BigDecimal amount,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf
+    ) throws ResponseException;
+
     ///////////////////////////////////////////////////////////////////
     ///// BENEFICIARIES API ///////////////////////////////////////////
 

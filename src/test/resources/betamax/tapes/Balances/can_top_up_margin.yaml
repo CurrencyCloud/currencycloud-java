@@ -1,0 +1,32 @@
+name: can_create
+interactions:
+  - request:
+      method: POST
+      uri: http://localhost:5555/v2/balances/top_up_margin
+      body: currency=GBP&amount=450
+      headers:
+        X-Auth-Token:
+          - 6f5f99d1b860fc47e8a186e3dce0d3f9
+        User-Agent:
+          - CurrencyCloudSDK/2.0 Java/3.3.1
+    response:
+      status: 200
+      headers:
+        Server:
+          - nginx
+        Date:
+          - Fri, 03 Jan 2020 09:21:00 GMT
+        Content-Type:
+          - application/json;charset=utf-8
+        Content-Length:
+          - '1166'
+        Connection:
+          - keep-alive
+        X-Request-Id:
+          - '2771948673934289802'
+        X-Content-Type-Options:
+          - nosniff
+      body: '{"account_id": "6c046c51-2387-4004-8e87-4bf97102e36d",
+              "currency": "GBP",
+              "transferred_amount": "450.0",
+              "transfer_completed_at": "2007-11-19T08:37:48-06:00"}'

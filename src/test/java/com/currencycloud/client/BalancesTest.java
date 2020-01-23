@@ -4,12 +4,14 @@ import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.Balance;
 import com.currencycloud.client.model.Balances;
+import com.currencycloud.client.model.MarginBalanceTopUp;
 import com.currencycloud.client.model.Pagination;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -72,5 +74,18 @@ public class BalancesTest extends BetamaxTestSupport {
         assertThat(pagination.getNextPage(), equalTo(-1));
         assertThat(pagination.getOrder(), equalTo("amount"));
         assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.desc));
+    }
+
+    @Test
+    @Betamax(tape = "can_top_up_margin", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanTopUpMarginBalance() throws Exception {
+        final String currency = "GBP";
+        final BigDecimal amount = BigDecimal.valueOf(450);
+        final MarginBalanceTopUp topUp = client.topUpMarginBalance(currency, amount);
+
+        assertThat(topUp.getAccountId(), equalTo("6c046c51-2387-4004-8e87-4bf97102e36d"));
+        assertThat(topUp.getCurrency(), equalTo(currency));
+        assertThat(topUp.getTransferredAmount().compareTo(amount), equalTo(0));
+        assertThat(topUp.getTransferCompletedAt(), equalTo(java.util.Date.from(Instant.parse("2007-11-19T14:37:48.00Z"))));
     }
 }
