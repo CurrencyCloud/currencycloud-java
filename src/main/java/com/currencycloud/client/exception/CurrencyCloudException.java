@@ -27,7 +27,7 @@ import java.util.Map;
  * HTTP request and the server response. The {@link #toString()} method returns YAML-formatted data.
  */
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-@JsonPropertyOrder({"platform", "request", "response", "errorCode", "errors"})
+@JsonPropertyOrder({"exceptionType", "platform", "request", "response", "errorCode", "errors"})
 public abstract class CurrencyCloudException extends RuntimeException {
 
     private static final Logger log = LoggerFactory.getLogger(ApiException.class);
@@ -47,12 +47,14 @@ public abstract class CurrencyCloudException extends RuntimeException {
     };
 
     private Request request;
+    private String exceptionType;
 
     protected CurrencyCloudException(String message, Throwable cause) {
         super(message, cause);
         if (cause instanceof InvocationAware) {
             setInvocation(((InvocationAware)cause).getInvocation());
         }
+        this.exceptionType = getClass().getSimpleName();
     }
 
     protected void setInvocation(@Nullable RestInvocation invocation) {
@@ -67,6 +69,13 @@ public abstract class CurrencyCloudException extends RuntimeException {
 
     public Request getRequest() {
         return request;
+    }
+
+    /**
+     * @return the root type of exception that was thrown
+     */
+    public String getExceptionType() {
+        return exceptionType;
     }
 
     /** @return The runtime environment of the client, eg. "Java 1.7" */
@@ -84,7 +93,6 @@ public abstract class CurrencyCloudException extends RuntimeException {
                 PrintWriter writer = new PrintWriter(out)
         ) {
             ObjectMapper mapper = new ObjectMapper(YAML_FACTORY);
-            writer.println(getClass().getSimpleName());
             mapper.setAnnotationIntrospector(IGNORE_EXCEPTION_PROPERTIES);
             mapper.writeValue(writer, this);
             return out.toString();

@@ -1,5 +1,5 @@
-UnexpectedException
 ---
+exception_type: "UnexpectedException"
 platform: "${error.platform}"
 request:
   parameters:

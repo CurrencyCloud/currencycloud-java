@@ -1,5 +1,5 @@
-BadRequestException
 ---
+exception_type: "BadRequestException"
 platform: "${error.platform}"
 request:
   parameters:
