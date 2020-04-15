@@ -64,8 +64,6 @@ public class PaymentFeeRule {
         this.feeCurrency = feeCurrency;
     }
 
-
-
     @Override
     public String toString() {
         final ObjectMapper objectMapper = new ObjectMapper()
