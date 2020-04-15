@@ -352,4 +352,14 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
         assertThat(pagination.getTotalPages(), equalTo(1));
     }
+
+    @Test
+    @Betamax(tape = "can_unassign_payment_fee", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testUnassignPaymentFee() throws Exception {
+        final String accountId = "778d2ba2-b2ec-4b39-b54c-0c3410525c97";
+
+        final UnassignPaymentFee unassignPaymentFee = client.unassignPaymentFee(accountId);
+
+        assertThat(unassignPaymentFee.getAccountId(), equalTo(accountId));
+    }
 }

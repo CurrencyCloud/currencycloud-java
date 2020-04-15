@@ -884,6 +884,13 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
+    @POST
+    @Path("/payments/unassign_payment_fee")
+    UnassignPaymentFee unassignPaymentFee(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @FormParam("account_id") String accountId);
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES API ///////////////////////////////////////////////////
 
