@@ -1350,5 +1350,4 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order") String order,
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
-
 }
