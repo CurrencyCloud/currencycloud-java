@@ -24,13 +24,21 @@ public class PaymentFeeRule {
     private BigDecimal feeAmount;
     private String feeCurrency;
 
-    public String getPaymentFeeId() { return paymentFeeId; }
+    public String getPaymentFeeId() {
+        return paymentFeeId;
+    }
 
-    public void setPaymentFeeId(final String paymentFeeId) { this.paymentFeeId = paymentFeeId; }
+    public void setPaymentFeeId(final String paymentFeeId) {
+        this.paymentFeeId = paymentFeeId;
+    }
 
-    public String getPaymentFeeName() { return paymentFeeName; }
+    public String getPaymentFeeName() {
+        return paymentFeeName;
+    }
 
-    public void setPaymentFeeName(final String paymentFeeName) { this.paymentFeeName = paymentFeeName; }
+    public void setPaymentFeeName(final String paymentFeeName) {
+        this.paymentFeeName = paymentFeeName;
+    }
 
     public String getPaymentType() {
         return paymentType;
