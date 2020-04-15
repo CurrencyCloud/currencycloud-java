@@ -1,0 +1,35 @@
+name: can_get_assigned_payment_fees
+interactions:
+  - request:
+      method: GET
+      uri: http://localhost:5555/v2/payments/assigned_payment_fee?account_id=245a1ebd-d8a6-416d-bcc1-9de381d22f90
+      body: ''
+      headers:
+        X-Auth-Token:
+          - 1c9da5726314246acfb09ec5651307a5
+        User-Agent:
+          - CurrencyCloudSDK/2.0 Java/3.5.1
+    response:
+      status: 200
+      headers:
+        Server:
+          - nginx
+        Date:
+          - Wed, 29 Apr 2015 21:04:08 GMT
+        Content-Type:
+          - application/json;charset=utf-8
+        Connection:
+          - keep-alive
+        X-Request-Id:
+          - '2775201676418056015'
+        X-Content-Type-Options:
+          - nosniff
+      body: '{
+               "id": "e7e1b6e5-c596-4ad1-b8d4-a7035185143a",
+               "name": "Fee Table CAD  5 - 10 - 15",
+               "currency": "CAD",
+               "regular_amount": "5.00",
+               "priority_shared_amount": "10.00",
+               "priority_ours_amount": "15.00",
+               "owner_account_id": null
+             }'
