@@ -891,6 +891,14 @@ public interface CurrencyCloud {
             @HeaderParam("User-Agent") String userAgent,
             @FormParam("account_id") String accountId);
 
+    @POST
+    @Path("/payments/assign_payment_fee")
+    PaymentFeeAssignment assignPaymentFee(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @FormParam("payment_fee_id") String paymentFeeId,
+            @FormParam("account_id") String accountId);
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES API ///////////////////////////////////////////////////
 
