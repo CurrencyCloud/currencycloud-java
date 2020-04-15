@@ -317,4 +317,39 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(quotePaymentFee.getPaymentDestinationCountry(), equalTo(paymentDestinationCountry));
         assertThat(quotePaymentFee.getPaymentType(), equalTo(paymentType));
     }
+
+    @Test
+    @Betamax(tape = "can_get_payment_fees", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testGetPaymentFees() throws Exception {
+
+        final Integer page = 1;
+        final Integer perPage = 25;
+        final String order = "created_at";
+        final Pagination.SortOrder orderAscDesc = Pagination.SortOrder.asc;
+
+        final PaymentFees paymentFeesResult = client.getPaymentFees(page, perPage, order, orderAscDesc);
+
+        List<PaymentFee> paymentFees = paymentFeesResult.getPayment_fees();
+        Pagination pagination = paymentFeesResult.getPagination();
+
+        assertThat(paymentFees.size(), equalTo(1));
+
+        PaymentFee paymentFee = paymentFees.get(0);
+        assertThat(paymentFee.getCurrency(), equalTo("CAD"));
+        assertThat(paymentFee.getId(), equalTo("e7e1b6e5-c596-4ad1-b8d4-a7035185143a"));
+        assertThat(paymentFee.getName(), equalTo("Fee Table CAD  5 - 10 - 15"));
+        assertThat(paymentFee.getOwnerAccountId(), nullValue());
+        assertThat(paymentFee.getPriorityOursAmount(), equalTo(new BigDecimal("15.00")));
+        assertThat(paymentFee.getPrioritySharedAmount(), equalTo(new BigDecimal("10.00")));
+        assertThat(paymentFee.getRegularAmount(),equalTo(new BigDecimal("5.00")));
+
+        assertThat(pagination.getPerPage(), equalTo(25));
+        assertThat(pagination.getOrder(), equalTo("created_at"));
+        assertThat(pagination.getTotalEntries(), equalTo(4));
+        assertThat(pagination.getCurrentPage(), equalTo(1));
+        assertThat(pagination.getNextPage(), equalTo(-1));
+        assertThat(pagination.getPreviousPage(), equalTo(-1));
+        assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
+        assertThat(pagination.getTotalPages(), equalTo(1));
+    }
 }

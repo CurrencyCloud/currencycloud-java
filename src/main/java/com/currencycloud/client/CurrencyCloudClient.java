@@ -3,8 +3,8 @@ package com.currencycloud.client;
 import com.currencycloud.client.dirty.ModificationTracker;
 import com.currencycloud.client.dirty.ModifiedValueProvider;
 import com.currencycloud.client.exception.CurrencyCloudException;
-import com.currencycloud.client.model.*;
 import com.currencycloud.client.model.Currency;
+import com.currencycloud.client.model.*;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.cglib.proxy.Callback;
@@ -18,8 +18,6 @@ import si.mazi.rescu.serialization.jackson.DefaultJacksonObjectMapperFactory;
 import si.mazi.rescu.serialization.jackson.JacksonObjectMapperFactory;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.HeaderParam;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -215,7 +213,7 @@ public class CurrencyCloudClient {
      * @param account     Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Accounts search result
-     * @throws            CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public Accounts findAccounts(@Nullable Account account, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -275,7 +273,7 @@ public class CurrencyCloudClient {
      * @param balance     Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Balances search result
-     * @throws            CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public Balances findBalances(@Nullable Balance balance, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -308,7 +306,7 @@ public class CurrencyCloudClient {
         );
     }
 
-    public MarginBalanceTopUp topUpMarginBalance(final String currency,final BigDecimal amount) throws CurrencyCloudException {
+    public MarginBalanceTopUp topUpMarginBalance(final String currency, final BigDecimal amount) throws CurrencyCloudException {
         return api.topUpMarginBalance(
                 authToken,
                 userAgent,
@@ -446,7 +444,7 @@ public class CurrencyCloudClient {
      *                    Use routingCodeType1 and routingCodeValue1 (the *2 fields are ignored).
      * @param pagination  pagination settings
      * @return            The paginated Beneficiaries search results
-     * @throws            CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public Beneficiaries findBeneficiaries(@Nullable Beneficiary beneficiary, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -547,7 +545,7 @@ public class CurrencyCloudClient {
      * @param contact     Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Contacts search result
-     * @throws            CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public Contacts findContacts(Contact contact, Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -612,7 +610,7 @@ public class CurrencyCloudClient {
      * @param conversion  Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Conversions search result
-     * @throws            CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public Conversions findConversions(@Nullable Conversion conversion, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -757,7 +755,7 @@ public class CurrencyCloudClient {
      * @param paymentType Type of payments funding account is used for.
      * @param pagination  pagination settings
      * @return            The paginated Accounts search result
-     * @throws            CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public FundingAccounts findFundingAccounts(String currency, @Nullable String accountId, @Nullable String paymentType,
                                                @Nullable Pagination pagination) throws CurrencyCloudException {
@@ -784,7 +782,7 @@ public class CurrencyCloudClient {
      * @param iban        Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Ibans search result
-     * @throws            CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public Ibans findIbans(@Nullable Iban iban, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -913,7 +911,7 @@ public class CurrencyCloudClient {
      * @param payment     Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Payments search result
-     * @throws            CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public Payments findPayments(@Nullable Payment payment, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -985,7 +983,7 @@ public class CurrencyCloudClient {
                 getOnBehalfOf());
     }
 
-    public PaymentDeliveryDate getPaymentDeliveryDate(Date paymentDate, String paymentType,String currency, String bankCountry) throws CurrencyCloudException {
+    public PaymentDeliveryDate getPaymentDeliveryDate(Date paymentDate, String paymentType, String currency, String bankCountry) throws CurrencyCloudException {
         return api.getPaymentDeliveryDate(
                 authToken,
                 userAgent,
@@ -1005,6 +1003,12 @@ public class CurrencyCloudClient {
                 paymentType,
                 chargeType);
     }
+
+    public PaymentFees getPaymentFees(@Nullable Integer page, @Nullable Integer perPage, @Nullable String order,
+                                      @Nullable Pagination.SortOrder orderAscDesc) throws CurrencyCloudException {
+        return api.getPaymentFees(authToken, userAgent, page, perPage, order, orderAscDesc);
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 
@@ -1038,7 +1042,7 @@ public class CurrencyCloudClient {
      * @param reportRequest Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination     pagination settings
      * @return               The paginated ReportRequest search result
-     * @throws               CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public ReportRequests findReportRequests(@Nullable ReportRequest reportRequest, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -1194,7 +1198,7 @@ public class CurrencyCloudClient {
      * @param settlement  Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Settlements search result
-     * @throws            CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public Settlements findSettlements(@Nullable Settlement settlement, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -1253,7 +1257,7 @@ public class CurrencyCloudClient {
      * @param transaction Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Transactions search result
-     * @throws            CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public Transactions findTransactions(@Nullable Transaction transaction, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -1306,7 +1310,7 @@ public class CurrencyCloudClient {
      * @param transfer    Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Transfers search result
-     * @throws            CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public Transfers findTransfers(@Nullable Transfer transfer, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -1360,7 +1364,7 @@ public class CurrencyCloudClient {
      * @param virtualAccount Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination     pagination settings
      * @return               The paginated Ibans search result
-     * @throws               CurrencyCloudException When an error occurs
+     * @throws CurrencyCloudException When an error occurs
      */
     public VirtualAccounts findVirtualAccounts(@Nullable VirtualAccount virtualAccount, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -1398,7 +1402,7 @@ public class CurrencyCloudClient {
             Factory proxy = (Factory) updated;
             for (Callback callback : proxy.getCallbacks()) {
                 if (callback instanceof ModificationTracker) {
-                    ModificationTracker ModificationTracker = (ModificationTracker) callback;
+                    ModificationTracker ModificationTracker = (com.currencycloud.client.dirty.ModificationTracker) callback;
                     return ModificationTracker.getDirtyProperties();
                 }
             }

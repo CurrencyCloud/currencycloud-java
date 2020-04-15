@@ -872,6 +872,18 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("charge_type") String chargeType
     ) throws ResponseException;
 
+    /** Gets the Payment fee tables for the current authenticated account */
+    @GET
+    @Path("payments/payment_fees")
+    PaymentFees getPaymentFees(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws ResponseException;
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES API ///////////////////////////////////////////////////
 
