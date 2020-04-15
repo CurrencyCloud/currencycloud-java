@@ -782,7 +782,7 @@ public class CurrencyCloudClient {
      * @param iban        Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Ibans search result
-     * @throws CurrencyCloudException When an error occurs
+     * @throws            CurrencyCloudException When an error occurs
      */
     public Ibans findIbans(@Nullable Iban iban, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
@@ -983,7 +983,7 @@ public class CurrencyCloudClient {
                 getOnBehalfOf());
     }
 
-    public PaymentDeliveryDate getPaymentDeliveryDate(Date paymentDate, String paymentType, String currency, String bankCountry) throws CurrencyCloudException {
+    public PaymentDeliveryDate getPaymentDeliveryDate(Date paymentDate, String paymentType,String currency, String bankCountry) throws CurrencyCloudException {
         return api.getPaymentDeliveryDate(
                 authToken,
                 userAgent,
@@ -1402,7 +1402,7 @@ public class CurrencyCloudClient {
             Factory proxy = (Factory) updated;
             for (Callback callback : proxy.getCallbacks()) {
                 if (callback instanceof ModificationTracker) {
-                    ModificationTracker ModificationTracker = (com.currencycloud.client.dirty.ModificationTracker) callback;
+                    ModificationTracker ModificationTracker = (ModificationTracker) callback;
                     return ModificationTracker.getDirtyProperties();
                 }
             }
