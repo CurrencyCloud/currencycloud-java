@@ -1,0 +1,32 @@
+name: can_assign_payment_fee
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/payments/assign_payment_fee
+    body: payment_fee_id=60fbe8d3-f7d0-4124-9077-93d09fb2186a&account_id=245a1ebd-d8a6-416d-bcc1-9de381d22f90
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/3.5.1
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 01 Jan 2018 12:34:56 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '866'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2778807612227406608'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{
+               "id": "7c17b546-0435-45f0-9c17-3a4e0f2d3e84",
+               "account_id": "245a1ebd-d8a6-416d-bcc1-9de381d22f90"
+           }'

@@ -1013,6 +1013,9 @@ public class CurrencyCloudClient {
         return api.unassignPaymentFee(authToken, userAgent, accountId);
     }
 
+    public PaymentFeeAssignment assignPaymentFee(String paymentFeeId, String accountId) throws CurrencyCloudException {
+        return api.assignPaymentFee(authToken, userAgent, paymentFeeId, accountId);
+    }
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 
