@@ -1,0 +1,31 @@
+name: can_unassign_payment_fee
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/payments/unassign_payment_fee
+    body: account_id=778d2ba2-b2ec-4b39-b54c-0c3410525c97
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/3.5.1
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 01 Jan 2018 12:34:56 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '866'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2778807612227406608'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{
+               "account_id": "778d2ba2-b2ec-4b39-b54c-0c3410525c97"
+           }'

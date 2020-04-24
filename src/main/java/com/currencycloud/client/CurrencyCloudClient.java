@@ -3,8 +3,8 @@ package com.currencycloud.client;
 import com.currencycloud.client.dirty.ModificationTracker;
 import com.currencycloud.client.dirty.ModifiedValueProvider;
 import com.currencycloud.client.exception.CurrencyCloudException;
-import com.currencycloud.client.model.*;
 import com.currencycloud.client.model.Currency;
+import com.currencycloud.client.model.*;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.cglib.proxy.Callback;
@@ -18,8 +18,6 @@ import si.mazi.rescu.serialization.jackson.DefaultJacksonObjectMapperFactory;
 import si.mazi.rescu.serialization.jackson.JacksonObjectMapperFactory;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.HeaderParam;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -1005,6 +1003,24 @@ public class CurrencyCloudClient {
                 paymentType,
                 chargeType);
     }
+
+    public PaymentFees getPaymentFees(@Nullable Integer page, @Nullable Integer perPage, @Nullable String order,
+                                      @Nullable Pagination.SortOrder orderAscDesc) throws CurrencyCloudException {
+        return api.getPaymentFees(authToken, userAgent, page, perPage, order, orderAscDesc);
+    }
+
+    public UnassignPaymentFee unassignPaymentFee(String accountId) throws CurrencyCloudException {
+        return api.unassignPaymentFee(authToken, userAgent, accountId);
+    }
+
+    public PaymentFeeAssignment assignPaymentFee(String paymentFeeId, String accountId) throws CurrencyCloudException {
+        return api.assignPaymentFee(authToken, userAgent, paymentFeeId, accountId);
+    }
+
+    public PaymentFee getAssignedPaymentFee(String accountId) throws CurrencyCloudException {
+        return api.getAssignedPaymentFee(authToken, userAgent, accountId);
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 

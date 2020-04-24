@@ -7,7 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -316,5 +315,79 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(quotePaymentFee.getPaymentCurrency(), equalTo(paymentCurrency));
         assertThat(quotePaymentFee.getPaymentDestinationCountry(), equalTo(paymentDestinationCountry));
         assertThat(quotePaymentFee.getPaymentType(), equalTo(paymentType));
+    }
+
+    @Test
+    @Betamax(tape = "can_get_payment_fees", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testGetPaymentFees() throws Exception {
+
+        final Integer page = 1;
+        final Integer perPage = 25;
+        final String order = "created_at";
+        final Pagination.SortOrder orderAscDesc = Pagination.SortOrder.asc;
+
+        final PaymentFees paymentFeesResult = client.getPaymentFees(page, perPage, order, orderAscDesc);
+
+        List<PaymentFee> paymentFees = paymentFeesResult.getPayment_fees();
+        Pagination pagination = paymentFeesResult.getPagination();
+
+        assertThat(paymentFees.size(), equalTo(1));
+
+        PaymentFee paymentFee = paymentFees.get(0);
+        assertThat(paymentFee.getCurrency(), equalTo("CAD"));
+        assertThat(paymentFee.getId(), equalTo("e7e1b6e5-c596-4ad1-b8d4-a7035185143a"));
+        assertThat(paymentFee.getName(), equalTo("Fee Table CAD  5 - 10 - 15"));
+        assertThat(paymentFee.getOwnerAccountId(), nullValue());
+        assertThat(paymentFee.getPriorityOursAmount(), equalTo(new BigDecimal("15.00")));
+        assertThat(paymentFee.getPrioritySharedAmount(), equalTo(new BigDecimal("10.00")));
+        assertThat(paymentFee.getRegularAmount(),equalTo(new BigDecimal("5.00")));
+
+        assertThat(pagination.getPerPage(), equalTo(25));
+        assertThat(pagination.getOrder(), equalTo("created_at"));
+        assertThat(pagination.getTotalEntries(), equalTo(4));
+        assertThat(pagination.getCurrentPage(), equalTo(1));
+        assertThat(pagination.getNextPage(), equalTo(-1));
+        assertThat(pagination.getPreviousPage(), equalTo(-1));
+        assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
+        assertThat(pagination.getTotalPages(), equalTo(1));
+    }
+
+    @Test
+    @Betamax(tape = "can_unassign_payment_fee", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testUnassignPaymentFee() throws Exception {
+        final String accountId = "778d2ba2-b2ec-4b39-b54c-0c3410525c97";
+
+        final UnassignPaymentFee unassignPaymentFee = client.unassignPaymentFee(accountId);
+
+        assertThat(unassignPaymentFee.getAccountId(), equalTo(accountId));
+    }
+
+    @Test
+    @Betamax(tape = "can_assign_payment_fee", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testAssignPaymentFee() throws Exception {
+        final String accountId = "245a1ebd-d8a6-416d-bcc1-9de381d22f90";
+        final String id = "7c17b546-0435-45f0-9c17-3a4e0f2d3e84";
+        final String paymentFeeId = "60fbe8d3-f7d0-4124-9077-93d09fb2186a";
+
+        final PaymentFeeAssignment paymentFeeAssignment = client.assignPaymentFee(paymentFeeId, accountId);
+
+        assertThat(paymentFeeAssignment.getAccountId(), equalTo(accountId));
+        assertThat(paymentFeeAssignment.getId(), equalTo(id));
+    }
+
+    @Test
+    @Betamax(tape = "can_get_assigned_payment_fee", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testGetAssignedPaymentFee() throws Exception {
+        final String accountId = "245a1ebd-d8a6-416d-bcc1-9de381d22f90";
+
+        final PaymentFee paymentFee = client.getAssignedPaymentFee(accountId);
+
+        assertThat(paymentFee.getCurrency(), equalTo("CAD"));
+        assertThat(paymentFee.getId(), equalTo("e7e1b6e5-c596-4ad1-b8d4-a7035185143a"));
+        assertThat(paymentFee.getName(), equalTo("Fee Table CAD  5 - 10 - 15"));
+        assertThat(paymentFee.getOwnerAccountId(), nullValue());
+        assertThat(paymentFee.getPriorityOursAmount(), equalTo(new BigDecimal("15.00")));
+        assertThat(paymentFee.getPrioritySharedAmount(), equalTo(new BigDecimal("10.00")));
+        assertThat(paymentFee.getRegularAmount(),equalTo(new BigDecimal("5.00")));
     }
 }
