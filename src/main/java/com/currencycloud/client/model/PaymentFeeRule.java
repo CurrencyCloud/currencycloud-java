@@ -17,10 +17,28 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PaymentFeeRule {
 
+    private String paymentFeeId;
+    private String paymentFeeName;
     private String paymentType;
     private String chargeType;
     private BigDecimal feeAmount;
     private String feeCurrency;
+
+    public String getPaymentFeeId() {
+        return paymentFeeId;
+    }
+
+    public void setPaymentFeeId(final String paymentFeeId) {
+        this.paymentFeeId = paymentFeeId;
+    }
+
+    public String getPaymentFeeName() {
+        return paymentFeeName;
+    }
+
+    public void setPaymentFeeName(final String paymentFeeName) {
+        this.paymentFeeName = paymentFeeName;
+    }
 
     public String getPaymentType() {
         return paymentType;
@@ -54,8 +72,6 @@ public class PaymentFeeRule {
         this.feeCurrency = feeCurrency;
     }
 
-
-
     @Override
     public String toString() {
         final ObjectMapper objectMapper = new ObjectMapper()
@@ -63,10 +79,12 @@ public class PaymentFeeRule {
                 .setDateFormat(new SimpleDateFormat(Utils.dateFormat));
 
         Map<String, Object> map = new HashMap<>();
-        map.put("paymentType", paymentType);
-        map.put("chargeType", chargeType);
-        map.put("feeAmount", feeAmount);
-        map.put("feeCurrency", feeCurrency);
+        map.put("paymentFeeId", this.paymentFeeId);
+        map.put("paymentFeeName", this.paymentFeeName);
+        map.put("paymentType", this.paymentType);
+        map.put("chargeType", this.chargeType);
+        map.put("feeAmount", this.feeAmount);
+        map.put("feeCurrency", this.feeCurrency);
 
         try {
             return objectMapper.writeValueAsString(map);
