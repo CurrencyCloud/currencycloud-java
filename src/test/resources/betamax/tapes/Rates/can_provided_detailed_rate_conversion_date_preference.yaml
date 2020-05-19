@@ -1,0 +1,44 @@
+name: can_provided_detailed_rate_conversion_date_preference
+interactions:
+- request:
+    method: GET
+    uri: http://localhost:5555/v2/rates/detailed?buy_currency=GBP&sell_currency=USD&fixed_side=buy&amount=10000&conversion_date_preference=optimize_liquidity
+    body: ''
+    headers:
+      X-Auth-Token:
+      - 242993ca94b9d1c6c1d8f7d3275a6f36
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/3.5.1
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 19 May 2020 11:32:53 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '377'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2773737871964103057'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{
+               "settlement_cut_off_time": "2020-05-21T14:00:00Z",
+               "currency_pair": "GBPUSD",
+               "client_buy_currency": "GBP",
+               "client_sell_currency": "USD",
+               "client_buy_amount": "10000.00",
+               "client_sell_amount": "14081.00",
+               "fixed_side": "buy",
+               "client_rate": "1.4081",
+               "partner_rate": null,
+               "core_rate": "1.4081",
+               "deposit_required": false,
+               "deposit_amount": "0.0",
+               "deposit_currency": "USD",
+               "mid_market_rate": "1.4080"
+           }'

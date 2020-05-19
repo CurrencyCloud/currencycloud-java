@@ -68,6 +68,7 @@ public class Conversion implements Entity {
     private String reason;
     private BigDecimal amount;
     private Boolean termAgreement;
+    private String conversionDatePreference;
 
     protected Conversion() { }
 
@@ -510,6 +511,13 @@ public class Conversion implements Entity {
     public void setTermAgreement(Boolean termAgreement) {
         this.termAgreement = termAgreement;
     }
+
+    public String getConversionDatePreference() { return conversionDatePreference; }
+
+    public void setConversionDatePreference(String conversionDatePreference) {
+        this.conversionDatePreference = conversionDatePreference;
+    }
+
 
     @Override
     public String toString() {

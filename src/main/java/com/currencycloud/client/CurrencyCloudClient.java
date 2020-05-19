@@ -600,7 +600,8 @@ public class CurrencyCloudClient {
                 conversion.getClientBuyAmount(),
                 conversion.getClientSellAmount(),
                 conversion.getReason(),
-                conversion.getUniqueRequestId()
+                conversion.getUniqueRequestId(),
+                conversion.getConversionDatePreference()
         );
     }
 
@@ -1018,7 +1019,7 @@ public class CurrencyCloudClient {
         );
     }
 
-    public DetailedRate detailedRates(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, @Nullable Date conversionDate) throws CurrencyCloudException {
+    public DetailedRate detailedRates(String buyCurrency, String sellCurrency, String fixedSide, BigDecimal amount, @Nullable Date conversionDate, @Nullable String conversionDatePreference) throws CurrencyCloudException {
         return api.detailedRates(
                 authToken,
                 userAgent,
@@ -1027,7 +1028,8 @@ public class CurrencyCloudClient {
                 fixedSide,
                 amount,
                 getOnBehalfOf(),
-                dateOnly(conversionDate)
+                dateOnly(conversionDate),
+                conversionDatePreference
         );
     }
 
