@@ -60,6 +60,7 @@ public class CurrencyCloudCookbook {
                             "GBP",
                             "buy",
                             new BigDecimal("12345.67"),
+                            null,
                             null
                             )
                     )

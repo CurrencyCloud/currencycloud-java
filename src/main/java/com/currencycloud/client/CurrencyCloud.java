@@ -479,7 +479,8 @@ public interface CurrencyCloud {
             @Nullable @FormParam("client_buy_amount") BigDecimal clientBuyAmount,
             @Nullable @FormParam("client_sell_amount") BigDecimal clientSellAmount,
             @Nullable @FormParam("reason") String reason,
-            @Nullable @FormParam("unique_request_id") String uniqueRequestId
+            @Nullable @FormParam("unique_request_id") String uniqueRequestId,
+            @Nullable @FormParam("conversion_date_preference") String conversionDatePreference
     ) throws ResponseException;
 
     /** Retrieve a Conversion */
@@ -897,7 +898,8 @@ public interface CurrencyCloud {
             @QueryParam("fixed_side") String fixedSide,
             @QueryParam("amount") BigDecimal amount,
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
-            @Nullable @QueryParam("conversion_date") java.sql.Date conversionDate
+            @Nullable @QueryParam("conversion_date") java.sql.Date conversionDate,
+            @Nullable @QueryParam("conversion_date_preference") String conversionDatePreference
     ) throws ResponseException;
 
     ////////////////////////////////////////////////////////////////////

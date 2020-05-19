@@ -60,10 +60,19 @@ public class RatesTest extends BetamaxTestSupport {
     @Test
     @Betamax(tape = "can_provided_detailed_rate", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanProvidedDetailedRate() throws Exception {
-        DetailedRate detailedRate = client.detailedRates("GBP", "USD", "buy", new BigDecimal("10000"), null);
+        DetailedRate detailedRate = client.detailedRates("GBP", "USD", "buy", new BigDecimal("10000"), null, null);
 
         assertThat(detailedRate.getClientSellAmount(), equalTo(new BigDecimal("15234.00")));
         assertThat(detailedRate.getSettlementCutOffTime(), equalTo(parseDateTime("2015-04-29T14:00:00Z")));
+    }
+
+    @Test
+    @Betamax(tape = "can_provided_detailed_rate_conversion_date_preference", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanProvidedDetailedRateWithConversionDatePreference() throws Exception {
+        DetailedRate detailedRate = client.detailedRates("GBP", "USD", "buy", new BigDecimal("10000"), null, "optimize_liquidity");
+
+        assertThat(detailedRate.getClientSellAmount(), equalTo(new BigDecimal("14081.00")));
+        assertThat(detailedRate.getSettlementCutOffTime(), equalTo(parseDateTime("2020-05-21T14:00:00Z")));
     }
 
 }

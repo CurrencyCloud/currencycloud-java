@@ -251,7 +251,7 @@ public class BackOffTest extends BetamaxTestSupport {
     @Test(expected = TooManyRequestsException.class)
     @Betamax(tape = "too_many_requests_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testStandardTooManyRequestsException() {
-        DetailedRate detailedRate = client.detailedRates("EUR", "GBP", "buy", new BigDecimal("12345.67"), null);
+        DetailedRate detailedRate = client.detailedRates("EUR", "GBP", "buy", new BigDecimal("12345.67"), null, null);
 
         assertThat(detailedRate, is(nullValue(DetailedRate.class)));
         assertThat(client.getLoginId(), equalTo("development@currencycloud.com"));
@@ -269,7 +269,7 @@ public class BackOffTest extends BetamaxTestSupport {
                 .withMaxAttempts(5)
                 .withTask(() -> {
                     numAttempts.incrementAndGet();
-                    DetailedRate detailedRate = client.detailedRates("EUR", "GBP", "buy", new BigDecimal("12345.67"), null);
+                    DetailedRate detailedRate = client.detailedRates("EUR", "GBP", "buy", new BigDecimal("12345.67"), null, null);
                     return detailedRate;
                 })
                 .withExceptionHandler(e -> numExceptions.incrementAndGet())
