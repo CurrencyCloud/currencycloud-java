@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,9 @@ public class WithdrawalAccountsTest extends BetamaxTestSupport {
 
     @Before
     @After
-    public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
+    public void methodName() {
+        log.debug("------------------------- " + name.getMethodName() + " -------------------------");
+    }
 
     @Test
     @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
@@ -98,5 +101,17 @@ public class WithdrawalAccountsTest extends BetamaxTestSupport {
         assertThat(pagination.getNextPage(), equalTo(-1));
         assertThat(pagination.getOrder(), equalTo("created_at"));
         assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
+    }
+
+    @Test
+    @Betamax(tape = "pull_funds", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanPullFunds() throws Exception {
+        WithdrawalAccountFunds funds = client.withdrawalAccountsPullFunds("0886ac00-6ab6-41a6-b0e1-8d3faf2e0de2",
+                "PullFunds1", new BigDecimal(100.0));
+        assertThat(funds.getId(), equalTo("e2e6b7aa-c9e8-4625-96a6-b97d4baab758"));
+        assertThat(funds.getWithdrawalAccountId(), equalTo("0886ac00-6ab6-41a6-b0e1-8d3faf2e0de2"));
+        assertThat(funds.getAmount(), equalTo(new BigDecimal("100.00")));
+        assertThat(funds.getReference(), equalTo("PullFunds1"));
+        assertThat(funds.getCreatedAt(), equalTo(parseDateTime("2020-06-29T08:02:31+00:00")));
     }
 }
