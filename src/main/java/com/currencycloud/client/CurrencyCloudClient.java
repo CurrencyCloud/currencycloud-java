@@ -1385,6 +1385,35 @@ public class CurrencyCloudClient {
 
     ///////////////////////////////////////////////////////////////////
 
+    ///////////////////////////////////////////////////////////////////
+    ///// Withdrawal Accounts /////////////////////////////////////////
+
+    /**
+     * Finds Withdrawal Accounts matching the accountId. If the account Id is omitted the withdrawal accounts
+     * for the house account and all sub-accounts are returned
+     * @param accountId      account Id
+     * @param pagination     pagination settings
+     * @return               The paginated withdrawal accounts search result
+     * @throws               CurrencyCloudException When an error occurs
+     */
+    public WithdrawalAccounts findVirtualAccounts(@Nullable String accountId, @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+
+        return api.findWithdrawalAccounts(
+                authToken,
+                userAgent,
+                accountId,
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc()
+        );
+    }
+
+    ///////////////////////////////////////////////////////////////////
+
     @Nullable
     private static java.sql.Date dateOnly(@Nullable Date date) {
         return date == null ? null : new java.sql.Date(date.getTime());

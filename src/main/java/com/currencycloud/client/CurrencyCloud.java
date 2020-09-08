@@ -1333,4 +1333,21 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order") String order,
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
+
+    //////////////////////////////////////////////////////////////////
+    ///// WithdrawalAccounts /////////////////////////////////////////
+
+    /** Find Withdrawal Accounts */
+    @GET
+    @Path("withdrawal_accounts/find")
+    WithdrawalAccounts findWithdrawalAccounts(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("account_id") String accountId,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws ResponseException;
+
 }
