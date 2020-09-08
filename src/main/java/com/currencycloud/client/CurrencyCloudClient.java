@@ -1412,6 +1412,28 @@ public class CurrencyCloudClient {
         );
     }
 
+    /**
+     * Submits an ACH pull request from a specific withdrawal account.
+     * The funds will be pulled into the account the specified withdrawal account is related to
+     *
+     * @param withdrawalAccountId      The withdrawal account ID to pull the funds from
+     * @param reference     The reference that appears on the statement
+     * @param amount     The amount of funds to pull in USD
+     * @return               Withdrawal Account Pulled Funds Details
+     * @throws               CurrencyCloudException When an error occurs
+     */
+    public WithdrawalAccountFunds withdrawalAccountsPullFunds(String withdrawalAccountId,
+                                                              String reference,BigDecimal amount
+                                                              ) throws CurrencyCloudException {
+
+        return api.withdrawalAccountsPullFunds(
+                authToken,
+                userAgent,
+                withdrawalAccountId,
+                reference,
+                amount
+        );
+    }
     ///////////////////////////////////////////////////////////////////
 
     @Nullable

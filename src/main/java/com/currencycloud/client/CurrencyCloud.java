@@ -1350,4 +1350,16 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
+    /** Pull Funds From Withdrawal Accounts */
+    @POST
+    @Path("withdrawal_accounts/{withdrawalAccountId}/pull_funds")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    WithdrawalAccountFunds withdrawalAccountsPullFunds(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("withdrawalAccountId") String withdrawalAccountId,
+            @FormParam("reference") String reference,
+            @FormParam("amount") BigDecimal amount
+    ) throws ResponseException;
+
 }
