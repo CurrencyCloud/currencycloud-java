@@ -119,8 +119,8 @@ When an error occurs in the API, the library is designed to provide as much info
 
 When the exception is logged, it will provide information such as the following:
 ```yaml
-BadRequestException
 ---
+exception_type: "BadRequestException"
 platform: Java 1.8.0_131 (Oracle Corporation)
 request:
   parameters:
@@ -141,13 +141,13 @@ errors:
 ```
 This is split into 5 sections:
 
-1. Error Type: In this case `BadRequestException` represents an HTTP 400 error
+1. Exception Type: In this case `BadRequestException` represents an HTTP 400 error
 2. Platform: The Java implementation that was used in the client
 3. Request: Details about the HTTP request that was made, e.g. the POST parameters
 4. Response: Details about the HTTP response that was returned, e.g. HTTP status code
 5. Errors: A list of errors that provide additional information
 
-The final section contains valuable information:
+The Errors section contains valuable information:
 
 - Field: The parameter that the error is linked to
 - Code: A code representing this error
