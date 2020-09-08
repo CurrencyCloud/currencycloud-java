@@ -1385,6 +1385,57 @@ public class CurrencyCloudClient {
 
     ///////////////////////////////////////////////////////////////////
 
+    ///////////////////////////////////////////////////////////////////
+    ///// Withdrawal Accounts /////////////////////////////////////////
+
+    /**
+     * Finds Withdrawal Accounts matching the accountId. If the account Id is omitted the withdrawal accounts
+     * for the house account and all sub-accounts are returned
+     * @param accountId      account Id
+     * @param pagination     pagination settings
+     * @return               The paginated withdrawal accounts search result
+     * @throws               CurrencyCloudException When an error occurs
+     */
+    public WithdrawalAccounts findWithdrawalAccounts(@Nullable String accountId, @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+
+        return api.findWithdrawalAccounts(
+                authToken,
+                userAgent,
+                accountId,
+                pagination.getPage(),
+                pagination.getPerPage(),
+                pagination.getOrder(),
+                pagination.getOrderAscDesc()
+        );
+    }
+
+    /**
+     * Submits an ACH pull request from a specific withdrawal account.
+     * The funds will be pulled into the account the specified withdrawal account is related to
+     *
+     * @param withdrawalAccountId      The withdrawal account ID to pull the funds from
+     * @param reference     The reference that appears on the statement
+     * @param amount     The amount of funds to pull in USD
+     * @return               Withdrawal Account Pulled Funds Details
+     * @throws               CurrencyCloudException When an error occurs
+     */
+    public WithdrawalAccountFunds withdrawalAccountsPullFunds(String withdrawalAccountId,
+                                                              String reference,BigDecimal amount
+                                                              ) throws CurrencyCloudException {
+
+        return api.withdrawalAccountsPullFunds(
+                authToken,
+                userAgent,
+                withdrawalAccountId,
+                reference,
+                amount
+        );
+    }
+    ///////////////////////////////////////////////////////////////////
+
     @Nullable
     private static java.sql.Date dateOnly(@Nullable Date date) {
         return date == null ? null : new java.sql.Date(date.getTime());
