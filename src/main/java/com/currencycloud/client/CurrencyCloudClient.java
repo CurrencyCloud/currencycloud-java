@@ -1396,7 +1396,7 @@ public class CurrencyCloudClient {
      * @return               The paginated withdrawal accounts search result
      * @throws               CurrencyCloudException When an error occurs
      */
-    public WithdrawalAccounts findVirtualAccounts(@Nullable String accountId, @Nullable Pagination pagination) throws CurrencyCloudException {
+    public WithdrawalAccounts findWithdrawalAccounts(@Nullable String accountId, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
         }
