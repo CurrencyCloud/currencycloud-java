@@ -69,10 +69,10 @@ CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
 );
 
 // Make API calls
-List<Currency> currencies = currencyCloud.getCurrencies();
+List<Currency> currencies = currencyCloud.currencies();
 System.out.println("Supported currencies: " + currencies.stream().map(Currency::getCode).collect(Collectors.joining(", ")));
 
-List<Balance> balances = currencyCloud.findBalances(null, null, null, null).getBalances();
+List<Balance> balances = currencyCloud.findBalances(null, null).getBalances();
 System.out.println("Balances: " + balances.stream()
         .map((b) -> String.format("%s %s", b.getCurrency(), b.getAmount()))
         .collect(Collectors.joining(", ")));
