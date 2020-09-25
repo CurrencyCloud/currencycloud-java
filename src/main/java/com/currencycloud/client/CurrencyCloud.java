@@ -873,6 +873,15 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("charge_type") String chargeType
     ) throws ResponseException;
 
+    /** Gets the tracking info for a payment */
+    @GET
+    @Path("payments/{id}/tracking_info")
+    PaymentTrackingInfo getPaymentTrackingInfo(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("id") String id
+    ) throws ResponseException;
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES API ///////////////////////////////////////////////////
 

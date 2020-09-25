@@ -3,12 +3,18 @@ package com.currencycloud.client;
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.annotation.Nullable;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -316,5 +322,52 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(quotePaymentFee.getPaymentCurrency(), equalTo(paymentCurrency));
         assertThat(quotePaymentFee.getPaymentDestinationCountry(), equalTo(paymentDestinationCountry));
         assertThat(quotePaymentFee.getPaymentType(), equalTo(paymentType));
+    }
+
+    @Test
+    @Betamax(tape = "can_get_payment_tracking_info", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testGetPaymentTrackingInfo() throws Exception {
+        final PaymentTrackingInfo paymentTrackingInfo = client.getPaymentTrackingInfo("46ed4827-7b6f-4491-a06f-b548d5a7512d");
+        assertThat(paymentTrackingInfo, notNullValue());
+        assertThat(paymentTrackingInfo.getUetr(), equalTo("46ed4827-7b6f-4491-a06f-b548d5a7512d"));
+        assertThat(paymentTrackingInfo.getTransactionStatus(), notNullValue());
+        assertThat(paymentTrackingInfo.getTransactionStatus().getStatus(),equalTo("processing"));
+        assertThat(paymentTrackingInfo.getTransactionStatus().getReason(),equalTo("transferred_and_tracked"));
+        assertThat(paymentTrackingInfo.getInitiationTime(), equalTo(parseDateTime("2019-07-09T13:20:30+00:00")));
+        assertThat(paymentTrackingInfo.getCompletionTime(), nullValue());
+        assertThat(paymentTrackingInfo.getLastUpdateTime(), equalTo(parseDateTime("2019-07-10T15:39:08+00:00")));
+        assertThat(paymentTrackingInfo.getPaymentEvents().size(), equalTo(7));
+        final PaymentTrackingInfo.PaymentEvent paymentEvent7 = paymentTrackingInfo.getPaymentEvents().get(6);
+        assertThat(paymentEvent7, notNullValue());
+        assertThat(paymentEvent7.getTrackerEventType(), equalTo("customer_credit_transfer_payment"));
+        assertThat(paymentEvent7.getValid(), equalTo(true));
+        assertThat(paymentEvent7.getTransactionStatus(), notNullValue());
+        assertThat(paymentEvent7.getTransactionStatus().getStatus(),equalTo("processing"));
+        assertThat(paymentEvent7.getTransactionStatus().getReason(),equalTo("transferred_and_tracked"));
+        assertThat(paymentEvent7.getFundsAvailable(), nullValue());
+        assertThat(paymentEvent7.getForwardedToAgent(), nullValue());
+        assertThat(paymentEvent7.getFrom(), equalTo("BANABEBBXXX"));
+        assertThat(paymentEvent7.getTo(), equalTo("BANAUS33XXX"));
+        assertThat(paymentEvent7.getOriginator(), equalTo("BANABEBBXXX"));
+        assertThat(paymentEvent7.getSerialParties(), notNullValue());
+        assertThat(paymentEvent7.getSerialParties().getDebtor(), nullValue());
+        assertThat(paymentEvent7.getSerialParties().getDebtorAgent(), equalTo("GPMRCH30"));
+        assertThat(paymentEvent7.getSerialParties().getIntermediaryAgent1(), nullValue());
+        assertThat(paymentEvent7.getSerialParties().getInstructingReimbursementAgent(), nullValue());
+        assertThat(paymentEvent7.getSerialParties().getCreditorAgent(), equalTo("GPMRQAJ0"));
+        assertThat(paymentEvent7.getSerialParties().getCreditor(), nullValue());
+        assertThat(paymentEvent7.getSenderAcknowledgementReceipt(), equalTo(parseDateTime("2019-07-09T13:20:30+00:00")));
+        assertThat(paymentEvent7.getInstructedAmount(), notNullValue());
+        assertThat(paymentEvent7.getInstructedAmount().getCurrency(), equalTo("USD"));
+        assertThat(paymentEvent7.getInstructedAmount().getAmount(), equalTo(new BigDecimal("745437.57")));
+        assertThat(paymentEvent7.getConfirmedAmount(), nullValue());
+        assertThat(paymentEvent7.getInterbankSettlementAmount(), notNullValue());
+        assertThat(paymentEvent7.getInterbankSettlementAmount().getCurrency(), equalTo("USD"));
+        assertThat(paymentEvent7.getInterbankSettlementAmount().getAmount(), equalTo(new BigDecimal("745437.57")));
+        assertThat(paymentEvent7.getInterbankSettlementDate(), equalTo(parseDateTime("2019-07-09T00:00:00+00:00")));
+        assertThat(paymentEvent7.getChargeAmount(), nullValue());
+        assertThat(paymentEvent7.getChargeType(), equalTo("shared"));
+        assertThat(paymentEvent7.getForeignExchangeDetails(), nullValue());
+        assertThat(paymentEvent7.getLastUpdateTime(), equalTo(parseDateTime("2019-07-09T13:20:50+00:00")));
     }
 }
