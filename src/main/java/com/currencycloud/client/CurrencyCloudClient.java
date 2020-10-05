@@ -1006,6 +1006,11 @@ public class CurrencyCloudClient {
                 paymentType,
                 chargeType);
     }
+
+    public PaymentTrackingInfo getPaymentTrackingInfo(final String id) throws CurrencyCloudException {
+        return api.getPaymentTrackingInfo(authToken, userAgent, id);
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// RATES ///////////////////////////////////////////////////////
 
