@@ -1185,69 +1185,6 @@ public class CurrencyCloudClient {
     }
 
     ///////////////////////////////////////////////////////////////////
-    ///// SETTLEMENTS /////////////////////////////////////////////////
-
-    public Settlement createSettlement(Settlement settlement) throws CurrencyCloudException {
-        return api.createSettlement(authToken, userAgent, getOnBehalfOf(), settlement.getType());
-    }
-
-    public Settlement retrieveSettlement(String id) throws CurrencyCloudException {
-        return api.retrieveSettlement(authToken, userAgent, id, getOnBehalfOf());
-    }
-
-    /**
-     * @param settlement  Non-null properties will be used for querying. Null values will be ignored.
-     * @param pagination  pagination settings
-     * @return            The paginated Settlements search result
-     * @throws            CurrencyCloudException When an error occurs
-     */
-    public Settlements findSettlements(@Nullable Settlement settlement, @Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        if (settlement == null) {
-            settlement = Settlement.create();
-        }
-        return api.findSettlements(
-                authToken,
-                userAgent,
-                getOnBehalfOf(),
-                settlement.getShortReference(),
-                settlement.getStatus(),
-                settlement.getCreatedAtFrom(),
-                settlement.getCreatedAtTo(),
-                settlement.getUpdatedAtFrom(),
-                settlement.getUpdatedAtTo(),
-                settlement.getReleasedAtFrom(),
-                settlement.getReleasedAtTo(),
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc()
-        );
-    }
-
-    public Settlement deleteSettlement(String settlementId) throws CurrencyCloudException {
-        return api.deleteSettlement(authToken, userAgent, settlementId, getOnBehalfOf());
-    }
-
-    public Settlement addConversion(String settlementId, String conversionId) throws CurrencyCloudException {
-        return api.addConversion(authToken, userAgent, settlementId, conversionId, getOnBehalfOf());
-    }
-
-    public Settlement removeConversion(String settlementId, String conversionId) throws CurrencyCloudException {
-        return api.removeConversion(authToken, userAgent, settlementId, conversionId, getOnBehalfOf());
-    }
-
-    public Settlement releaseSettlement(String settlementId) throws CurrencyCloudException {
-        return api.releaseSettlement(authToken, userAgent, settlementId, getOnBehalfOf());
-    }
-
-    public Settlement unreleaseSettlement(String settlementId) throws CurrencyCloudException {
-        return api.unreleaseSettlement(authToken, userAgent, settlementId, getOnBehalfOf());
-    }
-
-    ///////////////////////////////////////////////////////////////////
     ///// TRANSACTIONS ////////////////////////////////////////////////
 
     public Transaction retrieveTransaction(String id) throws CurrencyCloudException {

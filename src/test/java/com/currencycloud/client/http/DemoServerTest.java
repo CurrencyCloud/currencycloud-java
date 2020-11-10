@@ -410,60 +410,6 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testSettlements() throws Exception {
-        Date to = getDate("2115-01-01");
-
-        Settlement settlement = currencyCloud.createSettlement(Settlement.create());
-        Settlement settlementCondition = currencyCloud.createSettlement(Settlement.create());
-        settlementCondition.setShortReference(settlement.getShortReference());
-
-        List<Settlement> settlements = currencyCloud.findSettlements(settlementCondition, null).getSettlements();
-        assertFound(settlements, settlement);
-        assertThat(settlement.getStatus(), equalTo("open"));
-
-        Conversion conversion = Conversion.create();
-        conversion.setBuyCurrency("EUR");
-        conversion.setSellCurrency("GBP");
-        conversion.setFixedSide("buy");
-        conversion.setAmount(new BigDecimal("10000.00"));
-        conversion.setReason("Invoice Payment");
-        conversion.setTermAgreement(true);
-
-        conversion = currencyCloud.createConversion(conversion);
-        log.debug("conversion = {}", conversion);
-
-        settlement = currencyCloud.addConversion(settlement.getId(), conversion.getId());
-        assertThat(settlement.getStatus(), equalTo("open"));
-
-        settlementCondition.setShortReference(settlement.getShortReference());
-        settlements = currencyCloud.findSettlements(settlementCondition, null).getSettlements();
-        assertFound(settlements, settlement);
-
-        settlement = currencyCloud.releaseSettlement(settlement.getId());
-        assertThat(settlement.getStatus(), equalTo("released"));
-
-        settlementCondition.setShortReference(settlement.getShortReference());
-        settlements = currencyCloud.findSettlements(settlementCondition, null).getSettlements();
-        assertFound(settlements, settlement);
-
-        settlement = currencyCloud.unreleaseSettlement(settlement.getId());
-        assertThat(settlement.getStatus(), equalTo("open"));
-
-        settlement = currencyCloud.removeConversion(settlement.getId(), conversion.getId());
-        assertThat(settlement.getStatus(), equalTo("open"));
-
-        settlement = currencyCloud.deleteSettlement(settlement.getId());
-        assertThat(settlement.getStatus(), equalTo("open"));
-
-        try {
-            currencyCloud.retrieveSettlement(settlement.getId());
-            fail("Shouldn't be able to retrieve a deleted settlement.");
-        } catch (NotFoundException e) {
-            assertThat(e.getErrorCode(), equalTo("settlement_not_found"));
-        }
-    }
-
-    @Test
     public void testTransactions() throws Exception {
         Date from = getDate("2015-01-01");
         Date to = getDate("2115-01-01");
