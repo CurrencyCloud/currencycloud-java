@@ -808,7 +808,6 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("unique_request_id") String uniqueRequestId,
             @Nullable @QueryParam("scope") String scope,
             @Nullable @QueryParam("bulk_upload_id") String bulkUploadId,
-            @Nullable @QueryParam("purpose_code") String purposeCode,
             @Nullable @QueryParam("charge_type") String chargeType,
             @Nullable @FormParam("fee_amount") BigDecimal feeAmount,
             @Nullable @FormParam("fee_currency") String feeCurrency,

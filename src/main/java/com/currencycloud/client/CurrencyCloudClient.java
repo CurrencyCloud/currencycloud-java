@@ -949,7 +949,6 @@ public class CurrencyCloudClient {
                 payment.getUniqueRequestId(),
                 payment.getScope(),
                 payment.getBulkUploadId(),
-                payment.getPurposeCode(),
                 payment.getChargeType(),
                 payment.getFeeAmount(),
                 payment.getFeeCurrency(),
