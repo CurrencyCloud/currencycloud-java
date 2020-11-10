@@ -21,6 +21,10 @@ public class ConversionDates {
 
     private Date defaultConversionDate;
 
+    private Date firstConversionCutoffDatetime;
+
+    private Date optimizeLiquidityConversionDate;
+
     private Map<Date, String> invalidConversionDates;
 
     public Date getFirstConversionDate() {
@@ -30,6 +34,10 @@ public class ConversionDates {
     public Date getDefaultConversionDate() {
         return defaultConversionDate;
     }
+
+    public Date getFirstConversionCutoffDatetime() { return firstConversionCutoffDatetime; }
+
+    public Date getOptimizeLiquidityConversionDate() { return optimizeLiquidityConversionDate; }
 
     public Map<Date, String> getInvalidConversionDates() {
         return invalidConversionDates;
@@ -44,6 +52,8 @@ public class ConversionDates {
         Map<String, Object> map = new HashMap<>();
         map.put("firstConversionDate", firstConversionDate);
         map.put("defaultConversionDate", defaultConversionDate);
+        map.put("firstConversionCutoffDatetime", firstConversionCutoffDatetime);
+        map.put("optimizeLiquidityConversionDate", optimizeLiquidityConversionDate);
         map.put("invalidConversionDates", invalidConversionDates);
 
         try {

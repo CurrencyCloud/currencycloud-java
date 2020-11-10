@@ -53,11 +53,14 @@ public class ReferenceTest extends BetamaxTestSupport {
         ConversionDates dates = client.conversionDates("GBPUSD", null);
 
         assertThat(dates.getInvalidConversionDates(), not(anEmptyMap()));
+        assertThat(dates.getInvalidConversionDates().size(), equalTo(242));
         Date invalidConversionDate = dates.getInvalidConversionDates().keySet().iterator().next();
-        assertThat(invalidConversionDate, equalTo(parseDate("2015-05-02")));
-        assertThat(dates.getInvalidConversionDates().get(invalidConversionDate), equalTo("No trading on Saturday"));
-        assertThat(dates.getFirstConversionDate(), equalTo(parseDate("2015-04-30")));
-        assertThat(dates.getDefaultConversionDate(), equalTo(parseDate("2015-04-30")));
+        assertThat(invalidConversionDate, equalTo(parseDate("2020-11-11")));
+        assertThat(dates.getInvalidConversionDates().get(invalidConversionDate), equalTo("Veterans' Day"));
+        assertThat(dates.getFirstConversionDate(), equalTo(parseDate("2020-11-10")));
+        assertThat(dates.getDefaultConversionDate(), equalTo(parseDate("2020-11-12")));
+        assertThat(dates.getFirstConversionCutoffDatetime(), equalTo(parseDateTime("2020-11-10T15:30:00+00:00")));
+        assertThat(dates.getOptimizeLiquidityConversionDate(), equalTo(parseDate("2020-11-12")));
     }
 
     @Test
