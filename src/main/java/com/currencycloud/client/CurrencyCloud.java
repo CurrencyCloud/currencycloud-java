@@ -923,8 +923,6 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @Nullable @QueryParam("short_reference") String shortReference,
             @Nullable @QueryParam("description") String description,
-            @Nullable @QueryParam("account_id") String accountId,
-            @Nullable @QueryParam("contact_id") String contactId,
             @Nullable @QueryParam("created_at_from") Date createdAtFrom,
             @Nullable @QueryParam("created_at_to") Date createdAtTo,
             @Nullable @QueryParam("expiration_date_from") Date expirationDateFrom,

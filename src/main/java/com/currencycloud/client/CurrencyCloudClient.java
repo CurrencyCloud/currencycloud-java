@@ -1060,8 +1060,6 @@ public class CurrencyCloudClient {
                 getOnBehalfOf(),
                 reportRequest.getShortReference(),
                 reportRequest.getDescription(),
-                reportRequest.getAccountId(),
-                reportRequest.getContactId(),
                 reportRequest.getCreatedAtFrom(),
                 reportRequest.getCreatedAtTo(),
                 reportRequest.getExpirationDateFrom(),
