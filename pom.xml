@@ -4,7 +4,7 @@
 
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>4.0.2</version>
+    <version>4.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Currencycloud</name>
@@ -60,7 +60,7 @@
         <connection>scm:git:git@github.com:CurrencyCloud/currencycloud-java.git</connection>
         <developerConnection>scm:git:git@github.com:CurrencyCloud/currencycloud-java.git</developerConnection>
         <url>git@github.com:CurrencyCloud/currencycloud-java.git</url>
-        <tag>currencycloud-java-4.0.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <ciManagement>
