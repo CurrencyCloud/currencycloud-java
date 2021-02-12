@@ -42,7 +42,6 @@ interactions:
                "fixed_side": "buy",
                "core_rate": "0.8059",
                "partner_rate": "",
-               "partner_status": "funds_arrived",
                "partner_buy_amount": "0.00",
                "partner_sell_amount": "0.00",
                "client_rate": "0.8059",

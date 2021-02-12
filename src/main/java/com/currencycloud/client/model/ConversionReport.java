@@ -43,7 +43,6 @@ public class ConversionReport implements Entity {
     private BigDecimal partnerSellAmountFrom;
     private BigDecimal partnerSellAmountTo;
     private String clientStatus;
-    private String partnerStatus;
     private Date conversionDateFrom;
     private Date conversionDateTo;
     private Date settlementDateFrom;
@@ -252,14 +251,6 @@ public class ConversionReport implements Entity {
         this.clientStatus = clientStatus;
     }
 
-    public String getPartnerStatus() {
-        return partnerStatus;
-    }
-
-    public void setPartnerStatus(String partnerStatus) {
-        this.partnerStatus = partnerStatus;
-    }
-
     public Date getConversionDateFrom() {
         return conversionDateFrom;
     }
@@ -387,7 +378,6 @@ public class ConversionReport implements Entity {
         private BigDecimal partnerSellAmountFrom;
         private BigDecimal partnerSellAmountTo;
         private String clientStatus;
-        private String partnerStatus;
         private Date conversionDateFrom;
         private Date conversionDateTo;
         private Date settlementDateFrom;
@@ -447,9 +437,6 @@ public class ConversionReport implements Entity {
             return clientStatus;
         }
 
-        public String getPartnerStatus() {
-            return partnerStatus;
-        }
 
         public Date getConversionDateFrom() {
             return conversionDateFrom;
@@ -510,7 +497,6 @@ public class ConversionReport implements Entity {
             map.put("partnerSellAmountFrom", partnerSellAmountFrom);
             map.put("partnerSellAmountTo", partnerSellAmountTo);
             map.put("clientStatus", clientStatus);
-            map.put("partnerStatus", partnerStatus);
             map.put("conversionDateFrom", conversionDateFrom);
             map.put("conversionDateTo", conversionDateTo);
             map.put("settlementDateFrom", settlementDateFrom);

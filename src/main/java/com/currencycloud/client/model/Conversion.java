@@ -23,7 +23,6 @@ public class Conversion implements Entity {
     private Date settlementDate;
     private Date conversionDate;
     private String status;
-    private String partnerStatus;
     private String currencyPair;
     private String buyCurrency;
     private String sellCurrency;
@@ -150,14 +149,6 @@ public class Conversion implements Entity {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getPartnerStatus() {
-        return partnerStatus;
-    }
-
-    public void setPartnerStatus(String partnerStatus) {
-        this.partnerStatus = partnerStatus;
     }
 
     public String getCurrencyPair() {
@@ -533,7 +524,6 @@ public class Conversion implements Entity {
         map.put("settlementDate", settlementDate);
         map.put("conversionDate", conversionDate);
         map.put("status", status);
-        map.put("partnerStatus", partnerStatus);
         map.put("currencyPair", currencyPair);
         map.put("buyCurrency", buyCurrency);
         map.put("sellCurrency", sellCurrency);
