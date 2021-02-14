@@ -18,8 +18,6 @@ import si.mazi.rescu.serialization.jackson.DefaultJacksonObjectMapperFactory;
 import si.mazi.rescu.serialization.jackson.JacksonObjectMapperFactory;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.HeaderParam;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -1004,6 +1002,14 @@ public class CurrencyCloudClient {
                 paymentDestinationCountry,
                 paymentType,
                 chargeType);
+    }
+
+    public PaymentFees getPaymentFees(@Nullable Pagination pagination) {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+
+        return api.getPaymentFees(authToken, userAgent, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc());
     }
 
     public PaymentTrackingInfo getPaymentTrackingInfo(final String id) throws CurrencyCloudException {
