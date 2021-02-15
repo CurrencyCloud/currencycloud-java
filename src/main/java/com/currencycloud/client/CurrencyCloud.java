@@ -883,6 +883,16 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
+    /** Assign payment fee table to specific sub-account */
+    @POST
+    @Path("payments/assign_payment_fee")
+    PaymentFeeAssignment assignPaymentFee(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @FormParam("payment_fee_id") String paymentFeeId,
+            @FormParam("account_id") String accountId
+    ) throws ResponseException;
+
     /** Gets the tracking info for a payment */
     @GET
     @Path("payments/{id}/tracking_info")

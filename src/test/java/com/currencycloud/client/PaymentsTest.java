@@ -381,4 +381,17 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(paymentEvent7.getForeignExchangeDetails(), nullValue());
         assertThat(paymentEvent7.getLastUpdateTime(), equalTo(parseDateTime("2019-07-09T13:20:50+00:00")));
     }
+
+    @Test
+    @Betamax(tape = "can_assign_payment_fee", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanAssignPaymentFee() {
+        final String paymentFeeId = "06337511-861d-012f-860e-24003ab3f236";
+        final String accountId = "eb118dc0-862c-012f-8648-24003ab3f236";
+
+        final PaymentFeeAssignment paymentFeeAssignment = client.assignPaymentFee(paymentFeeId, accountId);
+
+        assertThat(paymentFeeAssignment, notNullValue());
+        assertThat(paymentFeeAssignment.getId(), equalTo(paymentFeeId));
+        assertThat(paymentFeeAssignment.getAccountId(), equalTo(accountId));
+    }
 }
