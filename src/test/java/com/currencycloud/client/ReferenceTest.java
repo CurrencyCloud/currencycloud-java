@@ -158,16 +158,22 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(feeRule1_1.getFeeAmount(), equalTo(new BigDecimal("2.00")));
         assertThat(feeRule1_1.getFeeCurrency(), equalTo("AED"));
         assertThat(feeRule1_1.getPaymentType(), equalTo("priority"));
+        assertThat(feeRule1_1.getPaymentFeeId(), equalTo("8b6facb0-be00-012f-3971-24003ab3f236"));
+        assertThat(feeRule1_1.getPaymentFeeName(), equalTo("Name1"));
         final PaymentFeeRule feeRule1_2 = paymentFeeRules1.get(1);
         assertThat(feeRule1_2.getChargeType(), equalTo("shared"));
         assertThat(feeRule1_2.getFeeAmount(), equalTo(new BigDecimal("12.00")));
         assertThat(feeRule1_2.getFeeCurrency(), equalTo("USD"));
         assertThat(feeRule1_2.getPaymentType(), equalTo("regular"));
+        assertThat(feeRule1_2.getPaymentFeeId(), equalTo("b75a0b91-be00-012f-3975-24003ab3f236"));
+        assertThat(feeRule1_2.getPaymentFeeName(), equalTo("Name2"));
         final PaymentFeeRule feeRule1_3 = paymentFeeRules1.get(2);
         assertThat(feeRule1_3.getChargeType(), equalTo("ours"));
         assertThat(feeRule1_3.getFeeAmount(), equalTo(new BigDecimal("5.25")));
         assertThat(feeRule1_3.getFeeCurrency(), equalTo("GBP"));
         assertThat(feeRule1_3.getPaymentType(), equalTo("priority"));
+        assertThat(feeRule1_3.getPaymentFeeId(), equalTo("60a3c841-be23-012f-3afb-24003ab3f236"));
+        assertThat(feeRule1_3.getPaymentFeeName(), equalTo("Name3"));
 
 
         final List<PaymentFeeRule> paymentFeeRules2 = client.paymentFeeRules(null, "regular", null);
@@ -177,6 +183,8 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(feeRule2_1.getFeeAmount(), equalTo(new BigDecimal("12.00")));
         assertThat(feeRule2_1.getFeeCurrency(), equalTo("USD"));
         assertThat(feeRule2_1.getPaymentType(), equalTo("regular"));
+        assertThat(feeRule2_1.getPaymentFeeId(), equalTo("b75a0b91-be00-012f-3975-24003ab3f236"));
+        assertThat(feeRule2_1.getPaymentFeeName(), equalTo("Name2"));
 
         final List<PaymentFeeRule> paymentFeeRules3 = client.paymentFeeRules(null, null, "ours");
         assertThat(paymentFeeRules3.size(), equalTo(1));
@@ -185,5 +193,7 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(feeRule3_1.getFeeAmount(), equalTo(new BigDecimal("5.25")));
         assertThat(feeRule3_1.getFeeCurrency(), equalTo("GBP"));
         assertThat(feeRule3_1.getPaymentType(), equalTo("priority"));
+        assertThat(feeRule3_1.getPaymentFeeId(), equalTo("60a3c841-be23-012f-3afb-24003ab3f236"));
+        assertThat(feeRule3_1.getPaymentFeeName(), equalTo("Name3"));
     }
 }

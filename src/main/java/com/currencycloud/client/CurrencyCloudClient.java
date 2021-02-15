@@ -1011,6 +1011,17 @@ public class CurrencyCloudClient {
         return api.getPaymentFees(authToken, userAgent, pagination.getPage(), pagination.getPerPage(), pagination.getOrder(), pagination.getOrderAscDesc());
     }
 
+    public PaymentFeeAssignment assignPaymentFee(String paymentFeeId,
+                                                 String accountId) {
+
+        return api.assignPaymentFee(authToken, userAgent, paymentFeeId, accountId);
+    }
+
+    public PaymentFeeUnassignment unassignPaymentFee(String accountId) {
+
+        return api.unassignPaymentFee(authToken, userAgent, accountId);
+    }
+
     public PaymentTrackingInfo getPaymentTrackingInfo(final String id) throws CurrencyCloudException {
         return api.getPaymentTrackingInfo(authToken, userAgent, id);
     }
