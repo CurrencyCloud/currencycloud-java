@@ -871,6 +871,18 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("charge_type") String chargeType
     ) throws ResponseException;
 
+    /** Gets the calculated quote for the fee that will be applied against a payment */
+    @GET
+    @Path("payments/payment_fees")
+    PaymentFees getPaymentFees(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @QueryParam("page") Integer page,
+            @Nullable @QueryParam("per_page") Integer perPage,
+            @Nullable @QueryParam("order") String order,
+            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws ResponseException;
+
     /** Gets the tracking info for a payment */
     @GET
     @Path("payments/{id}/tracking_info")

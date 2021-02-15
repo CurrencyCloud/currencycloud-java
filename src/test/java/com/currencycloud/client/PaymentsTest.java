@@ -3,18 +3,11 @@ package com.currencycloud.client;
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.*;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.annotation.Nullable;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -298,6 +291,24 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(paymentDeliveryDate.getBankCountry(), equalTo(bankCountry));
         assertThat(paymentDeliveryDate.getPaymentDeliveryDate(), equalTo(parseDateTime("2019-05-29T00:00:00+00:00")));
         assertThat(paymentDeliveryDate.getPaymentCutoffTime(), equalTo(parseDateTime("2019-05-29T14:30:00+00:00")));
+    }
+
+    @Test
+    @Betamax(tape = "can_get_payment_fees", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testGetPaymentFees() {
+        final PaymentFees paymentFees = client.getPaymentFees(null);
+
+        assertThat(paymentFees, notNullValue());
+        assertThat(paymentFees.getPaymentFees(), notNullValue());
+        assertThat(paymentFees.getPaymentFees().size(), equalTo(4));
+        PaymentFee paymentFee = paymentFees.getPaymentFees().get(0);
+        assertThat(paymentFee.getId(), equalTo("e7e1b6e5-c596-4ad1-b8d4-a7035185143a"));
+        assertThat(paymentFee.getName(), equalTo("Fee Table CAD  5 - 10 - 15"));
+        assertThat(paymentFee.getCurrency(), equalTo("CAD"));
+        assertThat(paymentFee.getRegularAmount(), equalTo(new BigDecimal("5.00")));
+        assertThat(paymentFee.getPrioritySharedAmount(), equalTo(new BigDecimal("10.00")));
+        assertThat(paymentFee.getPriorityOursAmount(), equalTo(new BigDecimal("15.00")));
+        assertThat(paymentFee.getOwnerAccountId(), equalTo("092ad4ee-6eb7-11eb-9439-0242ac130002"));
     }
 
     @Test
