@@ -18,7 +18,6 @@ import si.mazi.rescu.serialization.jackson.DefaultJacksonObjectMapperFactory;
 import si.mazi.rescu.serialization.jackson.JacksonObjectMapperFactory;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.FormParam;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Pattern;
