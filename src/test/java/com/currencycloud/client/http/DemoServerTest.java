@@ -286,7 +286,6 @@ public class DemoServerTest {
         Conversion conversionCondition = Conversion.create();
         conversionCondition.setShortReference("ref");
         conversionCondition.setStatus("awaiting_funds");
-        conversionCondition.setPartnerStatus("funds_sent");
         conversionCondition.setBuyCurrency("GBP");
         conversionCondition.setSellCurrency("USD");
         conversionCondition.setCurrencyPair("EURMXN");
