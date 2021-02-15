@@ -251,7 +251,6 @@ public class ReportRequest implements Entity {
         private BigDecimal partnerSellAmountFrom;
         private BigDecimal partnerSellAmountTo;
         private String clientStatus;
-        private String partnerStatus;
         private Date conversionDateFrom;
         private Date conversionDateTo;
         private Date settlementDateFrom;
@@ -377,10 +376,6 @@ public class ReportRequest implements Entity {
             return clientStatus;
         }
 
-        public String getPartnerStatus() {
-            return partnerStatus;
-        }
-
         public Date getConversionDateFrom() {
             return conversionDateFrom;
         }
@@ -416,7 +411,6 @@ public class ReportRequest implements Entity {
             map.put("partnerSellAmountFrom", partnerSellAmountFrom);
             map.put("partnerSellAmountTo", partnerSellAmountTo);
             map.put("clientStatus", clientStatus);
-            map.put("partnerStatus", partnerStatus);
             map.put("conversionDateFrom", conversionDateFrom);
             map.put("conversionDateTo", conversionDateTo);
             map.put("settlementDateFrom", settlementDateFrom);
