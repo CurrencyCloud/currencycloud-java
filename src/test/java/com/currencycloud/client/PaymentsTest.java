@@ -394,4 +394,15 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(paymentFeeAssignment.getId(), equalTo(paymentFeeId));
         assertThat(paymentFeeAssignment.getAccountId(), equalTo(accountId));
     }
+
+    @Test
+    @Betamax(tape = "can_unassign_payment_fee", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanUnassignPaymentFee() {
+        final String accountId = "eb118dc0-862c-012f-8648-24003ab3f236";
+
+        final PaymentFeeUnassignment paymentFeeUnassignment = client.unassignPaymentFee(accountId);
+
+        assertThat(paymentFeeUnassignment, notNullValue());
+        assertThat(paymentFeeUnassignment.getAccountId(), equalTo(accountId));
+    }
 }

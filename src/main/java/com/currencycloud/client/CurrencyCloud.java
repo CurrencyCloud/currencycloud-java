@@ -893,6 +893,16 @@ public interface CurrencyCloud {
             @FormParam("account_id") String accountId
     ) throws ResponseException;
 
+    /** Unassign payment fee tables to specific sub-account */
+    @POST
+    @Path("payments/unassign_payment_fee")
+    PaymentFeeUnassignment unassignPaymentFee(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @FormParam("account_id") String accountId
+    ) throws ResponseException;
+
+
     /** Gets the tracking info for a payment */
     @GET
     @Path("payments/{id}/tracking_info")
