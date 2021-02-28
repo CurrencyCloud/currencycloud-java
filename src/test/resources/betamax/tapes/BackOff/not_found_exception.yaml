@@ -8,7 +8,7 @@ interactions:
       X-Auth-Token:
       - deadbeefdeadbeefdeadbeefdeadbeef
       User-Agent:
-      - CurrencyCloudSDK/2.0 Java/4.0.2
+      - CurrencyCloudSDK/2.0 Java/4.1.3
   response:
     status: 404
     headers:

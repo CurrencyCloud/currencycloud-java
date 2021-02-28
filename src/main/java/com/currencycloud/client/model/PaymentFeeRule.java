@@ -21,6 +21,8 @@ public class PaymentFeeRule {
     private String chargeType;
     private BigDecimal feeAmount;
     private String feeCurrency;
+    private String paymentFeeId;
+    private String paymentFeeName;
 
     public String getPaymentType() {
         return paymentType;
@@ -54,7 +56,21 @@ public class PaymentFeeRule {
         this.feeCurrency = feeCurrency;
     }
 
+    public String getPaymentFeeId() {
+        return paymentFeeId;
+    }
 
+    public void setPaymentFeeId(String paymentFeeId) {
+        this.paymentFeeId = paymentFeeId;
+    }
+
+    public String getPaymentFeeName() {
+        return paymentFeeName;
+    }
+
+    public void setPaymentFeeName(String paymentFeeName) {
+        this.paymentFeeName = paymentFeeName;
+    }
 
     @Override
     public String toString() {
@@ -67,6 +83,8 @@ public class PaymentFeeRule {
         map.put("chargeType", chargeType);
         map.put("feeAmount", feeAmount);
         map.put("feeCurrency", feeCurrency);
+        map.put("paymentFeeId", paymentFeeId);
+        map.put("paymentFeeName", paymentFeeName);
 
         try {
             return objectMapper.writeValueAsString(map);

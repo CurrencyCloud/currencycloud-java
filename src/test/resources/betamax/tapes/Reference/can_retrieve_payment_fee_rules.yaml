@@ -8,7 +8,7 @@ interactions:
         X-Auth-Token:
           - 1c9da5726314246acfb09ec5651307a5
         User-Agent:
-          - CurrencyCloudSDK/2.0 Java/4.0.2
+          - CurrencyCloudSDK/2.0 Java/4.1.3
     response:
       status: 200
       headers:
@@ -30,19 +30,25 @@ interactions:
                     "payment_type": "priority",
                     "charge_type": "shared",
                     "fee_amount": "2.00",
-                    "fee_currency": "AED"
+                    "fee_currency": "AED",
+                    "payment_fee_id": "8b6facb0-be00-012f-3971-24003ab3f236",
+                    "payment_fee_name": "Name1"
                   },
                   {
                     "payment_type": "regular",
                     "charge_type": "shared",
                     "fee_amount": "12.00",
-                    "fee_currency": "USD"
+                    "fee_currency": "USD",
+                    "payment_fee_id": "b75a0b91-be00-012f-3975-24003ab3f236",
+                    "payment_fee_name": "Name2"
                   },
                   {
                     "payment_type": "priority",
                     "charge_type": "ours",
                     "fee_amount": "5.25",
-                    "fee_currency": "GBP"
+                    "fee_currency": "GBP",
+                    "payment_fee_id": "60a3c841-be23-012f-3afb-24003ab3f236",
+                    "payment_fee_name": "Name3"
                    }
                 ]
              }'
@@ -54,7 +60,7 @@ interactions:
         X-Auth-Token:
           - 1c9da5726314246acfb09ec5651307a5
         User-Agent:
-          - CurrencyCloudSDK/2.0 Java/4.0.2
+          - CurrencyCloudSDK/2.0 Java/4.1.3
     response:
       status: 200
       headers:
@@ -76,7 +82,9 @@ interactions:
                     "payment_type": "regular",
                     "charge_type": "shared",
                     "fee_amount": "12.00",
-                    "fee_currency": "USD"
+                    "fee_currency": "USD",
+                    "payment_fee_id": "b75a0b91-be00-012f-3975-24003ab3f236",
+                    "payment_fee_name": "Name2"
                   }
                 ]
              }'
@@ -88,7 +96,7 @@ interactions:
         X-Auth-Token:
           - 1c9da5726314246acfb09ec5651307a5
         User-Agent:
-          - CurrencyCloudSDK/2.0 Java/4.0.2
+          - CurrencyCloudSDK/2.0 Java/4.1.3
     response:
       status: 200
       headers:
@@ -110,7 +118,9 @@ interactions:
                    "payment_type": "priority",
                    "charge_type": "ours",
                    "fee_amount": "5.25",
-                   "fee_currency": "GBP"
+                   "fee_currency": "GBP",
+                   "payment_fee_id": "60a3c841-be23-012f-3afb-24003ab3f236",
+                   "payment_fee_name": "Name3"
                   }
                 ]
              }'
