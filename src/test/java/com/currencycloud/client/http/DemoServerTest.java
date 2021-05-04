@@ -3,7 +3,6 @@ package com.currencycloud.client.http;
 import com.currencycloud.client.CurrencyCloudClient;
 import com.currencycloud.client.exception.ApiException;
 import com.currencycloud.client.exception.ForbiddenException;
-import com.currencycloud.client.exception.NotFoundException;
 import com.currencycloud.client.model.*;
 import com.currencycloud.examples.CurrencyCloudCookbook;
 import org.junit.Ignore;
@@ -15,6 +14,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -317,7 +318,7 @@ public class DemoServerTest {
         conversion.setBuyCurrency("EUR");
         conversion.setSellCurrency("GBP");
         conversion.setFixedSide("buy");
-        conversion.setAmount(new BigDecimal("10000.00"));
+        conversion.setAmount(new BigDecimal("20000.00"));
         conversion.setReason("Invoice Payment");
         conversion.setTermAgreement(true);
 
@@ -335,13 +336,16 @@ public class DemoServerTest {
         payerAddress.add("Payer Address Line 2");
         Payer payer = Payer.create(
                 "individual",
-                "Test Payer Company",
+                null,
                 "Test Payer First Name",
                 "Test Payer Last Name",
                 payerAddress,
                 "Paris",
                 "FR",
-                new Date());
+                Date.from(Instant.now().minus(2, ChronoUnit.DAYS)));
+        currencyCloud.validatePayment(payment, payer, null);
+        log.debug("Validated payment = {}", payment);
+
         payment = currencyCloud.createPayment(payment, payer);
         log.debug("Created payment = {}", payment);
 
