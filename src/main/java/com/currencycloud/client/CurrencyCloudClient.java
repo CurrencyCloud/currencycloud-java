@@ -851,6 +851,45 @@ public class CurrencyCloudClient {
         );
     }
 
+    public PaymentValidationResult validatePayment(Payment payment, @Nullable Payer payer, @Nullable Boolean scaForceSms) throws CurrencyCloudException {
+        if (payer == null) {
+            payer = Payer.create();
+        }
+        return api.validatePayment(
+                authToken,
+                userAgent,
+                scaForceSms,
+                payment.getCurrency(),
+                payment.getBeneficiaryId(),
+                payment.getAmount(),
+                payment.getReason(),
+                payment.getReference(),
+                payment.getId(),
+                getOnBehalfOf(),
+                dateOnly(payment.getPaymentDate()),
+                payment.getPaymentType(),
+                payment.getConversionId(),
+                payer.getLegalEntityType(),
+                payer.getCompanyName(),
+                payer.getFirstName(),
+                payer.getLastName(),
+                flattenList(payer.getAddress()),
+                payer.getCity(),
+                payer.getCountry(),
+                payer.getPostcode(),
+                payer.getStateOrProvince(),
+                dateOnly(payer.getDateOfBirth()),
+                payer.getIdentificationType(),
+                payer.getIdentificationValue(),
+                payment.getUniqueRequestId(),
+                payment.getUltimateBeneficiaryName(),
+                payment.getPurposeCode(),
+                payment.getChargeType(),
+                payment.getFeeAmount(),
+                payment.getFeeCurrency()
+        );
+    }
+
     public PaymentAuthorisations authorisePayment(List<String> paymentIds) throws CurrencyCloudException {
          return api.authorisePayment(
                 authToken,
