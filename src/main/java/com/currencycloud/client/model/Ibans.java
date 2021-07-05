@@ -2,6 +2,7 @@ package com.currencycloud.client.model;
 
 import java.util.List;
 
+@Deprecated
 public class Ibans extends PaginatedData {
 
     private List<Iban> ibans;

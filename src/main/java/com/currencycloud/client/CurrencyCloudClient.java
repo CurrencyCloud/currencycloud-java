@@ -782,29 +782,17 @@ public class CurrencyCloudClient {
     ///// IBANS ///////////////////////////////////////////////////////
 
     /**
+     * @deprecated This call has been disabled in the backend. Retained for backwards compatibility. It will be removed in
+     * a future release
+     *
      * @param iban        Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Ibans search result
      * @throws            CurrencyCloudException When an error occurs
      */
+    @Deprecated
     public Ibans findIbans(@Nullable Iban iban, @Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        if (iban == null) {
-            iban = Iban.create();
-        }
-        return api.findIbans(
-                authToken,
-                userAgent,
-                iban.getScope(),
-                iban.getCurrency(),
-                iban.getAccountId(),
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc()
-        );
+        throw new UnexpectedException("findIbans is no longer available", new UnsupportedOperationException());
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -1355,7 +1343,7 @@ public class CurrencyCloudClient {
     ///// VANS ////////////////////////////////////////////////////////
 
     /**
-     * @deprecated This call has been disabled in the backend. Retained for backwards compatibility. Will be removed in
+     * @deprecated This call has been disabled in the backend. Retained for backwards compatibility. It will be removed in
      * future release
      *
      * @param virtualAccount Non-null properties will be used for querying. Null values will be ignored.
@@ -1365,7 +1353,7 @@ public class CurrencyCloudClient {
      */
     @Deprecated
     public VirtualAccounts findVirtualAccounts(@Nullable VirtualAccount virtualAccount, @Nullable Pagination pagination) throws CurrencyCloudException {
-        throw new UnexpectedException("find virtual accounts is no longer available", new UnsupportedOperationException());
+        throw new UnexpectedException("findVirtualAccounts is no longer available", new UnsupportedOperationException());
     }
 
     ///////////////////////////////////////////////////////////////////
