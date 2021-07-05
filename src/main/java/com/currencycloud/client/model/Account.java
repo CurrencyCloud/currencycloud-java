@@ -43,6 +43,7 @@ public class Account implements Entity {
     private Boolean processThirdPartyFunds;
     private String settlementType;
     private Boolean termsAndConditionsAccepted;
+    private String bankAccountVerified;
 
     protected Account() { }
 
@@ -248,6 +249,14 @@ public class Account implements Entity {
         this.termsAndConditionsAccepted = termsAndConditionsAccepted;
     }
 
+    public String getBankAccountVerified() {
+        return bankAccountVerified;
+    }
+
+    public void setBankAccountVerified(String bankAccountVerified) {
+        this.bankAccountVerified = bankAccountVerified;
+    }
+
     @Override
     public String toString() {
         final ObjectMapper objectMapper = new ObjectMapper()
@@ -278,6 +287,7 @@ public class Account implements Entity {
         map.put("processThirdPartyFunds", processThirdPartyFunds);
         map.put("settlementType", settlementType);
         map.put("termsAndConditionsAccepted", termsAndConditionsAccepted);
+        map.put("bankAccountVerified", bankAccountVerified);
 
         try {
             return objectMapper.writeValueAsString(map);

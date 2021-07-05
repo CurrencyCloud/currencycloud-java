@@ -237,6 +237,7 @@ public class CurrencyCloudClient {
                 account.getPostalCode(),
                 account.getCountry(),
                 account.getSpreadTable(),
+                account.getBankAccountVerified(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),

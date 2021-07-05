@@ -120,6 +120,7 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("postal_code") String postalCode,
             @Nullable @QueryParam("country") String country,
             @Nullable @QueryParam("spread_table") String spreadTable,
+            @Nullable @QueryParam("bank_account_verified") String bankAccountVerified,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
