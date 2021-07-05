@@ -1284,23 +1284,7 @@ public interface CurrencyCloud {
             @Nullable @FormParam("reason") String reason
     ) throws ResponseException;
 
-    //////////////////////////////////////////////////////////////////
-    ///// VANS API ///////////////////////////////////////////////////
-
-    /** Find VANs */
-    @GET
-    @Path("virtual_accounts/find")
-    VirtualAccounts findVirtualAccounts(
-            @HeaderParam("X-Auth-Token") String authToken,
-            @HeaderParam("User-Agent") String userAgent,
-            @Nullable @QueryParam("scope") String scope,
-            @Nullable @QueryParam("account_id") String accountId,
-            @Nullable @QueryParam("page") Integer page,
-            @Nullable @QueryParam("per_page") Integer perPage,
-            @Nullable @QueryParam("order") String order,
-            @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
-    ) throws ResponseException;
-
+   
     //////////////////////////////////////////////////////////////////
     ///// WithdrawalAccounts /////////////////////////////////////////
 
