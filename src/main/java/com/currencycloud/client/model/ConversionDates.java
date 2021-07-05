@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
@@ -26,6 +27,8 @@ public class ConversionDates {
     private Date optimizeLiquidityConversionDate;
 
     private Map<Date, String> invalidConversionDates;
+
+    private List<Date> offlineConversionDates;
 
     public Date getFirstConversionDate() {
         return firstConversionDate;
@@ -43,6 +46,10 @@ public class ConversionDates {
         return invalidConversionDates;
     }
 
+    public List<Date> getOfflineConversionDates() {
+        return offlineConversionDates;
+    }
+
     @Override
     public String toString() {
         final ObjectMapper objectMapper = new ObjectMapper()
@@ -55,6 +62,7 @@ public class ConversionDates {
         map.put("firstConversionCutoffDatetime", firstConversionCutoffDatetime);
         map.put("optimizeLiquidityConversionDate", optimizeLiquidityConversionDate);
         map.put("invalidConversionDates", invalidConversionDates);
+        map.put("offlineConversionDates", offlineConversionDates);
 
         try {
             return objectMapper.writeValueAsString(map);
