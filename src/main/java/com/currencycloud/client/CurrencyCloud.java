@@ -67,7 +67,8 @@ public interface CurrencyCloud {
             @Nullable @FormParam("identification_value") String identificationValue,
             @Nullable @FormParam("api_trading") Boolean apiTrading,
             @Nullable @FormParam("online_trading") Boolean onlineTrading,
-            @Nullable @FormParam("phone_trading") Boolean phoneTrading
+            @Nullable @FormParam("phone_trading") Boolean phoneTrading,
+            @Nullable @FormParam("terms_and_conditions_accepted") Boolean termsAndConditionsAccepted
     ) throws ResponseException;
 
     /** Retrieve an Account */

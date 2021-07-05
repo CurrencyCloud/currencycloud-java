@@ -42,6 +42,7 @@ public class AccountsTest extends BetamaxTestSupport {
         account.setPhoneTrading(true);
         account.setIdentificationType("passport");
         account.setIdentificationValue("AE02315508BF");
+        account.setTermsAndConditionsAccepted(true);
         account = client.createAccount(account);
 
         assertThat(account, is(notNullValue()));
@@ -65,6 +66,7 @@ public class AccountsTest extends BetamaxTestSupport {
         assertThat(account.getApiTrading(), equalTo(true));
         assertThat(account.getOnlineTrading(), equalTo(true));
         assertThat(account.getPhoneTrading(), equalTo(true));
+        assertThat(account.getTermsAndConditionsAccepted(), equalTo(true));
     }
 
     @Test
