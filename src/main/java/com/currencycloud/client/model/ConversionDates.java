@@ -26,6 +26,8 @@ public class ConversionDates {
 
     private Date optimizeLiquidityConversionDate;
 
+    private Date nextDayConversionDate;
+
     private Map<Date, String> invalidConversionDates;
 
     private List<Date> offlineConversionDates;
@@ -41,6 +43,10 @@ public class ConversionDates {
     public Date getFirstConversionCutoffDatetime() { return firstConversionCutoffDatetime; }
 
     public Date getOptimizeLiquidityConversionDate() { return optimizeLiquidityConversionDate; }
+
+    public Date getNextDayConversionDate() {
+        return nextDayConversionDate;
+    }
 
     public Map<Date, String> getInvalidConversionDates() {
         return invalidConversionDates;

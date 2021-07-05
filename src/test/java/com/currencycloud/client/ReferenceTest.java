@@ -58,6 +58,7 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(invalidConversionDate, equalTo(parseDate("2020-11-11")));
         assertThat(dates.getInvalidConversionDates().get(invalidConversionDate), equalTo("Veterans' Day"));
         assertThat(dates.getFirstConversionDate(), equalTo(parseDate("2020-11-10")));
+        assertThat(dates.getNextDayConversionDate(), equalTo(parseDate("2020-11-10")));
         assertThat(dates.getDefaultConversionDate(), equalTo(parseDate("2020-11-12")));
         assertThat(dates.getFirstConversionCutoffDatetime(), equalTo(parseDateTime("2020-11-10T15:30:00+00:00")));
         assertThat(dates.getOptimizeLiquidityConversionDate(), equalTo(parseDate("2020-11-12")));
@@ -211,6 +212,7 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(dates.getDefaultConversionDate(), equalTo(parseDate("2020-11-20")));
         assertThat(dates.getFirstConversionCutoffDatetime(), equalTo(parseDateTime("2020-11-18T15:50:00+00:00")));
         assertThat(dates.getOptimizeLiquidityConversionDate(), equalTo(parseDate("2020-11-23")));
+        assertThat(dates.getNextDayConversionDate(), equalTo(parseDate("2020-11-18")));
         assertThat(dates.getOfflineConversionDates().size(), equalTo(1));
         assertThat(dates.getOfflineConversionDates().get(0), equalTo(parseDate("2020-11-23")));
     }

@@ -30,6 +30,7 @@ interactions:
              "next_day_conversion_date": "2020-11-19",
              "default_conversion_date": "2020-11-20",
              "optimize_liquidity_conversion_date": "2020-11-23",
+             "next_day_conversion_date": "2020-11-18",
              "invalid_conversion_dates": {
                "2020-11-21": "No trading on Saturday",
                "2020-11-22": "No trading on Sunday",
