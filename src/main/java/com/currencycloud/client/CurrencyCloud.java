@@ -1284,6 +1284,15 @@ public interface CurrencyCloud {
             @Nullable @FormParam("reason") String reason
     ) throws ResponseException;
 
+    /** Cancel a Transfer */
+    @POST
+    @Path("transfers/{id}/cancel")
+    Transfer cancelTransfer(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("id") String id
+    ) throws ResponseException;
+
     //////////////////////////////////////////////////////////////////
     ///// VANS API ///////////////////////////////////////////////////
 
