@@ -1076,7 +1076,8 @@ public interface CurrencyCloud {
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @QueryParam("conversion_pair") String conversionPair,
-            @Nullable @QueryParam("start_date") Date startDate
+            @Nullable @QueryParam("start_date") Date startDate,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
     /** Payment Dates */

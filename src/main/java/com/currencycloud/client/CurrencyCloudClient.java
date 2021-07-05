@@ -1165,7 +1165,7 @@ public class CurrencyCloudClient {
     }
 
     public ConversionDates conversionDates(String conversionPair, @Nullable Date startDate) throws CurrencyCloudException {
-        return api.conversionDates(authToken, userAgent, conversionPair, startDate);
+        return api.conversionDates(authToken, userAgent, conversionPair, startDate, getOnBehalfOf());
     }
 
     public PaymentDates paymentDates(String currency, @Nullable Date startDate) throws CurrencyCloudException {
