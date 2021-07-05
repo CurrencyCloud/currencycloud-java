@@ -171,7 +171,8 @@ public class CurrencyCloudClient {
                 account.getIdentificationValue(),
                 account.getApiTrading(),
                 account.getOnlineTrading(),
-                account.getPhoneTrading()
+                account.getPhoneTrading(),
+                account.getTermsAndConditionsAccepted()
         );
     }
 

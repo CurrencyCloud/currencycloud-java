@@ -42,6 +42,7 @@ public class Account implements Entity {
     private Boolean phoneTrading;
     private Boolean processThirdPartyFunds;
     private String settlementType;
+    private Boolean termsAndConditionsAccepted;
 
     protected Account() { }
 
@@ -239,6 +240,14 @@ public class Account implements Entity {
         this.settlementType = settlementType;
     }
 
+    public Boolean getTermsAndConditionsAccepted() {
+        return termsAndConditionsAccepted;
+    }
+
+    public void setTermsAndConditionsAccepted(Boolean termsAndConditionsAccepted) {
+        this.termsAndConditionsAccepted = termsAndConditionsAccepted;
+    }
+
     @Override
     public String toString() {
         final ObjectMapper objectMapper = new ObjectMapper()
@@ -268,6 +277,7 @@ public class Account implements Entity {
         map.put("phoneTrading", phoneTrading);
         map.put("processThirdPartyFunds", processThirdPartyFunds);
         map.put("settlementType", settlementType);
+        map.put("termsAndConditionsAccepted", termsAndConditionsAccepted);
 
         try {
             return objectMapper.writeValueAsString(map);
