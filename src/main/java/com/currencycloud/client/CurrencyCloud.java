@@ -721,6 +721,44 @@ public interface CurrencyCloud {
             @Nullable @FormParam("fee_currency") String feeCurrency
     ) throws ResponseException;
 
+    /** Validate a Payment */
+    @POST
+    @Path("payments/validate")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    PaymentValidationResult validatePayment(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @HeaderParam("x-sca-force-sms") Boolean scaForceSms,
+            @FormParam("currency") String currency,
+            @FormParam("beneficiary_id") String beneficiaryId,
+            @FormParam("amount") BigDecimal amount,
+            @FormParam("reason") String reason,
+            @FormParam("reference") String reference,
+            @Nullable @FormParam("id") String paymentId,
+            @Nullable @FormParam("on_behalf_of") String onBehalfOf,
+            @Nullable @FormParam("payment_date") java.sql.Date paymentDate,
+            @Nullable @FormParam("payment_type") String paymentType,
+            @Nullable @FormParam("conversion_id") String conversionId,
+            @Nullable @FormParam("payer_entity_type") String payerEntityType,
+            @Nullable @FormParam("payer_company_name") String payerCompanyName,
+            @Nullable @FormParam("payer_first_name") String payerFirstName,
+            @Nullable @FormParam("payer_last_name") String payerLastName,
+            @Nullable @FormParam("payer_address") String payerAddress,
+            @Nullable @FormParam("payer_city") String payerCity,
+            @Nullable @FormParam("payer_country") String payerCountry,
+            @Nullable @FormParam("payer_postcode") String payerPostcode,
+            @Nullable @FormParam("payer_state_or_province") String payerStateOrProvince,
+            @Nullable @FormParam("payer_date_of_birth") java.sql.Date payerDateOfBirth,
+            @Nullable @FormParam("payer_identification_type") String payerIdentificationType,
+            @Nullable @FormParam("payer_identification_value") String payerIdentificationValue,
+            @Nullable @FormParam("unique_request_id") String uniqueRequestId,
+            @Nullable @FormParam("ultimate_beneficiary_name") String ultimateBeneficiaryName,
+            @Nullable @FormParam("purpose_code") String purposeCode,
+            @Nullable @FormParam("charge_type") String chargeType,
+            @Nullable @FormParam("fee_amount") BigDecimal feeAmount,
+            @Nullable @FormParam("fee_currency") String feeCurrency
+    ) throws ResponseException;
+
     /** Authorise a Payment */
     @POST
     @Path("payments/authorise")
