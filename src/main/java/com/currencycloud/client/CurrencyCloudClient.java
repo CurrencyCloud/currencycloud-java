@@ -237,6 +237,7 @@ public class CurrencyCloudClient {
                 account.getPostalCode(),
                 account.getCountry(),
                 account.getSpreadTable(),
+                account.getBankAccountVerified(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
@@ -827,6 +828,45 @@ public class CurrencyCloudClient {
                 payment.getAmount(),
                 payment.getReason(),
                 payment.getReference(),
+                getOnBehalfOf(),
+                dateOnly(payment.getPaymentDate()),
+                payment.getPaymentType(),
+                payment.getConversionId(),
+                payer.getLegalEntityType(),
+                payer.getCompanyName(),
+                payer.getFirstName(),
+                payer.getLastName(),
+                flattenList(payer.getAddress()),
+                payer.getCity(),
+                payer.getCountry(),
+                payer.getPostcode(),
+                payer.getStateOrProvince(),
+                dateOnly(payer.getDateOfBirth()),
+                payer.getIdentificationType(),
+                payer.getIdentificationValue(),
+                payment.getUniqueRequestId(),
+                payment.getUltimateBeneficiaryName(),
+                payment.getPurposeCode(),
+                payment.getChargeType(),
+                payment.getFeeAmount(),
+                payment.getFeeCurrency()
+        );
+    }
+
+    public PaymentValidationResult validatePayment(Payment payment, @Nullable Payer payer, @Nullable Boolean scaForceSms) throws CurrencyCloudException {
+        if (payer == null) {
+            payer = Payer.create();
+        }
+        return api.validatePayment(
+                authToken,
+                userAgent,
+                scaForceSms,
+                payment.getCurrency(),
+                payment.getBeneficiaryId(),
+                payment.getAmount(),
+                payment.getReason(),
+                payment.getReference(),
+                payment.getId(),
                 getOnBehalfOf(),
                 dateOnly(payment.getPaymentDate()),
                 payment.getPaymentType(),

@@ -73,6 +73,23 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
+    @Betamax(tape = "can_validate", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanValidate() throws Exception {
+        Payment payment = Payment.create();
+        payment.setCurrency("EUR");
+        payment.setBeneficiaryId("60fbe8d3-f7d0-4124-9077-93d09fb2186a");
+        payment.setAmount(new BigDecimal("788.44"));
+        payment.setReason("Invoice");
+        payment.setReference("REF-INV-1838");
+        payment.setUniqueRequestId("a20bc586-b7a9-4316-9daf-d4ede4c0d3df");
+
+        PaymentValidationResult validationResult = client.validatePayment(payment, null, null);
+
+        assertThat(validationResult, notNullValue());
+        assertThat(validationResult.getValidationResult(), equalTo("success"));
+    }
+
+    @Test
     @Betamax(tape = "can_update", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanUpdate() throws Exception {
         Payment payment = Payment.create();
