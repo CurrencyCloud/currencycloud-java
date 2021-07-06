@@ -1339,6 +1339,14 @@ public class CurrencyCloudClient {
         );
     }
 
+    public Transfer cancelTransfer(String id) throws ResponseException {
+        return api.cancelTransfer(
+                authToken,
+                userAgent,
+                id
+        );
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// VANS ////////////////////////////////////////////////////////
 
