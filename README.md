@@ -215,7 +215,8 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 
 ### List of features being deprecated
 ```
-(No features are currently being deprecated)
+- ibans/find (Already disabled in backend server)
+- virtual_accounts/find (already disabled in backend server)
 ```
 
 # Support
