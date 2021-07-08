@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
+[![Build Status](https://travis-ci.com/CurrencyCloud/currencycloud-java.svg?branch=master)](https://travis-ci.com/github/CurrencyCloud/currencycloud-java)
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22)
 # Currencycloud API v2 Java client
 ## Version: 5.0.9
