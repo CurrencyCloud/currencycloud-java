@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -58,6 +59,7 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(invalidConversionDate, equalTo(parseDate("2020-11-11")));
         assertThat(dates.getInvalidConversionDates().get(invalidConversionDate), equalTo("Veterans' Day"));
         assertThat(dates.getFirstConversionDate(), equalTo(parseDate("2020-11-10")));
+        assertThat(dates.getNextDayConversionDate(), equalTo(parseDate("2020-11-10")));
         assertThat(dates.getDefaultConversionDate(), equalTo(parseDate("2020-11-12")));
         assertThat(dates.getFirstConversionCutoffDatetime(), equalTo(parseDateTime("2020-11-10T15:30:00+00:00")));
         assertThat(dates.getOptimizeLiquidityConversionDate(), equalTo(parseDate("2020-11-12")));
@@ -195,5 +197,44 @@ public class ReferenceTest extends BetamaxTestSupport {
         assertThat(feeRule3_1.getPaymentType(), equalTo("priority"));
         assertThat(feeRule3_1.getPaymentFeeId(), equalTo("60a3c841-be23-012f-3afb-24003ab3f236"));
         assertThat(feeRule3_1.getPaymentFeeName(), equalTo("Name3"));
+    }
+
+    @Test
+    @Betamax(tape = "can_retrieve_conversion_dates_offline_trading", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanRetrieveConversionDatesOfflineTrading() throws Exception {
+        ConversionDates dates = client.conversionDates("GBPUSD", null);
+
+        assertThat(dates.getInvalidConversionDates(), not(anEmptyMap()));
+        assertThat(dates.getInvalidConversionDates().size(), equalTo(17));
+        Date invalidConversionDate = dates.getInvalidConversionDates().keySet().iterator().next();
+        assertThat(invalidConversionDate, equalTo(parseDate("2020-11-21")));
+        assertThat(dates.getInvalidConversionDates().get(invalidConversionDate), equalTo("No trading on Saturday"));
+        assertThat(dates.getFirstConversionDate(), equalTo(parseDate("2020-11-18")));
+        assertThat(dates.getDefaultConversionDate(), equalTo(parseDate("2020-11-20")));
+        assertThat(dates.getFirstConversionCutoffDatetime(), equalTo(parseDateTime("2020-11-18T15:50:00+00:00")));
+        assertThat(dates.getOptimizeLiquidityConversionDate(), equalTo(parseDate("2020-11-23")));
+        assertThat(dates.getNextDayConversionDate(), equalTo(parseDate("2020-11-18")));
+        assertThat(dates.getOfflineConversionDates().size(), equalTo(1));
+        assertThat(dates.getOfflineConversionDates().get(0), equalTo(parseDate("2020-11-23")));
+    }
+
+    @Test
+    @Betamax(tape = "can_retrieve_conversion_dates_on_behalf_of", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanRetrieveConversionDatesOnBehalfOf() throws Exception {
+        AtomicReference<ConversionDates> value = new AtomicReference<>();
+        client.onBehalfOfDo("c6ece846-6df1-461d-acaa-b42a6aa74045", () -> {
+            value.set(client.conversionDates("GBPUSD", null));
+                });
+        ConversionDates dates = value.get();
+        assertThat(dates.getInvalidConversionDates(), not(anEmptyMap()));
+        assertThat(dates.getInvalidConversionDates().size(), equalTo(242));
+        Date invalidConversionDate = dates.getInvalidConversionDates().keySet().iterator().next();
+        assertThat(invalidConversionDate, equalTo(parseDate("2020-11-11")));
+        assertThat(dates.getInvalidConversionDates().get(invalidConversionDate), equalTo("Veterans' Day"));
+        assertThat(dates.getFirstConversionDate(), equalTo(parseDate("2020-11-10")));
+        assertThat(dates.getNextDayConversionDate(), equalTo(parseDate("2020-11-10")));
+        assertThat(dates.getDefaultConversionDate(), equalTo(parseDate("2020-11-12")));
+        assertThat(dates.getFirstConversionCutoffDatetime(), equalTo(parseDateTime("2020-11-10T15:30:00+00:00")));
+        assertThat(dates.getOptimizeLiquidityConversionDate(), equalTo(parseDate("2020-11-12")));
     }
 }

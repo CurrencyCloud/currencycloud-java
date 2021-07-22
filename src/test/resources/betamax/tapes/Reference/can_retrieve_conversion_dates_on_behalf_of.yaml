@@ -1,8 +1,8 @@
-name: can_retrieve_conversion_dates
+name: can_retrieve_conversion_dates_on_behalf_of
 interactions:
 - request:
     method: GET
-    uri: http://localhost:5555/v2/reference/conversion_dates?conversion_pair=GBPUSD
+    uri: http://localhost:5555/v2/reference/conversion_dates?conversion_pair=GBPUSD&on_behalf_of=c6ece846-6df1-461d-acaa-b42a6aa74045
     body: ''
     headers:
       X-Auth-Token:

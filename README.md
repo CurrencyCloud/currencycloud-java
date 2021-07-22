@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/CurrencyCloud/currencycloud-java.png?branch=master)](https://travis-ci.org/CurrencyCloud/currencycloud-java)
+[![Build Status](https://travis-ci.com/CurrencyCloud/currencycloud-java.svg?branch=master)](https://travis-ci.com/github/CurrencyCloud/currencycloud-java)
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22)
 # Currencycloud API v2 Java client
-## Version: 4.1.3
+## Version: 5.0.9
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -27,7 +27,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>4.1.3</version>
+    <version>5.0.9</version>
 </dependency>
 ```
 
@@ -35,7 +35,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 Download the Currencycloud SDK jar:
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-4.1.3.jar
+3. Download the currencycloud-java-5.0.9.jar
 
 Get the list of all dependencies:
 ```Shell
@@ -215,13 +215,28 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 
 ### List of features being deprecated
 ```
-(No features are currently being deprecated)
+2021-07-06
+- ibans/find (Already disabled in backend server)
+- virtual_accounts/find (already disabled in backend server)
 ```
 
 # Support
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [5.0.9](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.0.9)
+  * Deprecates and disables virtual_accounts/find. This call is no longer supported.
+  * Deprecates and disables ibans/find. This call is no longer supported.
+  * Adds on_behalf_of option to reference/conversion_dates.
+  * Adds support for transfers/cancel endpoint.
+  * Adds offline_conversion_dates to reference/conversion_dates response.
+  * Adds next_day_conversion_date to reference/conversion_dates response.
+  * Adds support for payments/validate endpoint.
+  * Adds bank_account_verified parameter to Accounts Entity.
+  * Adds bank_account_verified parameter to accounts/find call.
+  * Adds terms_and_conditions_accepted to Accounts entity.
+  * Adds terms_and_conditions_accepted to accounts/create calls.
+   
 * [4.1.3](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-4.1.3) 
   * Adds payments/payment_fees endpoint support
   * Adds payments/assign_payment_fee endpoint support

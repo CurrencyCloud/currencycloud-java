@@ -89,4 +89,25 @@ public class TransfersTest extends BetamaxTestSupport {
         assertThat(transfers.get(0).getAmount(), equalTo(new BigDecimal("1250.00")));
         assertThat(transfers.get(0).getStatus(), equalTo("completed"));
     }
+
+    @Test
+    @Betamax(tape = "can_cancel", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanCancelTransfer() throws Exception {
+        Transfer transfer = client.cancelTransfer("b0c2df71-28db-42ef-b6b7-5710f22d2115");
+
+        assertThat(transfer.getId(), equalTo("b0c2df71-28db-42ef-b6b7-5710f22d2115"));
+        assertThat(transfer.getShortReference(), equalTo("BT-20180101-YRSYGK"));
+        assertThat(transfer.getSourceAccountId(), equalTo("1bd29e41-f019-0133-ed7e-0022194273c7"));
+        assertThat(transfer.getDestinationAccountId(), equalTo("d9c34271-b7a6-0133-9fe2-0022194273c7"));
+        assertThat(transfer.getCurrency(), equalTo("EUR"));
+        assertThat(transfer.getAmount(), equalTo(new BigDecimal("123.45")));
+        assertThat(transfer.getStatus(), equalTo("completed"));
+        assertThat(transfer.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(transfer.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(transfer.getCompletedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(transfer.getCreatorAccountId(), equalTo("2090939e-b2f7-3f2b-1363-4d235b3f58af"));
+        assertThat(transfer.getCreatorContactId(), equalTo("8a98ebac-6f88-e205-a685-4d235b1b088b"));
+        assertThat(transfer.getReason(), equalTo("Test"));
+
+    }
 }

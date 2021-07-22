@@ -3,6 +3,7 @@ package com.currencycloud.client;
 import com.currencycloud.client.dirty.ModificationTracker;
 import com.currencycloud.client.dirty.ModifiedValueProvider;
 import com.currencycloud.client.exception.CurrencyCloudException;
+import com.currencycloud.client.exception.UnexpectedException;
 import com.currencycloud.client.model.*;
 import com.currencycloud.client.model.Currency;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -41,7 +42,7 @@ public class CurrencyCloudClient {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
-    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/4.1.3";
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/5.0.9";
 
     private final CurrencyCloud api;
 
@@ -171,7 +172,8 @@ public class CurrencyCloudClient {
                 account.getIdentificationValue(),
                 account.getApiTrading(),
                 account.getOnlineTrading(),
-                account.getPhoneTrading()
+                account.getPhoneTrading(),
+                account.getTermsAndConditionsAccepted()
         );
     }
 
@@ -236,6 +238,7 @@ public class CurrencyCloudClient {
                 account.getPostalCode(),
                 account.getCountry(),
                 account.getSpreadTable(),
+                account.getBankAccountVerified(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
@@ -779,29 +782,17 @@ public class CurrencyCloudClient {
     ///// IBANS ///////////////////////////////////////////////////////
 
     /**
+     * @deprecated This call has been disabled in the backend. Retained for backwards compatibility. It will be removed in
+     * a future release
+     *
      * @param iban        Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Ibans search result
      * @throws            CurrencyCloudException When an error occurs
      */
+    @Deprecated
     public Ibans findIbans(@Nullable Iban iban, @Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        if (iban == null) {
-            iban = Iban.create();
-        }
-        return api.findIbans(
-                authToken,
-                userAgent,
-                iban.getScope(),
-                iban.getCurrency(),
-                iban.getAccountId(),
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc()
-        );
+        throw new UnexpectedException("findIbans is no longer available", new UnsupportedOperationException());
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -826,6 +817,45 @@ public class CurrencyCloudClient {
                 payment.getAmount(),
                 payment.getReason(),
                 payment.getReference(),
+                getOnBehalfOf(),
+                dateOnly(payment.getPaymentDate()),
+                payment.getPaymentType(),
+                payment.getConversionId(),
+                payer.getLegalEntityType(),
+                payer.getCompanyName(),
+                payer.getFirstName(),
+                payer.getLastName(),
+                flattenList(payer.getAddress()),
+                payer.getCity(),
+                payer.getCountry(),
+                payer.getPostcode(),
+                payer.getStateOrProvince(),
+                dateOnly(payer.getDateOfBirth()),
+                payer.getIdentificationType(),
+                payer.getIdentificationValue(),
+                payment.getUniqueRequestId(),
+                payment.getUltimateBeneficiaryName(),
+                payment.getPurposeCode(),
+                payment.getChargeType(),
+                payment.getFeeAmount(),
+                payment.getFeeCurrency()
+        );
+    }
+
+    public PaymentValidationResult validatePayment(Payment payment, @Nullable Payer payer, @Nullable Boolean scaForceSms) throws CurrencyCloudException {
+        if (payer == null) {
+            payer = Payer.create();
+        }
+        return api.validatePayment(
+                authToken,
+                userAgent,
+                scaForceSms,
+                payment.getCurrency(),
+                payment.getBeneficiaryId(),
+                payment.getAmount(),
+                payment.getReason(),
+                payment.getReference(),
+                payment.getId(),
                 getOnBehalfOf(),
                 dateOnly(payment.getPaymentDate()),
                 payment.getPaymentType(),
@@ -1164,7 +1194,7 @@ public class CurrencyCloudClient {
     }
 
     public ConversionDates conversionDates(String conversionPair, @Nullable Date startDate) throws CurrencyCloudException {
-        return api.conversionDates(authToken, userAgent, conversionPair, startDate);
+        return api.conversionDates(authToken, userAgent, conversionPair, startDate, getOnBehalfOf());
     }
 
     public PaymentDates paymentDates(String currency, @Nullable Date startDate) throws CurrencyCloudException {
@@ -1309,32 +1339,29 @@ public class CurrencyCloudClient {
         );
     }
 
+    public Transfer cancelTransfer(String id) throws ResponseException {
+        return api.cancelTransfer(
+                authToken,
+                userAgent,
+                id
+        );
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// VANS ////////////////////////////////////////////////////////
 
     /**
+     * @deprecated This call has been disabled in the backend. Retained for backwards compatibility. It will be removed in
+     * future release
+     *
      * @param virtualAccount Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination     pagination settings
      * @return               The paginated Ibans search result
      * @throws               CurrencyCloudException When an error occurs
      */
+    @Deprecated
     public VirtualAccounts findVirtualAccounts(@Nullable VirtualAccount virtualAccount, @Nullable Pagination pagination) throws CurrencyCloudException {
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
-        if (virtualAccount == null) {
-            virtualAccount = VirtualAccount.create();
-        }
-        return api.findVirtualAccounts(
-                authToken,
-                userAgent,
-                virtualAccount.getScope(),
-                virtualAccount.getAccountId(),
-                pagination.getPage(),
-                pagination.getPerPage(),
-                pagination.getOrder(),
-                pagination.getOrderAscDesc()
-        );
+        throw new UnexpectedException("findVirtualAccounts is no longer available", new UnsupportedOperationException());
     }
 
     ///////////////////////////////////////////////////////////////////

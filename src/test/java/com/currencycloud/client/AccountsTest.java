@@ -42,6 +42,7 @@ public class AccountsTest extends BetamaxTestSupport {
         account.setPhoneTrading(true);
         account.setIdentificationType("passport");
         account.setIdentificationValue("AE02315508BF");
+        account.setTermsAndConditionsAccepted(true);
         account = client.createAccount(account);
 
         assertThat(account, is(notNullValue()));
@@ -65,6 +66,7 @@ public class AccountsTest extends BetamaxTestSupport {
         assertThat(account.getApiTrading(), equalTo(true));
         assertThat(account.getOnlineTrading(), equalTo(true));
         assertThat(account.getPhoneTrading(), equalTo(true));
+        assertThat(account.getTermsAndConditionsAccepted(), equalTo(true));
     }
 
     @Test
@@ -129,6 +131,7 @@ public class AccountsTest extends BetamaxTestSupport {
         assertThat(account.getSettlementType(), equalTo("net"));
         assertThat(account.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
         assertThat(account.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(account.getBankAccountVerified(), equalTo("yes"));
         assertThat(pagination.getTotalEntries(), equalTo(1));
         assertThat(pagination.getTotalPages(), equalTo(1));
         assertThat(pagination.getCurrentPage(), equalTo(1));
@@ -245,4 +248,26 @@ public class AccountsTest extends BetamaxTestSupport {
 
     }
 
+    @Test
+    @Betamax(tape = "can_find_verified", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanFindVerifiedAccount() throws Exception {
+        Account account = Account.create();
+        account.setBankAccountVerified("yes");
+        Pagination pagination = Pagination.builder().pages(1, 2).build();
+        Accounts accountData = client.findAccounts(account, pagination);
+        List<Account> accounts = accountData.getAccounts();
+        Pagination paginationResponse = accountData.getPagination();
+        assertThat(accounts, not(empty()));
+        assertThat(accounts.size(), equalTo(2));
+        assertThat(accounts.get(0).getBankAccountVerified(), equalTo("yes"));
+        assertThat(accounts.get(1).getBankAccountVerified(), equalTo("yes"));
+        assertThat(paginationResponse.getTotalEntries(), equalTo(17));
+        assertThat(paginationResponse.getTotalPages(), equalTo(9));
+        assertThat(paginationResponse.getCurrentPage(), equalTo(1));
+        assertThat(paginationResponse.getPerPage(), equalTo(2));
+        assertThat(paginationResponse.getPreviousPage(), equalTo(-1));
+        assertThat(paginationResponse.getNextPage(), equalTo(2));
+        assertThat(paginationResponse.getOrder(), equalTo("created_at"));
+        assertThat(paginationResponse.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
+    }
 }

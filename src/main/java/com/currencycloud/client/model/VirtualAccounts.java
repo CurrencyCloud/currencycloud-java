@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.util.List;
 
+@Deprecated
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class VirtualAccounts extends PaginatedData {
 
