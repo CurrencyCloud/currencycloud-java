@@ -1320,6 +1320,7 @@ public class CurrencyCloudClient {
                 transfer.getCompletedAtTo(),
                 transfer.getCreatorContactId(),
                 transfer.getCreatorAccountId(),
+                transfer.getUniqueRequestId(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
@@ -1335,7 +1336,8 @@ public class CurrencyCloudClient {
                 transfer.getDestinationAccountId(),
                 transfer.getCurrency(),
                 transfer.getAmount(),
-                transfer.getReason()
+                transfer.getReason(),
+                transfer.getUniqueRequestId()
         );
     }
 
