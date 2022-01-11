@@ -24,6 +24,8 @@ matrix:
   - jdk: openjdk10
   - jdk: oraclejdk12
   - jdk: openjdk12
+  - jdk: oraclejdk17
+  - jdk: openjdk17
 
 script: mvn clean install
 
