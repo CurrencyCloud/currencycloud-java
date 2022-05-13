@@ -647,6 +647,7 @@ public interface CurrencyCloud {
             @QueryParam("currency") String currency,
             @Nullable @QueryParam("account_id") String accountId,
             @Nullable @QueryParam("payment_type") String paymentType,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
