@@ -58,4 +58,40 @@ public class FundingTest extends BetamaxTestSupport {
         assertThat(pagination.getOrder(), equalTo("created_at"));
         assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.desc));
     }
+
+    @Test
+    @Betamax(tape = "can_find_funding_account_on_behalf_of", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanFindFundingAccountOnBehalfOf() throws Exception {
+        final String contact_id = "3b163e5d-2a6e-4f3d-aff8-e8fc161d3f00";
+        client.onBehalfOfDo(contact_id, () -> {
+            final FundingAccounts accountData = client.findFundingAccounts("EUR", null, null, null);
+            final List<FundingAccount> accounts = accountData.getFundingAccounts();
+            final Pagination pagination = accountData.getPagination();
+            assertThat(accounts, notNullValue());
+            assertThat(accounts, not(empty()));
+            FundingAccount account = accounts.iterator().next();
+            assertThat(account.getId(), equalTo("6fd009ae-a23c-4f0c-83bd-89c5037a500b"));
+            assertThat(account.getAccountId(), equalTo("a124f825-ce6d-49e9-8662-b30fdb2c0493"));
+            assertThat(account.getAccountNumber(), equalTo("GB10TCCL12345678901234"));
+            assertThat(account.getAccountNumberType(), equalTo("iban"));
+            assertThat(account.getAccountHolderName(), equalTo("Currencycloud Test"));
+            assertThat(account.getBankName(), equalTo("The Currency Cloud Limited"));
+            assertThat(account.getBankAddress(), equalTo("12 Steward Street, The Steward Building, London, E1 6FQ, GB"));
+            assertThat(account.getBankCountry(), equalTo("GB"));
+            assertThat(account.getCurrency(), equalTo("EUR"));
+            assertThat(account.getPaymentType(), equalTo("priority"));
+            assertThat(account.getRoutingCode(), equalTo("TCCLGB3L"));
+            assertThat(account.getRoutingCodeType(), equalTo("bic_swift"));
+            assertThat(account.getCreatedAt(), equalTo(parseDateTime("2020-06-25T14:15:22+00:00")));
+            assertThat(account.getUpdatedAt(), equalTo(parseDateTime("2020-06-25T14:15:22+00:00")));
+            assertThat(pagination.getTotalEntries(), equalTo(1));
+            assertThat(pagination.getTotalPages(), equalTo(1));
+            assertThat(pagination.getCurrentPage(), equalTo(1));
+            assertThat(pagination.getPerPage(), equalTo(25));
+            assertThat(pagination.getPreviousPage(), equalTo(-1));
+            assertThat(pagination.getNextPage(), equalTo(-1));
+            assertThat(pagination.getOrder(), equalTo("created_at"));
+            assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
+        });
+    }
 }

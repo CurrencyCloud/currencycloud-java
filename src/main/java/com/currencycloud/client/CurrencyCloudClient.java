@@ -771,6 +771,7 @@ public class CurrencyCloudClient {
                 currency,
                 accountId,
                 paymentType,
+                getOnBehalfOf(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
