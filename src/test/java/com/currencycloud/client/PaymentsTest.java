@@ -422,4 +422,16 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(paymentFeeUnassignment, notNullValue());
         assertThat(paymentFeeUnassignment.getAccountId(), equalTo(accountId));
     }
+
+    @Test
+    @Betamax(tape = "can_retrieve_with_estimated_arrival", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanRetrieveWithEstimatedArrival() throws Exception {
+        Payment payment = client.retrievePayment("760d606d-51ad-418a-942c-0b0c0434e432", null);
+
+        assertThat(payment, notNullValue());
+        assertThat(payment.getId(), equalTo("760d606d-51ad-418a-942c-0b0c0434e432"));
+        assertThat(payment.getAmount(), equalTo(new BigDecimal("20.00")));
+        assertThat(payment.getCurrency(), equalTo("GBP"));
+        assertThat(payment.getEstimatedArrival(), equalTo(parseDate("2021-11-10")));
+    }
 }

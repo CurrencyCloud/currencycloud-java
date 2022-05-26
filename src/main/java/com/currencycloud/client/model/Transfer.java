@@ -40,6 +40,7 @@ public class Transfer implements Entity {
     private Date updatedAtTo;
     private Date completedAtFrom;
     private Date completedAtTo;
+    private String uniqueRequestId;
 
     protected Transfer() { }
 
@@ -258,6 +259,14 @@ public class Transfer implements Entity {
         this.completedAtTo = completedAtTo;
     }
 
+    public String getUniqueRequestId() {
+        return uniqueRequestId;
+    }
+
+    public void setUniqueRequestId(String uniqueRequestId) {
+        this.uniqueRequestId = uniqueRequestId;
+    }
+
     @Override
     public String toString() {
         final ObjectMapper objectMapper = new ObjectMapper()
@@ -278,6 +287,7 @@ public class Transfer implements Entity {
         map.put("creatorAccountId", creatorAccountId);
         map.put("creatorContactId", creatorContactId);
         map.put("reason", reason);
+        map.put("uniqueRequestId", uniqueRequestId);
 
         try {
             return objectMapper.writeValueAsString(map);

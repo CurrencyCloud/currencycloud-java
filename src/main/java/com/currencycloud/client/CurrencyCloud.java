@@ -647,6 +647,7 @@ public interface CurrencyCloud {
             @QueryParam("currency") String currency,
             @Nullable @QueryParam("account_id") String accountId,
             @Nullable @QueryParam("payment_type") String paymentType,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
@@ -1249,6 +1250,7 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("completed_at_to") Date completedAtTo,
             @Nullable @QueryParam("creator_contact_id") String creatorContactId,
             @Nullable @QueryParam("creator_account_id") String creatorAccountId,
+            @Nullable @QueryParam("unique_request_id") String uniqueRequestId,
             @Nullable @QueryParam("page") Integer page,
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
@@ -1265,7 +1267,8 @@ public interface CurrencyCloud {
             @FormParam("destination_account_id") String destinationAccountId,
             @FormParam("currency") String currency,
             @FormParam("amount") BigDecimal amount,
-            @Nullable @FormParam("reason") String reason
+            @Nullable @FormParam("reason") String reason,
+            @Nullable @FormParam("unique_request_id") String uniqueRequestId
     ) throws ResponseException;
 
     /** Cancel a Transfer */

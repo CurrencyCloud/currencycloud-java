@@ -42,7 +42,7 @@ public class CurrencyCloudClient {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             Pattern.CASE_INSENSITIVE
     );
-    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/5.0.9";
+    private static final String userAgent = "CurrencyCloudSDK/2.0 Java/5.3.0";
 
     private final CurrencyCloud api;
 
@@ -771,6 +771,7 @@ public class CurrencyCloudClient {
                 currency,
                 accountId,
                 paymentType,
+                getOnBehalfOf(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
@@ -1320,6 +1321,7 @@ public class CurrencyCloudClient {
                 transfer.getCompletedAtTo(),
                 transfer.getCreatorContactId(),
                 transfer.getCreatorAccountId(),
+                transfer.getUniqueRequestId(),
                 pagination.getPage(),
                 pagination.getPerPage(),
                 pagination.getOrder(),
@@ -1335,7 +1337,8 @@ public class CurrencyCloudClient {
                 transfer.getDestinationAccountId(),
                 transfer.getCurrency(),
                 transfer.getAmount(),
-                transfer.getReason()
+                transfer.getReason(),
+                transfer.getUniqueRequestId()
         );
     }
 
