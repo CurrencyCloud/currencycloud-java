@@ -73,8 +73,6 @@ public class CurrencyCloudClient {
         public static class HttpClientConfigurationBuilder {
             private int httpConnTimeout = 30000;
             private int httpReadTimeout = 30000;
-            public HttpClientConfigurationBuilder() {
-            }
 
             /**
              * Set connection timeout for the HTTP client in milliseconds.
