@@ -83,6 +83,18 @@ System.out.println("Balances: " + balances.stream()
 // End session
 currencyCloud.endSession();
 ```
+In order to customise the HTTP client use the HTTP client configuration builder e.g.,
+```Java
+CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
+    CurrencyCloudClient.Environment.demo, 
+    "<your login id>",
+    "<your API key>",
+    CurrencyCloudClient.HttpClientConfiguration.builder()
+        .httpConnTimeout(3000)
+        .httpReadTimeout(45000)
+        .build()
+);
+```
 For a better example, see
 [CurrencyCloudCookbook.java](/src/test/java/com/currencycloud/examples/CurrencyCloudCookbook.java), which is an implementation of [the Cookbook](https://connect.currencycloud.com/documentation/getting-started/cookbook) from the documentation.
 

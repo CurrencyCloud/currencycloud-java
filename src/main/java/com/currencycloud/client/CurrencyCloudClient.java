@@ -53,11 +53,73 @@ public class CurrencyCloudClient {
     private String apiKey;
     private String authToken;
 
-    public CurrencyCloudClient(Environment environment, String loginId, String apiKey) {
-        this(environment.url, loginId, apiKey);
+    public static class HttpClientConfiguration {
+        private final int httpConnTimeout;
+        private final int httpReadTimeout;
+
+        private HttpClientConfiguration(int httpConnTimeout, int httpReadTimeout) {
+            this.httpConnTimeout = httpConnTimeout;
+            this.httpReadTimeout = httpReadTimeout;
+        }
+
+        public int getHttpConnTimeout() {
+            return httpConnTimeout;
+        }
+
+        public int getHttpReadTimeout() {
+            return httpReadTimeout;
+        }
+
+        public static class HttpClientConfigurationBuilder {
+            private int httpConnTimeout = 30000;
+            private int httpReadTimeout = 30000;
+
+            /**
+             * Set connection timeout for the HTTP client in milliseconds.
+             *
+             * @param httpConnTimeout
+             * @return HttpClientConfigurationBuilder
+             */
+            public HttpClientConfigurationBuilder httpConnTimeout(final int httpConnTimeout) {
+                this.httpConnTimeout = httpConnTimeout;
+                return this;
+            }
+
+            /**
+             * Set read timeout for the HTTP client in milliseconds.
+             *
+             * @param httpReadTimeout
+             * @return HttpClientConfigurationBuilder
+             */
+            public HttpClientConfigurationBuilder httpReadTimeout(final int httpReadTimeout) {
+                this.httpReadTimeout = httpReadTimeout;
+                return this;
+            }
+
+            /**
+             * Creates the HTTP client configuration with the provided values or with default values where no value set.
+             *
+             * @return HttpClientConfiguration
+             */
+            public HttpClientConfiguration build() {
+                return new HttpClientConfiguration(this.httpConnTimeout, this.httpReadTimeout);
+            }
+        }
+
+        public static HttpClientConfigurationBuilder builder() {
+            return new HttpClientConfigurationBuilder();
+        }
     }
 
-    CurrencyCloudClient(String url, String loginId, String apiKey) {
+    public CurrencyCloudClient(Environment environment, String loginId, String apiKey, HttpClientConfiguration httpClientConfiguration) {
+        this(environment.url, loginId, apiKey, httpClientConfiguration);
+    }
+
+    public CurrencyCloudClient(Environment environment, String loginId, String apiKey) {
+        this(environment.url, loginId, apiKey, HttpClientConfiguration.builder().build());
+    }
+
+    CurrencyCloudClient(String url, String loginId, String apiKey, HttpClientConfiguration httpClientConfiguration) {
         this.loginId = loginId;
         this.apiKey = apiKey;
         ClientConfig config = new ClientConfig();
@@ -77,6 +139,9 @@ public class CurrencyCloudClient {
                     }
                 }
         );
+
+        config.setHttpConnTimeout(httpClientConfiguration.getHttpConnTimeout());
+        config.setHttpReadTimeout(httpClientConfiguration.getHttpReadTimeout());
 
         api = RestProxyFactory.createProxy(
                 CurrencyCloud.class, url, config,
