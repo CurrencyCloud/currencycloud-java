@@ -31,8 +31,21 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
     <version>5.4.0</version>
 </dependency>
 ```
+### 2. Using Gradle
+To use the Currencycloud SDK in a Gradle project, add the following dependency to your project's `build.gradle`:
+```Groovy
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
 
-### 2. Manually downloading the jars
+dependencies {
+
+    implementation 'com.currencycloud.currencycloud-java:currencycloud-java:5.4.0'
+}
+```
+
+### 3. Manually downloading the jars
 Download the Currencycloud SDK jar:
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
