@@ -1,7 +1,7 @@
 name: can_find
 interactions:
 - request:
-    method: GET
+    method: POST
     uri: http://localhost:5555/v2/beneficiaries/find?bank_account_holder_name=Test+User&currency=GBP&per_page=10&order=created_at&order_asc_desc=asc
     body: ''
     headers:

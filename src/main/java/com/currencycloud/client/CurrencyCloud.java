@@ -330,7 +330,7 @@ public interface CurrencyCloud {
     ) throws ResponseException;
 
     /** Find Beneficiaries */
-    @GET
+    @POST
     @Path("beneficiaries/find")
     Beneficiaries findBeneficiaries(
             @HeaderParam("X-Auth-Token") String authToken,
