@@ -104,7 +104,7 @@ public interface CurrencyCloud {
     ) throws ResponseException;
 
     /** Find Account */
-    @GET
+    @POST
     @Path("accounts/find")
     Accounts findAccounts(
             @HeaderParam("X-Auth-Token") String authToken,
@@ -429,7 +429,7 @@ public interface CurrencyCloud {
     ) throws ResponseException;
 
     /** Find Contact */
-    @GET
+    @POST
     @Path("contacts/find")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     Contacts findContacts(
@@ -1064,7 +1064,7 @@ public interface CurrencyCloud {
     ///// REFERENCE API ///////////////////////////////////////////////
 
     /** Bank Details */
-    @GET
+    @POST
     @Path("reference/bank_details")
     BankDetails bankDetails(
             @HeaderParam("X-Auth-Token") String authToken,
