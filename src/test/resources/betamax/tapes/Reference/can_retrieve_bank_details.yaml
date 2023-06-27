@@ -2,7 +2,7 @@ name: can_retrieve_bank_details
 interactions:
   - request:
       method: POST
-      uri: http://localhost:5555/v2/reference/bank_details?identifier_type=iban&identifier_value=GB19TCCL00997901654515
+      uri: http://localhost:5555/v2/reference/bank_details/find?identifier_type=iban&identifier_value=GB19TCCL00997901654515
       body: ''
       headers:
         X-Auth-Token:

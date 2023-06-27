@@ -1065,7 +1065,7 @@ public interface CurrencyCloud {
 
     /** Bank Details */
     @POST
-    @Path("reference/bank_details")
+    @Path("reference/bank_details/find")
     BankDetails bankDetails(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
