@@ -1,7 +1,7 @@
 name: can_find_verified
 interactions:
   - request:
-      method: GET
+      method: POST
       uri: http://localhost:5555/v2/accounts/find?bank_account_verified=yes&page=1&per_page=2
       body: ''
       headers:
