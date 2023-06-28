@@ -276,12 +276,7 @@ public class CurrencyCloudClient {
         );
     }
 
-    /**
-     * @param account     Non-null properties will be used for querying. Null values will be ignored.
-     * @param pagination  pagination settings
-     * @return            The paginated Accounts search result
-     * @throws            CurrencyCloudException When an error occurs
-     */
+    @Deprecated
     public Accounts findAccounts(@Nullable Account account, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
@@ -308,6 +303,41 @@ public class CurrencyCloudClient {
                 pagination.getPerPage(),
                 pagination.getOrder(),
                 pagination.getOrderAscDesc()
+        );
+    }
+
+    /**
+     * @param account     Non-null properties will be used for querying. Null values will be ignored.
+     * @param pagination  pagination settings
+     * @return            The paginated Accounts search result
+     * @throws            CurrencyCloudException When an error occurs
+     */
+    public Accounts findAccountsPost(@Nullable Account account, @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        if (account == null) {
+            account = Account.create();
+        }
+        return api.findAccountsPost(
+            authToken,
+            userAgent,
+            account.getAccountName(),
+            account.getLegalEntityType(),
+            account.getBrand(),
+            account.getYourReference(),
+            account.getStatus(),
+            account.getStreet(),
+            account.getCity(),
+            account.getStateOrProvince(),
+            account.getPostalCode(),
+            account.getCountry(),
+            account.getSpreadTable(),
+            account.getBankAccountVerified(),
+            pagination.getPage(),
+            pagination.getPerPage(),
+            pagination.getOrder(),
+            pagination.getOrderAscDesc()
         );
     }
 
@@ -556,6 +586,7 @@ public class CurrencyCloudClient {
     }
 
     /**
+     * This method is now deprecated, use {@link #findBeneficiariesPost(Beneficiary, Pagination)} instead.
      *
      * @param beneficiary Non-null properties will be used for querying. Null values will be ignored.
      *                    Use routingCodeType1 and routingCodeValue1 (the *2 fields are ignored).
@@ -563,6 +594,7 @@ public class CurrencyCloudClient {
      * @return            The paginated Beneficiaries search results
      * @throws            CurrencyCloudException When an error occurs
      */
+    @Deprecated
     public Beneficiaries findBeneficiaries(@Nullable Beneficiary beneficiary, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
@@ -659,11 +691,13 @@ public class CurrencyCloudClient {
     }
 
     /**
+     * Deprecated, use {@link #findContactsPost(Contact, Pagination)} instead.
      * @param contact     Non-null properties will be used for querying. Null values will be ignored.
      * @param pagination  pagination settings
      * @return            The paginated Contacts search result
      * @throws            CurrencyCloudException When an error occurs
      */
+    @Deprecated
     public Contacts findContacts(Contact contact, Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
@@ -689,6 +723,40 @@ public class CurrencyCloudClient {
                 pagination.getPerPage(),
                 pagination.getOrder(),
                 pagination.getOrderAscDesc()
+        );
+    }
+
+    /**
+     * @param contact     Non-null properties will be used for querying. Null values will be ignored.
+     * @param pagination  pagination settings
+     * @return            The paginated Contacts search result
+     * @throws            CurrencyCloudException When an error occurs
+     */
+    public Contacts findContactsPost(Contact contact, Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        if (contact == null) {
+            contact = Contact.create();
+        }
+        return api.findContactsPost(
+            authToken,
+            userAgent,
+            contact.getAccountName(),
+            contact.getAccountId(),
+            contact.getFirstName(),
+            contact.getLastName(),
+            contact.getEmailAddress(),
+            contact.getYourReference(),
+            contact.getPhoneNumber(),
+            contact.getLoginId(),
+            contact.getStatus(),
+            contact.getLocale(),
+            contact.getTimezone(),
+            pagination.getPage(),
+            pagination.getPerPage(),
+            pagination.getOrder(),
+            pagination.getOrderAscDesc()
         );
     }
 
@@ -1299,6 +1367,10 @@ public class CurrencyCloudClient {
 
     public BankDetails bankDetails(String identifierType, String identifierValue) throws CurrencyCloudException {
         return api.bankDetails(authToken, userAgent, identifierType, identifierValue);
+    }
+
+    public BankDetails bankDetailsPost(String identifierType, String identifierValue) throws CurrencyCloudException {
+        return api.bankDetailsPost(authToken, userAgent, identifierType, identifierValue);
     }
     public List<Map<String, String>> beneficiaryRequiredDetails(@Nullable String currency, @Nullable String bankAccountCountry, @Nullable String beneficiaryCountry) throws CurrencyCloudException {
         return api.beneficiaryRequiredDetails(authToken, userAgent, currency, bankAccountCountry, beneficiaryCountry).getDetails();

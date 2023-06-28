@@ -2,8 +2,8 @@ name: can_find
 interactions:
 - request:
     method: POST
-    uri: http://localhost:5555/v2/beneficiaries/find?bank_account_holder_name=Test+User&currency=GBP&per_page=10&order=created_at&order_asc_desc=asc
-    body: ''
+    uri: http://localhost:5555/v2/beneficiaries/find
+    body: bank_account_holder_name=Test+User&currency=GBP&per_page=10&order=created_at&order_asc_desc=asc
     headers:
       X-Auth-Token:
       - 6f5f99d1b860fc47e8a186e3dce0d3f9

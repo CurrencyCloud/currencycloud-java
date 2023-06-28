@@ -163,6 +163,33 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     }
 
     @Test
+    @Betamax(tape = "can_find_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanFindBeneficiaryPost() throws Exception {
+        Beneficiary beneficiaryCondition = Beneficiary.create();
+        beneficiaryCondition.setBankAccountHolderName("Test User");
+        beneficiaryCondition.setBankCountry("GB");
+        beneficiaryCondition.setCurrency("GBP");
+        Pagination paginationCondition = new Pagination();
+        paginationCondition.setPerPage(10);
+        paginationCondition.setOrder("created_at");
+        paginationCondition.setOrderAscDesc(Pagination.SortOrder.asc);
+        Beneficiaries beneficiariesData = client.findBeneficiariesPost(beneficiaryCondition, paginationCondition);
+        List<Beneficiary> beneficiaries = beneficiariesData.getBeneficiaries();
+        Pagination pagination = beneficiariesData.getPagination();
+
+        assertThat(beneficiaries, not(empty()));
+        assertThat(beneficiaries.size(), is(2));
+        assertThat(pagination.getTotalEntries(), equalTo(2));
+        assertThat(pagination.getTotalPages(), equalTo(1));
+        assertThat(pagination.getCurrentPage(), equalTo(1));
+        assertThat(pagination.getPerPage(), equalTo(10));
+        assertThat(pagination.getPreviousPage(), equalTo(-1));
+        assertThat(pagination.getNextPage(), equalTo(-1));
+        assertThat(pagination.getOrder(), equalTo("created_at"));
+        assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
+    }
+
+    @Test
     @Betamax(tape = "can_update", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanUpdateBeneficiary() throws Exception {
         Beneficiary beneficiary = Beneficiary.create();

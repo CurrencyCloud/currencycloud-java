@@ -127,6 +127,29 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
+    @POST
+    @Path("accounts/find")
+    Accounts findAccountsPost(
+        @HeaderParam("X-Auth-Token") String authToken,
+        @HeaderParam("User-Agent") String userAgent,
+        @Nullable @FormParam("account_name") String accountName,
+        @Nullable @FormParam("legal_entity_type") String legalEntityType,
+        @Nullable @FormParam("brand") String brand,
+        @Nullable @FormParam("your_reference") String yourReference,
+        @Nullable @FormParam("status") String status,
+        @Nullable @FormParam("street") String street,
+        @Nullable @FormParam("city") String city,
+        @Nullable @FormParam("state_or_province") String stateOrProvince,
+        @Nullable @FormParam("postal_code") String postalCode,
+        @Nullable @FormParam("country") String country,
+        @Nullable @FormParam("spread_table") String spreadTable,
+        @Nullable @FormParam("bank_account_verified") String bankAccountVerified,
+        @Nullable @FormParam("page") Integer page,
+        @Nullable @FormParam("per_page") Integer perPage,
+        @Nullable @FormParam("order") String order,
+        @Nullable @FormParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws ResponseException;
+
     /** Account (logged-in Contact) */
     @GET
     @Path("accounts/current")
@@ -486,6 +509,30 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws ResponseException;
+
+
+    @POST
+    @Path("contacts/find")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    Contacts findContactsPost(
+        @HeaderParam("X-Auth-Token") String authToken,
+        @HeaderParam("User-Agent") String userAgent,
+        @Nullable @FormParam("account_name") String accountName,
+        @Nullable @FormParam("account_id") String accountId,
+        @Nullable @FormParam("first_name") String firstName,
+        @Nullable @FormParam("last_name") String lastName,
+        @Nullable @FormParam("email_address") String emailAddress,
+        @Nullable @FormParam("your_reference") String yourReference,
+        @Nullable @FormParam("phone_number") String phoneNumber,
+        @Nullable @FormParam("login_id") String loginId,
+        @Nullable @FormParam("status") String status,
+        @Nullable @FormParam("locale") String locale,
+        @Nullable @FormParam("timezone") String timezone,
+        @Nullable @FormParam("page") Integer page,
+        @Nullable @FormParam("per_page") Integer perPage,
+        @Nullable @FormParam("order") String order,
+        @Nullable @FormParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
     /** Contact (logged-in Contact) */
@@ -1099,14 +1146,28 @@ public interface CurrencyCloud {
     ///////////////////////////////////////////////////////////////////
     ///// REFERENCE API ///////////////////////////////////////////////
 
-    /** Bank Details */
+    /**
+     * Deprecated use {@link #bankDetailsPost(String, String, String, String)} instead.
+     * Bank Details
+     */
     @GET
     @Path("reference/bank_details")
+    @Deprecated
     BankDetails bankDetails(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @QueryParam("identifier_type") String identifierType,
             @QueryParam("identifier_value") String identifierValue
+    ) throws ResponseException;
+
+    /** Bank Details */
+    @POST
+    @Path("reference/bank_details/find")
+    BankDetails bankDetailsPost(
+        @HeaderParam("X-Auth-Token") String authToken,
+        @HeaderParam("User-Agent") String userAgent,
+        @FormParam("identifier_type") String identifierType,
+        @FormParam("identifier_value") String identifierValue
     ) throws ResponseException;
 
     /** Beneficiary Required Details */
