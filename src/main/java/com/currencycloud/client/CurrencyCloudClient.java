@@ -276,6 +276,12 @@ public class CurrencyCloudClient {
         );
     }
 
+    /**
+     * @param account     Non-null properties will be used for querying. Null values will be ignored.
+     * @param pagination  pagination settings
+     * @return            The paginated Accounts search result
+     * @throws            CurrencyCloudException When an error occurs
+     */
     public Accounts findAccounts(@Nullable Account account, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
