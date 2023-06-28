@@ -104,7 +104,7 @@ public interface CurrencyCloud {
     ) throws ResponseException;
 
     /** Find Account */
-    @POST
+    @GET
     @Path("accounts/find")
     Accounts findAccounts(
             @HeaderParam("X-Auth-Token") String authToken,
@@ -330,7 +330,7 @@ public interface CurrencyCloud {
     ) throws ResponseException;
 
     /** Find Beneficiaries */
-    @POST
+    @GET
     @Path("beneficiaries/find")
     Beneficiaries findBeneficiaries(
             @HeaderParam("X-Auth-Token") String authToken,
@@ -363,6 +363,42 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("per_page") Integer perPage,
             @Nullable @QueryParam("order") String order,
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+    ) throws ResponseException;
+
+
+    @POST
+    @Path("beneficiaries/find")
+    Beneficiaries findBeneficiariesPost(
+        @HeaderParam("X-Auth-Token") String authToken,
+        @HeaderParam("User-Agent") String userAgent,
+        @Nullable @FormParam("on_behalf_of") String onBehalfOf,
+        @Nullable @FormParam("bank_account_holder_name") String bankAccountHolderName,
+        @Nullable @FormParam("beneficiary_country") String beneficiaryCountry,
+        @Nullable @FormParam("currency") String currency,
+        @Nullable @FormParam("account_number") String accountNumber,
+        @Nullable @FormParam("routing_code_type") String routingCodeType,
+        @Nullable @FormParam("routing_code_value") String routingCodeValue,
+        @Nullable @FormParam("payment_types[]") List<String> paymentTypes,
+        @Nullable @FormParam("bic_swift") String bicSwift,
+        @Nullable @FormParam("iban") String iban,
+        @Nullable @FormParam("default_beneficiary") Boolean defaultBeneficiary,
+        @Nullable @FormParam("bank_name") String bankName,
+        @Nullable @FormParam("bank_account_type") String bankAccountType,
+        @Nullable @FormParam("name") String name,
+        @Nullable @FormParam("beneficiary_entity_type") String beneficiaryEntityType,
+        @Nullable @FormParam("beneficiary_company_name") String beneficiaryCompanyName,
+        @Nullable @FormParam("beneficiary_first_name") String beneficiaryFirstName,
+        @Nullable @FormParam("beneficiary_last_name") String beneficiaryLastName,
+        @Nullable @FormParam("beneficiary_city") String beneficiaryCity,
+        @Nullable @FormParam("beneficiary_postcode") String beneficiaryPostcode,
+        @Nullable @FormParam("beneficiary_state_or_province") String beneficiaryStateOrProvince,
+        @Nullable @FormParam("beneficiary_date_of_birth") java.sql.Date beneficiaryDateOfBirth,
+        @Nullable @FormParam("beneficiary_external_reference") String beneficiaryExternalReference,
+        @Nullable @FormParam("scope") String scope,
+        @Nullable @FormParam("page") Integer page,
+        @Nullable @FormParam("per_page") Integer perPage,
+        @Nullable @FormParam("order") String order,
+        @Nullable @FormParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
     /** Delete Beneficiary */
@@ -429,7 +465,7 @@ public interface CurrencyCloud {
     ) throws ResponseException;
 
     /** Find Contact */
-    @POST
+    @GET
     @Path("contacts/find")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     Contacts findContacts(
@@ -1064,8 +1100,8 @@ public interface CurrencyCloud {
     ///// REFERENCE API ///////////////////////////////////////////////
 
     /** Bank Details */
-    @POST
-    @Path("reference/bank_details/find")
+    @GET
+    @Path("reference/bank_details")
     BankDetails bankDetails(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,

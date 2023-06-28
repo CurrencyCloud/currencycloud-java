@@ -1,7 +1,7 @@
 name: can_find
 interactions:
 - request:
-    method: POST
+    method: GET
     uri: http://localhost:5555/v2/accounts/find
     body: ''
     headers:

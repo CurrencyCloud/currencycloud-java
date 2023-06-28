@@ -514,6 +514,55 @@ public class CurrencyCloudClient {
      * @return            The paginated Beneficiaries search results
      * @throws            CurrencyCloudException When an error occurs
      */
+    public Beneficiaries findBeneficiariesPost(@Nullable Beneficiary beneficiary, @Nullable Pagination pagination) throws CurrencyCloudException {
+        if (pagination == null) {
+            pagination = Pagination.builder().build();
+        }
+        if (beneficiary == null) {
+            beneficiary = Beneficiary.create();
+        }
+        return api.findBeneficiariesPost(
+            authToken,
+            userAgent,
+            getOnBehalfOf(),
+            beneficiary.getBankAccountHolderName(),
+            beneficiary.getBeneficiaryCountry(),
+            beneficiary.getCurrency(),
+            beneficiary.getAccountNumber(),
+            beneficiary.getRoutingCodeType1(),
+            beneficiary.getRoutingCodeValue1(),
+            beneficiary.getPaymentTypes(),
+            beneficiary.getBicSwift(),
+            beneficiary.getIban(),
+            beneficiary.getDefaultBeneficiary(),
+            beneficiary.getBankName(),
+            beneficiary.getBankAccountType(),
+            beneficiary.getName(),
+            beneficiary.getBeneficiaryEntityType(),
+            beneficiary.getBeneficiaryCompanyName(),
+            beneficiary.getBeneficiaryFirstName(),
+            beneficiary.getBeneficiaryLastName(),
+            beneficiary.getBeneficiaryCity(),
+            beneficiary.getBeneficiaryPostcode(),
+            beneficiary.getBeneficiaryStateOrProvince(),
+            dateOnly(beneficiary.getBeneficiaryDateOfBirth()),
+            beneficiary.getBeneficiaryExternalReference(),
+            beneficiary.getScope(),
+            pagination.getPage(),
+            pagination.getPerPage(),
+            pagination.getOrder(),
+            pagination.getOrderAscDesc()
+        );
+    }
+
+    /**
+     *
+     * @param beneficiary Non-null properties will be used for querying. Null values will be ignored.
+     *                    Use routingCodeType1 and routingCodeValue1 (the *2 fields are ignored).
+     * @param pagination  pagination settings
+     * @return            The paginated Beneficiaries search results
+     * @throws            CurrencyCloudException When an error occurs
+     */
     public Beneficiaries findBeneficiaries(@Nullable Beneficiary beneficiary, @Nullable Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();

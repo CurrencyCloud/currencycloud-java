@@ -1,7 +1,7 @@
 name: handles_session_timeout_error
 interactions:
 - request:
-    method: POST
+    method: GET
     uri: http://localhost:5555/v2/beneficiaries/find
     body: ''
     headers:
@@ -73,7 +73,7 @@ interactions:
       - nosniff
     body: '{"auth_token":"038022bcd2f372cac7bab448db7b5c3b"}'
 - request:
-    method: POST
+    method: GET
     uri: http://localhost:5555/v2/beneficiaries/find
     body: ''
     headers:
