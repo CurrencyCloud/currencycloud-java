@@ -1,7 +1,7 @@
 name: can_use_just_a_token
 interactions:
 - request:
-    method: GET
+    method: POST
     uri: http://localhost:5555/v2/beneficiaries/find
     body: ''
     headers:

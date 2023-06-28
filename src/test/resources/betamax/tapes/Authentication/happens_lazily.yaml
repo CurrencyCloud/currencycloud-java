@@ -38,7 +38,7 @@ interactions:
       - nosniff
     body: '{"auth_token":"57ef449f6316f2f54dfec37c2006fe50"}'
 - request:
-    method: GET
+    method: POST
     uri: http://localhost:5555/v2/beneficiaries/find
     body: ''
     headers:

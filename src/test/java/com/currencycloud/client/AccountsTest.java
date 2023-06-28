@@ -101,7 +101,7 @@ public class AccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    @Betamax(tape = "can_find_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFindAccount() throws Exception {
         Accounts accountData = client.findAccounts(null, null);
         List<Account> accounts = accountData.getAccounts();
@@ -141,49 +141,6 @@ public class AccountsTest extends BetamaxTestSupport {
         assertThat(pagination.getOrder(), equalTo("created_at"));
         assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
     }
-
-    @Test
-    @Betamax(tape = "can_find_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindAccountPost() throws Exception {
-        Accounts accountData = client.findAccountsPost(null, null);
-        List<Account> accounts = accountData.getAccounts();
-        Pagination pagination = accountData.getPagination();
-
-        assertThat(accounts, not(empty()));
-        Account account = accounts.iterator().next();
-        assertThat(account.getId(), equalTo("e277c9f9-679f-454f-8367-274b3ff977ff"));
-        assertThat(account.getAccountName(), equalTo("Development CM"));
-        assertThat(account.getBrand(), equalTo("currencycloud"));
-        assertThat(account.getYourReference(), is(emptyOrNullString()));
-        assertThat(account.getStatus(), equalTo("enabled"));
-        assertThat(account.getStreet(), equalTo("12 Steward Street"));
-        assertThat(account.getCity(), equalTo("London"));
-        assertThat(account.getStateOrProvince(), is(emptyOrNullString()));
-        assertThat(account.getCountry(), equalTo("GB"));
-        assertThat(account.getPostalCode(), equalTo("E1 6FQ"));
-        assertThat(account.getSpreadTable(), equalTo("no_markup"));
-        assertThat(account.getLegalEntityType(), equalTo("company"));
-        assertThat(account.getIdentificationType(), equalTo("incorporation_number"));
-        assertThat(account.getIdentificationValue(), equalTo("123456789"));
-        assertThat(account.getShortReference(), equalTo("180213-00007"));
-        assertThat(account.getApiTrading(), is(true));
-        assertThat(account.getOnlineTrading(), is(true));
-        assertThat(account.getPhoneTrading(), is(true));
-        assertThat(account.getProcessThirdPartyFunds(), is(false));
-        assertThat(account.getSettlementType(), equalTo("net"));
-        assertThat(account.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
-        assertThat(account.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
-        assertThat(account.getBankAccountVerified(), equalTo("yes"));
-        assertThat(pagination.getTotalEntries(), equalTo(1));
-        assertThat(pagination.getTotalPages(), equalTo(1));
-        assertThat(pagination.getCurrentPage(), equalTo(1));
-        assertThat(pagination.getPerPage(), equalTo(25));
-        assertThat(pagination.getPreviousPage(), equalTo(-1));
-        assertThat(pagination.getNextPage(), equalTo(-1));
-        assertThat(pagination.getOrder(), equalTo("created_at"));
-        assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
-    }
-
 
     @Test
     @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
@@ -292,35 +249,12 @@ public class AccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find_verified", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    @Betamax(tape = "can_find_verified_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFindVerifiedAccount() throws Exception {
         Account account = Account.create();
         account.setBankAccountVerified("yes");
         Pagination pagination = Pagination.builder().pages(1, 2).build();
         Accounts accountData = client.findAccounts(account, pagination);
-        List<Account> accounts = accountData.getAccounts();
-        Pagination paginationResponse = accountData.getPagination();
-        assertThat(accounts, not(empty()));
-        assertThat(accounts.size(), equalTo(2));
-        assertThat(accounts.get(0).getBankAccountVerified(), equalTo("yes"));
-        assertThat(accounts.get(1).getBankAccountVerified(), equalTo("yes"));
-        assertThat(paginationResponse.getTotalEntries(), equalTo(17));
-        assertThat(paginationResponse.getTotalPages(), equalTo(9));
-        assertThat(paginationResponse.getCurrentPage(), equalTo(1));
-        assertThat(paginationResponse.getPerPage(), equalTo(2));
-        assertThat(paginationResponse.getPreviousPage(), equalTo(-1));
-        assertThat(paginationResponse.getNextPage(), equalTo(2));
-        assertThat(paginationResponse.getOrder(), equalTo("created_at"));
-        assertThat(paginationResponse.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
-    }
-
-    @Test
-    @Betamax(tape = "can_find_verified_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindVerifiedAccountPost() throws Exception {
-        Account account = Account.create();
-        account.setBankAccountVerified("yes");
-        Pagination pagination = Pagination.builder().pages(1, 2).build();
-        Accounts accountData = client.findAccountsPost(account, pagination);
         List<Account> accounts = accountData.getAccounts();
         Pagination paginationResponse = accountData.getPagination();
         assertThat(accounts, not(empty()));
