@@ -136,7 +136,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    @Betamax(tape = "can_find_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFindBeneficiary() throws Exception {
         Beneficiary beneficiaryCondition = Beneficiary.create();
         beneficiaryCondition.setBankAccountHolderName("Test User");

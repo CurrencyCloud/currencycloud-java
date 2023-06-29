@@ -1,0 +1,41 @@
+name: can_retrieve_bank_details_post
+interactions:
+  - request:
+      method: POST
+      uri: http://localhost:5555/v2/reference/bank_details/find
+      body: identifier_type=iban&identifier_value=GB19TCCL00997901654515
+      headers:
+        X-Auth-Token:
+          - 1c9da5726314246acfb09ec5651307a5
+        User-Agent:
+          - CurrencyCloudSDK/2.0 Java/3.6.1
+    response:
+      status: 200
+      headers:
+        Server:
+          - nginx
+        Date:
+          - Wed, 29 Apr 2015 21:04:08 GMT
+        Content-Type:
+          - application/json;charset=utf-8
+        Connection:
+          - keep-alive
+        X-Request-Id:
+          - '2775201676418056015'
+        X-Content-Type-Options:
+          - nosniff
+      body: '{
+                 "identifier_value": "GB19TCCL00997901654515",
+                 "identifier_type": "iban",
+                 "account_number": "GB19TCCL00997901654515",
+                 "bic_swift": "TCCLGB22XXX",
+                 "bank_name": "THE CURRENCY CLOUD LIMITED",
+                 "bank_branch": "",
+                 "bank_address": "12 STEWARD STREET  THE STEWARD BUILDING FLOOR 0",
+                 "bank_city": "LONDON",
+                 "bank_state": "LONDON",
+                 "bank_post_code": "E1 6FQ",
+                 "bank_country": "UNITED KINGDOM",
+                 "bank_country_ISO": "GB",
+                 "currency": null
+             }'

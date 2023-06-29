@@ -289,7 +289,7 @@ public class CurrencyCloudClient {
         if (account == null) {
             account = Account.create();
         }
-        return api.findAccounts(
+        return api.findAccountsPost(
                 authToken,
                 userAgent,
                 account.getAccountName(),
@@ -507,7 +507,6 @@ public class CurrencyCloudClient {
     }
 
     /**
-     *
      * @param beneficiary Non-null properties will be used for querying. Null values will be ignored.
      *                    Use routingCodeType1 and routingCodeValue1 (the *2 fields are ignored).
      * @param pagination  pagination settings
@@ -521,7 +520,7 @@ public class CurrencyCloudClient {
         if (beneficiary == null) {
             beneficiary = Beneficiary.create();
         }
-        return api.findBeneficiaries(
+        return api.findBeneficiariesPost(
                 authToken,
                 userAgent,
                 getOnBehalfOf(),
@@ -615,6 +614,7 @@ public class CurrencyCloudClient {
      * @return            The paginated Contacts search result
      * @throws            CurrencyCloudException When an error occurs
      */
+    @Deprecated
     public Contacts findContacts(Contact contact, Pagination pagination) throws CurrencyCloudException {
         if (pagination == null) {
             pagination = Pagination.builder().build();
@@ -622,7 +622,7 @@ public class CurrencyCloudClient {
         if (contact == null) {
             contact = Contact.create();
         }
-        return api.findContacts(
+        return api.findContactsPost(
                 authToken,
                 userAgent,
                 contact.getAccountName(),
@@ -1249,8 +1249,9 @@ public class CurrencyCloudClient {
     ///// REFERENCE ///////////////////////////////////////////////////
 
     public BankDetails bankDetails(String identifierType, String identifierValue) throws CurrencyCloudException {
-        return api.bankDetails(authToken, userAgent, identifierType, identifierValue);
+        return api.bankDetailsPost(authToken, userAgent, identifierType, identifierValue);
     }
+
     public List<Map<String, String>> beneficiaryRequiredDetails(@Nullable String currency, @Nullable String bankAccountCountry, @Nullable String beneficiaryCountry) throws CurrencyCloudException {
         return api.beneficiaryRequiredDetails(authToken, userAgent, currency, bankAccountCountry, beneficiaryCountry).getDetails();
     }
