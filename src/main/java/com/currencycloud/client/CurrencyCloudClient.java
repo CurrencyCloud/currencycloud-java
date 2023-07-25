@@ -904,7 +904,9 @@ public class CurrencyCloudClient {
                 payment.getPurposeCode(),
                 payment.getChargeType(),
                 payment.getFeeAmount(),
-                payment.getFeeCurrency()
+                payment.getFeeCurrency(),
+                dateOnly(payment.getInvoiceDate()),
+                payment.getInvoiceNumber()
         );
     }
 
@@ -943,7 +945,9 @@ public class CurrencyCloudClient {
                 payment.getPurposeCode(),
                 payment.getChargeType(),
                 payment.getFeeAmount(),
-                payment.getFeeCurrency()
+                payment.getFeeCurrency(),
+                dateOnly(payment.getInvoiceDate()),
+                payment.getInvoiceNumber()
         );
     }
 
@@ -999,7 +1003,9 @@ public class CurrencyCloudClient {
                 payment.getPurposeCode(),
                 payment.getChargeType(),
                 payment.getFeeAmount(),
-                payment.getFeeCurrency()
+                payment.getFeeCurrency(),
+                dateOnly(payment.getInvoiceDate()),
+                payment.getInvoiceNumber()
         );
     }
 

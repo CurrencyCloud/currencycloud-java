@@ -51,5 +51,7 @@ interactions:
                "purpose_code": null,
                "charge_type": null,
                "fee_amount": null,
-               "fee_currency": null
+               "fee_currency": null,
+               "invoice_date": null,
+               "invoice_number": null
            }'
