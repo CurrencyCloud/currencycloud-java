@@ -61,6 +61,8 @@ public class Beneficiary implements Entity {
     private String iban;
     private List<String> bankAddress;
     private String scope;
+    private String companyWebsite;
+    private String businessNature;
 
     protected Beneficiary() { }
 
@@ -374,6 +376,22 @@ public class Beneficiary implements Entity {
         this.beneficiaryExternalReference = beneficiaryExternalReference;
     }
 
+    public String getCompanyWebsite() {
+        return companyWebsite;
+    }
+
+    public void setCompanyWebsite(String companyWebsite) {
+        this.companyWebsite = companyWebsite;
+    }
+
+    public String getBusinessNature() {
+        return businessNature;
+    }
+
+    public void setBusinessNature(String businessNature) {
+        this.businessNature = businessNature;
+    }
+
     @Override
     public String toString() {
         final ObjectMapper objectMapper = new ObjectMapper()
@@ -415,6 +433,8 @@ public class Beneficiary implements Entity {
         map.put("iban", iban);
         map.put("bankAddress", bankAddress);
         map.put("beneficiaryExternalReference", beneficiaryExternalReference);
+        map.put("companyWebsite", companyWebsite);
+        map.put("businessNature", businessNature);
 
         try {
             return objectMapper.writeValueAsString(map);

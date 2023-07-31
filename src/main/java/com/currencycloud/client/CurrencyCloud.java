@@ -298,7 +298,9 @@ public interface CurrencyCloud {
             @Nullable @FormParam("beneficiary_identification_type") String beneficiaryIdentificationType,
             @Nullable @FormParam("beneficiary_identification_value") String beneficiaryIdentificationValue,
             @Nullable @FormParam("beneficiary_external_reference") String beneficiaryExternalReference,
-            @Nullable @FormParam("payment_types[]") List<String> paymentTypes
+            @Nullable @FormParam("payment_types[]") List<String> paymentTypes,
+            @Nullable @FormParam("company_website") String companyWebsite,
+            @Nullable @FormParam("business_nature") String businessNature
     ) throws ResponseException;
 
     /** Retrieve a Beneficiary */
@@ -349,7 +351,9 @@ public interface CurrencyCloud {
             @Nullable @FormParam("beneficiary_identification_type") String beneficiaryIdentificationType,
             @Nullable @FormParam("beneficiary_identification_value") String beneficiaryIdentificationValue,
             @Nullable @FormParam("beneficiary_external_reference") String beneficiaryExternalReference,
-            @Nullable @FormParam("payment_types[]") List<String> paymentTypes
+            @Nullable @FormParam("payment_types[]") List<String> paymentTypes,
+            @Nullable @FormParam("company_website") String companyWebsite,
+            @Nullable @FormParam("business_nature") String businessNature
     ) throws ResponseException;
 
     /** Find Beneficiaries */
