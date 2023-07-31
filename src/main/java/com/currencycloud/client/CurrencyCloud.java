@@ -786,7 +786,9 @@ public interface CurrencyCloud {
             @Nullable @FormParam("purpose_code") String purposeCode,
             @Nullable @FormParam("charge_type") String chargeType,
             @Nullable @FormParam("fee_amount") BigDecimal feeAmount,
-            @Nullable @FormParam("fee_currency") String feeCurrency
+            @Nullable @FormParam("fee_currency") String feeCurrency,
+            @Nullable @FormParam("invoice_date") java.sql.Date invoiceDate,
+            @Nullable @FormParam("invoice_number") String invoiceNumber
     ) throws ResponseException;
 
     /** Validate a Payment */
@@ -824,7 +826,9 @@ public interface CurrencyCloud {
             @Nullable @FormParam("purpose_code") String purposeCode,
             @Nullable @FormParam("charge_type") String chargeType,
             @Nullable @FormParam("fee_amount") BigDecimal feeAmount,
-            @Nullable @FormParam("fee_currency") String feeCurrency
+            @Nullable @FormParam("fee_currency") String feeCurrency,
+            @Nullable @FormParam("invoice_date") java.sql.Date invoiceDate,
+            @Nullable @FormParam("invoice_number") String invoiceNumber
     ) throws ResponseException;
 
     /** Authorise a Payment */
@@ -882,7 +886,9 @@ public interface CurrencyCloud {
             @Nullable @FormParam("purpose_code") String purposeCode,
             @Nullable @FormParam("charge_type") String chargeType,
             @Nullable @FormParam("fee_amount") BigDecimal feeAmount,
-            @Nullable @FormParam("fee_currency") String feeCurrency
+            @Nullable @FormParam("fee_currency") String feeCurrency,
+            @Nullable @FormParam("invoice_date") java.sql.Date invoiceDate,
+            @Nullable @FormParam("invoice_number") String invoiceNumber
     ) throws ResponseException;
 
     /** Find Payments */
