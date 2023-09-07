@@ -30,14 +30,19 @@ public class CurrencyCloudClientSessionTest {
     }
 
     @Test
-    public void testRaisesAnErrorIfTheUrlIncorrect() {
+    public void testRaisesAnErrorIfTheUrlNoAbsolute() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new CurrencyCloudClient("example.com", "development@currencycloud.com", "key"));
         assertThat(exception.getMessage(), equalTo("URI is not absolute"));
     }
 
     @Test
-    public void testRaisesAnErrorIfTheApiKeyIsNotSet2() {
+    public void testRaisesAnErrorIfTheUrlIncorrect() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new CurrencyCloudClient("example com", "development@currencycloud.com", "key"));
         assertThat(exception.getMessage(), containsString("Illegal character in path at index 7: example com"));
+    }
+
+    @Test
+    public void testValidUrlAndPortAccepted() {
+        new CurrencyCloudClient("http://localhost:8080", "development@currencycloud.com", "key");
     }
 }
