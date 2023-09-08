@@ -41,7 +41,7 @@ public class CurrencyCloudClientSessionTest {
         assertThat(exception.getMessage(), containsString("Illegal character in path at index 7: example com"));
     }
 
-    @Test
+    @Test(expected = Test.None.class)
     public void testValidUrlAndPortAccepted() {
         new CurrencyCloudClient("http://localhost:8080", "development@currencycloud.com", "key");
     }
