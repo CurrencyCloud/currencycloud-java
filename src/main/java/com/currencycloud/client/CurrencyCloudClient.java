@@ -454,7 +454,9 @@ public class CurrencyCloudClient {
                 beneficiary.getBeneficiaryIdentificationType(),
                 beneficiary.getBeneficiaryIdentificationValue(),
                 beneficiary.getBeneficiaryExternalReference(),
-                beneficiary.getPaymentTypes()
+                beneficiary.getPaymentTypes(),
+                beneficiary.getCompanyWebsite(),
+                beneficiary.getBusinessNature()
         );
     }
 
@@ -502,7 +504,9 @@ public class CurrencyCloudClient {
                 beneficiary.getBeneficiaryIdentificationType(),
                 beneficiary.getBeneficiaryIdentificationValue(),
                 beneficiary.getBeneficiaryExternalReference(),
-                beneficiary.getPaymentTypes()
+                beneficiary.getPaymentTypes(),
+                beneficiary.getCompanyWebsite(),
+                beneficiary.getBusinessNature()
         );
     }
 
