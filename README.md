@@ -41,7 +41,7 @@ repositories {
 
 dependencies {
 
-    implementation 'com.currencycloud.currencycloud-java:currencycloud-java:5.4.0'
+    implementation 'com.currencycloud.currencycloud-java:currencycloud-java:5.8.0'
 }
 ```
 
