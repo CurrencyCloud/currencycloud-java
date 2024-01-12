@@ -741,6 +741,17 @@ public interface CurrencyCloud {
             @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
     ) throws ResponseException;
 
+    ///////////////////////////////////////////////////////////////////
+    ///// FUNDING TRANSACTIONS API ////////////////////////////////////
+    @GET
+    @Path("funding_transactions/{id}")
+    FundingTransaction getFundingTransaction(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("id") String id,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws ResponseException;
+
 
     ///////////////////////////////////////////////////////////////////
     ///// PAYERS API ///////////////////////////////////////////////////
