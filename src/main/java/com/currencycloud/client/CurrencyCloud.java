@@ -438,6 +438,20 @@ public interface CurrencyCloud {
             @Nullable @FormParam("on_behalf_of") String onBehalfOf
     ) throws ResponseException;
 
+    /** Verify Beneficiary Bank Account **/
+    @POST
+    @Path("beneficiaries/account_verification")
+    BeneficiaryAccountVerification verifyAccount(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @Nullable @FormParam("account_number") String accountNumber,
+            @Nullable @FormParam("routing_code_value_1") String routingCodeValue1,
+            @Nullable @FormParam("beneficiary_entity_type") String beneficiaryEntityType,
+            @Nullable @FormParam("beneficiary_company_name") String beneficiaryCompanyName,
+            @Nullable @FormParam("beneficiary_first_name") String beneficiaryFirstName,
+            @Nullable @FormParam("beneficiary_last_name") String beneficiaryLastName
+    ) throws ResponseException;
+
     ///////////////////////////////////////////////////////////////////
     ///// CONTACTS API ////////////////////////////////////////////////
 
