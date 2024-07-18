@@ -566,6 +566,7 @@ public class CurrencyCloudClient {
         return api.verifyAccount(
                 authToken,
                 userAgent,
+                beneficiary.getBankCountry(),
                 beneficiary.getAccountNumber(),
                 beneficiary.getRoutingCodeValue1(),
                 beneficiary.getBeneficiaryEntityType(),

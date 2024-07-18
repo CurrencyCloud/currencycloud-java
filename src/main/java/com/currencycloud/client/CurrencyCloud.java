@@ -444,6 +444,7 @@ public interface CurrencyCloud {
     BeneficiaryAccountVerification verifyAccount(
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
+            @Nullable @FormParam("bank_country") String bankCountry,
             @Nullable @FormParam("account_number") String accountNumber,
             @Nullable @FormParam("routing_code_value_1") String routingCodeValue1,
             @Nullable @FormParam("beneficiary_entity_type") String beneficiaryEntityType,
