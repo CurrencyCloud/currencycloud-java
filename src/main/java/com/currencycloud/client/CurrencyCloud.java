@@ -445,6 +445,7 @@ public interface CurrencyCloud {
             @HeaderParam("X-Auth-Token") String authToken,
             @HeaderParam("User-Agent") String userAgent,
             @Nullable @FormParam("bank_country") String bankCountry,
+            @Nullable @FormParam("secondary_reference_data") String secondaryReferenceData,
             @Nullable @FormParam("account_number") String accountNumber,
             @Nullable @FormParam("routing_code_value_1") String routingCodeValue1,
             @Nullable @FormParam("beneficiary_entity_type") String beneficiaryEntityType,
