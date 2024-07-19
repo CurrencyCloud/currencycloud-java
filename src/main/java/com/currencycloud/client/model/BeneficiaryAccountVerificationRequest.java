@@ -12,9 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
@@ -37,8 +35,8 @@ public class BeneficiaryAccountVerificationRequest implements Entity {
 
     protected BeneficiaryAccountVerificationRequest() { }
 
-    public static BeneficiaryAccountVerification create() {
-        return new BeneficiaryAccountVerification();
+    public static BeneficiaryAccountVerificationRequest create() {
+        return new BeneficiaryAccountVerificationRequest();
     }
 
     public String getAccountNumber() {

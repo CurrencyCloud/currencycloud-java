@@ -406,7 +406,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     @Betamax(tape = "can_verify_account", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanVerifyAccount() throws Exception {
         client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
-        Beneficiary beneficiary = Beneficiary.create();
+        BeneficiaryAccountVerificationRequest beneficiary = BeneficiaryAccountVerificationRequest.create();
         beneficiary.setBankCountry("GB");
         beneficiary.setAccountNumber("12345678");
         beneficiary.setRoutingCodeValue1("123456");
