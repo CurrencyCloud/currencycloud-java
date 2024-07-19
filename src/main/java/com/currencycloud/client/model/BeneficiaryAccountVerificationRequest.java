@@ -41,7 +41,6 @@ public class BeneficiaryAccountVerificationRequest implements Entity {
         return new BeneficiaryAccountVerification();
     }
 
-
     public String getAccountNumber() {
         return accountNumber;
     }
