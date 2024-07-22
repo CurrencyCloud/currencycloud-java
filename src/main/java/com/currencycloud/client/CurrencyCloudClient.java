@@ -562,6 +562,20 @@ public class CurrencyCloudClient {
         return api.deleteBeneficiary(authToken, userAgent, id, getOnBehalfOf());
     }
 
+    public BeneficiaryAccountVerification verifyAccount(BeneficiaryAccountVerificationRequest beneficiary) throws CurrencyCloudException {
+        return api.verifyAccount(
+                authToken,
+                userAgent,
+                beneficiary.getBankCountry(),
+                beneficiary.getSecondaryReferenceData(),
+                beneficiary.getAccountNumber(),
+                beneficiary.getRoutingCodeValue1(),
+                beneficiary.getBeneficiaryEntityType(),
+                beneficiary.getBeneficiaryCompanyName(),
+                beneficiary.getBeneficiaryFirstName(),
+                beneficiary.getBeneficiaryLastName());
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///// CONTACTS ////////////////////////////////////////////////////
 
