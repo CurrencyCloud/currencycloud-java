@@ -20,6 +20,9 @@ import si.mazi.rescu.serialization.jackson.JacksonObjectMapperFactory;
 
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -119,7 +122,18 @@ public class CurrencyCloudClient {
         this(environment.url, loginId, apiKey, HttpClientConfiguration.builder().build());
     }
 
-    CurrencyCloudClient(String url, String loginId, String apiKey, HttpClientConfiguration httpClientConfiguration) {
+    public CurrencyCloudClient(String url, String loginId, String apiKey) {
+        this(url, loginId, apiKey, HttpClientConfiguration.builder().build());
+    }
+
+    public CurrencyCloudClient(String url, String loginId, String apiKey, HttpClientConfiguration httpClientConfiguration) {
+        String wellFormedUrl;
+        try {
+            wellFormedUrl = new URI(url).toURL().toString();
+        } catch (URISyntaxException | MalformedURLException e) {
+            throw new IllegalArgumentException(e);
+        }
+
         this.loginId = loginId;
         this.apiKey = apiKey;
         ClientConfig config = new ClientConfig();
@@ -144,7 +158,7 @@ public class CurrencyCloudClient {
         config.setHttpReadTimeout(httpClientConfiguration.getHttpReadTimeout());
 
         api = RestProxyFactory.createProxy(
-                CurrencyCloud.class, url, config,
+                CurrencyCloud.class, wellFormedUrl, config,
                 new AutoAuthenticator(this), new ExceptionTransformer(), new Reauthenticator(this)
         );
     }
