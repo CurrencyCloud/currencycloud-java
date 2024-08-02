@@ -19,6 +19,7 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize(converter = DirtyWatcherDeserializer.Beneficiary.class)
 public class BeneficiaryAccountVerificationRequest implements Entity {
+    private String id;
     private String accountNumber;
 
     private String beneficiaryEntityType;
@@ -37,6 +38,14 @@ public class BeneficiaryAccountVerificationRequest implements Entity {
 
     public static BeneficiaryAccountVerificationRequest create() {
         return new BeneficiaryAccountVerificationRequest();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAccountNumber() {

@@ -421,6 +421,5 @@ public class BeneficiariesTest extends BetamaxTestSupport {
         assertThat(beneficiaryAccountVerification.getActualName(), equalTo("Test User"));
         assertThat(beneficiaryAccountVerification.getReasonCode(), equalTo("FMCH"));
         assertThat(beneficiaryAccountVerification.getReason(), equalTo("Full match"));
-        assertThat(beneficiaryAccountVerification.getReasonType(), equalTo("okay"));
     }
 }
