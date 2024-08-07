@@ -20,7 +20,6 @@ import java.util.Map;
 @JsonDeserialize(converter = DirtyWatcherDeserializer.Beneficiary.class)
 public class BeneficiaryAccountVerificationRequest implements Entity {
     private String accountNumber;
-
     private String beneficiaryEntityType;
     private String beneficiaryCompanyName;
     private String beneficiaryFirstName;
@@ -37,6 +36,11 @@ public class BeneficiaryAccountVerificationRequest implements Entity {
 
     public static BeneficiaryAccountVerificationRequest create() {
         return new BeneficiaryAccountVerificationRequest();
+    }
+
+    @Override
+    public String getId() {
+        return null;
     }
 
     public String getAccountNumber() {
@@ -125,9 +129,9 @@ public class BeneficiaryAccountVerificationRequest implements Entity {
         map.put("beneficiaryFirstName", beneficiaryFirstName);
         map.put("beneficiaryLastName", beneficiaryLastName);
         map.put("routingCodeValue1", routingCodeValue1);
-        map.put("bankCountry", bankCountry);
         map.put("secondaryReferenceData", secondaryReferenceData);
         map.put("beneficiaryEntityType", beneficiaryEntityType);
+        map.put("bankCountry", bankCountry);
 
         try {
             return objectMapper.writeValueAsString(map);
