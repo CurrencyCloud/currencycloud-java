@@ -13,6 +13,10 @@ public class BeneficiaryAccountVerification {
     private String reasonCode;
     private String reason;
 
+    public BeneficiaryAccountVerification() {
+
+    }
+
     public BeneficiaryAccountVerification(String answer, String actualName, String reasonCode, String reason) {
         this.answer = answer;
         this.actualName = actualName;

@@ -3,7 +3,7 @@ interactions:
 - request:
     method: POST
     uri: http://localhost:5555/v2/beneficiaries/account_verification
-    body: account_number=1234567890&routing_code_value_1=123456&beneficiary_entity_type=individual&beneficiary_first_name=Test&beneficiary_last_name=User
+    body: bank_country=GB&account_number=1234567890&routing_code_value_1=123456&beneficiary_entity_type=individual&beneficiary_first_name=Test&beneficiary_last_name=User
     headers:
       X-Auth-Token:
       - 4df5b3e5882a412f148dcd08fa4e5b73

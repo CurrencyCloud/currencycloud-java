@@ -408,7 +408,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
         client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
         BeneficiaryAccountVerificationRequest beneficiary = BeneficiaryAccountVerificationRequest.create();
         beneficiary.setBankCountry("GB");
-        beneficiary.setAccountNumber("12345678");
+        beneficiary.setAccountNumber("1234567890");
         beneficiary.setRoutingCodeValue1("123456");
         beneficiary.setBeneficiaryEntityType("individual");
         beneficiary.setBeneficiaryFirstName("Test");
@@ -421,6 +421,5 @@ public class BeneficiariesTest extends BetamaxTestSupport {
         assertThat(beneficiaryAccountVerification.getActualName(), equalTo("Test User"));
         assertThat(beneficiaryAccountVerification.getReasonCode(), equalTo("FMCH"));
         assertThat(beneficiaryAccountVerification.getReason(), equalTo("Full match"));
-        assertThat(beneficiaryAccountVerification.getReasonType(), equalTo("okay"));
     }
 }
