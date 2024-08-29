@@ -132,7 +132,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_bank_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    @Betamax(tape = "can_retrieve_bank_details_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrieveBankDetails() throws Exception {
         final BankDetails bankDetails = client.bankDetails("iban", "GB19TCCL00997901654515");
         assertThat(bankDetails.getIdentifierType(), equalTo("iban"));

@@ -8,7 +8,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CurrencyCloudClientOnBehalfOfTest {
 
-    protected CurrencyCloudClient client = new CurrencyCloudClient("http://localhost:5555", null, null);
+    protected CurrencyCloudClient client = new CurrencyCloudClient(
+            "http://localhost:5555",
+            null,
+            null,
+            CurrencyCloudClient.HttpClientConfiguration.builder().build());
 
     @Test
     public void testSetsTheValueOnTheSessionAndRemovesItWhenDone() throws Exception {

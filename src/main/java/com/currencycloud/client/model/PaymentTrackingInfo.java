@@ -134,7 +134,7 @@ public class PaymentTrackingInfo {
         private Amount confirmedAmount;
         private Amount interbankSettlementAmount;
         private Date interbankSettlementDate;
-        private Amount chargeAmount;
+        private List<Amount> chargeAmount;
         private String chargeType;
         private ForeignExchangeDetails foreignExchangeDetails;
         private Date lastUpdateTime;
@@ -251,11 +251,11 @@ public class PaymentTrackingInfo {
             this.interbankSettlementDate = interbankSettlementDate;
         }
 
-        public Amount getChargeAmount() {
+        public List<Amount> getChargeAmount() {
             return chargeAmount;
         }
 
-        public void setChargeAmount(Amount chargeAmount) {
+        public void setChargeAmount(List<Amount> chargeAmount) {
             this.chargeAmount = chargeAmount;
         }
 
