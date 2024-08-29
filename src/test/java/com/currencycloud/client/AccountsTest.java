@@ -101,7 +101,7 @@ public class AccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    @Betamax(tape = "can_find_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFindAccount() throws Exception {
         Accounts accountData = client.findAccounts(null, null);
         List<Account> accounts = accountData.getAccounts();
@@ -249,7 +249,7 @@ public class AccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find_verified", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    @Betamax(tape = "can_find_verified_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFindVerifiedAccount() throws Exception {
         Account account = Account.create();
         account.setBankAccountVerified("yes");

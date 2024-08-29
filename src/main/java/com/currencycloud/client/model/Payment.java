@@ -65,6 +65,10 @@ public class Payment implements Entity {
     private String feeCurrency;
     private Date estimatedArrival;
 
+    private Date invoiceDate;
+
+    private String invoiceNumber;
+
     protected Payment() { }
 
     private Payment(String id,
@@ -456,6 +460,22 @@ public class Payment implements Entity {
         this.estimatedArrival = estimatedArrival;
     }
 
+    public Date getInvoiceDate() {
+        return invoiceDate;
+    }
+
+    public void setInvoiceDate(Date invoiceDate) {
+        this.invoiceDate = invoiceDate;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
     @Override
     public String toString() {
         final ObjectMapper objectMapper = new ObjectMapper()
@@ -492,6 +512,8 @@ public class Payment implements Entity {
         map.put("feeAmount", feeAmount);
         map.put("feeCurrency", feeCurrency);
         map.put("estimatedArrival", estimatedArrival);
+        map.put("invoiceDate", invoiceDate);
+        map.put("invoiceNumber", invoiceNumber);
 
         try {
             return objectMapper.writeValueAsString(map);

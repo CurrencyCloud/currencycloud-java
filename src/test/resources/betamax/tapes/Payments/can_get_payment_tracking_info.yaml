@@ -8,7 +8,7 @@ interactions:
         X-Auth-Token:
           - 1c9da5726314246acfb09ec5651307a5
         User-Agent:
-          - CurrencyCloudSDK/2.0 Java/5.3.0
+          - CurrencyCloudSDK/2.0 Java/5.9.0
     response:
       status: 200
       headers:
@@ -49,7 +49,7 @@ interactions:
                          "confirmed_amount": null,
                          "interbank_settlement_amount": null,
                          "interbank_settlement_date": null,
-                         "charge_amount": null,
+                         "charge_amount": [],
                          "charge_type": null,
                          "foreign_exchange_details": null,
                          "last_update_time": "2019-07-10T15:39:08+00:00"
@@ -69,7 +69,7 @@ interactions:
                          "confirmed_amount": null,
                          "interbank_settlement_amount": null,
                          "interbank_settlement_date": null,
-                         "charge_amount": null,
+                         "charge_amount": [],
                          "charge_type": null,
                          "foreign_exchange_details": null,
                          "last_update_time": "2019-07-10T14:22:41+00:00"
@@ -92,7 +92,7 @@ interactions:
                              "amount": "745437.57"
                          },
                          "interbank_settlement_date": "2019-07-09T00:00:00+00:00",
-                         "charge_amount": null,
+                         "charge_amount": [],
                          "charge_type": null,
                          "foreign_exchange_details": null,
                          "last_update_time": "2019-07-10T14:22:41+00:00"
@@ -112,7 +112,7 @@ interactions:
                          "confirmed_amount": null,
                          "interbank_settlement_amount": null,
                          "interbank_settlement_date": null,
-                         "charge_amount": null,
+                         "charge_amount": [],
                          "charge_type": null,
                          "foreign_exchange_details": null,
                          "last_update_time": "2019-07-10T14:22:41+00:00"
@@ -132,7 +132,7 @@ interactions:
                          "confirmed_amount": null,
                          "interbank_settlement_amount": null,
                          "interbank_settlement_date": null,
-                         "charge_amount": null,
+                         "charge_amount": [],
                          "charge_type": null,
                          "foreign_exchange_details": null,
                          "last_update_time": "2019-07-10T14:22:41+00:00"
@@ -188,7 +188,7 @@ interactions:
                              "amount": "745437.57"
                          },
                          "interbank_settlement_date": "2019-07-09T00:00:00+00:00",
-                         "charge_amount": null,
+                         "charge_amount": [],
                          "charge_type": "shared",
                          "foreign_exchange_details": null,
                          "last_update_time": "2019-07-09T13:20:50+00:00"

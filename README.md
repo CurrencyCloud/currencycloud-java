@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/CurrencyCloud/currencycloud-java.svg?branch=master)](https://travis-ci.com/github/CurrencyCloud/currencycloud-java)
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22)
 # Currencycloud API v2 Java client
-## Version: 5.3.0
+## Version: 5.9.0
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -12,8 +12,9 @@ CurrencyCloud-Java is a Maven project. We highly recommend using [Apache Maven][
 to build your project. While using Maven is not strictly required 
 it will simplify building the project and handling dependencies.
 
-### 2. Oracle JDK 8 or equivalent JDK
+### 2. Oracle JDK 8 or 11 (or equivalent JDK)
 CurrencyCloud-Java requires at least a Java version 8 compatible JDK.
+Note that it does not fully support JDK 17, however, 17 may be used by applying the workaround described in this [issue](https://github.com/CurrencyCloud/currencycloud-java/issues/148)
 
 ### 3. A valid sandbox login id and api key on the Currencycloud sandbox API environment.
 You can register for a demo API key at [developer.currencycloud.com][developer].
@@ -27,15 +28,28 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>5.3.0</version>
+    <version>5.9.0</version>
 </dependency>
 ```
+### 2. Using Gradle
+To use the Currencycloud SDK in a Gradle project, add the following dependency to your project's `build.gradle`:
+```Groovy
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
 
-### 2. Manually downloading the jars
+dependencies {
+
+    implementation 'com.currencycloud.currencycloud-java:currencycloud-java:5.9.0'
+}
+```
+
+### 3. Manually downloading the jars
 Download the Currencycloud SDK jar:
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-5.3.0.jar
+3. Download the currencycloud-java-5.9.0.jar
 
 Get the list of all dependencies:
 ```Shell
@@ -82,6 +96,18 @@ System.out.println("Balances: " + balances.stream()
 
 // End session
 currencyCloud.endSession();
+```
+In order to customise the HTTP client use the HTTP client configuration builder e.g.,
+```Java
+CurrencyCloudClient currencyCloud = new CurrencyCloudClient(
+    CurrencyCloudClient.Environment.demo, 
+    "<your login id>",
+    "<your API key>",
+    CurrencyCloudClient.HttpClientConfiguration.builder()
+        .httpConnTimeout(3000)
+        .httpReadTimeout(45000)
+        .build()
+);
 ```
 For a better example, see
 [CurrencyCloudCookbook.java](/src/test/java/com/currencycloud/examples/CurrencyCloudCookbook.java), which is an implementation of [the Cookbook](https://connect.currencycloud.com/documentation/getting-started/cookbook) from the documentation.
@@ -239,6 +265,30 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [5.9.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.9.0)
+  * Adds support for confimation of payee to the SDK
+* [5.8.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.8.0)
+  * Adds companyWebsite and businessNature to beneficiary object
+  * Add Test Client class
+* 
+* [5.7.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.7.0)
+  * Adds invoice_date and invoice_number in Payments API
+
+* [5.6.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.6.0)
+  * Add POST accounts/find
+  * Deprecate GET accounts/find
+  * Add POST beneficiaries/find
+  * Deprecate GET beneficiaries/find
+  * Add POST contacts/find
+  * Deprecate GET contacts/find
+  * Add POST reference/bank_details/find
+  * Deprecate GET reference/bank_details
+  
+* [5.4.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.4.0)
+  * Makes timeout on the HTTP Client configurable
+  * Fixes the type of chargeAmount on PaymentTrackingInfo
+  * Updates version of snakeyaml
+
 * [5.3.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.3.0)
   * Adds on_behalf_of to funding_accounts/find
 

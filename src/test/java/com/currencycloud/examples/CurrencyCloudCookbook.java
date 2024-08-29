@@ -35,8 +35,18 @@ public class CurrencyCloudCookbook {
          * 1. Generate an authentication token. This authentication token will be used in all subsequent calls and
          * will expire after 30mins of inactivity after login. Token requests are limited to 10 calls/min. Individual
          * contacts will be locked out of the account after 4 unsuccessful login attempts.
+         *
+         * Create CurrencyCloudClient(<Environment>, <LoginId>, <ApiKey>) with default HTTP client config.
+         * Create CurrencyCloudClient(<Environment>, <LoginId>, <ApiKey>, <HttpClientConfiguration>) with custom HTTP client config.
          */
-        CurrencyCloudClient client = new CurrencyCloudClient(CurrencyCloudClient.Environment.demo, loginId, apiKey);
+        CurrencyCloudClient client = new CurrencyCloudClient(
+                CurrencyCloudClient.Environment.demo,
+                loginId,
+                apiKey,
+                CurrencyCloudClient.HttpClientConfiguration.builder()
+                        .httpConnTimeout(15000)
+                        .httpReadTimeout(35000)
+                        .build());
         try {
             final BackOffResult<Void> authenticateResult = BackOff.<Void>builder()
                     .withTask(() -> {

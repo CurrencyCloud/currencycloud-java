@@ -70,6 +70,8 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(payment.getUltimateBeneficiaryName(), is(nullValue()));
         assertThat(payment.getPurposeCode(), is(nullValue()));
         assertThat(payment.getChargeType(), equalTo("ours"));
+        assertThat(payment.getInvoiceDate(), is(nullValue()));
+        assertThat(payment.getInvoiceNumber(), is(nullValue()));
     }
 
     @Test
@@ -126,6 +128,8 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(payment.getUltimateBeneficiaryName(), equalTo("Francesco Bianco"));
         assertThat(payment.getPurposeCode(), is(nullValue()));
         assertThat(payment.getChargeType(), equalTo("shared"));
+        assertThat(payment.getInvoiceDate(), equalTo(parseDate("2018-01-01")));
+        assertThat(payment.getInvoiceNumber(), equalTo("35813"));
     }
 
     @Test
@@ -167,6 +171,8 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(payment.getUltimateBeneficiaryName(), equalTo("Francesco Bianco"));
         assertThat(payment.getPurposeCode(), is(nullValue()));
         assertThat(payment.getChargeType(), equalTo("ours"));
+        assertThat(payment.getInvoiceDate(), is(nullValue()));
+        assertThat(payment.getInvoiceNumber(), is(nullValue()));
         assertThat(pagination.getPerPage(), equalTo(25));
         assertThat(pagination.getOrder(), equalTo("created_at"));
         assertThat(pagination.getTotalEntries(), equalTo(3));
@@ -207,6 +213,9 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(payment.getUltimateBeneficiaryName(), equalTo("Francesco Bianco"));
         assertThat(payment.getPurposeCode(), is(nullValue()));
         assertThat(payment.getChargeType(), equalTo("ours"));
+        assertThat(payment.getInvoiceDate(), equalTo(parseDate("2018-01-01")));
+        assertThat(payment.getInvoiceNumber(), equalTo("35813"));
+
     }
 
     @Test
@@ -240,6 +249,8 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(payment.getUltimateBeneficiaryName(), equalTo("Francesco Bianco"));
         assertThat(payment.getPurposeCode(), is(nullValue()));
         assertThat(payment.getChargeType(), equalTo("ours"));
+        assertThat(payment.getInvoiceDate(), equalTo(parseDate("2018-01-01")));
+        assertThat(payment.getInvoiceNumber(), equalTo("35813"));
     }
 
     @Test
@@ -365,6 +376,7 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(paymentTrackingInfo.getCompletionTime(), nullValue());
         assertThat(paymentTrackingInfo.getLastUpdateTime(), equalTo(parseDateTime("2019-07-10T15:39:08+00:00")));
         assertThat(paymentTrackingInfo.getPaymentEvents().size(), equalTo(7));
+        final PaymentTrackingInfo.PaymentEvent paymentEvent6 = paymentTrackingInfo.getPaymentEvents().get(5);
         final PaymentTrackingInfo.PaymentEvent paymentEvent7 = paymentTrackingInfo.getPaymentEvents().get(6);
         assertThat(paymentEvent7, notNullValue());
         assertThat(paymentEvent7.getTrackerEventType(), equalTo("customer_credit_transfer_payment"));
@@ -393,7 +405,8 @@ public class PaymentsTest extends BetamaxTestSupport {
         assertThat(paymentEvent7.getInterbankSettlementAmount().getCurrency(), equalTo("USD"));
         assertThat(paymentEvent7.getInterbankSettlementAmount().getAmount(), equalTo(new BigDecimal("745437.57")));
         assertThat(paymentEvent7.getInterbankSettlementDate(), equalTo(parseDateTime("2019-07-09T00:00:00+00:00")));
-        assertThat(paymentEvent7.getChargeAmount(), nullValue());
+        assertThat(paymentEvent6.getChargeAmount(), nullValue());
+        assertThat(paymentEvent7.getChargeAmount(), empty());
         assertThat(paymentEvent7.getChargeType(), equalTo("shared"));
         assertThat(paymentEvent7.getForeignExchangeDetails(), nullValue());
         assertThat(paymentEvent7.getLastUpdateTime(), equalTo(parseDateTime("2019-07-09T13:20:50+00:00")));

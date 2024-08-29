@@ -99,6 +99,76 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     }
 
     @Test
+    @Betamax(tape = "can_create_website", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanCreateBeneficiaryBusinessNature() throws Exception {
+        Beneficiary beneficiary = Beneficiary.create("Test User", "GB", "GBP", "Test User");
+        beneficiary.setEmail("development@currencycloud.com");
+        ArrayList<String> beneficiaryAddress = new ArrayList<>();
+        beneficiaryAddress.add("12 Steward St, London E1 6FQ");
+        beneficiary.setBeneficiaryAddress(beneficiaryAddress);
+        beneficiary.setBeneficiaryCountry("GB");
+        beneficiary.setAccountNumber("13071472");
+        beneficiary.setRoutingCodeType1("sort_code");
+        beneficiary.setRoutingCodeValue1("200605");
+        beneficiary.setBicSwift("BARCGB22");
+        beneficiary.setIban("GB06 BARC 2006 0513 0714 72");
+        ArrayList<String> bankAddress = new ArrayList<>();
+        bankAddress.add("1 Churchill Place, London, E14 5HP");
+        beneficiary.setBankAddress(bankAddress);
+        beneficiary.setBankName("Barclays Bank plc");
+        beneficiary.setBankAccountType("checking");
+        beneficiary.setBeneficiaryEntityType("individual");
+        beneficiary.setBeneficiaryCompanyName("Private");
+        beneficiary.setBeneficiaryFirstName("Test");
+        beneficiary.setBeneficiaryLastName("User");
+        beneficiary.setBeneficiaryCity("London");
+        beneficiary.setBeneficiaryPostcode("E1 6FQ");
+        beneficiary.setBeneficiaryStateOrProvince("London");
+        beneficiary.setBeneficiaryDateOfBirth(parseDate("1986-12-12"));
+        beneficiary.setBeneficiaryIdentificationType("passport");
+        beneficiary.setBeneficiaryIdentificationValue("AE02315508BF");
+        beneficiary.setBeneficiaryExternalReference("External Reference One");
+        beneficiary.setPaymentTypes(Collections.singletonList("regular"));
+        beneficiary.setBusinessNature("law");
+        beneficiary.setCompanyWebsite("test.com");
+        beneficiary = client.createBeneficiary(beneficiary);
+
+        assertThat(beneficiary, is(notNullValue()));
+        assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
+        assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
+        assertThat(beneficiary.getBankCountry(), equalTo("GB"));
+        assertThat(beneficiary.getCurrency(), equalTo("GBP"));
+        assertThat(beneficiary.getName(), equalTo("Test User"));
+        assertThat(beneficiary.getEmail(), equalTo("development@currencycloud.com"));
+        assertThat(beneficiary.getBeneficiaryAddress(), hasItem("12 Steward St, London E1 6FQ"));
+        assertThat(beneficiary.getBeneficiaryCountry(), equalTo("GB"));
+        assertThat(beneficiary.getAccountNumber(), equalTo("13071472"));
+        assertThat(beneficiary.getRoutingCodeType1(), equalTo("sort_code"));
+        assertThat(beneficiary.getRoutingCodeValue1(), equalTo("200605"));
+        assertThat(beneficiary.getBicSwift(), equalTo("BARCGB22"));
+        assertThat(beneficiary.getIban(), equalTo("GB06 BARC 2006 0513 0714 72"));
+        assertThat(beneficiary.getBankAddress(), hasItem("1 Churchill Place"));
+        assertThat(beneficiary.getBankName(), equalTo("Barclays Bank plc"));
+        assertThat(beneficiary.getBankAccountType(), equalTo("checking"));
+        assertThat(beneficiary.getBeneficiaryEntityType(), equalTo("individual"));
+        assertThat(beneficiary.getBeneficiaryCompanyName(), equalTo("Private"));
+        assertThat(beneficiary.getBeneficiaryFirstName(), equalTo("Test"));
+        assertThat(beneficiary.getBeneficiaryLastName(), equalTo("User"));
+        assertThat(beneficiary.getBeneficiaryCity(), equalTo("London"));
+        assertThat(beneficiary.getBeneficiaryPostcode(), equalTo("E1 6FQ"));
+        assertThat(beneficiary.getBeneficiaryStateOrProvince(), equalTo("London"));
+        assertThat(beneficiary.getBeneficiaryDateOfBirth(), equalTo(parseDate("1986-12-12")));
+        assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
+        assertThat(beneficiary.getBeneficiaryIdentificationType(), equalTo("passport"));
+        assertThat(beneficiary.getBeneficiaryIdentificationValue(), equalTo("AE02315508BF"));
+        assertThat(beneficiary.getBeneficiaryExternalReference(), equalTo("External Reference One"));
+        assertThat(beneficiary.getBusinessNature(), equalTo("law"));
+        assertThat(beneficiary.getCompanyWebsite(), equalTo("test.com"));
+        assertThat(beneficiary.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+    }
+
+    @Test
     @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrieveBeneficiary() throws Exception {
         Beneficiary beneficiary = client.retrieveBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
@@ -136,7 +206,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    @Betamax(tape = "can_find_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFindBeneficiary() throws Exception {
         Beneficiary beneficiaryCondition = Beneficiary.create();
         beneficiaryCondition.setBankAccountHolderName("Test User");
@@ -170,6 +240,52 @@ public class BeneficiariesTest extends BetamaxTestSupport {
         beneficiary.setBankAccountHolderName("Test User 2");
         beneficiary.setBeneficiaryDateOfBirth(parseDate("1968-03-23"));
         beneficiary.setBeneficiaryExternalReference("External Reference Two");
+        beneficiary = client.updateBeneficiary(beneficiary);
+
+        assertThat(beneficiary, is(notNullValue()));
+        assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
+        assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User 2"));
+        assertThat(beneficiary.getBankCountry(), equalTo("GB"));
+        assertThat(beneficiary.getCurrency(), equalTo("GBP"));
+        assertThat(beneficiary.getName(), equalTo("Test User"));
+        assertThat(beneficiary.getEmail(), equalTo("development@currencycloud.com"));
+        assertThat(beneficiary.getBeneficiaryAddress(), hasItem("12 Steward St, London E1 6FQ"));
+        assertThat(beneficiary.getBeneficiaryCountry(), equalTo("GB"));
+        assertThat(beneficiary.getAccountNumber(), equalTo("13071472"));
+        assertThat(beneficiary.getRoutingCodeType1(), equalTo("sort_code"));
+        assertThat(beneficiary.getRoutingCodeValue1(), equalTo("200605"));
+        assertThat(beneficiary.getBicSwift(), equalTo("BARCGB22"));
+        assertThat(beneficiary.getIban(), equalTo("GB06 BARC 2006 0513 0714 72"));
+        assertThat(beneficiary.getBankAddress(), hasItem("1 Churchill Place"));
+        assertThat(beneficiary.getBankName(), equalTo("Barclays Bank plc"));
+        assertThat(beneficiary.getBankAccountType(), equalTo("checking"));
+        assertThat(beneficiary.getBeneficiaryEntityType(), equalTo("individual"));
+        assertThat(beneficiary.getBeneficiaryCompanyName(), equalTo("Private"));
+        assertThat(beneficiary.getBeneficiaryFirstName(), equalTo("Test"));
+        assertThat(beneficiary.getBeneficiaryLastName(), equalTo("User"));
+        assertThat(beneficiary.getBeneficiaryCity(), equalTo("London"));
+        assertThat(beneficiary.getBeneficiaryPostcode(), equalTo("E1 6FQ"));
+        assertThat(beneficiary.getBeneficiaryStateOrProvince(), equalTo("London"));
+        assertThat(beneficiary.getBeneficiaryDateOfBirth(), equalTo(parseDate("1968-03-23")));
+        assertThat(beneficiary.getPaymentTypes(), hasItem("regular"));
+        assertThat(beneficiary.getBeneficiaryIdentificationType(), equalTo("passport"));
+        assertThat(beneficiary.getBeneficiaryIdentificationValue(), equalTo("AE02315508BF"));
+        assertThat(beneficiary.getBeneficiaryExternalReference(), equalTo("External Reference Two"));
+        assertThat(beneficiary.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(beneficiary.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+    }
+
+
+    @Test
+    @Betamax(tape = "can_update_website", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanUpdateBeneficiaryWebsite() throws Exception {
+        Beneficiary beneficiary = Beneficiary.create();
+        beneficiary.setId("081596c9-02de-483e-9f2a-4cf55dcdf98c");
+        beneficiary.setBankAccountHolderName("Test User 2");
+        beneficiary.setBeneficiaryDateOfBirth(parseDate("1968-03-23"));
+        beneficiary.setBeneficiaryExternalReference("External Reference Two");
+        beneficiary.setCompanyWebsite("test2.com");
+        beneficiary.setBusinessNature("laws");
         beneficiary = client.updateBeneficiary(beneficiary);
 
         assertThat(beneficiary, is(notNullValue()));
