@@ -285,4 +285,25 @@ public class BeneficiariesTest extends BetamaxTestSupport {
         assertThat(beneficiary.getIban(), is(emptyString()));
         assertThat(beneficiary.getBankAddress(), hasItem("Sample bank address"));
     }
+
+    @Test
+    @Betamax(tape = "can_verify_account", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
+    public void testCanVerifyAccount() throws Exception {
+        client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
+        BeneficiaryAccountVerificationRequest beneficiary = BeneficiaryAccountVerificationRequest.create();
+        beneficiary.setBankCountry("GB");
+        beneficiary.setAccountNumber("1234567890");
+        beneficiary.setRoutingCodeValue1("123456");
+        beneficiary.setBeneficiaryEntityType("individual");
+        beneficiary.setBeneficiaryFirstName("Test");
+        beneficiary.setBeneficiaryLastName("User");
+
+        BeneficiaryAccountVerification beneficiaryAccountVerification = client.verifyAccount(beneficiary);
+
+        assertThat(beneficiaryAccountVerification, is(notNullValue()));
+        assertThat(beneficiaryAccountVerification.getAnswer(), equalTo("confirmed"));
+        assertThat(beneficiaryAccountVerification.getActualName(), equalTo("Test User"));
+        assertThat(beneficiaryAccountVerification.getReasonCode(), equalTo("FMCH"));
+        assertThat(beneficiaryAccountVerification.getReason(), equalTo("Full match"));
+    }
 }

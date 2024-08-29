@@ -1,0 +1,29 @@
+name: can_validate
+interactions:
+  - request:
+      method: POST
+      uri: http://localhost:5555/v2/beneficiaries/account_verification
+      body: bank_country=GB&account_number=1234567890&routing_code_value_1=123456&beneficiary_entity_type=individual&beneficiary_first_name=Test&beneficiary_last_name=User
+      headers:
+        X-Auth-Token:
+          - 4df5b3e5882a412f148dcd08fa4e5b73
+        User-Agent:
+          - CurrencyCloudSDK/2.0 Java/5.9.0
+    response:
+      status: 200
+      headers:
+        Server:
+          - nginx
+        Date:
+          - Fri, 19 Apr 2024 12:57:03 GMT
+        Content-Type:
+          - application/json;charset=utf-8
+        Content-Length:
+          - '724'
+        Connection:
+          - keep-alive
+        X-Request-Id:
+          - '2777975414238700879'
+        X-Content-Type-Options:
+          - nosniff
+      body: '{"answer":"confirmed","actual_name":"Test User","reason_code":"FMCH","reason":"Full match"}'
