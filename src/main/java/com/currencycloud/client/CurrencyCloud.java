@@ -1571,7 +1571,7 @@ public interface CurrencyCloud {
   ) throws ResponseException;
 
   @PUT
-  @Path("collections_screening/screenings/{transaction_id}/complete")
+  @Path("collections_screening/{transaction_id}/complete")
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   ScreeningResponse complete(
           @HeaderParam("X-Auth-Token") String authToken,

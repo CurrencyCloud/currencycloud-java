@@ -2,7 +2,7 @@ name: can_screening_complete
 interactions:
 - request:
     method: PUT
-    uri: http://localhost:5555/v2/collections_screening/screenings/ae305c98-e46f-465a-b468-f92d39fad977/complete
+    uri: http://localhost:5555/v2/collections_screening/ae305c98-e46f-465a-b468-f92d39fad977/complete
     body: 'accepted=true&reason=Accepted'
     headers:
       X-Auth-Token:
