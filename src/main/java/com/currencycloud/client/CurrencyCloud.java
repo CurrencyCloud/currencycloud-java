@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * This is the low-level Currency Cloud HTTP API Java implementation. This interface's methods map directly to
@@ -1567,6 +1568,17 @@ public interface CurrencyCloud {
       @PathParam("withdrawalAccountId") String withdrawalAccountId,
       @FormParam("reference") String reference,
       @FormParam("amount") BigDecimal amount
+  ) throws ResponseException;
+
+  @PUT
+  @Path("collections_screening/screenings/{transaction_id}/complete")
+  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+  ScreeningResponse complete(
+          @HeaderParam("X-Auth-Token") String authToken,
+          @HeaderParam("User-Agent") String userAgent,
+          @PathParam("transaction_id") String transactionId,
+          @FormParam("accepted") boolean accepted,
+          @FormParam("reason") String reason
   ) throws ResponseException;
 
 }

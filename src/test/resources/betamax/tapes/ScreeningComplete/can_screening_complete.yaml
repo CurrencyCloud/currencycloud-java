@@ -1,0 +1,27 @@
+name: can_screening_complete
+interactions:
+- request:
+    method: PUT
+    uri: http://localhost:5555/v2/collections_screening/screenings/ae305c98-e46f-465a-b468-f92d39fad977/complete
+    body: 'accepted=true&reason=Accepted'
+    headers:
+      X-Auth-Token:
+      - 6f5f99d1b860fc47e8a186e3dce0d3f9
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/5.9.0
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 18 Sep 2024 12:34:56 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2778807612227406608'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"transaction_id": "ae305c98-e46f-465a-b468-f92d39fad977","account_id": "7a116d7d-6310-40ae-8d54-0ffbe41dc1c9","house_account_id": "7a116d7d-6310-40ae-8d54-0ffbe41dc1c9","result": {"reason": "Accepted","accepted": true}}'
