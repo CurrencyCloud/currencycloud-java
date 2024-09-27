@@ -1508,6 +1508,19 @@ public class CurrencyCloudClient {
   }
   ///////////////////////////////////////////////////////////////////
 
+  //Collections Screening - Start
+  public ScreeningResponse complete(String transactionId, boolean accepted, String reason) throws ResponseException {
+      return api.complete(
+              authToken,
+              userAgent,
+              transactionId,
+              accepted,
+              reason
+      );
+  }
+
+  //Collections Screening - End
+
   @Nullable
   private static java.sql.Date dateOnly(@Nullable Date date) {
     return date == null ? null : new java.sql.Date(date.getTime());
