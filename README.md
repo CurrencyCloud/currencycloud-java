@@ -352,6 +352,11 @@ We actively support the latest version of the SDK. We support the immediate prev
 * [0.9.1] - Add Transfers and IBANs, add missing API paths and operations (#42), update dependencies to newer versions, bug fixes (including #32 and #38), and other minor changes
 * [0.7.8] - Address a concurrency issue discovered in the onBehalfOf functionality (#48) 
 
+
+# Security Consideration
+1. Authentication
+    1. All data under [this folder](src/test/resources/betamax/tapes) provide and return dummy credentials to verify that authentication workflows behave as expected.
+
 # Copyright
 Copyright (c) 2015-2019 Currencycloud. See [LICENSE][license] for details.
 
