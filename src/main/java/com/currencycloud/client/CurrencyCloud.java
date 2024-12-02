@@ -1415,6 +1415,26 @@ public interface CurrencyCloud {
   ) throws ResponseException;
 
   ///////////////////////////////////////////////////////////////////
+  ///// TERMS AND CONDITIONS API //////////////////////////////////////////////////
+
+  /**
+   * Accept Terms and Conditions
+   */
+  @POST
+  @Path("terms_and_conditions/accept")
+  TermsAndConditionsAcceptance acceptTermsAndConditions(
+          @HeaderParam("X-Auth-Token") String authToken,
+          @HeaderParam("User-Agent") String userAgent,
+          @FormParam("type") String type,
+          @FormParam("version") String version,
+          @FormParam("reference_type") String referenceType,
+          @FormParam("reference_id") String referenceId,
+          @FormParam("first_name") String firstName,
+          @FormParam("last_name") String lastName,
+          @FormParam("email") String email
+  ) throws ResponseException;
+
+  ///////////////////////////////////////////////////////////////////
   ///// TRANSACTIONS API ////////////////////////////////////////////
 
   /**

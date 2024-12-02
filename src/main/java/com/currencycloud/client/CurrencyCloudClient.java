@@ -1318,6 +1318,22 @@ public class CurrencyCloudClient {
   }
 
   ///////////////////////////////////////////////////////////////////
+  ///// TERMS AND CONDITIONS //////////////////////////////////////////////////////
+
+  public TermsAndConditionsAcceptance acceptTermsAndConditions(String type, String version, String referenceType, String referenceId, String firstName, String lastName, String email) throws CurrencyCloudException {
+    return api.acceptTermsAndConditions(
+            authToken,
+            userAgent,
+            type,
+            version,
+            referenceType,
+            referenceId,
+            firstName,
+            lastName,
+            email);
+  }
+
+  ///////////////////////////////////////////////////////////////////
   ///// TRANSACTIONS ////////////////////////////////////////////////
 
   public Transaction retrieveTransaction(String id) throws CurrencyCloudException {
