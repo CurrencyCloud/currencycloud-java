@@ -10,10 +10,10 @@ import java.util.UUID;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TermsAndConditionsAcceptance {
-  private UUID acceptanceId;
+  private String acceptanceId;
   private Date acceptedAt;
 
-  public UUID getAcceptanceId(){
+  public String getAcceptanceId(){
     return acceptanceId;
   }
 

@@ -35,7 +35,7 @@ public class TermsAndConditionsTest extends BetamaxTestSupport {
             "lastName",
             "development@currencycloud.com");
 
-    assertThat(acceptance.getAcceptanceId(), equalTo(UUID.fromString("e781c919-a733-11ef-8de2-0242ac1d0002")));
+    assertThat(acceptance.getAcceptanceId(), equalTo("e781c919-a733-11ef-8de2-0242ac1d0002"));
     assertThat(acceptance.getAcceptedAt(), equalTo(parseDateTime("2024-10-04T15:27:04+00:00")));
   }
 }
