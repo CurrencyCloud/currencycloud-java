@@ -1,0 +1,29 @@
+name: can_accept
+interactions:
+- request:
+    method: POST
+    uri: http://localhost:5555/v2/terms_and_conditions/accept
+    body: type=VGSI&version=1.0&reference_type=ACCOUNT&reference_id=ebcaee2f-a733-11ef-8de2-0242ac1d0002&first_name=firstName&last_name=lastName&email=development%40currencycloud.com
+    headers:
+      X-Auth-Token:
+      - acad59188ce6ddb54d4043bc4efb5f57
+      User-Agent:
+      - CurrencyCloudSDK/2.0 Java/5.9.0
+  response:
+    status: 200
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 19 Nov 2024 16:36:51 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '131'
+      Connection:
+      - keep-alive
+      X-Request-Id:
+      - '2771948673934289900'
+      X-Content-Type-Options:
+      - nosniff
+    body: '{"acceptance_id":"e781c919-a733-11ef-8de2-0242ac1d0002","accepted_at":"2024-10-04T15:27:04"}'
