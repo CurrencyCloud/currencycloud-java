@@ -1,0 +1,29 @@
+{
+  "request": {
+    "url": "/v2/authenticate/api",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.9.1"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalTo": "login_id=development%40currencycloud.com&api_key=internalapplicationerrorapikey"
+      }
+    ]
+  },
+  "response": {
+    "status": 500,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Sat, 25 Apr 2015 06:52:42 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "133",
+      "Connection": "close",
+      "X-Request-Id": "2775253392756800903",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"error_code\":\"internal_server_error\",\"error_messages\":{\"base\":[{\"code\":\"internal_server_error\",\"message\":\"Internal server error\"}]}}"
+  }
+}

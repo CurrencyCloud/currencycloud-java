@@ -1,21 +1,20 @@
 package com.currencycloud.client.dirty;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.BetamaxTestSupport;
 import com.currencycloud.client.CurrencyCloudClient;
+import com.currencycloud.client.TestSupport;
 import com.currencycloud.client.model.Beneficiaries;
 import com.currencycloud.client.model.Beneficiary;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
 
-public class UpdateTest extends BetamaxTestSupport {
+public class UpdateTest extends TestSupport {
 
     @Test
-    @Betamax(tape = "only_updates_changed_records", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void onlyUpdatesChangedRecords() throws Exception {
+    public void onlyUpdatesChangedRecords() {
         CurrencyCloudClient client = prepareTestClient(null, null, "e5070d4a16c5ffe4ed9fb268a2a716be");
 
         Beneficiary beneficiary = client.retrieveBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
@@ -28,14 +27,13 @@ public class UpdateTest extends BetamaxTestSupport {
         beneficiary.setEmail("development@currencycloud.com");
         beneficiary.setCurrency("GBP"); // doesn't change
 
-        // The following will fail (with a HTTP 403 from Betamax and a message "tape is read only") if the request body
-        // doesn't match the one in the yaml file.
+        // The following will fail if the request body
+        // doesn't match the one in the json file.
         client.updateBeneficiary(beneficiary);
     }
 
     @Test
-    @Betamax(tape = "does_nothing_if_nothing_has_changed", match = {MatchRule.method, MatchRule.uri})
-    public void shouldDoNothingIfNothingHasChanged() throws Exception {
+    public void shouldDoNothingIfNothingHasChanged() {
         CurrencyCloudClient client = prepareTestClient(null, null, "e5070d4a16c5ffe4ed9fb268a2a716be");
 
         Beneficiary beneficiary = client.retrieveBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
@@ -44,12 +42,11 @@ public class UpdateTest extends BetamaxTestSupport {
 
         beneficiary.setCurrency("GBP"); // doesn't change
 
-        client.updateBeneficiary(beneficiary); // No matching request in the yaml
+        client.updateBeneficiary(beneficiary); // No matching request in the json
     }
 
     @Test
-    @Betamax(tape = "does_nothing_if_nothing_has_changed_from_collection", match = {MatchRule.method, MatchRule.uri})
-    public void shouldDoNothingIfNothingHasChangedFromCollection() throws Exception {
+    public void shouldDoNothingIfNothingHasChangedFromCollection() {
         CurrencyCloudClient client = prepareTestClient(null, null, "e5070d4a16c5ffe4ed9fb268a2a716be");
 
         Beneficiaries beneficiaries = client.findBeneficiaries(null, null);
@@ -60,6 +57,6 @@ public class UpdateTest extends BetamaxTestSupport {
 
         beneficiary.setCurrency("GBP"); // doesn't change
 
-        client.updateBeneficiary(beneficiary); // No matching request in the yaml
+        client.updateBeneficiary(beneficiary); // No matching request in the json
     }
 }

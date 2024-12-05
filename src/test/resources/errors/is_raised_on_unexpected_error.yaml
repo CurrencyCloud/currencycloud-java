@@ -6,5 +6,5 @@ request:
     login_id: "development@currencycloud.com"
     api_key: "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
   verb: "post"
-  url: "http://localhost:5555/v2/authenticate/api"
+  url: "http://localhost:5556/v2/authenticate/api"
 inner_error: "java.net.ConnectException: Connection refused (Connection refused)"

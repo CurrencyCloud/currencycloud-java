@@ -1,8 +1,13 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.BankDetails;
+import com.currencycloud.client.model.ConversionDates;
+import com.currencycloud.client.model.Currency;
+import com.currencycloud.client.model.PayerRequiredDetail;
+import com.currencycloud.client.model.PaymentDates;
+import com.currencycloud.client.model.PaymentFeeRule;
+import com.currencycloud.client.model.PaymentPurposeCode;
+import com.currencycloud.client.model.SettlementAccount;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,9 +19,14 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.anEmptyMap;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 
-public class ReferenceTest extends BetamaxTestSupport {
+public class ReferenceTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
@@ -30,8 +40,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "can_retrieve_beneficiary_required_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveBeneficiaryRequiredDetails() throws Exception {
+    public void testCanRetrieveBeneficiaryRequiredDetails() {
         List<Map<String, String>> details = client.beneficiaryRequiredDetails("GBP", "GB", "GB");
         assertThat(details, not(empty()));
 
@@ -49,8 +58,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_conversion_dates", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveConversionDates() throws Exception {
+    public void testCanRetrieveConversionDates() {
         ConversionDates dates = client.conversionDates("GBPUSD", null);
 
         assertThat(dates.getInvalidConversionDates(), not(anEmptyMap()));
@@ -66,8 +74,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_payment_dates", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrievePaymentDates() throws Exception {
+    public void testCanRetrievePaymentDates() {
         PaymentDates dates = client.paymentDates("GBP", null);
 
         assertThat(dates.getInvalidPaymentDates(), not(anEmptyMap()));
@@ -78,8 +85,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_currencies", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveCurrencies() throws Exception {
+    public void testCanRetrieveCurrencies() {
         List<Currency> currencies = client.currencies();
         assertThat(currencies, not(empty()));
 
@@ -93,8 +99,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_settlement_accounts", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveSettlementAccounts() throws Exception {
+    public void testCanRetrieveSettlementAccounts() {
         List<SettlementAccount> settlementAccounts = client.settlementAccounts("GBP", null);
         assertThat(settlementAccounts, not(empty()));
 
@@ -104,8 +109,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_payer_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrievePayerDetails() throws Exception {
+    public void testCanRetrievePayerDetails() {
         List<PayerRequiredDetail> requiredDetails = client.payerRequiredDetails("GB", null, null);
         assertThat(requiredDetails, not(empty()));
         assertThat(requiredDetails.size(), equalTo(4));
@@ -118,8 +122,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_purpose_codes", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrievePaymentPurposeCodes() throws Exception {
+    public void testCanRetrievePaymentPurposeCodes() {
         List<PaymentPurposeCode> purposeCodeData = client.paymentPurposeCodes("INR", "IN", null);
         assertThat(purposeCodeData, not(empty()));
         assertThat(purposeCodeData.size(), equalTo(55));
@@ -132,8 +135,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_bank_details_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveBankDetails() throws Exception {
+    public void testCanRetrieveBankDetails() {
         final BankDetails bankDetails = client.bankDetails("iban", "GB19TCCL00997901654515");
         assertThat(bankDetails.getIdentifierType(), equalTo("iban"));
         assertThat(bankDetails.getIdentifierValue(), equalTo("GB19TCCL00997901654515"));
@@ -151,8 +153,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_payment_fee_rules", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrievePaymentFeeRules() throws Exception {
+    public void testCanRetrievePaymentFeeRules() {
         final List<PaymentFeeRule> paymentFeeRules1 = client.paymentFeeRules(null, null, null);
         assertThat(paymentFeeRules1.size(), equalTo(3));
         final PaymentFeeRule feeRule1_1 = paymentFeeRules1.get(0);
@@ -200,9 +201,8 @@ public class ReferenceTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_conversion_dates_offline_trading", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveConversionDatesOfflineTrading() throws Exception {
-        ConversionDates dates = client.conversionDates("GBPUSD", null);
+    public void testCanRetrieveConversionDatesOfflineTrading() {
+        ConversionDates dates = client.conversionDates("USDGBP", null);
 
         assertThat(dates.getInvalidConversionDates(), not(anEmptyMap()));
         assertThat(dates.getInvalidConversionDates().size(), equalTo(17));
@@ -219,8 +219,7 @@ public class ReferenceTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_conversion_dates_on_behalf_of", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveConversionDatesOnBehalfOf() throws Exception {
+    public void testCanRetrieveConversionDatesOnBehalfOf() {
         AtomicReference<ConversionDates> value = new AtomicReference<>();
         client.onBehalfOfDo("c6ece846-6df1-461d-acaa-b42a6aa74045", () -> {
             value.set(client.conversionDates("GBPUSD", null));

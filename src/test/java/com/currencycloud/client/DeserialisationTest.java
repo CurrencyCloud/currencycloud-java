@@ -1,10 +1,18 @@
 package com.currencycloud.client;
 
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Beneficiary;
+import com.currencycloud.client.model.Contact;
+import com.currencycloud.client.model.ErrorMessage;
+import com.currencycloud.client.model.Payer;
+import com.currencycloud.client.model.Payment;
+import com.currencycloud.client.model.ResponseException;
+import com.currencycloud.client.model.Transaction;
+import com.currencycloud.client.model.Transactions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Arrays;
@@ -13,12 +21,17 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.aMapWithSize;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 
 public class DeserialisationTest extends JsonTestSupport {
 
     @Test
-    public void testContact() throws Exception {
+    public void testContact() throws IOException {
         Contact contact = readJson(Contact.class);
         assertThat(contact.getLoginId(), equalTo("john.smith"));
         assertThat(contact.getId(), equalTo("543477161-91de-012f-e284-1e0030c7f352"));
@@ -39,7 +52,7 @@ public class DeserialisationTest extends JsonTestSupport {
     }
 
     @Test
-    public void testPayer() throws Exception {
+    public void testPayer() throws IOException {
         Payer payer = readJson(Payer.class);
         assertThat(payer.getId(), equalTo("543477161-91de-012f-e284-1e0030c7f3123"));
         assertThat(payer.getLegalEntityType(), equalTo("company"));
@@ -59,7 +72,7 @@ public class DeserialisationTest extends JsonTestSupport {
     }
 
     @Test
-    public void testPayment() throws Exception {
+    public void testPayment() throws IOException{
         Payment payment = readJson(Payment.class);
 
         assertThat(payment.getId(), equalTo("543477161-91de-012f-e284-1e0030c7f3123"));
@@ -84,7 +97,7 @@ public class DeserialisationTest extends JsonTestSupport {
     }
 
     @Test
-    public void testTransactions() throws Exception {
+    public void testTransactions() throws IOException {
         Transactions transactions = readJson(Transactions.class);
 
         assertThat(transactions.getPagination(), not(nullValue()));
@@ -114,7 +127,7 @@ public class DeserialisationTest extends JsonTestSupport {
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     @Test
-    public void testException() throws Exception {
+    public void testException() throws IOException {
         ResponseException ex = readJson(ResponseException.class);
 
         assertThat(ex.getErrorCode(), equalTo("account_create_failed"));
@@ -133,14 +146,14 @@ public class DeserialisationTest extends JsonTestSupport {
     }
 
     @Test
-    public void testBeneficiary() throws Exception {
+    public void testBeneficiary() throws IOException {
         Beneficiary beneficiary = readJson(Beneficiary.class);
 
         assertThat(beneficiary.getBeneficiaryAddress(), equalTo(Collections.singletonList("London, UK")));
         assertThat(beneficiary.getBankAddress(), equalTo(Arrays.asList("KAISERSTRASSE 16", "60261 FRANKFURT AM MAIN")));
     }
 
-    public static <T> T readJson(Class<T> type) throws java.io.IOException {
+    public static <T> T readJson(Class<T> type) throws IOException {
         URL jsonUrl = DeserialisationTest.class.getResource(String.format("/json/%s.json", type.getSimpleName()));
         return new ObjectMapper().readValue(jsonUrl, type);
     }

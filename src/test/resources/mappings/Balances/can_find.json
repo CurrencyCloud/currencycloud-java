@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/balances/find?amount_from=0.00&amount_to=9999999.99&scope=own&per_page=5&order=amount&order_asc_desc=desc",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.9.1"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Fri, 30 Mar 2018 19:32:29 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "1037",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2778003612846482730",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"balances\":[{\"id\":\"26dcd57b-598d-4c5c-9347-781145d512b0\",\"account_id\":\"e277c9f9-679f-454f-8367-274b3ff977ff\",\"currency\":\"EUR\",\"amount\":\"1120002.76\",\"created_at\":\"2018-02-13T10:53:29+00:00\",\"updated_at\":\"2018-02-21T18:35:12+00:00\"},{\"id\":\"e8f8d2bf-4e40-4134-811a-371d1c10d029\",\"account_id\":\"e277c9f9-679f-454f-8367-274b3ff977ff\",\"currency\":\"USD\",\"amount\":\"1000000.00\",\"created_at\":\"2018-02-13T10:53:27+00:00\",\"updated_at\":\"2018-02-13T11:06:59+00:00\"},{\"id\":\"f0da1e07-3a0a-4eff-957f-ed19188c653a\",\"account_id\":\"e277c9f9-679f-454f-8367-274b3ff977ff\",\"currency\":\"GBP\",\"amount\":\"895256.72\",\"created_at\":\"2018-02-13T10:53:28+00:00\",\"updated_at\":\"2018-02-21T18:35:00+00:00\"},{\"id\":\"bc67539a-f983-41ee-93ee-27b2a2f3ed07\",\"account_id\":\"e277c9f9-679f-454f-8367-274b3ff977ff\",\"currency\":\"HKD\",\"amount\":\"0.00\",\"created_at\":\"2018-02-14T21:31:31+00:00\",\"updated_at\":\"2018-02-14T21:31:31+00:00\"}],\"pagination\":{\"total_entries\":4,\"total_pages\":1,\"current_page\":1,\"per_page\":5,\"previous_page\":-1,\"next_page\":-1,\"order\":\"amount\",\"order_asc_desc\":\"desc\"}}"
+  }
+}

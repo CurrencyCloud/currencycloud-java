@@ -1,0 +1,29 @@
+{
+  "request": {
+    "url": "/v2/authenticate/api",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.9.1"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalTo": "login_id=nobody%40currencycloud.com&api_key=deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+      }
+    ]
+  },
+  "response": {
+    "status": 401,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Fri, 24 Apr 2015 20:47:14 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "176",
+      "Connection": "close",
+      "X-Request-Id": "2771569303323356643",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"error_code\":\"auth_failed\",\"error_messages\":{\"username\":[{\"code\":\"invalid_supplied_credentials\",\"message\":\"Authentication failed with the supplied credentials\",\"params\":{}}]}}"
+  }
+}

@@ -1,7 +1,5 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.Balance;
 import com.currencycloud.client.model.Balances;
 import com.currencycloud.client.model.MarginBalanceTopUp;
@@ -16,9 +14,12 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
 
-public class BalancesTest extends BetamaxTestSupport {
+public class BalancesTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
@@ -32,8 +33,7 @@ public class BalancesTest extends BetamaxTestSupport {
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testRetrieveBalance() throws Exception {
+    public void testRetrieveBalance() {
         Balance balance = client.retrieveBalance("GBP");
 
         assertThat(balance, is(notNullValue()));
@@ -44,8 +44,7 @@ public class BalancesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindBalance() throws Exception {
+    public void testCanFindBalance() {
         Balance balanceCondition = Balance.create();
         balanceCondition.setAmountFrom(new BigDecimal("0.00"));
         balanceCondition.setAmountTo(new BigDecimal("9999999.99"));
@@ -77,8 +76,7 @@ public class BalancesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_top_up_margin", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanTopUpMarginBalance() throws Exception {
+    public void testCanTopUpMarginBalance() {
         final String currency = "GBP";
         final BigDecimal amount = BigDecimal.valueOf(450);
         final MarginBalanceTopUp topUp = client.topUpMarginBalance(currency, amount);

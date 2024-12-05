@@ -1,9 +1,5 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.BetamaxTestSupportClientConnectTimeout;
-import com.currencycloud.client.CurrencyCloudClient;
 import com.currencycloud.client.exception.UnexpectedException;
 import com.currencycloud.client.model.Account;
 import org.hamcrest.junit.ExpectedException;
@@ -13,9 +9,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import si.mazi.rescu.AwareException;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.instanceOf;
 
-public class AccountsWithClientConnectTimeout extends BetamaxTestSupportClientConnectTimeout {
+public class AccountsWithClientConnectTimeout extends TestSupportClientConnectTimeout {
 
     private CurrencyCloudClient client;
 
@@ -32,8 +31,7 @@ public class AccountsWithClientConnectTimeout extends BetamaxTestSupportClientCo
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanCreateAccount() throws Exception {
+    public void testCanCreateAccount() {
         expectedException.expect(UnexpectedException.class);
         expectedException.expectCause(allOf(
                 instanceOf(AwareException.class),

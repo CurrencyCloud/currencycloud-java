@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/reference/settlement_accounts?currency=GBP",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.9.1"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Wed, 29 Apr 2015 21:04:10 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "438",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2775201697959995218",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"settlement_accounts\":[{\"bank_account_holder_name\":\"The Currency Cloud GBP - Client Seg A/C\",\"beneficiary_address\":\"\",\"beneficiary_country\":\"\",\"bank_name\":\"BarclaysBank plc\",\"bank_address\":[],\"bank_country\":\"\",\"currency\":\"GBP\",\"bic_swift\":\"BARCGB22\",\"iban\":\"GB06BARC 2006 0513 0714 72\",\"account_number\":\"13071472\",\"routing_code_type_1\":\"sort_code\",\"routing_code_value_1\":\"200605\",\"routing_code_type_2\":\"\",\"routing_code_value_2\":\"\"}]}"
+  }
+}
