@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Test multiple threads attempting to access a single instance of the CurrencyCloudClient class.
  *
  */
-public class ConcurrencyTest extends BetamaxTestSupport {
+public class ConcurrencyTest extends TestSupport {
     private CurrencyCloudClient client;
     private String loginId = "development@currencycloud.com";
     private String apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
@@ -30,7 +30,7 @@ public class ConcurrencyTest extends BetamaxTestSupport {
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    public void testConcurrentAccess() throws Exception {
+    public void testConcurrentAccess() throws InterruptedException {
 
         ThreadSupport[] threads = new ThreadSupport[numThreads];
         int counter = 0;

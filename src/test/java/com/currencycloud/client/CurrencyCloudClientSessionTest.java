@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class CurrencyCloudClientSessionTest {
 
     @Test
-    public void testRaisesAnErrorIfTheEnvironmentIsNotSet() throws Exception {
+    public void testRaisesAnErrorIfTheEnvironmentIsNotSet() throws NullPointerException {
         try {
             CurrencyCloudClient client = new CurrencyCloudClient((CurrencyCloudClient.Environment) null, null, null);
             client.authenticate();
@@ -18,7 +18,7 @@ public class CurrencyCloudClientSessionTest {
     }
 
     @Test
-    public void testRaisesAnErrorIfTheLoginIdIsNotSet() throws Exception {
+    public void testRaisesAnErrorIfTheLoginIdIsNotSet() throws IllegalArgumentException {
         CurrencyCloudClient client = new CurrencyCloudClient(CurrencyCloudClient.Environment.demo, null, null);
         try {
             client.authenticate();
@@ -29,7 +29,7 @@ public class CurrencyCloudClientSessionTest {
     }
 
     @Test
-    public void testRaisesAnErrorIfTheApiKeyIsNotSet() throws Exception {
+    public void testRaisesAnErrorIfTheApiKeyIsNotSet() throws IllegalArgumentException {
         CurrencyCloudClient client = new CurrencyCloudClient(CurrencyCloudClient.Environment.demo, "development@currencycloud.com", null);
         try {
             client.authenticate();

@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/conversions/24d2ee7f-c7a3-4181-979e-9c58dbace992/split_preview?amount=1500.00",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.9.1"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Fri, 04 May 2018 20:28:29 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "620",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2778807612227406608",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"parent_conversion\":{\"id\":\"24d2ee7f-c7a3-4181-979e-9c58dbace992\",\"short_reference\":\"20180716-XMXMMS\",\"sell_amount\":\"2417.10\",\"sell_currency\":\"GBP\",\"buy_amount\":\"3000.00\",\"buy_currency\":\"EUR\",\"settlement_date\":\"2018-06-28T13:00:00+00:00\",\"conversion_date\":\"2018-06-28T00:00:00+00:00\",\"status\":\"awaiting_funds\"},\"child_conversion\":{\"id\":\"c8a323d8-7366-4bf3-b7c5-a6590e07eda3\",\"short_reference\":\"20180716-KWQYDK\",\"sell_amount\":\"1208.55\",\"sell_currency\":\"GBP\",\"buy_amount\":\"1500.00\",\"buy_currency\":\"EUR\",\"settlement_date\":\"2018-06-28T13:00:00+00:00\",\"conversion_date\":\"2018-06-28T00:00:00+00:00\",\"status\":\"awaiting_funds\"}}"
+  }
+}

@@ -1,8 +1,9 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.SenderDetails;
+import com.currencycloud.client.model.Transaction;
+import com.currencycloud.client.model.Transactions;
 import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
@@ -11,11 +12,14 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
-public class TransactionsTest extends BetamaxTestSupport {
+
+public class TransactionsTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
@@ -29,8 +33,7 @@ public class TransactionsTest extends BetamaxTestSupport {
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFind() throws Exception {
+    public void testCanFind() {
         Transactions transactionsData = client.findTransactions(null, null);
         List<Transaction> transactions = transactionsData.getTransactions();
         Transaction transaction = transactions.iterator().next();
@@ -67,8 +70,7 @@ public class TransactionsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieve() throws Exception {
+    public void testCanRetrieve() {
         Transaction transaction = client.retrieveTransaction("85280ea5-ba77-414b-af1f-18283d4f140c");
 
         assertThat(transaction.getId(), equalTo("85280ea5-ba77-414b-af1f-18283d4f140c"));
@@ -91,8 +93,7 @@ public class TransactionsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_sender_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveSenderDetails() throws Exception {
+    public void testCanRetrieveSenderDetails() {
         SenderDetails details = client.retrieveSenderDetails("e68301d3-5b04-4c1d-8f8b-13a9b8437040");
 
         assertThat(details.getId(), equalTo("e68301d3-5b04-4c1d-8f8b-13a9b8437040"));

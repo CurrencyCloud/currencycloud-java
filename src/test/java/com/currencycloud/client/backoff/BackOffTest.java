@@ -1,10 +1,14 @@
 package com.currencycloud.client.backoff;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.BetamaxTestSupport;
 import com.currencycloud.client.CurrencyCloudClient;
-import com.currencycloud.client.exception.*;
+import com.currencycloud.client.TestSupport;
+import com.currencycloud.client.exception.ApiException;
+import com.currencycloud.client.exception.AuthenticationException;
+import com.currencycloud.client.exception.BadRequestException;
+import com.currencycloud.client.exception.ForbiddenException;
+import com.currencycloud.client.exception.InternalApplicationException;
+import com.currencycloud.client.exception.NotFoundException;
+import com.currencycloud.client.exception.TooManyRequestsException;
 import com.currencycloud.client.model.Beneficiary;
 import com.currencycloud.client.model.DetailedRate;
 import com.currencycloud.client.model.ResponseException;
@@ -22,14 +26,14 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class BackOffTest extends BetamaxTestSupport {
+public class BackOffTest extends TestSupport {
 
-    private int cap = 90000;
-    private int base = 125;
-    private int attempts = 7;
-    private String loginId = "development@currencycloud.com";
-    private String apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
-    private String authToken = "deadbeefdeadbeefdeadbeefdeadbeef";
+    private final int cap = 90000;
+    private final int base = 125;
+    private final int attempts = 7;
+    private final String loginId = "development@currencycloud.com";
+    private final String apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
+    private final String authToken = "deadbeefdeadbeefdeadbeefdeadbeef";
     private CurrencyCloudClient client;
 
     @Before
@@ -125,7 +129,6 @@ public class BackOffTest extends BetamaxTestSupport {
     }
 
     @Test(expected = BadRequestException.class)
-    @Betamax(tape = "bad_request_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testStandardBadRequestException() {
         CurrencyCloudClient client = prepareTestClient("development@currencycloud.com", "deadbeef", null);
         client.authenticate();
@@ -134,7 +137,6 @@ public class BackOffTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "bad_request_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testBackOffBadRequestException() {
         CurrencyCloudClient client = prepareTestClient("development@currencycloud.com", "deadbeef", null);
         final AtomicInteger numAttempts = new AtomicInteger(0);
@@ -155,7 +157,6 @@ public class BackOffTest extends BetamaxTestSupport {
     }
 
     @Test(expected = AuthenticationException.class)
-    @Betamax(tape = "authentication_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testStandardAuthenticationException() {
         CurrencyCloudClient client = prepareTestClient("nobody@currencycloud.com", "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef", null);
         client.authenticate();
@@ -164,7 +165,6 @@ public class BackOffTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "authentication_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testBackOffAuthenticationException() {
         final AtomicInteger numAttempts = new AtomicInteger(0);
         CurrencyCloudClient client = prepareTestClient("nobody@currencycloud.com", "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef", null);
@@ -186,7 +186,6 @@ public class BackOffTest extends BetamaxTestSupport {
     }
 
     @Test(expected = ForbiddenException.class)
-    @Betamax(tape = "forbidden_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testStandardForbiddenException() {
         Transactions transactions = client.findTransactions(null, null);
 
@@ -195,7 +194,6 @@ public class BackOffTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "forbidden_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testBackOffForbiddenException() {
         final AtomicInteger numAttempts = new AtomicInteger(0);
 
@@ -217,7 +215,6 @@ public class BackOffTest extends BetamaxTestSupport {
     }
 
     @Test(expected = NotFoundException.class)
-    @Betamax(tape = "not_found_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testStandardNotFoundException() {
         Beneficiary beneficiary = client.retrieveBeneficiary("deadbeef-dead-beef-dead-beefdeadbeef");
 
@@ -226,7 +223,6 @@ public class BackOffTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "not_found_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testBackOffNotFoundException() {
         final AtomicInteger numAttempts = new AtomicInteger(0);
 
@@ -249,7 +245,6 @@ public class BackOffTest extends BetamaxTestSupport {
     }
 
     @Test(expected = TooManyRequestsException.class)
-    @Betamax(tape = "too_many_requests_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testStandardTooManyRequestsException() {
         DetailedRate detailedRate = client.detailedRates("EUR", "GBP", "buy", new BigDecimal("12345.67"), null, null);
 
@@ -258,7 +253,6 @@ public class BackOffTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "too_many_requests_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testBackOffTooManyRequestsException() {
         final AtomicInteger numAttempts = new AtomicInteger(0);
         final AtomicInteger numExceptions = new AtomicInteger(0);
@@ -283,26 +277,25 @@ public class BackOffTest extends BetamaxTestSupport {
     }
 
     @Test(expected = InternalApplicationException.class)
-    @Betamax(tape = "internal_application_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testStandardInternalApplicationException() {
-        client.authenticate();
+        final CurrencyCloudClient internalApplicationErrorClient = prepareTestClient(loginId, "internalapplicationerrorapikey", authToken);
+        internalApplicationErrorClient.authenticate();
 
-        assertThat(client.getLoginId(), equalTo("development@currencycloud.com"));
+        assertThat(internalApplicationErrorClient.getLoginId(), equalTo("development@currencycloud.com"));
     }
 
     @Test
-    @Betamax(tape = "internal_application_exception", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testBackOffInternalApplicationException() {
         final AtomicInteger numAttempts = new AtomicInteger(0);
         final AtomicInteger numExceptions = new AtomicInteger(0);
-
+        final CurrencyCloudClient internalApplicationErrorClient = prepareTestClient(loginId, "internalapplicationerrorapikey", authToken);
         final BackOffResult<Void> result = BackOff.<Void>builder()
                 .withCap(90000)
                 .withBase(125)
                 .withMaxAttempts(7)
                 .withTask(() -> {
                     numAttempts.incrementAndGet();
-                    client.authenticate();
+                    internalApplicationErrorClient.authenticate();
                     return null;
                 })
                 .withExceptionType(InternalApplicationException.class)
@@ -313,6 +306,6 @@ public class BackOffTest extends BetamaxTestSupport {
         assertThat(result.status, equalTo(BackOffResultStatus.EXCEEDED_MAX_ATTEMPTS));
         assertThat(numAttempts.get(), equalTo(8));
         assertThat(numExceptions.get(), equalTo(8));
-        assertThat(client.getLoginId(), equalTo("development@currencycloud.com"));
+        assertThat(internalApplicationErrorClient.getLoginId(), equalTo("development@currencycloud.com"));
     }
 }

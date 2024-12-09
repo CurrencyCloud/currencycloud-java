@@ -1,7 +1,5 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.Transfer;
 import com.currencycloud.client.model.Transfers;
 import org.junit.After;
@@ -11,13 +9,13 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
-public class TransfersTest extends BetamaxTestSupport {
+public class TransfersTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
@@ -33,7 +31,6 @@ public class TransfersTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanCreateTransfer()  {
         Transfer transfer = Transfer.create("a7117404-e150-11e6-a5af-080027a79e8f", "946f2d58-e150-11e6-a5af-080027a79e8f", "GBP", new BigDecimal("1250.0"));
         transfer.setReason("Client funding");
@@ -55,7 +52,6 @@ public class TransfersTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanRetrieveTransfer()  {
         Transfer transfer = client.retrieveTransfer("b0c2df71-28db-42ef-b6b7-5710f22d2115");
 
@@ -76,7 +72,6 @@ public class TransfersTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFindTransfer()  {
         Transfers transferData = client.findTransfers(null, null);
         List<Transfer> transfers = transferData.getTransfers();
@@ -93,7 +88,6 @@ public class TransfersTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_cancel", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanCancelTransfer()  {
         Transfer transfer = client.cancelTransfer("b0c2df71-28db-42ef-b6b7-5710f22d2115");
 
@@ -113,7 +107,6 @@ public class TransfersTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_create_with_unique_request_id", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanCreateTransferWithUniqueRequestId()  {
         final Transfer transferIn = Transfer.create("1034561f-aa8c-4bbe-a2c5-22fe45fbb76f",
                 "e22d8fde-9c0c-4eb0-a67e-234cf123458f",
@@ -139,7 +132,6 @@ public class TransfersTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find_with_uniques_request_id", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanFindTransferWithUniqueRequestId() {
         final Transfer transferIn = Transfer.create();
         transferIn.setUniqueRequestId("zWE9S4ff4ptXR7bp9DBazRk4");

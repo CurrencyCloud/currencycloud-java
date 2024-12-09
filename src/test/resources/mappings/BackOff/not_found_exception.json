@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/beneficiaries/deadbeef-dead-beef-dead-beefdeadbeef",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.9.1"
+      },
+      "X-Auth-Token": {
+        "matches": "deadbeefdeadbeefdeadbeefdeadbeef"
+      }
+    }
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Sat, 25 Apr 2015 11:16:53 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "159",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2772007003121723883",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"error_code\":\"beneficiary_not_found\",\"error_messages\":{\"id\":[{\"code\":\"beneficiary_not_found\",\"message\":\"Beneficiary was not found for this id\",\"params\":{}}]}}"
+  }
+}

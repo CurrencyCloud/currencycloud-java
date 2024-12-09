@@ -1,8 +1,8 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.FundingAccount;
+import com.currencycloud.client.model.FundingAccounts;
+import com.currencycloud.client.model.Pagination;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,9 +11,11 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
 
-public class FundingTest extends BetamaxTestSupport {
+public class FundingTest extends TestSupport {
     private CurrencyCloudClient client;
 
     @Before
@@ -26,8 +28,7 @@ public class FundingTest extends BetamaxTestSupport {
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "can_find_funding_account", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindFundingAccount() throws Exception {
+    public void testCanFindFundingAccount() {
         final FundingAccounts accountData = client.findFundingAccounts("GBP", null, null, null);
         final List<FundingAccount> accounts = accountData.getFundingAccounts();
         final Pagination pagination = accountData.getPagination();
@@ -59,8 +60,7 @@ public class FundingTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find_funding_account_on_behalf_of", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindFundingAccountOnBehalfOf() throws Exception {
+    public void testCanFindFundingAccountOnBehalfOf() {
         final String contact_id = "3b163e5d-2a6e-4f3d-aff8-e8fc161d3f00";
         client.onBehalfOfDo(contact_id, () -> {
             final FundingAccounts accountData = client.findFundingAccounts("EUR", null, null, null);

@@ -1,0 +1,32 @@
+{
+  "request": {
+    "url": "/v2/accounts/e277c9f9-679f-454f-8367-274b3ff977ff/payment_charges_settings/090baf6d-5cfd-4bfd-9b7b-ad3f8a310995",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.9.1"
+      },
+      "X-Auth-Token": {
+        "matches": "acad59188ce6ddb54d4043bc4efb5f57"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalTo": "enabled=false&default=true"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Fri, 23 Mar 2018 12:50:55 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "173",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2773776363343519430",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"charge_settings_id\": \"090baf6d-5cfd-4bfd-9b7b-ad3f8a310995\",\"account_id\": \"e277c9f9-679f-454f-8367-274b3ff977ff\",\"charge_type\": \"ours\",\"enabled\": false,\"default\": true}"
+  }
+}

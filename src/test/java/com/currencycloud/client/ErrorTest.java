@@ -1,38 +1,49 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.exception.*;
+import com.currencycloud.client.exception.ApiException;
+import com.currencycloud.client.exception.AuthenticationException;
+import com.currencycloud.client.exception.BadRequestException;
+import com.currencycloud.client.exception.CurrencyCloudException;
+import com.currencycloud.client.exception.ForbiddenException;
+import com.currencycloud.client.exception.InternalApplicationException;
+import com.currencycloud.client.exception.NotFoundException;
+import com.currencycloud.client.exception.TooManyRequestsException;
+import com.currencycloud.client.exception.UnexpectedException;
 import com.currencycloud.client.model.ErrorMessage;
 import org.eclipse.jetty.io.WriterOutputStream;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.anEmptyMap;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 
 @SuppressWarnings({"ThrowableResultOfMethodCallIgnored", "UnnecessaryBoxing"})
-public class ErrorTest extends BetamaxTestSupport {
+public class ErrorTest extends TestSupport {
 
     private String loginId = "development@currencycloud.com";
-    private String apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
+    private String apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbee3";
 
     @Before
     @After
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "contains_full_details_for_api_error", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testContainsFullDetailsForApiError() throws Exception {
+    public void testContainsFullDetailsForApiError() throws IOException {
         loginId = "non-existent-login-id";
-        apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
+        apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbee7";
         BadRequestException error = testFailedLogin("auth_invalid_user_login_details", 400, BadRequestException.class);
         ErrorMessage errorMessage = error.getErrors().get(0);
         assertThat(errorMessage.getField(), equalTo("api_key"));
@@ -50,8 +61,7 @@ public class ErrorTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "is_raised_on_a_bad_request", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testIsRaisedOnABadRequest() throws Exception {
+    public void testIsRaisedOnABadRequest() {
         loginId = "non-existent-login-id";
         apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
         BadRequestException error = testFailedLogin("auth_invalid_user_login_details", 400, BadRequestException.class);
@@ -64,8 +74,7 @@ public class ErrorTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "is_raised_on_incorrect_authentication_details", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testIsRaisedOnIncorrectAuthenticationDetails() throws Exception {
+    public void testIsRaisedOnIncorrectAuthenticationDetails() {
         loginId = "non-existent-login-id";
         apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
         AuthenticationException error = testFailedLogin("auth_failed", 401, AuthenticationException.class);
@@ -77,10 +86,11 @@ public class ErrorTest extends BetamaxTestSupport {
     }
 
     @Test
-    public void testIsRaisedOnUnexpectedError() throws Exception {
-        // No Betamax here. The call will fail with java.net.ConnectException
-        // because there is (hopefully) no server at localhost:5555.
-        CurrencyCloudClient client = prepareTestClient(loginId, apiKey, null);
+    public void testIsRaisedOnUnexpectedError() throws IOException{
+        // The call will fail with java.net.ConnectException
+        // because there is (hopefully) no server at localhost:5556.
+        apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
+        CurrencyCloudClient client = prepareTestClient("http://localhost:5556", loginId, apiKey, null);
         try {
             client.authenticate();
             throw new AssertionError("Should have failed");
@@ -94,8 +104,7 @@ public class ErrorTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "is_raised_on_a_forbidden_request", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testIsRaisedOnAForbiddenRequest() throws Exception {
+    public void testIsRaisedOnAForbiddenRequest() {
         ForbiddenException error = testFailedLogin("auth_failed", 403, ForbiddenException.class);
         assertThat(error.getErrorCode(), equalTo("auth_failed"));
         assertThat(error.getResponse().statusCode, equalTo(403));
@@ -109,10 +118,8 @@ public class ErrorTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "is_raised_when_a_resource_is_not_found", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testIsRaisedWhenAResourceIsNotFound() throws Exception {
+    public void testIsRaisedWhenAResourceIsNotFound() {
         CurrencyCloudClient client = prepareTestClient(loginId, apiKey, "656485646b068f6e9c81e3d885fa54f5");
-
         try {
             client.retrieveBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
             assertThat("Should fail.", false);
@@ -130,8 +137,8 @@ public class ErrorTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "is_raised_on_an_internal_server_error", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testIsRaisedOnAnInternalServerError() throws Exception {
+    public void testIsRaisedOnAnInternalServerError() {
+        apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbee6";
         InternalApplicationException error = testFailedLogin("internal_application_error", 500, InternalApplicationException.class);
         ErrorMessage errorMessage = error.getErrors().get(0);
         assertThat(errorMessage.getField(), equalTo("base"));
@@ -141,9 +148,9 @@ public class ErrorTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "is_raised_when_too_many_requests_have_been_issued", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testIsRaisedWhenTooManyRequestsHaveBeenIssued() throws Exception {
+    public void testIsRaisedWhenTooManyRequestsHaveBeenIssued() {
         loginId = "development@currencycloud.com2";
+        apiKey = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
         TooManyRequestsException error = testFailedLogin("too_many_requests", 429, TooManyRequestsException.class);
         ErrorMessage errorMessage = error.getErrors().get(0);
         assertThat(errorMessage.getField(), equalTo("base"));

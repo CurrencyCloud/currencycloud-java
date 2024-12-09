@@ -8,14 +8,19 @@ import org.junit.Test;
 import java.lang.reflect.Method;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.currencycloud.client.dirty.ReflectionUtils.*;
-import static org.hamcrest.Matchers.*;
+import static com.currencycloud.client.dirty.ReflectionUtils.getGetterFromProperty;
+import static com.currencycloud.client.dirty.ReflectionUtils.getPropertyFromSetter;
+import static com.currencycloud.client.dirty.ReflectionUtils.isSetter;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
 
 public class ReflectionUtilsTest {
 
     @Test
-    public void shouldRecognizeSetters() throws Exception {
+    public void shouldRecognizeSetters() throws NoSuchMethodException {
         assertThat(isSetter(Object.class.getMethod("toString")), equalTo(false));
         assertThat(isSetter(Account.class.getMethod("getStatus")), equalTo(false));
         assertThat(isSetter(Account.class.getMethod("setBrand", String.class)), equalTo(true));
@@ -23,7 +28,7 @@ public class ReflectionUtilsTest {
     }
 
     @Test
-    public void shouldGetPropertyFromSetterMethod() throws Exception {
+    public void shouldGetPropertyFromSetterMethod() throws NoSuchMethodException {
         assertThat(getPropertyFromSetter(Object.class.getMethod("toString")), is(nullValue()));
         assertThat(getPropertyFromSetter(Account.class.getMethod("getStatus")), is(nullValue()));
         assertThat(getPropertyFromSetter(Account.class.getMethod("setBrand", String.class)), equalTo("brand"));
@@ -31,7 +36,7 @@ public class ReflectionUtilsTest {
     }
 
     @Test
-    public void shouldReturnCorrectGetter() throws Exception {
+    public void shouldReturnCorrectGetter() throws NoSuchMethodException {
         shouldReturnCorrectGetter(Account.class, "status", "getStatus", String.class);
         shouldReturnCorrectGetter(Beneficiary.class, "defaultBeneficiary", "getDefaultBeneficiary", Boolean.class);
     }

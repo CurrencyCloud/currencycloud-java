@@ -1,0 +1,24 @@
+{
+  "request": {
+    "url": "/v2/authenticate/close_session",
+    "method": "POST",
+    "headers": {
+      "X-Auth-Token": {
+        "matches": "2ec8a86c8cf6e0378a20ca6793f3260c"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Fri, 24 Apr 2015 22:33:15 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "2",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2771622659047755249",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{}"
+  }
+}

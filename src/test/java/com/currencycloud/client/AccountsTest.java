@@ -1,21 +1,25 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Account;
+import com.currencycloud.client.model.AccountPaymentChargesSetting;
+import com.currencycloud.client.model.AccountPaymentChargesSettings;
+import com.currencycloud.client.model.Accounts;
+import com.currencycloud.client.model.Pagination;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
 
-public class AccountsTest extends BetamaxTestSupport {
+public class AccountsTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
@@ -29,8 +33,7 @@ public class AccountsTest extends BetamaxTestSupport {
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanCreateAccount() throws Exception {
+    public void testCanCreateAccount(){
         Account account = Account.create("Acme Ltd", "company", "12 Steward St", "London", "E1 6FQ", "GB");
         account.setBrand("currencycloud");
         account.setYourReference("POS-UID-23523");
@@ -70,8 +73,7 @@ public class AccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_current", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveCurrentAccount() throws Exception {
+    public void testCanRetrieveCurrentAccount(){
         Account account = client.currentAccount();
 
         assertThat(account, is(notNullValue()));
@@ -101,8 +103,7 @@ public class AccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindAccount() throws Exception {
+    public void testCanFindAccount() {
         Accounts accountData = client.findAccounts(null, null);
         List<Account> accounts = accountData.getAccounts();
         Pagination pagination = accountData.getPagination();
@@ -143,8 +144,7 @@ public class AccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveAccount() throws Exception {
+    public void testCanRetrieveAccount() {
         Account account = client.retrieveAccount("e277c9f9-679f-454f-8367-274b3ff977ff");
 
         assertThat(account, is(notNullValue()));
@@ -173,8 +173,7 @@ public class AccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_update", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanUpdateAccount() throws Exception {
+    public void testCanUpdateAccount() {
         Account accountCondition = Account.create();
         accountCondition.setId("e277c9f9-679f-454f-8367-274b3ff977ff");
         accountCondition.setYourReference("CCY-863032");
@@ -207,8 +206,7 @@ public class AccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_accounts_payment_charge_settings", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveAccountsPaymentChargeSettings() throws Exception {
+    public void testCanRetrieveAccountsPaymentChargeSettings() {
         final AccountPaymentChargesSettings accountChargeSettings = client.retrieveAccountsPaymentChargeSettings("e277c9f9-679f-454f-8367-274b3ff977ff");
         assertThat(accountChargeSettings, is(notNullValue()));
         assertThat(accountChargeSettings.getPaymentChargesSettings(), is(notNullValue()));
@@ -230,8 +228,7 @@ public class AccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_update_accounts_payment_charge_settings", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanUpdateAccountsPaymentChargeSettings() throws Exception {
+    public void testCanUpdateAccountsPaymentChargeSettings() {
         final AccountPaymentChargesSetting setting = new  AccountPaymentChargesSetting();
         setting.setAccountId("e277c9f9-679f-454f-8367-274b3ff977ff");
         setting.setChargeSettingsId("090baf6d-5cfd-4bfd-9b7b-ad3f8a310995");
@@ -249,8 +246,7 @@ public class AccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find_verified_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindVerifiedAccount() throws Exception {
+    public void testCanFindVerifiedAccount() {
         Account account = Account.create();
         account.setBankAccountVerified("yes");
         Pagination pagination = Pagination.builder().pages(1, 2).build();

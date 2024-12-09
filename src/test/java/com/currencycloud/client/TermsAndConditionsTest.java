@@ -1,18 +1,14 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.TermsAndConditionsAcceptance;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.UUID;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class TermsAndConditionsTest extends BetamaxTestSupport {
+public class TermsAndConditionsTest extends TestSupport {
   private CurrencyCloudClient client;
 
   @Before
@@ -25,7 +21,6 @@ public class TermsAndConditionsTest extends BetamaxTestSupport {
   public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
   @Test
-  @Betamax(tape = "can_accept", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
   public void testAccept(){
     TermsAndConditionsAcceptance acceptance = client.acceptTermsAndConditions("VGSI",
             "1.0",
