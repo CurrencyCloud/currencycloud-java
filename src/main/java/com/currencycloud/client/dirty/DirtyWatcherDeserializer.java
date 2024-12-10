@@ -2,7 +2,7 @@ package com.currencycloud.client.dirty;
 
 import com.currencycloud.client.model.Entity;
 import com.fasterxml.jackson.databind.util.StdConverter;
-import net.sf.cglib.proxy.Enhancer;
+import org.springframework.cglib.proxy.Enhancer;
 
 public abstract class DirtyWatcherDeserializer<E extends Entity> extends StdConverter<E, E> {
 
