@@ -1,13 +1,16 @@
 package com.currencycloud.client.dirty;
 
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
 
+import net.bytebuddy.implementation.bind.annotation.AllArguments;
+import net.bytebuddy.implementation.bind.annotation.Origin;
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import net.bytebuddy.implementation.bind.annotation.SuperMethod;
+import net.bytebuddy.implementation.bind.annotation.This;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModifiedValueProvider implements MethodInterceptor {
+public class ModifiedValueProvider {
 
     private Map<String, Object> properties = new HashMap<>();
 
@@ -15,11 +18,12 @@ public class ModifiedValueProvider implements MethodInterceptor {
         this.properties = properties;
     }
 
-    public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+    @RuntimeType
+    public Object intercept(@This Object obj, @Origin Method method, @AllArguments Object[] args, @SuperMethod Method proxy) throws Throwable {
         if (ReflectionUtils.isGetter(method)) {
             return properties.get(ReflectionUtils.getPropertyFromGetter(method));
         } else {
-            return proxy.invokeSuper(obj, args);
+            return proxy.invoke(obj, args);
         }
     }
 }
