@@ -7,7 +7,6 @@ import com.currencycloud.client.model.Beneficiary;
 import com.currencycloud.client.model.Entity;
 import org.junit.Test;
 
-<<<<<<< HEAD
 import java.lang.reflect.Field;
 
 import static org.hamcrest.Matchers.equalTo;
