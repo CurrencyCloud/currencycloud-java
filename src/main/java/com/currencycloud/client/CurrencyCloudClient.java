@@ -4,13 +4,76 @@ import com.currencycloud.client.dirty.ModificationTracker;
 import com.currencycloud.client.dirty.ModifiedValueProvider;
 import com.currencycloud.client.exception.CurrencyCloudException;
 import com.currencycloud.client.exception.UnexpectedException;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Account;
+import com.currencycloud.client.model.AccountPaymentChargesSetting;
+import com.currencycloud.client.model.AccountPaymentChargesSettings;
+import com.currencycloud.client.model.Accounts;
+import com.currencycloud.client.model.Balance;
+import com.currencycloud.client.model.Balances;
+import com.currencycloud.client.model.BankDetails;
+import com.currencycloud.client.model.Beneficiaries;
+import com.currencycloud.client.model.Beneficiary;
+import com.currencycloud.client.model.BeneficiaryAccountVerification;
+import com.currencycloud.client.model.BeneficiaryAccountVerificationRequest;
+import com.currencycloud.client.model.Contact;
+import com.currencycloud.client.model.Contacts;
+import com.currencycloud.client.model.Conversion;
+import com.currencycloud.client.model.ConversionCancellation;
+import com.currencycloud.client.model.ConversionCancellationQuote;
+import com.currencycloud.client.model.ConversionDateChange;
+import com.currencycloud.client.model.ConversionDateChangeDetails;
+import com.currencycloud.client.model.ConversionDates;
+import com.currencycloud.client.model.ConversionProfitAndLoss;
+import com.currencycloud.client.model.ConversionProfitAndLosses;
+import com.currencycloud.client.model.ConversionReport;
+import com.currencycloud.client.model.ConversionSplit;
+import com.currencycloud.client.model.ConversionSplitHistory;
+import com.currencycloud.client.model.Conversions;
 import com.currencycloud.client.model.Currency;
+import com.currencycloud.client.model.DetailedRate;
+import com.currencycloud.client.model.Entity;
+import com.currencycloud.client.model.FundingAccounts;
+import com.currencycloud.client.model.Iban;
+import com.currencycloud.client.model.Ibans;
+import com.currencycloud.client.model.MarginBalanceTopUp;
+import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.Payer;
+import com.currencycloud.client.model.PayerRequiredDetail;
+import com.currencycloud.client.model.Payment;
+import com.currencycloud.client.model.PaymentAuthorisations;
+import com.currencycloud.client.model.PaymentConfirmation;
+import com.currencycloud.client.model.PaymentDates;
+import com.currencycloud.client.model.PaymentDeliveryDate;
+import com.currencycloud.client.model.PaymentFeeAssignment;
+import com.currencycloud.client.model.PaymentFeeRule;
+import com.currencycloud.client.model.PaymentFeeUnassignment;
+import com.currencycloud.client.model.PaymentFees;
+import com.currencycloud.client.model.PaymentPurposeCode;
+import com.currencycloud.client.model.PaymentReport;
+import com.currencycloud.client.model.PaymentSubmission;
+import com.currencycloud.client.model.PaymentTrackingInfo;
+import com.currencycloud.client.model.PaymentValidationResult;
+import com.currencycloud.client.model.Payments;
+import com.currencycloud.client.model.QuotePaymentFee;
+import com.currencycloud.client.model.Rates;
+import com.currencycloud.client.model.ReportRequest;
+import com.currencycloud.client.model.ReportRequests;
+import com.currencycloud.client.model.ResponseException;
+import com.currencycloud.client.model.SenderDetails;
+import com.currencycloud.client.model.SettlementAccount;
+import com.currencycloud.client.model.TermsAndConditionsAcceptance;
+import com.currencycloud.client.model.Transaction;
+import com.currencycloud.client.model.Transactions;
+import com.currencycloud.client.model.Transfer;
+import com.currencycloud.client.model.Transfers;
+import com.currencycloud.client.model.VirtualAccount;
+import com.currencycloud.client.model.VirtualAccounts;
+import com.currencycloud.client.model.WithdrawalAccountFunds;
+import com.currencycloud.client.model.WithdrawalAccounts;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.sf.cglib.proxy.Callback;
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.Factory;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.MethodDelegation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import si.mazi.rescu.ClientConfig;
@@ -19,9 +82,16 @@ import si.mazi.rescu.serialization.jackson.DefaultJacksonObjectMapperFactory;
 import si.mazi.rescu.serialization.jackson.JacksonObjectMapperFactory;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
+
+import static net.bytebuddy.matcher.ElementMatchers.any;
 
 /**
  * This is the high-lever entry point to the Currency Cloud API. It provides access to the HTTP API while providing
@@ -1535,17 +1605,15 @@ public class CurrencyCloudClient {
    */
   @Nullable
   private static Map<String, Object> getDirtyProperties(Object updated) {
-    if (updated instanceof Factory) {
-      Factory proxy = (Factory) updated;
-      for (Callback callback : proxy.getCallbacks()) {
-        if (callback instanceof ModificationTracker) {
-          ModificationTracker ModificationTracker = (ModificationTracker) callback;
-          return ModificationTracker.getDirtyProperties();
-        }
-      }
+    try {
+      Field field = updated.getClass().getField("modificationTracker");
+      ModificationTracker modificationTracker = (ModificationTracker) field.get(updated);
+      return modificationTracker.getDirtyProperties();
+    }catch (ReflectiveOperationException reflectiveOperationException){
+      //ModificationTracker not attached to updated entity
+      log.warn("Can't check if the object is dirty because it was not obtained from the client: {}", updated);
+      return null;
     }
-    log.warn("Can't check if the object is dirty because it was not obtained from the client: {}", updated);
-    return null;
   }
 
   /**
@@ -1565,10 +1633,21 @@ public class CurrencyCloudClient {
         }
         values = new HashMap<>(values);
         values.put("id", entity.getId());
-        Enhancer enhancer = new Enhancer();
-        enhancer.setSuperclass(entityClass);
-        enhancer.setCallback(new ModifiedValueProvider(values));
-        return (E) enhancer.create();
+
+        try {
+          return new ByteBuddy()
+                  .subclass(entityClass)
+                  .method(any())
+                  .intercept(MethodDelegation.to(new ModifiedValueProvider(values)))
+                  .make()
+                  .load(entityClass.getClassLoader())
+                          .getLoaded()
+                          .getDeclaredConstructor()
+                          .newInstance();
+        }catch (ReflectiveOperationException reflectiveOperationExceptiontion){
+          log.error("Unable to create proxy for {}", entityClass.getSimpleName());
+          log.error(reflectiveOperationExceptiontion.getMessage(), reflectiveOperationExceptiontion);
+        }
       }
     }
     return entity;

@@ -12,9 +12,8 @@ CurrencyCloud-Java is a Maven project. We highly recommend using [Apache Maven][
 to build your project. While using Maven is not strictly required 
 it will simplify building the project and handling dependencies.
 
-### 2. Oracle JDK 8 or 11 (or equivalent JDK)
+### 2. JDK 8, 11, 17, 21 or 23
 CurrencyCloud-Java requires at least a Java version 8 compatible JDK.
-Note that it does not fully support JDK 17, however, 17 may be used by applying the workaround described in this [issue](https://github.com/CurrencyCloud/currencycloud-java/issues/148)
 
 ### 3. A valid sandbox login id and api key on the Currencycloud sandbox API environment.
 You can register for a demo API key at [developer.currencycloud.com][developer].

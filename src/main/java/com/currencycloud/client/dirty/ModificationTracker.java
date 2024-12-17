@@ -1,14 +1,17 @@
 package com.currencycloud.client.dirty;
 
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.bytebuddy.implementation.bind.annotation.AllArguments;
+import net.bytebuddy.implementation.bind.annotation.Origin;
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import net.bytebuddy.implementation.bind.annotation.SuperMethod;
+import net.bytebuddy.implementation.bind.annotation.This;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class ModificationTracker implements MethodInterceptor {
+public class ModificationTracker {
 
     private final Object watched;
     private Map<String, Object> dirtyProperties = new HashMap<>();
@@ -21,7 +24,8 @@ public class ModificationTracker implements MethodInterceptor {
         this.watched = watched;
     }
 
-    public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+    @RuntimeType
+    public Object intercept(@This Object obj, @Origin Method method, @AllArguments Object[] args, @SuperMethod Method proxy) throws Throwable {
         String property = ReflectionUtils.getPropertyFromSetter(method);
         if (property != null) {
             Method getter;

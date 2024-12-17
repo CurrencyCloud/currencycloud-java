@@ -4,12 +4,18 @@ import com.currencycloud.client.CurrencyCloudClient;
 import com.currencycloud.client.TestSupport;
 import com.currencycloud.client.model.Beneficiaries;
 import com.currencycloud.client.model.Beneficiary;
+import com.currencycloud.client.model.Entity;
 import org.junit.Test;
+
+import java.lang.reflect.Field;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 
 public class UpdateTest extends TestSupport {
 
@@ -58,5 +64,29 @@ public class UpdateTest extends TestSupport {
         beneficiary.setCurrency("GBP"); // doesn't change
 
         client.updateBeneficiary(beneficiary); // No matching request in the json
+    }
+
+    @Test
+    public void givenEntityIsRetrievedFromClientTheModificationTrackerShouldBeAvailable() throws ReflectiveOperationException {
+        CurrencyCloudClient client = prepareTestClient(null, null, "e5070d4a16c5ffe4ed9fb268a2a716be");
+        Beneficiaries beneficiaries = client.findBeneficiaries(null, null);
+        Beneficiary beneficiary = beneficiaries.getBeneficiaries().get(0);
+        ModificationTracker modificationTracker = getProxiedModificationTracker(beneficiary);
+        assertNotNull("Modification can be retrieved from entity", modificationTracker);
+        assertEquals("No updated fields so modification tracker size will be 0", 0, modificationTracker.getDirtyProperties().size());
+        beneficiary.setCurrency("USD"); //Make a modification
+        assertEquals("Updated field so modification tracker size will be 1", 1, modificationTracker.getDirtyProperties().size());
+        assertEquals("Currency update is held in modification tracker", "USD", modificationTracker.getDirtyProperties().get("currency"));
+    }
+
+    @Test
+    public void givenEntityIsNotRetrievedFromClientModificationTrackingShouldNotBeAccessible() {
+        Beneficiary beneficiary = Beneficiary.create();
+        assertThrows(NoSuchFieldException.class, () -> getProxiedModificationTracker(beneficiary));
+    }
+
+    private ModificationTracker getProxiedModificationTracker(Entity entity) throws ReflectiveOperationException {
+        Field field = entity.getClass().getField("modificationTracker");
+        return (ModificationTracker) field.get(entity);
     }
 }
