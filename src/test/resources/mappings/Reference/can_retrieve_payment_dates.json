@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/reference/payment_dates?currency=GBP",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.10.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Fri, 13 Jan 2017 17:25:08 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2775201681275056976",
+      "Content-Length": "845",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"invalid_payment_dates\":{\"2017-01-14\":\"No trading on Saturday\",\"2017-01-15\":\"No trading on Sunday\",\"2017-01-21\":\"No trading on Saturday\",\"2017-01-22\":\"No trading on Sunday\",\"2017-01-28\":\"No trading on Saturday\",\"2017-01-29\":\"No trading on Sunday\",\"2017-02-04\":\"No trading on Saturday\",\"2017-02-05\":\"No trading on Sunday\",\"2017-02-11\":\"No trading on Saturday\",\"2017-02-12\":\"No trading on Sunday\",\"2017-02-18\":\"No trading on Saturday\",\"2017-02-19\":\"No trading on Sunday\",\"2017-02-25\":\"No trading on Saturday\",\"2017-02-26\":\"No trading on Sunday\",\"2017-03-04\":\"No trading on Saturday\",\"2017-03-05\":\"No trading on Sunday\",\"2017-03-11\":\"No trading on Saturday\",\"2017-03-12\":\"No trading on Sunday\"},\"first_payment_date\":\"2017-01-16\"}"
+  }
+}

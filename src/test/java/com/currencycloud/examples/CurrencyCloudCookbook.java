@@ -4,10 +4,17 @@ import com.currencycloud.client.CurrencyCloudClient;
 import com.currencycloud.client.backoff.BackOff;
 import com.currencycloud.client.backoff.BackOffResult;
 import com.currencycloud.client.exception.CurrencyCloudException;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Beneficiary;
+import com.currencycloud.client.model.Conversion;
+import com.currencycloud.client.model.DetailedRate;
+import com.currencycloud.client.model.Payer;
+import com.currencycloud.client.model.Payment;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is a Java SDK implementation of the examples in the
@@ -25,7 +32,7 @@ import java.util.*;
  */
 public class CurrencyCloudCookbook {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         // Please provide your login id and api key here to run this example.
         runCookBook("development@currencycloud.com", "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef");
     }

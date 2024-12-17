@@ -1,0 +1,26 @@
+{
+  "request": {
+    "url": "/v2/transfers/b0c2df71-28db-42ef-b6b7-5710f22d2115/cancel",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.10.0"
+      },
+      "X-Auth-Token": {
+        "matches": "334cbfdb9ba9bfb6ffd499b0c6af6b12"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "cloudflare",
+      "Date": "Mon, 05 Jul 2021 15:59:58 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Connection": "keep-alive",
+      "X-Request-Id": "b5431877-ec69-4554-b89f-a984e3a3ce19",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"id\":\"b0c2df71-28db-42ef-b6b7-5710f22d2115\",\"short_reference\":\"BT-20180101-YRSYGK\",\"source_account_id\":\"1bd29e41-f019-0133-ed7e-0022194273c7\",\"destination_account_id\":\"d9c34271-b7a6-0133-9fe2-0022194273c7\",\"currency\":\"EUR\",\"amount\":\"123.45\",\"status\":\"completed\",\"created_at\":\"2018-01-01T12:34:56+00:00\",\"updated_at\":\"2018-01-01T12:34:56+00:00\",\"completed_at\":\"2018-01-01T12:34:56+00:00\",\"creator_account_id\":\"2090939e-b2f7-3f2b-1363-4d235b3f58af\",\"creator_contact_id\":\"8a98ebac-6f88-e205-a685-4d235b1b088b\",\"reason\":\"Test\"}"
+  }
+}

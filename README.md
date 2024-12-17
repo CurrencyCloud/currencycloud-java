@@ -215,7 +215,7 @@ Test cases can be run with `mvn test`
 
 ## Dependencies
 ```
-co.freeside:betamax:jar:1.1.2:test
+com.github.tomakehurst:wiremock-jre8:test
 org.codehaus.groovy:groovy-all:jar:2.4.21:test
 commons-lang:commons-lang:jar:2.4:test
 org.eclipse.jetty:jetty-util:jar:7.3.1.v20110307:test
@@ -359,7 +359,7 @@ We actively support the latest version of the SDK. We support the immediate prev
 
 # Security Consideration
 1. Authentication
-    1. All data under [this folder](src/test/resources/betamax/tapes) provide and return dummy credentials to verify that authentication workflows behave as expected.
+    1. All data under [this folder](src/test/resources/mappings) provide and return dummy credentials to verify that authentication workflows behave as expected.
 
 # Copyright
 Copyright (c) 2015-2019 Currencycloud. See [LICENSE][license] for details.

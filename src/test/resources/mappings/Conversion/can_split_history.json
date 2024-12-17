@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/conversions/24d2ee7f-c7a3-4181-979e-9c58dbace992/cancellation_quote",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.10.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Mon, 07 May 2018 09:12:03 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "81",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2778807612227406608",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"amount\":\"-2.51\",\"currency\":\"USD\",\"event_date_time\":\"2018-07-11T16:37:48+00:00\"}"
+  }
+}

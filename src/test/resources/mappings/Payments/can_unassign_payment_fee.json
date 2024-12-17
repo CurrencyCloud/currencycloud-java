@@ -1,0 +1,32 @@
+{
+  "request": {
+    "url": "/v2/payments/unassign_payment_fee",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.10.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalTo": "account_id=eb118dc0-862c-012f-8648-24003ab3f236"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Mon, 15 Feb 2021 14:06:44 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "852",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2778807612227406608",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"account_id\":\"eb118dc0-862c-012f-8648-24003ab3f236\"}"
+  }
+}

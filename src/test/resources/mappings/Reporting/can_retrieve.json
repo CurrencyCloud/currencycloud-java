@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/reports/report_requests/de5c215d-93e2-4b24-bdc8-bffbcd80c60f",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.10.0"
+      },
+      "X-Auth-Token": {
+        "matches": "334cbfdb9ba9bfb6ffd499b0c6af6b12"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Mon, 01 Jan 2018 12:34:56 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "675",
+      "Connection": "keep-alive",
+      "X-Request-Id": "3533986674859068810",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"short_reference\":\"RP-3934236-BZCXEW\",\"contact_id\":\"590cea0d-0daa-48dc-882b-049107c1471f\",\"description\":\"Conversion test report\",\"report_url\":\"https://ccycloud-reports.example.com/011c4d705a1cf358c7ff8511f727a40784bdb078c3987bcce972d8ca76ecb505\",\"search_params\":{\"buy_currency\":\"CAD\",\"sell_currency\":\"GBP\",\"unique_request_id\":\"46aca410-ce74-4303-8f79-e0e95cfd9262\",\"scope\":\"own\"},\"report_type\":\"conversion\",\"account_id\":\"e277c9f9-679f-454f-8367-274b3ff977ff\",\"created_at\":\"2018-01-01T12:34:56+00:00\",\"failure_reason\":null,\"id\":\"de5c215d-93e2-4b24-bdc8-bffbcd80c60f\",\"status\":\"completed\",\"expiration_date\":\"2018-01-31T00:00:00+00:00\",\"updated_at\":\"2018-01-01T12:34:56+00:00\"}"
+  }
+}

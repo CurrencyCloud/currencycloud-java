@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/reference/currencies",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.10.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Wed, 29 Apr 2015 21:04:08 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2775201683481262929",
+      "Content-Length": "3790",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"currencies\":[{\"code\":\"AED\",\"decimal_places\":2,\"name\":\"United Arab Emirates Dirham\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"AUD\",\"decimal_places\":2,\"name\":\"Australian Dollar\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"BGN\",\"decimal_places\":2,\"name\":\"Bulgarian Lev\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"BHD\",\"decimal_places\":2,\"name\":\"Bahraini Dinar\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"CAD\",\"decimal_places\":2,\"name\":\"Canadian Dollar\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"CHF\",\"decimal_places\":2,\"name\":\"Swiss Franc\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"CNY\",\"decimal_places\":2,\"name\":\"Chinese Yuan\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"CZK\",\"decimal_places\":2,\"name\":\"Czech Koruna\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"DKK\",\"decimal_places\":2,\"name\":\"Danish Krone\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"EUR\",\"decimal_places\":2,\"name\":\"Euro\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"GBP\",\"decimal_places\":2,\"name\":\"British Pound\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"HKD\",\"decimal_places\":2,\"name\":\"Hong Kong Dollar\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"HRK\",\"decimal_places\":2,\"name\":\"Croatian Kuna\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"HUF\",\"decimal_places\":2,\"name\":\"Hungarian Forint\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"ILS\",\"decimal_places\":2,\"name\":\"Israeli New Sheqel\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"INR\",\"decimal_places\":2,\"name\":\"Indian Rupee\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":false},{\"code\":\"JPY\",\"decimal_places\":0,\"name\":\"Japanese Yen\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"KES\",\"decimal_places\":2,\"name\":\"Kenyan Shilling\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"KWD\",\"decimal_places\":2,\"name\":\"Kuwaiti Dinar\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"MXN\",\"decimal_places\":2,\"name\":\"Mexican Peso\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":false},{\"code\":\"NOK\",\"decimal_places\":2,\"name\":\"Norwegian Krone\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"NZD\",\"decimal_places\":2,\"name\":\"New Zealand Dollar\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"OMR\",\"decimal_places\":2,\"name\":\"Omani Rial\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"PLN\",\"decimal_places\":2,\"name\":\"Polish Zloty\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"QAR\",\"decimal_places\":2,\"name\":\"Qatari Rial\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"RON\",\"decimal_places\":2,\"name\":\"Romanian New Leu\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"SAR\",\"decimal_places\":2,\"name\":\"Saudi Riyal\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"SEK\",\"decimal_places\":2,\"name\":\"Swedish Krona\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"SGD\",\"decimal_places\":2,\"name\":\"Singapore Dollar\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"THB\",\"decimal_places\":2,\"name\":\"Thai Baht\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"TRY\",\"decimal_places\":2,\"name\":\"Turkish Lira\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"UGX\",\"decimal_places\":0,\"name\":\"Ugandan Shilling\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"USD\",\"decimal_places\":2,\"name\":\"United States Dollar\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true},{\"code\":\"ZAR\",\"decimal_places\":2,\"name\":\"South African Rand\",\"online_trading\":true,\"can_buy\":true,\"can_sell\":true}]}"
+  }
+}

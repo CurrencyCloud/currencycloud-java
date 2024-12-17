@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/reference/conversion_dates?conversion_pair=USDGBP",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.10.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Mon, 17 Nov 2020 16:41:11 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Connection": "keep-alive",
+      "X-Request-Id": "bd629c47-20ca-441b-a43f-b76b24257ac5",
+      "Content-Length": "1390",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"first_conversion_cutoff_datetime\": \"2020-11-18T15:50:00+00:00\",\"first_conversion_date\": \"2020-11-18\",\"next_day_conversion_date\": \"2020-11-19\",\"default_conversion_date\": \"2020-11-20\",\"optimize_liquidity_conversion_date\": \"2020-11-23\",\"next_day_conversion_date\": \"2020-11-18\",\"invalid_conversion_dates\": {\"2020-11-21\": \"No trading on Saturday\",\"2020-11-22\": \"No trading on Sunday\",\"2020-11-28\": \"No trading on Saturday\",\"2020-11-29\": \"No trading on Sunday\",\"2020-12-05\": \"No trading on Saturday\",\"2020-12-06\": \"No trading on Sunday\",\"2020-12-12\": \"No trading on Saturday\",\"2020-12-13\": \"No trading on Sunday\",\"2020-12-19\": \"No trading on Saturday\",\"2020-12-20\": \"No trading on Sunday\",\"2020-12-25\": \"Christmas Day\",\"2020-12-26\": \"No trading on Saturday\",\"2020-12-27\": \"No trading on Sunday\",\"2020-12-28\": \"Boxing Day OBS\",\"2021-01-01\": \"New Year''s Day\",\"2021-01-02\": \"No trading on Saturday\",\"2021-01-03\": \"No trading on Sunday\"},\"offline_conversion_dates\": [\"2020-11-23\"]}"
+  }
+}

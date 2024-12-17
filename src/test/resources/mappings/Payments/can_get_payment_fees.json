@@ -1,0 +1,26 @@
+{
+  "request": {
+    "url": "/v2/payments/payment_fees",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.10.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Wed, 29 Apr 2015 21:04:08 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2775201676418056015",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"payment_fees\": [{\"id\": \"e7e1b6e5-c596-4ad1-b8d4-a7035185143a\",\"name\": \"Fee Table CAD  5 - 10 - 15\",\"currency\": \"CAD\",\"regular_amount\": \"5.00\",\"priority_shared_amount\": \"10.00\",\"priority_ours_amount\": \"15.00\",\"owner_account_id\": \"092ad4ee-6eb7-11eb-9439-0242ac130002\"},{\"id\": \"029e1771-8de7-4ab0-9c19-c14b325c0c9e\",\"name\": \"Fee Table USD  2 - 4 - 12\",\"currency\": \"USD\",\"regular_amount\": \"2.00\",\"priority_shared_amount\": \"4.00\",\"priority_ours_amount\": \"12.00\",\"owner_account_id\": null},{\"id\": \"7c17b546-0435-45f0-9c17-3a4e0f2d3e84\",\"name\": \"Fee Table EUR 10 - 20 - 30\",\"currency\": \"EUR\",\"regular_amount\": \"10.00\",\"priority_shared_amount\": \"20.00\",\"priority_ours_amount\": \"30.00\",\"owner_account_id\": null},{\"id\": \"1b1c8459-4bca-44a0-a50b-7615423f39da\",\"name\": \"Fee Table GBP 5 - 10 -15\",\"currency\": \"GBP\",\"regular_amount\": \"5.00\",\"priority_shared_amount\": \"10.00\",\"priority_ours_amount\": \"15.00\",\"owner_account_id\": null}],\"pagination\": {\"total_entries\": 4,\"total_pages\": 1,\"current_page\": 1,\"per_page\": 25,\"previous_page\": -1,\"next_page\": -1,\"order\": \"created_at\",\"order_asc_desc\": \"asc\"}}"
+  }
+}

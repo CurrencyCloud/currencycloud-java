@@ -1,7 +1,5 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
 import com.currencycloud.client.model.DetailedRate;
 import com.currencycloud.client.model.Rate;
 import com.currencycloud.client.model.Rates;
@@ -14,18 +12,21 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 
-public class RatesTest extends BetamaxTestSupport {
+public class RatesTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
     @Before
     public void prepareClient() {
-        client = prepareTestClient(null, null, "6f5f99d1b860fc47e8a186e3dce0d3f9");
+        client = prepareTestClient(null, null, "242993ca94b9d1c6c1d8f7d3275a6f36");
     }
 
     @Before
@@ -33,8 +34,7 @@ public class RatesTest extends BetamaxTestSupport {
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindRates() throws Exception {
+    public void testCanFindRates() {
         Rates rates = client.findRates(Arrays.asList("GBPUSD", "EURGBP"), null);
 
         assertThat(rates, not(nullValue()));
@@ -58,8 +58,7 @@ public class RatesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_provided_detailed_rate", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanProvidedDetailedRate() throws Exception {
+    public void testCanProvidedDetailedRate() {
         DetailedRate detailedRate = client.detailedRates("GBP", "USD", "buy", new BigDecimal("10000"), null, null);
 
         assertThat(detailedRate.getClientSellAmount(), equalTo(new BigDecimal("15234.00")));
@@ -67,8 +66,7 @@ public class RatesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_provided_detailed_rate_conversion_date_preference", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanProvidedDetailedRateWithConversionDatePreference() throws Exception {
+    public void testCanProvidedDetailedRateWithConversionDatePreference() {
         DetailedRate detailedRate = client.detailedRates("GBP", "USD", "buy", new BigDecimal("10000"), null, "optimize_liquidity");
 
         assertThat(detailedRate.getClientSellAmount(), equalTo(new BigDecimal("14081.00")));

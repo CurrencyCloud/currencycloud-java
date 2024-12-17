@@ -1,21 +1,33 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import co.freeside.betamax.TapeMode;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Conversion;
+import com.currencycloud.client.model.ConversionCancellation;
+import com.currencycloud.client.model.ConversionCancellationQuote;
+import com.currencycloud.client.model.ConversionDateChange;
+import com.currencycloud.client.model.ConversionDateChangeDetails;
+import com.currencycloud.client.model.ConversionProfitAndLoss;
+import com.currencycloud.client.model.ConversionProfitAndLosses;
+import com.currencycloud.client.model.ConversionSplit;
+import com.currencycloud.client.model.ConversionSplitHistory;
+import com.currencycloud.client.model.Pagination;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 
-public class ConversionTest extends BetamaxTestSupport {
+
+public class ConversionTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
@@ -31,8 +43,7 @@ public class ConversionTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_quote_cancel", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanQuoteCancel() throws Exception {
+    public void testCanQuoteCancel() {
         Conversion conversion = Conversion.create();
         conversion.setBuyCurrency("GBP");
         conversion.setSellCurrency("USD");
@@ -51,8 +62,7 @@ public class ConversionTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(mode = TapeMode.READ_ONLY, tape = "can_cancel_conversion", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanCancelConversion() throws Exception {
+    public void testCanCancelConversion() {
         Conversion conversion = Conversion.create();
         conversion.setBuyCurrency("GBP");
         conversion.setSellCurrency("USD");
@@ -74,8 +84,7 @@ public class ConversionTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_quote_date_change", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanQuoteDateChange() throws Exception {
+    public void testCanQuoteDateChange() throws ParseException {
         ConversionDateChange conversionDateChange = ConversionDateChange.create(
                 "24d2ee7f-c7a3-4181-979e-9c58dbace992",
                 new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX").parse("2018-05-08T17:00:00+00:00")
@@ -89,8 +98,7 @@ public class ConversionTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_date_change", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanDateChange() throws Exception {
+    public void testCanDateChange() throws ParseException {
         ConversionDateChange conversionDateChange = ConversionDateChange.create(
                 "24d2ee7f-c7a3-4181-979e-9c58dbace992",
                 new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX").parse("2018-05-08T17:00:00+00:00")
@@ -104,8 +112,7 @@ public class ConversionTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_date_change_history", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanDateChangeHistory() throws Exception {
+    public void testCanDateChangeHistory() {
         ConversionDateChangeDetails dateChange = ConversionDateChangeDetails.create("24d2ee7f-c7a3-4181-979e-9c58dbace992");
         ConversionDateChangeDetails conversionDateChangeDetails = client.changeDateDetailsConversion(dateChange);
         assertThat(conversionDateChangeDetails.getFloatingCurrency(), equalTo("USD"));
@@ -132,8 +139,7 @@ public class ConversionTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_preview_split", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanPreviewSplit() throws Exception {
+    public void testCanPreviewSplit() {
         ConversionSplit conversion = ConversionSplit.create("24d2ee7f-c7a3-4181-979e-9c58dbace992", new BigDecimal("1500.00"));
         ConversionSplit splitPreview = client.previewSplitConversion(conversion);
         assertThat(splitPreview.getParentConversion().getId(), equalTo("24d2ee7f-c7a3-4181-979e-9c58dbace992"));
@@ -157,8 +163,7 @@ public class ConversionTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_split", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanSplit() throws Exception {
+    public void testCanSplit() {
         ConversionSplit conversion = ConversionSplit.create("24d2ee7f-c7a3-4181-979e-9c58dbace992", new BigDecimal("1500.00"));
         ConversionSplit conversionSplit = client.splitConversion(conversion);
         assertThat(conversionSplit.getParentConversion().getId(), equalTo("24d2ee7f-c7a3-4181-979e-9c58dbace992"));
@@ -182,8 +187,7 @@ public class ConversionTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_split_history", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanSplitDetails() throws Exception {
+    public void testCanSplitDetails() {
         ConversionSplitHistory conversion = ConversionSplitHistory.create("24d2ee7f-c7a3-4181-979e-9c58dbace992");
         ConversionSplitHistory conversionSplitHistory = client.historySplitConversion(conversion);
         assertThat(conversionSplitHistory.getParentConversion().getId(), equalTo("24d2ee7f-c7a3-4181-979e-9c58dbace992"));
@@ -226,8 +230,7 @@ public class ConversionTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_profit_and_losses", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveConversionProfitAndLosses() throws Exception {
+    public void testCanRetrieveConversionProfitAndLosses() {
         ConversionProfitAndLosses profitAndLossesData = client.retrieveProfitAndLossConversion(null, null);
         List<ConversionProfitAndLoss> profitAndLosses = profitAndLossesData.getConversionProfitAndLosses();
         Pagination pagination = profitAndLossesData.getPagination();
@@ -255,8 +258,7 @@ public class ConversionTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_create_conversion_with_conversion_date_preference", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanCreateConversionWithCOnversionDatePreference() throws Exception {
+    public void testCanCreateConversionWithConversionDatePreference() {
         final Conversion conversion = Conversion.create("EUR",
                 "GBP",
                 "buy",

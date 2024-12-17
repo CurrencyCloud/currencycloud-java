@@ -1,0 +1,26 @@
+{
+  "request": {
+    "url": "/v2/reference/payment_fee_rules?charge_type=ours",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.10.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Wed, 29 Apr 2015 21:04:08 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2775201676418056015",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"payment_fee_rules\": [{\"payment_type\": \"priority\",\"charge_type\": \"ours\",\"fee_amount\": \"5.25\",\"fee_currency\": \"GBP\",\"payment_fee_id\": \"60a3c841-be23-012f-3afb-24003ab3f236\",\"payment_fee_name\": \"Name3\"}]}"
+  }
+}

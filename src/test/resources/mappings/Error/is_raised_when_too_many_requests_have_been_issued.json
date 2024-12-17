@@ -1,0 +1,28 @@
+{
+  "request": {
+    "url": "/v2/authenticate/api",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/5.10.0"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalTo": "login_id=development%40currencycloud.com2&api_key=deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+      }
+    ]
+  },
+  "response": {
+    "status": 429,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Sat, 25 Apr 2015 06:45:44 GMT",
+      "Content-Type": "application/json",
+      "Transfer-Encoding": "chunked",
+      "Connection": "keep-alive",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"error_code\":\"too_many_requests\",\"error_messages\":{\"base\":[{\"code\":\"too_many_requests\",\"message\":\"Too many requests have been made to the api. Please refer to the Developer Center for more information\",\"params\":{}}]}}"
+  }
+}
