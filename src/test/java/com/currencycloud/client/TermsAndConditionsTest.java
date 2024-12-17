@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class TermsAndConditionsTest extends TestSupport {
+
   private CurrencyCloudClient client;
 
   @Before
