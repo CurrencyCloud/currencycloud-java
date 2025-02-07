@@ -1437,7 +1437,6 @@ public class CurrencyCloudClient {
         transaction.getRelatedEntityShortReference(),
         transaction.getStatus(),
         transaction.getType(),
-        transaction.getReason(),
         dateOnly(transaction.getSettlesAtFrom()),
         dateOnly(transaction.getSettlesAtTo()),
         dateOnly(transaction.getCreatedAtFrom()),
