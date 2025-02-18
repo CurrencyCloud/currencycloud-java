@@ -1468,6 +1468,7 @@ public interface CurrencyCloud {
       @Nullable @QueryParam("related_entity_short_reference") String relatedEntityShortReference,
       @Nullable @QueryParam("status") String status,
       @Nullable @QueryParam("type") String type,
+      @Nullable @QueryParam("reason") String reason,
       @Nullable @QueryParam("settles_at_from") java.sql.Date settlesAtFrom,
       @Nullable @QueryParam("settles_at_to") java.sql.Date settlesAtTo,
       @Nullable @QueryParam("created_at_from") java.sql.Date createdAtFrom,
