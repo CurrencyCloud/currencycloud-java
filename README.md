@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/CurrencyCloud/currencycloud-java.svg?branch=master)](https://travis-ci.com/github/CurrencyCloud/currencycloud-java)
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22)
 # Currencycloud API v2 Java client
-## Version: 5.11.0
+## Version: 5.12.0
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -27,7 +27,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>5.11.0</version>
+    <version>5.12.0</version>
 </dependency>
 ```
 ### 2. Using Gradle
@@ -40,7 +40,7 @@ repositories {
 
 dependencies {
 
-    implementation 'com.currencycloud.currencycloud-java:currencycloud-java:5.11.0'
+    implementation 'com.currencycloud.currencycloud-java:currencycloud-java:5.12.0'
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
 Download the Currencycloud SDK jar:
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-5.11.0.jar
+3. Download the currencycloud-java-5.12.0.jar
 
 Get the list of all dependencies:
 ```Shell
@@ -255,15 +255,16 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 
 ### List of features being deprecated
 ```
-2021-07-06
-- ibans/find (Already disabled in backend server)
-- virtual_accounts/find (already disabled in backend server)
+2025-02-28
+- 'reason' query parameter in transactions/find
 ```
 
 # Support
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [5.12.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.12.0)
+ * Deprecates 'reason' query parameter in transactions/find
 * [5.11.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.11.0)
   * Replaces cglib with ByteBuddy
   * Adds support for Java version 17, 21 & 23
