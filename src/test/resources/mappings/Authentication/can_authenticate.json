@@ -4,7 +4,7 @@
     "method": "POST",
     "headers": {
       "User-Agent": {
-        "matches": "CurrencyCloudSDK/2.0 Java/5.10.0"
+        "matches": "CurrencyCloudSDK/2.0 Java/5.12.0"
       },
       "Accept-Charset": {
         "matches": "UTF-8"
