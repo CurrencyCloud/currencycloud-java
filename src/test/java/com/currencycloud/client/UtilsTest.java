@@ -1,23 +1,18 @@
 package com.currencycloud.client;
 
 import org.junit.Test;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class UtilsTest {
 
     @Test
     public void returnsRootCauseForChain() {
         NullPointerException root = new NullPointerException();
-        assertThat(
-                Utils.getRootCause(new RuntimeException(new IllegalArgumentException(root))),
-                equalTo((Throwable) root)
-        );
+        assertEquals(root, Utils.getRootCause(new RuntimeException(new IllegalArgumentException(root))));
     }
     @Test
     public void returnsRootCauseForCauseless() {
         RuntimeException e = new RuntimeException();
-        assertThat(Utils.getRootCause(e), equalTo((Throwable)e));
+        assertEquals(e, Utils.getRootCause(e));
     }
 }
