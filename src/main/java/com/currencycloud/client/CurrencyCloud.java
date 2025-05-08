@@ -1046,6 +1046,18 @@ public interface CurrencyCloud {
   ) throws ResponseException;
 
   /**
+   * Retrieve a Payment Submission with format
+   */
+  @GET
+  @Path("payments/{id}/new_submission")
+  NewPaymentSubmission retrieveNewPaymentSubmission(
+      @HeaderParam("X-Auth-Token") String authToken,
+      @HeaderParam("User-Agent") String userAgent,
+      @PathParam("id") String id,
+      @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+  ) throws ResponseException;
+
+  /**
    * Retrieve a Payment Confirmation
    */
   @GET

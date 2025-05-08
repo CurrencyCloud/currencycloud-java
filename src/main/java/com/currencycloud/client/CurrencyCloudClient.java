@@ -51,6 +51,7 @@ import com.currencycloud.client.model.PaymentFees;
 import com.currencycloud.client.model.PaymentPurposeCode;
 import com.currencycloud.client.model.PaymentReport;
 import com.currencycloud.client.model.PaymentSubmission;
+import com.currencycloud.client.model.NewPaymentSubmission;
 import com.currencycloud.client.model.PaymentTrackingInfo;
 import com.currencycloud.client.model.PaymentValidationResult;
 import com.currencycloud.client.model.Payments;
@@ -1155,6 +1156,15 @@ public class CurrencyCloudClient {
 
   public PaymentSubmission retrievePaymentSubmission(String id) throws CurrencyCloudException {
     return api.retrievePaymentSubmission(
+        authToken,
+        userAgent,
+        id,
+        getOnBehalfOf()
+    );
+  }
+
+  public NewPaymentSubmission retrieveNewPaymentSubmission(String id) throws CurrencyCloudException {
+    return api.retrieveNewPaymentSubmission(
         authToken,
         userAgent,
         id,

@@ -11,6 +11,7 @@ import com.currencycloud.client.model.PaymentFeeAssignment;
 import com.currencycloud.client.model.PaymentFeeUnassignment;
 import com.currencycloud.client.model.PaymentFees;
 import com.currencycloud.client.model.PaymentSubmission;
+import com.currencycloud.client.model.NewPaymentSubmission;
 import com.currencycloud.client.model.PaymentTrackingInfo;
 import com.currencycloud.client.model.PaymentValidationResult;
 import com.currencycloud.client.model.Payments;
@@ -274,6 +275,27 @@ public class PaymentsTest extends TestSupport {
         assertThat(submission.getMt103().startsWith("{1:F01TCCLGB20AXXX0090000004}"), equalTo(true));
         assertThat(submission.getStatus(), equalTo("pending"));
     }
+
+    @Test
+    public void testCanRetrieveNewSubmissionMT103() {
+        NewPaymentSubmission submission = client.retrieveNewPaymentSubmission("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe");
+
+        assertThat("MXGGYAGJULIIQKDV", equalTo(submission.getSubmissionRef()));
+        assertThat(submission.getMessage().startsWith("{1:F01TCCLGB20AXXX0090000004}"), equalTo(true));
+        assertThat(submission.getFormat(), equalTo("MT103"));
+        assertThat(submission.getStatus(), equalTo("pending"));
+    }
+
+    @Test
+    public void testCanRetrieveNewSubmissionPACS008() {
+        NewPaymentSubmission submission = client.retrieveNewPaymentSubmission("bea7b94c-e4c8-4629-b01f-9e6630264356");
+
+        assertThat("GFYQQJHFWIUTPHFN", equalTo(submission.getSubmissionRef()));
+        assertThat(submission.getMessage().startsWith("<?xml version="), equalTo(true));
+        assertThat(submission.getFormat(), equalTo("PACS008"));
+        assertThat(submission.getStatus(), equalTo("pending"));
+    }
+
 
     @Test
     public void testCanAuthorisePayments() {
