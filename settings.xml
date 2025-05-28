@@ -10,8 +10,8 @@
             <password>${env.CI_DEPLOY_PASSWORD}</password>
         </server>
         <server>
-            <id>github</id>
-            <password>${env.GH_TOKEN}</password>
+            <id>gpg.passphrase</id>
+            <passphrase>${env.MAVEN_GPG_PASSPHRASE}</passphrase>
         </server>
     </servers>
 </settings>

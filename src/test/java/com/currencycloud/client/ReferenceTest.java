@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,23 @@ public class ReferenceTest extends TestSupport {
     public void testCanRetrieveConversionDates() {
         ConversionDates dates = client.conversionDates("GBPUSD", null);
 
+        assertThat(dates.getInvalidConversionDates(), not(anEmptyMap()));
+        assertThat(dates.getInvalidConversionDates().size(), equalTo(242));
+        Date invalidConversionDate = dates.getInvalidConversionDates().keySet().iterator().next();
+        assertThat(invalidConversionDate, equalTo(parseDate("2020-11-11")));
+        assertThat(dates.getInvalidConversionDates().get(invalidConversionDate), equalTo("Veterans' Day"));
+        assertThat(dates.getFirstConversionDate(), equalTo(parseDate("2020-11-10")));
+        assertThat(dates.getNextDayConversionDate(), equalTo(parseDate("2020-11-10")));
+        assertThat(dates.getDefaultConversionDate(), equalTo(parseDate("2020-11-12")));
+        assertThat(dates.getFirstConversionCutoffDatetime(), equalTo(parseDateTime("2020-11-10T15:30:00+00:00")));
+        assertThat(dates.getOptimizeLiquidityConversionDate(), equalTo(parseDate("2020-11-12")));
+    }
+
+    @Test
+    public void testCanRetrieveConversionDatesWithDateFormat() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2020, Calendar.JANUARY, 1); // Year, Month (0-based), Day
+        ConversionDates dates = client.conversionDates("GBPUSD", calendar.getTime());
         assertThat(dates.getInvalidConversionDates(), not(anEmptyMap()));
         assertThat(dates.getInvalidConversionDates().size(), equalTo(242));
         Date invalidConversionDate = dates.getInvalidConversionDates().keySet().iterator().next();

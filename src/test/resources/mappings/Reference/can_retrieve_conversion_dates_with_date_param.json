@@ -1,6 +1,6 @@
 {
   "request": {
-    "url": "/v2/reference/conversion_dates?conversion_pair=GBPUSD",
+    "url": "/v2/reference/conversion_dates?conversion_pair=GBPUSD&start_date=2020-01-01",
     "method": "GET",
     "headers": {
       "User-Agent": {
