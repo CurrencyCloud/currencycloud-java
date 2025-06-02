@@ -51,6 +51,7 @@ import com.currencycloud.client.model.PaymentFees;
 import com.currencycloud.client.model.PaymentPurposeCode;
 import com.currencycloud.client.model.PaymentReport;
 import com.currencycloud.client.model.PaymentSubmission;
+import com.currencycloud.client.model.PaymentSubmissionInfo;
 import com.currencycloud.client.model.PaymentTrackingInfo;
 import com.currencycloud.client.model.PaymentValidationResult;
 import com.currencycloud.client.model.Payments;
@@ -111,7 +112,7 @@ public class CurrencyCloudClient {
       "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       Pattern.CASE_INSENSITIVE
   );
-  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/5.12.0";
+  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/6.0.0";
 
   private final CurrencyCloud api;
 
@@ -1162,6 +1163,15 @@ public class CurrencyCloudClient {
     );
   }
 
+  public PaymentSubmissionInfo retrievePaymentSubmissionInfo(String id) throws CurrencyCloudException {
+    return api.retrievePaymentSubmissionInfo(
+        authToken,
+        userAgent,
+        id,
+        getOnBehalfOf()
+    );
+  }
+
   public PaymentConfirmation retrievePaymentConfirmation(String id) throws CurrencyCloudException {
     return api.retrievePaymentConfirmation(
         authToken,
@@ -1344,7 +1354,7 @@ public class CurrencyCloudClient {
     return api.bankDetailsPost(authToken, userAgent, identifierType, identifierValue);
   }
 
-  public List<Map<String, String>> beneficiaryRequiredDetails(@Nullable String currency, @Nullable String bankAccountCountry, @Nullable String beneficiaryCountry) throws CurrencyCloudException {
+  public List<Map<String, String>> beneficiaryRequiredDetails(String currency, String bankAccountCountry, String beneficiaryCountry) throws CurrencyCloudException {
     return api.beneficiaryRequiredDetails(authToken, userAgent, currency, bankAccountCountry, beneficiaryCountry).getDetails();
   }
 
@@ -1353,7 +1363,7 @@ public class CurrencyCloudClient {
   }
 
   public ConversionDates conversionDates(String conversionPair, @Nullable Date startDate) throws CurrencyCloudException {
-    return api.conversionDates(authToken, userAgent, conversionPair, startDate, getOnBehalfOf());
+    return api.conversionDates(authToken, userAgent, conversionPair, dateOnly(startDate), getOnBehalfOf());
   }
 
   public PaymentDates paymentDates(String currency, @Nullable Date startDate) throws CurrencyCloudException {
@@ -1437,7 +1447,6 @@ public class CurrencyCloudClient {
         transaction.getRelatedEntityShortReference(),
         transaction.getStatus(),
         transaction.getType(),
-        transaction.getReason(), /* Deprecated */
         dateOnly(transaction.getSettlesAtFrom()),
         dateOnly(transaction.getSettlesAtTo()),
         dateOnly(transaction.getCreatedAtFrom()),

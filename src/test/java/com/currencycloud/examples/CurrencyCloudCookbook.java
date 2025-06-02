@@ -115,8 +115,7 @@ public class CurrencyCloudCookbook {
         System.out.println(conversion.toString());
 
         /*
-         * 4. Create a new beneficiary. Some of the optional parameters may be required depending on the currency and
-         * the country of the beneficiary and beneficiary bank. Please use the /reference/beneficiary_required_details
+         * 4. Create a new beneficiary. Please use the /reference/beneficiary_required_details
          * call to know which fields would be required.
          */
         List<Map<String, String>> beneficiaryRequiredDetails = null;

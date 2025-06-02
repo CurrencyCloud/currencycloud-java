@@ -1,9 +1,78 @@
 package com.currencycloud.client;
 
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Account;
+import com.currencycloud.client.model.AccountPaymentChargesSetting;
+import com.currencycloud.client.model.AccountPaymentChargesSettings;
+import com.currencycloud.client.model.Accounts;
+import com.currencycloud.client.model.AuthenticateResponse;
+import com.currencycloud.client.model.Balance;
+import com.currencycloud.client.model.Balances;
+import com.currencycloud.client.model.BankDetails;
+import com.currencycloud.client.model.Beneficiaries;
+import com.currencycloud.client.model.Beneficiary;
+import com.currencycloud.client.model.BeneficiaryAccountVerification;
+import com.currencycloud.client.model.BeneficiaryRequiredDetails;
+import com.currencycloud.client.model.Contact;
+import com.currencycloud.client.model.Contacts;
+import com.currencycloud.client.model.Conversion;
+import com.currencycloud.client.model.ConversionCancellation;
+import com.currencycloud.client.model.ConversionCancellationQuote;
+import com.currencycloud.client.model.ConversionDateChange;
+import com.currencycloud.client.model.ConversionDateChangeDetails;
+import com.currencycloud.client.model.ConversionDates;
+import com.currencycloud.client.model.ConversionProfitAndLosses;
+import com.currencycloud.client.model.ConversionReport;
+import com.currencycloud.client.model.ConversionSplit;
+import com.currencycloud.client.model.ConversionSplitHistory;
+import com.currencycloud.client.model.Conversions;
+import com.currencycloud.client.model.Currencies;
+import com.currencycloud.client.model.DetailedRate;
+import com.currencycloud.client.model.FundingAccounts;
+import com.currencycloud.client.model.MarginBalanceTopUp;
+import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.Payer;
+import com.currencycloud.client.model.PayerRequiredDetails;
+import com.currencycloud.client.model.Payment;
+import com.currencycloud.client.model.PaymentAuthorisations;
+import com.currencycloud.client.model.PaymentConfirmation;
+import com.currencycloud.client.model.PaymentDates;
+import com.currencycloud.client.model.PaymentDeliveryDate;
+import com.currencycloud.client.model.PaymentFeeAssignment;
+import com.currencycloud.client.model.PaymentFeeRules;
+import com.currencycloud.client.model.PaymentFeeUnassignment;
+import com.currencycloud.client.model.PaymentFees;
+import com.currencycloud.client.model.PaymentPurposeCodes;
+import com.currencycloud.client.model.PaymentReport;
+import com.currencycloud.client.model.PaymentSubmission;
+import com.currencycloud.client.model.PaymentSubmissionInfo;
+import com.currencycloud.client.model.Payments;
+import com.currencycloud.client.model.PaymentTrackingInfo;
+import com.currencycloud.client.model.PaymentValidationResult;
+import com.currencycloud.client.model.QuotePaymentFee;
+import com.currencycloud.client.model.Rates;
+import com.currencycloud.client.model.ReportRequest;
+import com.currencycloud.client.model.ReportRequests;
+import com.currencycloud.client.model.ResponseException;
+import com.currencycloud.client.model.SenderDetails;
+import com.currencycloud.client.model.SettlementAccounts;
+import com.currencycloud.client.model.TermsAndConditionsAcceptance;
+import com.currencycloud.client.model.Transaction;
+import com.currencycloud.client.model.Transactions;
+import com.currencycloud.client.model.Transfer;
+import com.currencycloud.client.model.Transfers;
+import com.currencycloud.client.model.WithdrawalAccountFunds;
+import com.currencycloud.client.model.WithdrawalAccounts;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -1046,6 +1115,18 @@ public interface CurrencyCloud {
   ) throws ResponseException;
 
   /**
+   * Retrieve a Payment Submission with format
+   */
+  @GET
+  @Path("payments/{id}/submission_info")
+  PaymentSubmissionInfo retrievePaymentSubmissionInfo(
+      @HeaderParam("X-Auth-Token") String authToken,
+      @HeaderParam("User-Agent") String userAgent,
+      @PathParam("id") String id,
+      @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+  ) throws ResponseException;
+
+  /**
    * Retrieve a Payment Confirmation
    */
   @GET
@@ -1308,9 +1389,9 @@ public interface CurrencyCloud {
   BeneficiaryRequiredDetails beneficiaryRequiredDetails(
       @HeaderParam("X-Auth-Token") String authToken,
       @HeaderParam("User-Agent") String userAgent,
-      @Nullable @QueryParam("currency") String currency,
-      @Nullable @QueryParam("bank_account_country") String bankAccountCountry,
-      @Nullable @QueryParam("beneficiary_country") String beneficiaryCountry
+      @QueryParam("currency") String currency,
+      @QueryParam("bank_account_country") String bankAccountCountry,
+      @QueryParam("beneficiary_country") String beneficiaryCountry
   ) throws ResponseException;
 
   /**
@@ -1332,7 +1413,7 @@ public interface CurrencyCloud {
       @HeaderParam("X-Auth-Token") String authToken,
       @HeaderParam("User-Agent") String userAgent,
       @QueryParam("conversion_pair") String conversionPair,
-      @Nullable @QueryParam("start_date") Date startDate,
+      @Nullable @QueryParam("start_date") java.sql.Date startDate,
       @Nullable @QueryParam("on_behalf_of") String onBehalfOf
   ) throws ResponseException;
 
@@ -1468,7 +1549,6 @@ public interface CurrencyCloud {
       @Nullable @QueryParam("related_entity_short_reference") String relatedEntityShortReference,
       @Nullable @QueryParam("status") String status,
       @Nullable @QueryParam("type") String type,
-      @Deprecated @Nullable @QueryParam("reason") String reason,
       @Nullable @QueryParam("settles_at_from") java.sql.Date settlesAtFrom,
       @Nullable @QueryParam("settles_at_to") java.sql.Date settlesAtTo,
       @Nullable @QueryParam("created_at_from") java.sql.Date createdAtFrom,

@@ -4,7 +4,7 @@
 
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>5.12.0</version>
+    <version>6.0.0</version>
     <packaging>jar</packaging>
 
     <name>Currencycloud</name>
@@ -272,6 +272,11 @@
                         </executions>
                         <configuration>
                             <keyname>CurrencyCloud Security Team &lt;security@currencycloud.com&gt;</keyname>
+                            <gpgArguments>
+                                <arg>--batch</arg>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
                         </configuration>
                     </plugin>
                 </plugins>
