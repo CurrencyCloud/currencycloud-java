@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/funding_accounts/find?currency=EUR&on_behalf_of=3b163e5d-2a6e-4f3d-aff8-e8fc161d3f00",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/6.0.0"
+      },
+      "X-Auth-Token": {
+        "matches": "acad59188ce6ddb54d4043bc4efb5f57"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "cloudflare",
+      "Date": "Fri, 13 May 2022 11:20:04 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "791",
+      "Connection": "keep-alive",
+      "X-Request-Id": "4ea2f690-1a2a-476f-8601-9e59576d6bdc",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"funding_accounts\": [ { \"id\": \"6fd009ae-a23c-4f0c-83bd-89c5037a500b\", \"account_id\": \"a124f825-ce6d-49e9-8662-b30fdb2c0493\", \"account_number\": \"GB10TCCL12345678901234\", \"account_number_type\": \"iban\", \"account_holder_name\": \"Currencycloud Test\", \"bank_name\": \"The Currency Cloud Limited\", \"bank_address\": \"12 Steward Street, The Steward Building, London, E1 6FQ, GB\", \"bank_country\": \"GB\", \"currency\": \"EUR\", \"payment_type\": \"priority\", \"routing_code\": \"TCCLGB3L\", \"routing_code_type\": \"bic_swift\", \"created_at\": \"2020-06-25T14:15:22+00:00\", \"updated_at\": \"2020-06-25T14:15:22+00:00\" }],    \"pagination\": { \"total_entries\": 1, \"total_pages\": 1, \"current_page\": 1, \"per_page\": 25, \"previous_page\": -1, \"next_page\": -1, \"order\": \"created_at\", \"order_asc_desc\": \"asc\"}}"
+  }
+}

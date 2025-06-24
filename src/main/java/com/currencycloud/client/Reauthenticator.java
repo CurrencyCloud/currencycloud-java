@@ -1,6 +1,7 @@
 package com.currencycloud.client;
 
 import com.currencycloud.client.exception.AuthenticationException;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -28,7 +29,7 @@ class Reauthenticator extends AuthenticateInterceptor {
                 }
                 log.info("Reauthenticating.");
                 client.authenticate();
-                log.trace("client.authToken = {}", client.getAuthToken());
+                log.trace("client.authToken populated: {}", StringUtils.isNotEmpty(client.getAuthToken()));
             }
         } while (true);
     }

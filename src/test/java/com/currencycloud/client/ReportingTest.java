@@ -1,8 +1,10 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.ConversionReport;
+import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.PaymentReport;
+import com.currencycloud.client.model.ReportRequest;
+import com.currencycloud.client.model.ReportRequests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,14 +14,14 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
-public class ReportingTest extends BetamaxTestSupport {
+public class ReportingTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
@@ -33,8 +35,7 @@ public class ReportingTest extends BetamaxTestSupport {
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "can_generate_conversion_report", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanGenerateConversionReport() throws Exception {
+    public void testCanGenerateConversionReport() {
         ConversionReport conversionReport = ConversionReport.create();
         conversionReport.setDescription("Conversion test report");
         conversionReport.setBuyCurrency("CAD");
@@ -61,8 +62,7 @@ public class ReportingTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_generate_payment_report", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanGeneratePaymentReport() throws Exception {
+    public void testCanGeneratePaymentReport() {
         PaymentReport paymentReport = PaymentReport.create();
         paymentReport.setDescription("Payment test report");
         paymentReport.setCurrency("EUR");
@@ -95,8 +95,7 @@ public class ReportingTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindReportRequests() throws Exception {
+    public void testCanFindReportRequests() {
         ReportRequests reportRequestsData = client.findReportRequests(null, null);
         List<ReportRequest> reports = reportRequestsData.getReportRequests();
         Pagination pagination = reportRequestsData.getPagination();
@@ -144,8 +143,7 @@ public class ReportingTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveReportRequest() throws Exception {
+    public void testCanRetrieveReportRequest() {
         ReportRequest report = client.retrieveReportRequests("de5c215d-93e2-4b24-bdc8-bffbcd80c60f");
 
         assertThat(report.getId(), equalTo("de5c215d-93e2-4b24-bdc8-bffbcd80c60f"));

@@ -1,0 +1,29 @@
+{
+  "request": {
+    "url": "/v2/authenticate/api",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/6.0.0"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalTo": "login_id=development%40currencycloud.com&api_key=deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbee6"
+      }
+    ]
+  },
+  "response": {
+    "status": 500,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Sat, 25 Apr 2015 06:52:42 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "49",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2771875643610572878",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"error_code\":\"internal_application_error\",\"error_messages\":{\"base\":[{\"code\":\"internal_application_error\",\"message\":\"A general application error occurred\",\"params\":{\"request_id\":2771875643610572878}}]}}"
+  }
+}

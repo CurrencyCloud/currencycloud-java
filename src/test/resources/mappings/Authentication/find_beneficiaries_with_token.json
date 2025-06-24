@@ -1,0 +1,36 @@
+{
+  "request": {
+    "url": "/v2/beneficiaries/find",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/6.0.0"
+      },
+      "X-Auth-Token": {
+        "matches": "57ef449f6316f2f54dfec37c2006fe50"
+      },
+      "Accept": {
+        "matches": "application/json"
+      },
+      "Host": {
+        "matches": "localhost:5555"
+      },
+      "Connection": {
+        "matches": "keep-alive"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Fri, 24 Apr 2015 21:23:27 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "178",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2771587521509285306",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"beneficiaries\":[],\"pagination\":{\"total_entries\":0,\"total_pages\":1,\"current_page\":1,\"per_page\":25,\"previous_page\":-1,\"next_page\":-1,\"order\":\"created_at\",\"order_asc_desc\":\"asc\"}}"
+  }
+}

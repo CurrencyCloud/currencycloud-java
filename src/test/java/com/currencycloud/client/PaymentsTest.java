@@ -1,8 +1,21 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.Payment;
+import com.currencycloud.client.model.PaymentAuthorisation;
+import com.currencycloud.client.model.PaymentAuthorisations;
+import com.currencycloud.client.model.PaymentConfirmation;
+import com.currencycloud.client.model.PaymentDeliveryDate;
+import com.currencycloud.client.model.PaymentFee;
+import com.currencycloud.client.model.PaymentFeeAssignment;
+import com.currencycloud.client.model.PaymentFeeUnassignment;
+import com.currencycloud.client.model.PaymentFees;
+import com.currencycloud.client.model.PaymentSubmission;
+import com.currencycloud.client.model.PaymentSubmissionInfo;
+import com.currencycloud.client.model.PaymentTrackingInfo;
+import com.currencycloud.client.model.PaymentValidationResult;
+import com.currencycloud.client.model.Payments;
+import com.currencycloud.client.model.QuotePaymentFee;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +26,16 @@ import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.emptyString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
-public class PaymentsTest extends BetamaxTestSupport {
+public class PaymentsTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
@@ -31,8 +51,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanCreate() throws Exception {
+    public void testCanCreate() {
         Payment payment = Payment.create();
         payment.setCurrency("EUR");
         payment.setBeneficiaryId("60fbe8d3-f7d0-4124-9077-93d09fb2186a");
@@ -75,8 +94,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_validate", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanValidate() throws Exception {
+    public void testCanValidate() {
         Payment payment = Payment.create();
         payment.setCurrency("EUR");
         payment.setBeneficiaryId("60fbe8d3-f7d0-4124-9077-93d09fb2186a");
@@ -92,8 +110,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_update", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanUpdate() throws Exception {
+    public void testCanUpdate() {
         Payment payment = Payment.create();
         payment.setId("778d2ba2-b2ec-4b39-b54c-0c3410525c97");
         payment.setUltimateBeneficiaryName("Francesco Bianco");
@@ -133,8 +150,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFind() throws Exception {
+    public void testCanFind() {
         Payments paymentsData = client.findPayments(null, null);
         List<Payment> payments = paymentsData.getPayments();
         Payment payment = payments.iterator().next();
@@ -182,8 +198,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieve() throws Exception {
+    public void testCanRetrieve() {
         Payment payment = client.retrievePayment("778d2ba2-b2ec-4b39-b54c-0c3410525c97", null);
 
         assertThat(payment, notNullValue());
@@ -219,8 +234,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_delete", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanDelete() throws Exception {
+    public void testCanDelete() {
         Payment payment = client.deletePayment("778d2ba2-b2ec-4b39-b54c-0c3410525c97");
 
         assertThat(payment, notNullValue());
@@ -254,8 +268,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_submission", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveSubmission() throws Exception {
+    public void testCanRetrieveSubmission() {
         PaymentSubmission submission = client.retrievePaymentSubmission("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe");
 
         assertThat("MXGGYAGJULIIQKDV", equalTo(submission.getSubmissionRef()));
@@ -264,8 +277,28 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_authorise_payments", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanAuthorisePayments() throws Exception {
+    public void testCanRetrieveNewSubmissionMT103() {
+        PaymentSubmissionInfo submission = client.retrievePaymentSubmissionInfo("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe");
+
+        assertThat("MXGGYAGJULIIQKDV", equalTo(submission.getSubmissionRef()));
+        assertThat(submission.getMessage().startsWith("{1:F01TCCLGB20AXXX0090000004}"), equalTo(true));
+        assertThat(submission.getFormat(), equalTo("MT103"));
+        assertThat(submission.getStatus(), equalTo("pending"));
+    }
+
+    @Test
+    public void testCanRetrieveNewSubmissionPACS008() {
+        PaymentSubmissionInfo submission = client.retrievePaymentSubmissionInfo("bea7b94c-e4c8-4629-b01f-9e6630264356");
+
+        assertThat("GFYQQJHFWIUTPHFN", equalTo(submission.getSubmissionRef()));
+        assertThat(submission.getMessage().startsWith("<?xml version="), equalTo(true));
+        assertThat(submission.getFormat(), equalTo("PACS008"));
+        assertThat(submission.getStatus(), equalTo("pending"));
+    }
+
+
+    @Test
+    public void testCanAuthorisePayments() {
 		List<String> paymentIds =  new ArrayList<>();
         paymentIds.add("8e3aeeb8-deeb-4665-96de-54b880a953ac");
         paymentIds.add("f16cafe4-1f8f-472e-99d9-8c828918d4f8");
@@ -288,8 +321,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_confirmation", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveConfirmation() throws Exception {
+    public void testCanRetrieveConfirmation() {
         PaymentConfirmation confirmation = client.retrievePaymentConfirmation("e6b30f2d-0088-4d99-bb47-c6b136fcf447");
 
         assertThat(confirmation, notNullValue());
@@ -305,8 +337,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_get_payment_delivery_date", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testGetPaymentDeliveryDate() throws Exception {
+    public void testGetPaymentDeliveryDate() {
         final Date paymentDate = parseDate("2019-05-29");
         final String paymentType = "regular";
         final String currency = "GBP";
@@ -322,7 +353,6 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_get_payment_fees", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testGetPaymentFees() {
         final PaymentFees paymentFees = client.getPaymentFees(null);
 
@@ -340,8 +370,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_get_quote_payment_fee", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testGetQuotePaymentFee() throws Exception {
+    public void testGetQuotePaymentFee() {
 
         final String authAccountId = "0534aaf2-2egg-0134-2f36-10b11cd33cfb";
         final BigDecimal feeAmount = new BigDecimal("10.00");
@@ -364,8 +393,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_get_payment_tracking_info", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testGetPaymentTrackingInfo() throws Exception {
+    public void testGetPaymentTrackingInfo() {
         final PaymentTrackingInfo paymentTrackingInfo = client.getPaymentTrackingInfo("46ed4827-7b6f-4491-a06f-b548d5a7512d");
         assertThat(paymentTrackingInfo, notNullValue());
         assertThat(paymentTrackingInfo.getUetr(), equalTo("46ed4827-7b6f-4491-a06f-b548d5a7512d"));
@@ -413,7 +441,6 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_assign_payment_fee", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanAssignPaymentFee() {
         final String paymentFeeId = "06337511-861d-012f-860e-24003ab3f236";
         final String accountId = "eb118dc0-862c-012f-8648-24003ab3f236";
@@ -426,7 +453,6 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_unassign_payment_fee", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanUnassignPaymentFee() {
         final String accountId = "eb118dc0-862c-012f-8648-24003ab3f236";
 
@@ -437,8 +463,7 @@ public class PaymentsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve_with_estimated_arrival", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveWithEstimatedArrival() throws Exception {
+    public void testCanRetrieveWithEstimatedArrival() {
         Payment payment = client.retrievePayment("760d606d-51ad-418a-942c-0b0c0434e432", null);
 
         assertThat(payment, notNullValue());

@@ -1,0 +1,26 @@
+{
+  "request": {
+    "url": "/v2/reference/payment_fee_rules?payment_type=regular",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/6.0.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Wed, 29 Apr 2015 21:04:08 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2775201676418056015",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"payment_fee_rules\": [{\"payment_type\": \"regular\",\"charge_type\": \"shared\",\"fee_amount\": \"12.00\",\"fee_currency\": \"USD\",\"payment_fee_id\": \"b75a0b91-be00-012f-3975-24003ab3f236\",\"payment_fee_name\": \"Name2\"}]}"
+  }
+}

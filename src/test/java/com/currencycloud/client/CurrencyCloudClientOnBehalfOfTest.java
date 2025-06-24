@@ -3,8 +3,10 @@ package com.currencycloud.client;
 
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 
 public class CurrencyCloudClientOnBehalfOfTest {
 

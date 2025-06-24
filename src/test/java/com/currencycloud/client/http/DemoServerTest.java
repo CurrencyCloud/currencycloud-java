@@ -3,7 +3,19 @@ package com.currencycloud.client.http;
 import com.currencycloud.client.CurrencyCloudClient;
 import com.currencycloud.client.exception.ApiException;
 import com.currencycloud.client.exception.ForbiddenException;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Account;
+import com.currencycloud.client.model.Accounts;
+import com.currencycloud.client.model.Balance;
+import com.currencycloud.client.model.Balances;
+import com.currencycloud.client.model.Beneficiary;
+import com.currencycloud.client.model.Contact;
+import com.currencycloud.client.model.Conversion;
+import com.currencycloud.client.model.Entity;
+import com.currencycloud.client.model.ErrorMessage;
+import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.Payer;
+import com.currencycloud.client.model.Payment;
+import com.currencycloud.client.model.Transaction;
 import com.currencycloud.examples.CurrencyCloudCookbook;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -16,10 +28,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.TimeZone;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.fail;
 
 /**
@@ -72,13 +94,13 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testCookbook() throws Exception {
+    public void testCookbook() {
         CurrencyCloudCookbook.runCookBook(LOGIN_ID, API_KEY);
     }
 
     /** Test that payment types collection is handled correctly. */
     @Test
-    public void testPaymentTypes() throws Exception {
+    public void testPaymentTypes() {
         try {
             Beneficiary beneficiary = Beneficiary.create();
             beneficiary.setBankCountry("GB");
@@ -107,7 +129,7 @@ public class DemoServerTest {
 
     /** Test that payment types collection is handled correctly. */
     @Test
-    public void testAddress() throws Exception {
+    public void testAddress() {
         List<String> paymentTypes = Arrays.asList("priority", "regular");
         Beneficiary beneficiary = Beneficiary.create("John W Doe", "DE", "EUR", "John Doe");
         beneficiary.setBeneficiaryAddress(Collections.singletonList("Hamburg, GE"));
@@ -128,7 +150,7 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testCurrentAccount() throws Exception {
+    public void testCurrentAccount() {
         Accounts accounts = currencyCloud.findAccounts(null, null);
         log.debug("Accounts = {}", accounts);
 
@@ -150,7 +172,7 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testFindNoAccountsWithABadExample() throws Exception {
+    public void testFindNoAccountsWithABadExample() {
         Account badExample = Account.create("No such account", "individual", "No street", "No city", "No Code", "DE");
         badExample.setIdentificationValue("1111111");
         badExample.setIdentificationType("drivers_licence");
@@ -169,7 +191,7 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testCreateUpdateAccount() throws Exception {
+    public void testCreateUpdateAccount() {
         Account account = currencyCloud.createAccount(Account.create("New Account xyz", "individual" , " 12 Steward St", "London", "E1 6FQ", "GB"));
 
         assertThat(account.getYourReference(), is(nullValue()));
@@ -189,7 +211,7 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testBalances() throws Exception {
+    public void testBalances() throws ParseException {
         Balance balanceCondition = Balance.create();
         balanceCondition.setAmountFrom(new BigDecimal("0.00"));
         balanceCondition.setAmountTo(new BigDecimal("1000000000.00"));
@@ -203,13 +225,13 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testCurrentContact() throws Exception {
+    public void testCurrentContact() {
         Contact contact = currencyCloud.currentContact();
         log.debug("Current contact = {}", contact);
     }
 
     @Test
-    public void testContacts() throws Exception {
+    public void testContacts() {
         String accountId = currencyCloud.currentAccount().getId();
         log.debug("accountId = {}", accountId);
 
@@ -243,7 +265,7 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testConversions() throws Exception {
+    public void testConversions() throws ParseException {
         // Today + 7 days:
         Date date = getDate(dateFormat.format(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000)));
         Conversion conversion = Conversion.create();
@@ -283,7 +305,7 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testFindConversions() throws Exception {
+    public void testFindConversions() {
         Conversion conversionCondition = Conversion.create();
         conversionCondition.setShortReference("ref");
         conversionCondition.setStatus("awaiting_funds");
@@ -307,7 +329,7 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testPaymentsPayers() throws Exception {
+    public void testPaymentsPayers() throws ParseException {
         Beneficiary beneficiary = Beneficiary.create("Acme GmbH", "DE", "EUR", "John Doe");
         beneficiary.setBicSwift("COBADEFF");
         beneficiary.setIban("DE89370400440532013000");
@@ -390,7 +412,7 @@ public class DemoServerTest {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
-    public void testFindPaymentsByExample() throws Exception {
+    public void testFindPaymentsByExample() {
         Payment payment = Payment.create();
         payment.setCurrency("USD");
         payment.setBeneficiaryId(SOME_UUID);
@@ -413,7 +435,7 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testTransactions() throws Exception {
+    public void testTransactions() throws ParseException {
         Date from = getDate("2015-01-01");
         Date to = getDate("2115-01-01");
         Transaction transactionCondition = Transaction.create();
@@ -438,7 +460,7 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testFindTransactionsByExample() throws Exception {
+    public void testFindTransactionsByExample() {
         Date now = new Date();
         Transaction transactionCondition = Transaction.create();
         transactionCondition.setCurrency("GBP");
@@ -462,7 +484,7 @@ public class DemoServerTest {
     }
 
     @Test
-    public void testTransactionRetrieve() throws Exception {
+    public void testTransactionRetrieve() {
         try {
             currencyCloud.retrieveTransaction("c5a990eb-d4d7-482f-bfb1-ffffffffffff");
 //        } catch (NotFoundException e) {

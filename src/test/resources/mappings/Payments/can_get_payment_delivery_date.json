@@ -1,0 +1,26 @@
+{
+  "request": {
+    "url": "/v2/payments/payment_delivery_date?payment_date=2019-05-29&payment_type=regular&currency=GBP&bank_country=GB",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/6.0.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Wed, 29 Apr 2015 21:04:08 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2775201676418056015",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"payment_date\": \"2019-05-29\",\"payment_delivery_date\": \"2019-05-29T00:00:00+00:00\",\"payment_cutoff_time\": \"2019-05-29T14:30:00+00:00\",\"payment_type\": \"regular\",\"currency\": \"GBP\",\"bank_country\": \"GB\"}"
+  }
+}

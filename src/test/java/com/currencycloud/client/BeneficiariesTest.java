@@ -1,8 +1,10 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Beneficiaries;
+import com.currencycloud.client.model.Beneficiary;
+import com.currencycloud.client.model.BeneficiaryAccountVerification;
+import com.currencycloud.client.model.BeneficiaryAccountVerificationRequest;
+import com.currencycloud.client.model.Pagination;
 import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
@@ -16,10 +18,14 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
-public class BeneficiariesTest extends BetamaxTestSupport {
+public class BeneficiariesTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
@@ -33,8 +39,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "can_create", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanCreateBeneficiary() throws Exception {
+    public void testCanCreateBeneficiary() {
         Beneficiary beneficiary = Beneficiary.create("Test User", "GB", "GBP", "Test User");
         beneficiary.setEmail("development@currencycloud.com");
         ArrayList<String> beneficiaryAddress = new ArrayList<>();
@@ -99,8 +104,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_create_website", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanCreateBeneficiaryBusinessNature() throws Exception {
+    public void testCanCreateBeneficiaryBusinessNature() {
         Beneficiary beneficiary = Beneficiary.create("Test User", "GB", "GBP", "Test User");
         beneficiary.setEmail("development@currencycloud.com");
         ArrayList<String> beneficiaryAddress = new ArrayList<>();
@@ -169,8 +173,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_retrieve", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanRetrieveBeneficiary() throws Exception {
+    public void testCanRetrieveBeneficiary() {
         Beneficiary beneficiary = client.retrieveBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
 
         assertThat(beneficiary, is(notNullValue()));
@@ -206,8 +209,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find_post", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindBeneficiary() throws Exception {
+    public void testCanFindBeneficiary() {
         Beneficiary beneficiaryCondition = Beneficiary.create();
         beneficiaryCondition.setBankAccountHolderName("Test User");
         beneficiaryCondition.setBankCountry("GB");
@@ -233,8 +235,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_update", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanUpdateBeneficiary() throws Exception {
+    public void testCanUpdateBeneficiary() {
         Beneficiary beneficiary = Beneficiary.create();
         beneficiary.setId("081596c9-02de-483e-9f2a-4cf55dcdf98c");
         beneficiary.setBankAccountHolderName("Test User 2");
@@ -277,8 +278,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
 
 
     @Test
-    @Betamax(tape = "can_update_website", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanUpdateBeneficiaryWebsite() throws Exception {
+    public void testCanUpdateBeneficiaryWebsite() {
         Beneficiary beneficiary = Beneficiary.create();
         beneficiary.setId("081596c9-02de-483e-9f2a-4cf55dcdf98c");
         beneficiary.setBankAccountHolderName("Test User 2");
@@ -322,8 +322,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_delete", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanDeleteBeneficiary() throws Exception {
+    public void testCanDeleteBeneficiary() {
         Beneficiary beneficiary = client.deleteBeneficiary("081596c9-02de-483e-9f2a-4cf55dcdf98c");
 
         assertThat(beneficiary, is(notNullValue()));
@@ -359,8 +358,7 @@ public class BeneficiariesTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_validate", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanValidateBeneficiaries() throws Exception {
+    public void testCanValidateBeneficiaries() {
         client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
         Beneficiary beneficiary = Beneficiary.create();
         beneficiary.setBankCountry("GB");
@@ -400,5 +398,25 @@ public class BeneficiariesTest extends BetamaxTestSupport {
         assertThat(beneficiary.getBicSwift(), is(emptyOrNullString()));
         assertThat(beneficiary.getIban(), is(emptyString()));
         assertThat(beneficiary.getBankAddress(), hasItem("Sample bank address"));
+    }
+
+    @Test
+    public void testCanVerifyAccount() {
+        client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
+        BeneficiaryAccountVerificationRequest beneficiary = BeneficiaryAccountVerificationRequest.create();
+        beneficiary.setBankCountry("GB");
+        beneficiary.setAccountNumber("1234567890");
+        beneficiary.setRoutingCodeValue1("123456");
+        beneficiary.setBeneficiaryEntityType("individual");
+        beneficiary.setBeneficiaryFirstName("Test");
+        beneficiary.setBeneficiaryLastName("User");
+
+        BeneficiaryAccountVerification beneficiaryAccountVerification = client.verifyAccount(beneficiary);
+
+        assertThat(beneficiaryAccountVerification, is(notNullValue()));
+        assertThat(beneficiaryAccountVerification.getAnswer(), equalTo("confirmed"));
+        assertThat(beneficiaryAccountVerification.getActualName(), equalTo("Test User"));
+        assertThat(beneficiaryAccountVerification.getReasonCode(), equalTo("FMCH"));
+        assertThat(beneficiaryAccountVerification.getReason(), equalTo("Full match"));
     }
 }

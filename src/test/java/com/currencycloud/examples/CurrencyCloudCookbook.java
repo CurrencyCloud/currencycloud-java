@@ -4,10 +4,17 @@ import com.currencycloud.client.CurrencyCloudClient;
 import com.currencycloud.client.backoff.BackOff;
 import com.currencycloud.client.backoff.BackOffResult;
 import com.currencycloud.client.exception.CurrencyCloudException;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Beneficiary;
+import com.currencycloud.client.model.Conversion;
+import com.currencycloud.client.model.DetailedRate;
+import com.currencycloud.client.model.Payer;
+import com.currencycloud.client.model.Payment;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is a Java SDK implementation of the examples in the
@@ -25,7 +32,7 @@ import java.util.*;
  */
 public class CurrencyCloudCookbook {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         // Please provide your login id and api key here to run this example.
         runCookBook("development@currencycloud.com", "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef");
     }
@@ -108,8 +115,7 @@ public class CurrencyCloudCookbook {
         System.out.println(conversion.toString());
 
         /*
-         * 4. Create a new beneficiary. Some of the optional parameters may be required depending on the currency and
-         * the country of the beneficiary and beneficiary bank. Please use the /reference/beneficiary_required_details
+         * 4. Create a new beneficiary. Please use the /reference/beneficiary_required_details
          * call to know which fields would be required.
          */
         List<Map<String, String>> beneficiaryRequiredDetails = null;

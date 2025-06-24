@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/rates/find?currency_pair=GBPUSD%2CEURGBP",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/6.0.0"
+      },
+      "X-Auth-Token": {
+        "matches": "242993ca94b9d1c6c1d8f7d3275a6f36"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Mon, 27 Apr 2015 20:33:51 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "90",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2773736887435072763",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"rates\":{\"EURGBP\":[\"0.71445\",\"0.71508\"],\"GBPUSD\":[\"1.52264\",\"1.52334\"]},\"unavailable\":[]}"
+  }
+}

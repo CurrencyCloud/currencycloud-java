@@ -1,8 +1,9 @@
 package com.currencycloud.client;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.WithdrawalAccount;
+import com.currencycloud.client.model.WithdrawalAccountFunds;
+import com.currencycloud.client.model.WithdrawalAccounts;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Before;
@@ -18,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class WithdrawalAccountsTest extends BetamaxTestSupport {
+public class WithdrawalAccountsTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
@@ -34,8 +35,7 @@ public class WithdrawalAccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindWithdrawalAccount() throws Exception {
+    public void testCanFindWithdrawalAccount() {
         WithdrawalAccounts withdrawalAccounts = client.findWithdrawalAccounts("72970a7c-7921-431c-b95f-3438724ba16f", null);
         List<WithdrawalAccount> accounts = withdrawalAccounts.getWithdrawalAccounts();
         Pagination pagination = withdrawalAccounts.getPagination();
@@ -63,8 +63,7 @@ public class WithdrawalAccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "can_find2", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanFindWithdrawalAccount2() throws Exception {
+    public void testCanFindWithdrawalAccount2() {
         WithdrawalAccounts withdrawalAccounts = client.findWithdrawalAccounts(null, null);
         List<WithdrawalAccount> accounts = withdrawalAccounts.getWithdrawalAccounts();
         Pagination pagination = withdrawalAccounts.getPagination();
@@ -104,8 +103,7 @@ public class WithdrawalAccountsTest extends BetamaxTestSupport {
     }
 
     @Test
-    @Betamax(tape = "pull_funds", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
-    public void testCanPullFunds() throws Exception {
+    public void testCanPullFunds() {
         WithdrawalAccountFunds funds = client.withdrawalAccountsPullFunds("0886ac00-6ab6-41a6-b0e1-8d3faf2e0de2",
                 "PullFunds1", new BigDecimal(100.0));
         assertThat(funds.getId(), equalTo("e2e6b7aa-c9e8-4625-96a6-b97d4baab758"));

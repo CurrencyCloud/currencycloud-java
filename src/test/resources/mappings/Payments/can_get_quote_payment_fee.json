@@ -1,0 +1,26 @@
+{
+  "request": {
+    "url": "/v2/payments/quote_payment_fee?payment_currency=USD&payment_destination_country=US&payment_type=regular",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/6.0.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Wed, 29 Apr 2015 21:04:08 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2775201676418056015",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"account_id\": \"0534aaf2-2egg-0134-2f36-10b11cd33cfb\",\"payment_currency\": \"USD\",\"payment_destination_country\": \"US\",\"payment_type\": \"regular\",\"charge_type\": null,\"fee_amount\": \"10.00\",\"fee_currency\": \"EUR\"}"
+  }
+}

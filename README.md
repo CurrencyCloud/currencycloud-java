@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/CurrencyCloud/currencycloud-java.svg?branch=master)](https://travis-ci.com/github/CurrencyCloud/currencycloud-java)
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22)
 # Currencycloud API v2 Java client
-## Version: 5.8.0
+## Version: 6.0.0
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -12,9 +12,8 @@ CurrencyCloud-Java is a Maven project. We highly recommend using [Apache Maven][
 to build your project. While using Maven is not strictly required 
 it will simplify building the project and handling dependencies.
 
-### 2. Oracle JDK 8 or 11 (or equivalent JDK)
+### 2. JDK 8, 11, 17, 21 or 23
 CurrencyCloud-Java requires at least a Java version 8 compatible JDK.
-Note that it does not fully support JDK 17, however, 17 may be used by applying the workaround described in this [issue](https://github.com/CurrencyCloud/currencycloud-java/issues/148)
 
 ### 3. A valid sandbox login id and api key on the Currencycloud sandbox API environment.
 You can register for a demo API key at [developer.currencycloud.com][developer].
@@ -28,7 +27,7 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>5.8.0</version>
+    <version>5.12.0</version>
 </dependency>
 ```
 ### 2. Using Gradle
@@ -41,7 +40,7 @@ repositories {
 
 dependencies {
 
-    implementation 'com.currencycloud.currencycloud-java:currencycloud-java:5.8.0'
+    implementation 'com.currencycloud.currencycloud-java:currencycloud-java:5.12.0'
 }
 ```
 
@@ -49,7 +48,7 @@ dependencies {
 Download the Currencycloud SDK jar:
 1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-5.8.0.jar
+3. Download the currencycloud-java-5.12.0.jar
 
 Get the list of all dependencies:
 ```Shell
@@ -215,7 +214,7 @@ Test cases can be run with `mvn test`
 
 ## Dependencies
 ```
-co.freeside:betamax:jar:1.1.2:test
+com.github.tomakehurst:wiremock-jre8:test
 org.codehaus.groovy:groovy-all:jar:2.4.21:test
 commons-lang:commons-lang:jar:2.4:test
 org.eclipse.jetty:jetty-util:jar:7.3.1.v20110307:test
@@ -256,15 +255,30 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 
 ### List of features being deprecated
 ```
-2021-07-06
-- ibans/find (Already disabled in backend server)
-- virtual_accounts/find (already disabled in backend server)
+2025-05-13
+- GET /payments/{id}/submission (to be removed 2025-10-01)
 ```
 
 # Support
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [6.0.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-6.0.0)
+  * Removes the 'reason' query parameter in transactions/find
+  * Add GET payments/{id}/submission_info
+  * Enforces required parameters on reference/beneficiary_required_details
+  * Updated date format of `start_date` on reference/conversion_dates
+* [5.12.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.12.0)
+ * Deprecates 'reason' query parameter in transactions/find
+* [5.11.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.11.0)
+  * Replaces cglib with ByteBuddy
+  * Adds support for Java version 17, 21 & 23
+* [5.10.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.10.0)
+  * Adds support for accepting terms and conditions to the SDK
+* [5.9.1](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.9.1)
+  * Resolves issue with endSession method 
+* [5.9.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.9.0)
+  * Adds support for confimation of payee to the SDK
 * [5.8.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-5.8.0)
   * Adds companyWebsite and businessNature to beneficiary object
   * Add Test Client class
@@ -349,6 +363,11 @@ We actively support the latest version of the SDK. We support the immediate prev
 * [1.0.3] - Update com.github.mmazi.rescu to latest version, desupport Java 7, add support for Java 9 and Java 10, fix bug in Beneficiary Date of Birth (#55), introduce builder pattern for *find* query parameters, deprecate tight-coupled methods and add production logging settings filtering out token and key  
 * [0.9.1] - Add Transfers and IBANs, add missing API paths and operations (#42), update dependencies to newer versions, bug fixes (including #32 and #38), and other minor changes
 * [0.7.8] - Address a concurrency issue discovered in the onBehalfOf functionality (#48) 
+
+
+# Security Consideration
+1. Authentication
+    1. All data under [this folder](src/test/resources/mappings) provide and return dummy credentials to verify that authentication workflows behave as expected.
 
 # Copyright
 Copyright (c) 2015-2019 Currencycloud. See [LICENSE][license] for details.
