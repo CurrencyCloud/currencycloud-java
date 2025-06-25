@@ -33,6 +33,7 @@ import com.currencycloud.client.model.Currency;
 import com.currencycloud.client.model.DetailedRate;
 import com.currencycloud.client.model.Entity;
 import com.currencycloud.client.model.FundingAccounts;
+import com.currencycloud.client.model.FundingTransaction;
 import com.currencycloud.client.model.Iban;
 import com.currencycloud.client.model.Ibans;
 import com.currencycloud.client.model.MarginBalanceTopUp;

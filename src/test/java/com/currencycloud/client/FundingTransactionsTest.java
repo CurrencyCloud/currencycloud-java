@@ -4,15 +4,14 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import com.currencycloud.client.model.*;
+import com.currencycloud.client.model.FundingTransaction;
+import com.currencycloud.client.model.FundingTransactionSender;
 import java.math.BigDecimal;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FundingTransactionsTest extends BetamaxTestSupport {
+public class FundingTransactionsTest extends TestSupport {
 
     private CurrencyCloudClient client;
 
@@ -26,7 +25,6 @@ public class FundingTransactionsTest extends BetamaxTestSupport {
     public void methodName() { log.debug("------------------------- " + name.getMethodName() + " -------------------------"); }
 
     @Test
-    @Betamax(tape = "can_get_funding_transaction", match = {MatchRule.method, MatchRule.uri, MatchRule.body})
     public void testCanGetFundingTransaction() throws Exception {
         FundingTransaction fundingTransaction = client.getFundingTransaction("4924919a-6c28-11ee-a3e3-63774946bad2");
         FundingTransactionSender fundingTransactionSender = fundingTransaction.getSender();

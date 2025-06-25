@@ -28,6 +28,7 @@ import com.currencycloud.client.model.Conversions;
 import com.currencycloud.client.model.Currencies;
 import com.currencycloud.client.model.DetailedRate;
 import com.currencycloud.client.model.FundingAccounts;
+import com.currencycloud.client.model.FundingTransaction;
 import com.currencycloud.client.model.MarginBalanceTopUp;
 import com.currencycloud.client.model.Pagination;
 import com.currencycloud.client.model.Payer;
@@ -883,6 +884,18 @@ public interface CurrencyCloud {
       @Nullable @QueryParam("order") String order,
       @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
   ) throws ResponseException;
+
+
+    ///////////////////////////////////////////////////////////////////
+    ///// FUNDING TRANSACTIONS API ////////////////////////////////////
+    @GET
+    @Path("funding_transactions/{id}")
+    FundingTransaction getFundingTransaction(
+            @HeaderParam("X-Auth-Token") String authToken,
+            @HeaderParam("User-Agent") String userAgent,
+            @PathParam("id") String id,
+            @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+    ) throws ResponseException;
 
 
   ///////////////////////////////////////////////////////////////////
