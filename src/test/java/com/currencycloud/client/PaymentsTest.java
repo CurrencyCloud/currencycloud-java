@@ -107,6 +107,44 @@ public class PaymentsTest extends TestSupport {
 
         assertThat(validationResult, notNullValue());
         assertThat(validationResult.getValidationResult(), equalTo("success"));
+        assertThat(validationResult.isSCARequired(), equalTo(false));
+        assertThat(validationResult.getScaId(), is(nullValue()));
+        assertThat(validationResult.getScaType(), is(nullValue()));
+    }
+
+    @Test
+    public void testCanValidateSca() {
+        Payment payment = Payment.create();
+        payment.setCurrency("EUR");
+        payment.setBeneficiaryId("60fbe8d3-f7d0-4124-9077-93d09fb2186b");
+        payment.setAmount(new BigDecimal("788.44"));
+        payment.setReason("Invoice");
+        payment.setReference("REF-INV-1838");
+        payment.setUniqueRequestId("a20bc586-b7a9-4316-9daf-d4ede4c0d3dg");
+
+        PaymentValidationResult validationResult = client.validatePayment(payment, null, null, true);
+
+        assertThat(validationResult, notNullValue());
+        assertThat(validationResult.getValidationResult(), equalTo("success"));
+        assertThat(validationResult.isSCARequired(), equalTo(true));
+        assertThat(validationResult.getScaId(), equalTo("ac1a5dd0-3978-013e-20dd-0affeb419f25"));
+        assertThat(validationResult.getScaType(), equalTo("sms"));
+    }
+
+    @Test
+    public void testCanCreateSca() {
+        Payment payment = Payment.create();
+        payment.setCurrency("EUR");
+        payment.setBeneficiaryId("60fbe8d3-f7d0-4124-9077-93d09fb2186b");
+        payment.setAmount(new BigDecimal("788.44"));
+        payment.setReason("Invoice");
+        payment.setReference("REF-INV-1838");
+        payment.setUniqueRequestId("a20bc586-b7a9-4316-9daf-d4ede4c0d4eg");
+
+        payment = client.createPayment(payment, null, true, "ac1a5dd0-3978-013e-20dd-0affeb419f25", "0123456");
+
+        assertThat(payment, notNullValue());
+        assertThat(payment.getId(), equalTo("778d2ba2-b2ec-4b39-b54c-0c3410525c97"));
     }
 
     @Test

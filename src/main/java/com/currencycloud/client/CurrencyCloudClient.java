@@ -112,7 +112,7 @@ public class CurrencyCloudClient {
       "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       Pattern.CASE_INSENSITIVE
   );
-  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/6.0.0";
+  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/6.1.0";
 
   private final CurrencyCloud api;
 
@@ -959,12 +959,18 @@ public class CurrencyCloudClient {
   ///// PAYMENTS ////////////////////////////////////////////////////
 
   public Payment createPayment(Payment payment, @Nullable Payer payer) throws CurrencyCloudException {
+    return createPayment(payment, payer, null, null, null);
+  }
+  public Payment createPayment(Payment payment, @Nullable Payer payer, @Nullable Boolean scaOptIn, @Nullable String scaId, @Nullable String scaToken) throws CurrencyCloudException {
     if (payer == null) {
       payer = Payer.create();
     }
     return api.createPayment(
         authToken,
         userAgent,
+        scaOptIn,
+        scaId,
+        scaToken,
         payment.getCurrency(),
         payment.getBeneficiaryId(),
         payment.getAmount(),
@@ -998,6 +1004,10 @@ public class CurrencyCloudClient {
   }
 
   public PaymentValidationResult validatePayment(Payment payment, @Nullable Payer payer, @Nullable Boolean scaForceSms) throws CurrencyCloudException {
+    return validatePayment(payment, payer, scaForceSms, null);
+  }
+
+  public PaymentValidationResult validatePayment(Payment payment, @Nullable Payer payer, @Nullable Boolean scaForceSms, @Nullable Boolean scaOptIn) throws CurrencyCloudException {
     if (payer == null) {
       payer = Payer.create();
     }
@@ -1005,6 +1015,7 @@ public class CurrencyCloudClient {
         authToken,
         userAgent,
         scaForceSms,
+        scaOptIn,
         payment.getCurrency(),
         payment.getBeneficiaryId(),
         payment.getAmount(),

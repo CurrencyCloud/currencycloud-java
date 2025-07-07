@@ -911,6 +911,9 @@ public interface CurrencyCloud {
   Payment createPayment(
       @HeaderParam("X-Auth-Token") String authToken,
       @HeaderParam("User-Agent") String userAgent,
+      @Nullable @HeaderParam("x-sca-opt-in") Boolean scaOptIn,
+      @Nullable @HeaderParam("x-sca-id") String scaId,
+      @Nullable @HeaderParam("x-sca-token") String scaToken,
       @FormParam("currency") String currency,
       @FormParam("beneficiary_id") String beneficiaryId,
       @FormParam("amount") BigDecimal amount,
@@ -952,6 +955,7 @@ public interface CurrencyCloud {
       @HeaderParam("X-Auth-Token") String authToken,
       @HeaderParam("User-Agent") String userAgent,
       @Nullable @HeaderParam("x-sca-force-sms") Boolean scaForceSms,
+      @Nullable @HeaderParam("x-sca-opt-in") Boolean scaOptIn,
       @FormParam("currency") String currency,
       @FormParam("beneficiary_id") String beneficiaryId,
       @FormParam("amount") BigDecimal amount,

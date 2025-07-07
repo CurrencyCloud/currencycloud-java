@@ -57,20 +57,20 @@ mvn dependency:list -DincludeScope=runtime
 As of version 2.0.0, this returns the following list:
 ```
 com.google.code.findbugs:jsr305:jar:3.0.2:compile
-com.fasterxml.jackson.core:jackson-annotations:jar:2.13.1:compile
-com.fasterxml.jackson.core:jackson-core:jar:2.13.1:compile
+com.fasterxml.jackson.core:jackson-annotations:jar:2.19.1:compile
+com.fasterxml.jackson.core:jackson-core:jar:2.19.1:compile
 org.slf4j:slf4j-api:jar:1.7.32:compile
 oauth.signpost:signpost-core:jar:1.2.1.2:compile
 ch.qos.logback:logback-core:jar:1.2.10:compile
 cglib:cglib:jar:3.3.0:compile
 commons-codec:commons-codec:jar:1.3:compile
-com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:jar:2.13.1:compile
-com.fasterxml.jackson.core:jackson-databind:jar:2.9.1:compile
+com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:jar:2.19.1:compile
 ch.qos.logback:logback-classic:jar:1.2.10:compile
-com.github.mmazi:rescu:jar:2.0.2:compile
+com.github.mmazi:rescu:jar:2.1.0:compile
 javax.ws.rs:javax.ws.rs-api:jar:2.1.1:compile
 org.ow2.asm:asm:jar:9.2:compile
 javax.ws.rs:jsr311-api:jar:1.1.1:compile
+net.bytebuddy:byte-buddy:1.17.6
 ```
 You will need to find each of these dependencies and download it from the [Sonatype Nexus][sonatype] as described above.
 
@@ -263,6 +263,12 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [6.1.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-6.1.0)
+  * Adds [SCA support](https://developer.currencycloud.com/guides/integration-guides/sca_sponsored_api_payments/) for payments
+  * Bumps [maven][maven] compiler-plugin from 3.8.0 -> 3.14.0
+  * Bumps [jackson][jackson] (core, dataformat-yaml & annotations) from 2.13.1 -> 2.19.1
+  * Bumps [rescu][rescu] from 2.0.2 -> 2.1.0
+  * Bumps [bytebuddy][bytebuddy] from 1.15.10 -> 1.17.6
 * [6.0.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-6.0.0)
   * Removes the 'reason' query parameter in transactions/find
   * Add GET payments/{id}/submission_info
@@ -373,16 +379,16 @@ We actively support the latest version of the SDK. We support the immediate prev
 Copyright (c) 2015-2019 Currencycloud. See [LICENSE][license] for details.
 
 [maven]:     https://maven.apache.org/index.html
-[nexus]:     http://www.sonatype.org/nexus/
 [slf4j]:     http://www.slf4j.org/
 [logback]:   http://logback.qos.ch/
 [rescu]:     https://github.com/mmazi/rescu
 [jackson]:   https://github.com/FasterXML/jackson
+[bytebuddy]: https://github.com/raphw/byte-buddy
 [docs]:      https://connect.currencycloud.com/documentation/getting-started/introduction
 [developer]: https://developer.currencycloud.com
 [travis]:    https://travis-ci.org/CurrencyCloud/currencycloud-java
 [semver]:    http://semver.org/
-[sonatype]:  https://oss.sonatype.org/
+[sonatype]:  https://central.sonatype.com/
 [ebwj]:      https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
 [license]:   LICENSE.md
 [contr]:     CONTRIBUTING.md
