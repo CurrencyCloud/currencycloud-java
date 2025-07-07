@@ -5,7 +5,7 @@
      (they could alternatively be set in .travis.yml). -->
     <servers>
         <server>
-            <id>ossrh</id>
+            <id>central</id>
             <username>${env.CI_DEPLOY_USERNAME}</username>
             <password>${env.CI_DEPLOY_PASSWORD}</password>
         </server>

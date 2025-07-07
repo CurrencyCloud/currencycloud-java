@@ -8,11 +8,20 @@
       },
       "X-Auth-Token": {
         "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      },
+      "x-sca-opt-in": {
+        "matches": "true"
+      },
+      "x-sca-id": {
+        "matches": "ac1a5dd0-3978-013e-20dd-0affeb419f25"
+      },
+      "x-sca-token": {
+        "matches": "0123456"
       }
     },
     "bodyPatterns": [
       {
-        "equalTo": "currency=EUR&beneficiary_id=60fbe8d3-f7d0-4124-9077-93d09fb2186a&amount=788.44&reason=Invoice&reference=REF-INV-1838&unique_request_id=a20bc586-b7a9-4316-9daf-d4ede4c0d4ee"
+        "equalTo": "currency=EUR&beneficiary_id=60fbe8d3-f7d0-4124-9077-93d09fb2186b&amount=788.44&reason=Invoice&reference=REF-INV-1838&unique_request_id=a20bc586-b7a9-4316-9daf-d4ede4c0d4eg"
       }
     ]
   },

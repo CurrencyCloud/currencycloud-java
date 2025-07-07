@@ -1,0 +1,46 @@
+{
+  "request": {
+    "url": "/v2/payments/validate",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/6.1.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      },
+      "x-sca-opt-in": {
+        "matches": "true"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalTo": "currency=EUR&beneficiary_id=60fbe8d3-f7d0-4124-9077-93d09fb2186b&amount=788.44&reason=Invoice&reference=REF-INV-1838&unique_request_id=a20bc586-b7a9-4316-9daf-d4ede4c0d3dg"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "date":"Wed, 02 Jul 2025 13:45:00 GMT",
+      "content-type":"application/json;charset=utf-8",
+      "access-control-allow-headers":"authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,testKey,X-Auth-Token,Origin,Authority,User-Agent,x-google-recaptcha-v3-token,Authorization",
+      "access-control-allow-methods":"POST",
+      "access-control-allow-origin":"*",
+      "cache-control":"no-cache, no-store, must-revalidate, max-age=0, s-maxage=0, private",
+      "expires":"0",
+      "pragma":"no-cache",
+      "vary":"Origin",
+      "x-content-type-options":"nosniff",
+      "x-envoy-upstream-service-time":"1804",
+      "x-request-id":"4f5ab7ed-76dd-401d-ae8c-179ba3540230",
+      "x-sca-id":"ac1a5dd0-3978-013e-20dd-0affeb419f25",
+      "x-sca-required":"true",
+      "x-sca-type":"sms",
+      "cf-cache-status":"DYNAMIC",
+      "server":"cloudflare",
+      "cf-ray":"958e94b5795bbf04-LHR"
+    },
+    "body": "{\"validation_result\":\"success\"}"
+  }
+}
