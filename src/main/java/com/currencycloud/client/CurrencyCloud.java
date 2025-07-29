@@ -956,6 +956,7 @@ public interface CurrencyCloud {
       @HeaderParam("User-Agent") String userAgent,
       @Nullable @HeaderParam("x-sca-force-sms") Boolean scaForceSms,
       @Nullable @HeaderParam("x-sca-opt-in") Boolean scaOptIn,
+      @Nullable @HeaderParam("x-sca-to-authenticated-user") Boolean scaToAuthenticatedUser,
       @FormParam("currency") String currency,
       @FormParam("beneficiary_id") String beneficiaryId,
       @FormParam("amount") BigDecimal amount,

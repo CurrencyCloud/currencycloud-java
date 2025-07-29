@@ -11,11 +11,14 @@
       },
       "x-sca-opt-in": {
         "matches": "true"
+      },
+      "x-sca-to-authenticated-user": {
+        "matches": "true"
       }
     },
     "bodyPatterns": [
       {
-        "equalTo": "currency=EUR&beneficiary_id=60fbe8d3-f7d0-4124-9077-93d09fb2186b&amount=788.44&reason=Invoice&reference=REF-INV-1838&unique_request_id=a20bc586-b7a9-4316-9daf-d4ede4c0d3dg"
+        "equalTo": "currency=EUR&beneficiary_id=60fbe8d3-f7d0-4124-9077-93d09fb2186c&amount=788.44&reason=Invoice&reference=REF-INV-1838&unique_request_id=a20bc586-b7a9-4316-9daf-d4ede4c0d3dg"
       }
     ]
   },
