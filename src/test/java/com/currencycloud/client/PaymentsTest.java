@@ -132,6 +132,25 @@ public class PaymentsTest extends TestSupport {
     }
 
     @Test
+    public void testCanValidateScaToAuthenticatedUser() {
+        Payment payment = Payment.create();
+        payment.setCurrency("EUR");
+        payment.setBeneficiaryId("60fbe8d3-f7d0-4124-9077-93d09fb2186c");
+        payment.setAmount(new BigDecimal("788.44"));
+        payment.setReason("Invoice");
+        payment.setReference("REF-INV-1838");
+        payment.setUniqueRequestId("a20bc586-b7a9-4316-9daf-d4ede4c0d3dg");
+
+        PaymentValidationResult validationResult = client.validatePayment(payment, null, null, true, true);
+
+        assertThat(validationResult, notNullValue());
+        assertThat(validationResult.getValidationResult(), equalTo("success"));
+        assertThat(validationResult.isSCARequired(), equalTo(true));
+        assertThat(validationResult.getScaId(), equalTo("ac1a5dd0-3978-013e-20dd-0affeb419f25"));
+        assertThat(validationResult.getScaType(), equalTo("sms"));
+    }
+
+    @Test
     public void testCanCreateSca() {
         Payment payment = Payment.create();
         payment.setCurrency("EUR");

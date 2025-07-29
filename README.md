@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.com/CurrencyCloud/currencycloud-java.svg?branch=master)](https://travis-ci.com/github/CurrencyCloud/currencycloud-java)
-[![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22)
+[![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22) [![CodeQL](https://github.com/CurrencyCloud/currencycloud-java/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/CurrencyCloud/currencycloud-java/actions/workflows/github-code-scanning/codeql)
+
 # Currencycloud API v2 Java client
-## Version: 6.0.0
+## Version: 6.2.0
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -263,6 +263,8 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [6.2.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-6.2.0)
+  * Adds optional `x-sca-to-authenticated-user` header to `/payments/validate`
 * [6.1.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-6.1.0)
   * Adds [SCA support](https://developer.currencycloud.com/guides/integration-guides/sca_sponsored_api_payments/) for payments
   * Bumps [maven][maven] compiler-plugin from 3.8.0 -> 3.14.0
@@ -384,9 +386,8 @@ Copyright (c) 2015-2019 Currencycloud. See [LICENSE][license] for details.
 [rescu]:     https://github.com/mmazi/rescu
 [jackson]:   https://github.com/FasterXML/jackson
 [bytebuddy]: https://github.com/raphw/byte-buddy
-[docs]:      https://connect.currencycloud.com/documentation/getting-started/introduction
+[docs]:      https://developer.currencycloud.com/guides/getting-started/introduction/
 [developer]: https://developer.currencycloud.com
-[travis]:    https://travis-ci.org/CurrencyCloud/currencycloud-java
 [semver]:    http://semver.org/
 [sonatype]:  https://central.sonatype.com/
 [ebwj]:      https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
