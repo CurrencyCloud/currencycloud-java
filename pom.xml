@@ -4,7 +4,7 @@
 
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>6.2.0</version>
+    <version>7.0.0</version>
     <packaging>jar</packaging>
 
     <name>Currencycloud</name>

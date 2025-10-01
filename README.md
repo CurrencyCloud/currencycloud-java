@@ -255,14 +255,14 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 
 ### List of features being deprecated
 ```
-2025-05-13
-- GET /payments/{id}/submission (to be removed 2025-10-01)
 ```
 
 # Support
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [7.0.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-7.0.0)
+  * Removes GET payments/{id}/submission
 * [6.2.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-6.2.0)
   * Adds optional `x-sca-to-authenticated-user` header to `/payments/validate`
 * [6.1.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-6.1.0)

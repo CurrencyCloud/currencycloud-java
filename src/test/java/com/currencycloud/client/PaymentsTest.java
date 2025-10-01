@@ -10,7 +10,6 @@ import com.currencycloud.client.model.PaymentFee;
 import com.currencycloud.client.model.PaymentFeeAssignment;
 import com.currencycloud.client.model.PaymentFeeUnassignment;
 import com.currencycloud.client.model.PaymentFees;
-import com.currencycloud.client.model.PaymentSubmission;
 import com.currencycloud.client.model.PaymentSubmissionInfo;
 import com.currencycloud.client.model.PaymentTrackingInfo;
 import com.currencycloud.client.model.PaymentValidationResult;
@@ -322,15 +321,6 @@ public class PaymentsTest extends TestSupport {
         assertThat(payment.getChargeType(), equalTo("ours"));
         assertThat(payment.getInvoiceDate(), equalTo(parseDate("2018-01-01")));
         assertThat(payment.getInvoiceNumber(), equalTo("35813"));
-    }
-
-    @Test
-    public void testCanRetrieveSubmission() {
-        PaymentSubmission submission = client.retrievePaymentSubmission("01d8c0bc-7f0c-4cdd-bc7e-ef81f68500fe");
-
-        assertThat("MXGGYAGJULIIQKDV", equalTo(submission.getSubmissionRef()));
-        assertThat(submission.getMt103().startsWith("{1:F01TCCLGB20AXXX0090000004}"), equalTo(true));
-        assertThat(submission.getStatus(), equalTo("pending"));
     }
 
     @Test

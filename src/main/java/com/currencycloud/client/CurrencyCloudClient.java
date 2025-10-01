@@ -50,7 +50,6 @@ import com.currencycloud.client.model.PaymentFeeUnassignment;
 import com.currencycloud.client.model.PaymentFees;
 import com.currencycloud.client.model.PaymentPurposeCode;
 import com.currencycloud.client.model.PaymentReport;
-import com.currencycloud.client.model.PaymentSubmission;
 import com.currencycloud.client.model.PaymentSubmissionInfo;
 import com.currencycloud.client.model.PaymentTrackingInfo;
 import com.currencycloud.client.model.PaymentValidationResult;
@@ -112,7 +111,7 @@ public class CurrencyCloudClient {
       "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       Pattern.CASE_INSENSITIVE
   );
-  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/6.2.0";
+  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/7.0.0";
 
   private final CurrencyCloud api;
 
@@ -1166,15 +1165,6 @@ public class CurrencyCloudClient {
         authToken,
         userAgent,
         paymentId,
-        getOnBehalfOf()
-    );
-  }
-
-  public PaymentSubmission retrievePaymentSubmission(String id) throws CurrencyCloudException {
-    return api.retrievePaymentSubmission(
-        authToken,
-        userAgent,
-        id,
         getOnBehalfOf()
     );
   }
