@@ -43,7 +43,6 @@ import com.currencycloud.client.model.PaymentFeeUnassignment;
 import com.currencycloud.client.model.PaymentFees;
 import com.currencycloud.client.model.PaymentPurposeCodes;
 import com.currencycloud.client.model.PaymentReport;
-import com.currencycloud.client.model.PaymentSubmission;
 import com.currencycloud.client.model.PaymentSubmissionInfo;
 import com.currencycloud.client.model.Payments;
 import com.currencycloud.client.model.PaymentTrackingInfo;
@@ -1105,18 +1104,6 @@ public interface CurrencyCloud {
       @HeaderParam("User-Agent") String userAgent,
       @PathParam("id") String paymentId,
       @Nullable @FormParam("on_behalf_of") String onBehalfOf
-  ) throws ResponseException;
-
-  /**
-   * Retrieve a Payment Submission
-   */
-  @GET
-  @Path("payments/{id}/submission")
-  PaymentSubmission retrievePaymentSubmission(
-      @HeaderParam("X-Auth-Token") String authToken,
-      @HeaderParam("User-Agent") String userAgent,
-      @PathParam("id") String id,
-      @Nullable @QueryParam("on_behalf_of") String onBehalfOf
   ) throws ResponseException;
 
   /**
