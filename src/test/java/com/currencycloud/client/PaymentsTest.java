@@ -1,5 +1,6 @@
 package com.currencycloud.client;
 
+import com.currencycloud.client.exception.CurrencyCloudException;
 import com.currencycloud.client.model.Pagination;
 import com.currencycloud.client.model.Payment;
 import com.currencycloud.client.model.PaymentAuthorisation;
@@ -16,6 +17,7 @@ import com.currencycloud.client.model.PaymentValidationResult;
 import com.currencycloud.client.model.Payments;
 import com.currencycloud.client.model.QuotePaymentFee;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -518,5 +520,20 @@ public class PaymentsTest extends TestSupport {
         assertThat(payment.getAmount(), equalTo(new BigDecimal("20.00")));
         assertThat(payment.getCurrency(), equalTo("GBP"));
         assertThat(payment.getEstimatedArrival(), equalTo(parseDate("2021-11-10")));
+    }
+
+    @Test
+    public void testCanRetryPaymentNotifications() {
+        try {
+            client.retryPaymentNotifications("760d606d-51ad-418a-942c-0b0c0434e432", "payment_released_notification");
+        }catch (Exception e){
+            Assert.fail("Should not throw exception on valid payment notification retry");
+        }
+    }
+
+    @Test(expected = CurrencyCloudException.class)
+    public void testRetryPaymentNotificationsWithInvalidNotificationType() {
+        client.retryPaymentNotifications("760d606d-51ad-418a-942c-0b0c0434e432", "payment_notification");
+        Assert.fail("Expected exception to be thrown on invalid payment notification retry");
     }
 }

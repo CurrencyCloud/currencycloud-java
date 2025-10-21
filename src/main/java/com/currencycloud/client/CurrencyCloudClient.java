@@ -111,7 +111,7 @@ public class CurrencyCloudClient {
       "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       Pattern.CASE_INSENSITIVE
   );
-  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/7.0.0";
+  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/7.1.0";
 
   private final CurrencyCloud api;
 
@@ -1228,6 +1228,10 @@ public class CurrencyCloudClient {
 
   public PaymentTrackingInfo getPaymentTrackingInfo(final String id) throws CurrencyCloudException {
     return api.getPaymentTrackingInfo(authToken, userAgent, id);
+  }
+
+  public Object retryPaymentNotifications(final String id, final String notificationType) throws CurrencyCloudException {
+    return api.retryPaymentNotifications(authToken, userAgent, id, notificationType);
   }
 
   ///////////////////////////////////////////////////////////////////
