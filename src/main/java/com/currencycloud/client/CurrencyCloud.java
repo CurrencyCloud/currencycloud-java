@@ -1208,6 +1208,18 @@ public interface CurrencyCloud {
       @PathParam("id") String id
   ) throws ResponseException;
 
+  /**
+   * Retries sending of payment notifications
+   */
+  @POST
+  @Path("payments/{id}/notifications/retry")
+  PaymentFeeUnassignment retryPaymentNotifications(
+          @HeaderParam("X-Auth-Token") String authToken,
+          @HeaderParam("User-Agent") String userAgent,
+          @PathParam("id") String id,
+          @QueryParam("notification_type") String notificationType
+  ) throws ResponseException;
+
   ///////////////////////////////////////////////////////////////////
   ///// RATES API ///////////////////////////////////////////////////
 

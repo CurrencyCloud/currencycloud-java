@@ -1,0 +1,26 @@
+{
+  "request": {
+    "url": "/v2/payments/760d606d-51ad-418a-942c-0b0c0434e432/notifications/retry?notification_type=payment_notification",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/7.1.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    }
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Wed, 10 Nov 2021 12:13:58 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2778807612227406609",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"error_code\":\"payment_notification_retry_failed\",\"error_messages\": { \"notification_type\" : [{\"code\":\"notification_type_not_in_range\",\"message\":\"notification_type should be in range: payment_ready_to_send_notification, payment_released_notification, payment_failed_notification\",\"params\":{\"range\":\"payment_ready_to_send_notification, payment_released_notification, payment_failed_notification\"}}]}}"
+  }
+}
