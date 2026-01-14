@@ -1,6 +1,7 @@
 package com.currencycloud.client;
 
 import com.currencycloud.client.model.Account;
+import com.currencycloud.client.model.AccountComplianceSettings;
 import com.currencycloud.client.model.AccountPaymentChargesSetting;
 import com.currencycloud.client.model.AccountPaymentChargesSettings;
 import com.currencycloud.client.model.Accounts;
@@ -142,7 +143,27 @@ public interface CurrencyCloud {
       @Nullable @FormParam("api_trading") Boolean apiTrading,
       @Nullable @FormParam("online_trading") Boolean onlineTrading,
       @Nullable @FormParam("phone_trading") Boolean phoneTrading,
-      @Nullable @FormParam("terms_and_conditions_accepted") Boolean termsAndConditionsAccepted
+      @Nullable @FormParam("terms_and_conditions_accepted") Boolean termsAndConditionsAccepted,
+      @Nullable @FormParam("legal_entity_sub_type") String legalEntitySubType,
+      @Nullable @FormParam("identification_expiration") java.sql.Date identificationExpiration,
+      @Nullable @FormParam("identification_issuer") String identificationIssuer,
+      @Nullable @FormParam("industry_type") String industryType,
+      @Nullable @FormParam("business_website_url") String businessWebsiteUrl,
+      @Nullable @FormParam("country_of_incorporation") String countryOfIncorporation,
+      @Nullable @FormParam("country_of_citizenship") String countryOfCitizenship,
+      @Nullable @FormParam("date_of_incorporation") java.sql.Date dateOfIncorporation,
+      @Nullable @FormParam("trading_address_street") String tradingAddressStreet,
+      @Nullable @FormParam("trading_address_city") String tradingAddressCity,
+      @Nullable @FormParam("trading_address_state") String tradingAddressState,
+      @Nullable @FormParam("trading_address_postalcode") String tradingAddressPostalcode,
+      @Nullable @FormParam("trading_address_country") String tradingAddressCountry,
+      @Nullable @FormParam("tax_identification") String taxIdentification,
+      @Nullable @FormParam("national_identification") String nationalIdentification,
+      @Nullable @FormParam("customer_risk") String customerRisk,
+      @Nullable @FormParam("expected_monthly_activity_volume") Integer expectedMonthlyActivityVolume,
+      @Nullable @FormParam("expected_monthly_activity_value") BigDecimal expectedMonthlyActivityValue,
+      @Nullable @FormParam("expected_transaction_currencies") List<String> expectedTransactionCurrencies,
+      @Nullable @FormParam("expected_transaction_countries") List<String> expectedTransactionCountries
   ) throws ResponseException;
 
   /**
@@ -265,6 +286,46 @@ public interface CurrencyCloud {
       @PathParam("charge_settings_id") String chargeSettingsId,
       @Nullable @FormParam("enabled") Boolean enabled,
       @Nullable @FormParam("default") Boolean isDefault
+  ) throws ResponseException;
+
+  /**
+   * Retrieve Account Compliance Settings
+   */
+  @GET
+  @Path("accounts/{account_id}/compliance_settings")
+  AccountComplianceSettings retrieveAccountComplianceSettings(
+      @HeaderParam("X-Auth-Token") String authToken,
+      @HeaderParam("User-Agent") String userAgent,
+      @PathParam("account_id") String accountId
+  ) throws ResponseException;
+
+  /**
+   * Update Account Compliance Settings
+   */
+  @POST
+  @Path("accounts/{account_id}/compliance_settings")
+  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+  AccountComplianceSettings updateAccountComplianceSettings(
+      @HeaderParam("X-Auth-Token") String authToken,
+      @HeaderParam("User-Agent") String userAgent,
+      @PathParam("account_id") String accountId,
+      @Nullable @FormParam("industry_type") String industryType,
+      @Nullable @FormParam("business_website_url") String businessWebsiteUrl,
+      @Nullable @FormParam("country_of_incorporation") String countryOfIncorporation,
+      @Nullable @FormParam("country_of_citizenship") String countryOfCitizenship,
+      @Nullable @FormParam("date_of_incorporation") java.sql.Date dateOfIncorporation,
+      @Nullable @FormParam("trading_address_street") String tradingAddressStreet,
+      @Nullable @FormParam("trading_address_city") String tradingAddressCity,
+      @Nullable @FormParam("trading_address_state") String tradingAddressState,
+      @Nullable @FormParam("trading_address_postalcode") String tradingAddressPostalcode,
+      @Nullable @FormParam("trading_address_country") String tradingAddressCountry,
+      @Nullable @FormParam("tax_identification") String taxIdentification,
+      @Nullable @FormParam("national_identification") String nationalIdentification,
+      @Nullable @FormParam("customer_risk") String customerRisk,
+      @Nullable @FormParam("expected_monthly_activity_volume") Integer expectedMonthlyActivityVolume,
+      @Nullable @FormParam("expected_monthly_activity_value") BigDecimal expectedMonthlyActivityValue,
+      @Nullable @FormParam("expected_transaction_currencies") List<String> expectedTransactionCurrencies,
+      @Nullable @FormParam("expected_transaction_countries") List<String> expectedTransactionCountries
   ) throws ResponseException;
 
   ///////////////////////////////////////////////////////////////////

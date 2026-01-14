@@ -1,7 +1,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22) [![CodeQL](https://github.com/CurrencyCloud/currencycloud-java/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/CurrencyCloud/currencycloud-java/actions/workflows/github-code-scanning/codeql)
 
 # Currencycloud API v2 Java client
-## Version: 7.1.1
+## Version: 7.2.0
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -262,6 +262,11 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [7.2.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-7.2.0)
+  * Adds GET /accounts/{id}/compliance_settings
+  * Adds POST /accounts/{id}/compliance_settings
+  * Updates POST /accounts/create
+  * Adds `legal_entity_sub_type`, `identification_issuer` and `identification_expiration` to Account
 * [7.1.1](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-7.1.1)
   * Deprecates JDK8 support
   * Bumps [maven][maven] compiler-plugin from 3.14.0 -> 3.14.1

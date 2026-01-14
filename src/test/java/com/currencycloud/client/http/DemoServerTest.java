@@ -4,6 +4,7 @@ import com.currencycloud.client.CurrencyCloudClient;
 import com.currencycloud.client.exception.ApiException;
 import com.currencycloud.client.exception.ForbiddenException;
 import com.currencycloud.client.model.Account;
+import com.currencycloud.client.model.AccountComplianceSettings;
 import com.currencycloud.client.model.Accounts;
 import com.currencycloud.client.model.Balance;
 import com.currencycloud.client.model.Balances;
@@ -204,6 +205,37 @@ public class DemoServerTest {
         account.setStatus("disabled");
         try {
             currencyCloud.updateAccount(account);
+            fail("Updating account status should fail");
+        } catch (ForbiddenException ignored) {
+            // This always happens with current permissions.
+        }
+    }
+
+    @Test
+    public void testCreateUpdateAccountWithEnhancedData() {
+        Account account = Account.create("New Enhanced Account", "company", "12 Steward St", "London", "E1 6FQ", "GB");
+        account.setLegalEntitySubType("limited_company");
+        AccountComplianceSettings accountComplianceSettings = AccountComplianceSettings.create();
+        accountComplianceSettings.setIndustryType("technology");
+        accountComplianceSettings.setCustomerRisk("LOW");
+        accountComplianceSettings.setBusinessWebsiteUrl("https://example.com");
+        accountComplianceSettings.setExpectedMonthlyActivityVolume(100000);
+        accountComplianceSettings.setExpectedMonthlyActivityValue(new java.math.BigDecimal("500000.00"));
+        
+        Account created = currencyCloud.createAccount(account, accountComplianceSettings);
+
+        assertThat(created.getYourReference(), is(nullValue()));
+        assertThat(created.getAccountName(), equalTo("New Enhanced Account"));
+        assertThat(created.getLegalEntityType(), equalTo("company"));
+
+        created.setYourReference("enhanced-ref");
+        created = currencyCloud.updateAccount(created);
+        
+        assertThat(created.getYourReference(), equalTo("enhanced-ref"));
+
+        created.setStatus("disabled");
+        try {
+            currencyCloud.updateAccount(created);
             fail("Updating account status should fail");
         } catch (ForbiddenException ignored) {
             // This always happens with current permissions.
