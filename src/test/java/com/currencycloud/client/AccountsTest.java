@@ -1,6 +1,7 @@
 package com.currencycloud.client;
 
 import com.currencycloud.client.model.Account;
+import com.currencycloud.client.model.AccountComplianceSettings;
 import com.currencycloud.client.model.AccountPaymentChargesSetting;
 import com.currencycloud.client.model.AccountPaymentChargesSettings;
 import com.currencycloud.client.model.Accounts;
@@ -9,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -70,6 +72,54 @@ public class AccountsTest extends TestSupport {
         assertThat(account.getOnlineTrading(), equalTo(true));
         assertThat(account.getPhoneTrading(), equalTo(true));
         assertThat(account.getTermsAndConditionsAccepted(), equalTo(true));
+    }
+
+    @Test
+    public void testCanCreateAccountWithEnhancedData(){
+        Account account = Account.create("Acme Ltd", "company", "12 Steward St", "London", "E1 6FQ", "GB");
+        account.setStateOrProvince("City of London");
+        account.setBrand("currencycloud");
+        account.setYourReference("POS-UID-23523");
+        account.setStatus("enabled");
+        account.setSpreadTable("no_markup");
+        account.setIdentificationType("passport");
+        account.setIdentificationValue("AE02315508BF");
+        account.setApiTrading(true);
+        account.setOnlineTrading(true);
+        account.setPhoneTrading(true);
+        account.setTermsAndConditionsAccepted(true);
+        account.setLegalEntitySubType("limited_company");
+        AccountComplianceSettings complianceSettings = new AccountComplianceSettings();
+        complianceSettings.setIndustryType("technology");
+        complianceSettings.setCustomerRisk("LOW");
+        complianceSettings.setBusinessWebsiteUrl("https://acme.com");
+        complianceSettings.setExpectedMonthlyActivityVolume(100000);
+        complianceSettings.setExpectedMonthlyActivityValue(new BigDecimal("500000.00"));
+        
+        Account created = client.createAccount(account, complianceSettings);
+
+        assertThat(created, is(notNullValue()));
+        assertThat(created.getId(), equalTo("b7de235a-ff5d-4252-83c2-06a605267fea"));
+        assertThat(created.getLegalEntityType(), equalTo("company"));
+        assertThat(created.getAccountName(), equalTo("Acme Ltd"));
+        assertThat(created.getBrand(), equalTo("currencycloud"));
+        assertThat(created.getYourReference(), equalTo("POS-UID-23523"));
+        assertThat(created.getStatus(), equalTo("enabled"));
+        assertThat(created.getStreet(), equalTo("12 Steward St"));
+        assertThat(created.getCity(), equalTo("London"));
+        assertThat(created.getStateOrProvince(), equalTo("City of London"));
+        assertThat(created.getCountry(), equalTo("GB"));
+        assertThat(created.getPostalCode(), equalTo("E1 6FQ"));
+        assertThat(created.getSpreadTable(), equalTo("no_markup"));
+        assertThat(created.getCreatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(created.getUpdatedAt(), equalTo(parseDateTime("2018-01-01T12:34:56+00:00")));
+        assertThat(created.getIdentificationType(), equalTo("passport"));
+        assertThat(created.getIdentificationValue(), equalTo("AE02315508BF"));
+        assertThat(created.getShortReference(), equalTo("110104-00004"));
+        assertThat(created.getApiTrading(), equalTo(true));
+        assertThat(created.getOnlineTrading(), equalTo(true));
+        assertThat(created.getPhoneTrading(), equalTo(true));
+        assertThat(created.getTermsAndConditionsAccepted(), equalTo(true));
     }
 
     @Test
@@ -265,5 +315,58 @@ public class AccountsTest extends TestSupport {
         assertThat(paginationResponse.getNextPage(), equalTo(2));
         assertThat(paginationResponse.getOrder(), equalTo("created_at"));
         assertThat(paginationResponse.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
+    }
+
+
+    @Test
+    public void testCanRetrieveAccountComplianceSettings() {
+        AccountComplianceSettings complianceSettings = client.retrieveAccountComplianceSettings("e277c9f9-679f-454f-8367-274b3ff977ff");
+        
+        assertThat(complianceSettings, is(notNullValue()));
+        assertThat(complianceSettings.getAccountId(), equalTo("e277c9f9-679f-454f-8367-274b3ff977ff"));
+        assertThat(complianceSettings.getIndustryType(), equalTo("technology"));
+        assertThat(complianceSettings.getCountryOfIncorporation(), equalTo("US"));
+        assertThat(complianceSettings.getBusinessWebsiteUrl(), equalTo("https://example.com"));
+        assertThat(complianceSettings.getCustomerRisk(), equalTo("low"));
+        assertThat(complianceSettings.getExpectedMonthlyActivityVolume(), equalTo(100000));
+        assertThat(complianceSettings.getExpectedMonthlyActivityValue(), equalTo(new BigDecimal("500000.00")));
+        assertThat(complianceSettings.getExpectedTransactionCurrencies(), is(notNullValue()));
+        assertThat(complianceSettings.getExpectedTransactionCurrencies().size(), equalTo(3));
+        assertThat(complianceSettings.getExpectedTransactionCurrencies().get(0), equalTo("USD"));
+        assertThat(complianceSettings.getExpectedTransactionCurrencies().get(1), equalTo("EUR"));
+        assertThat(complianceSettings.getExpectedTransactionCurrencies().get(2), equalTo("GBP"));
+        assertThat(complianceSettings.getExpectedTransactionCountries(), is(notNullValue()));
+        assertThat(complianceSettings.getExpectedTransactionCountries().size(), equalTo(3));
+        assertThat(complianceSettings.getExpectedTransactionCountries().get(0), equalTo("US"));
+        assertThat(complianceSettings.getExpectedTransactionCountries().get(1), equalTo("GB"));
+        assertThat(complianceSettings.getExpectedTransactionCountries().get(2), equalTo("DE"));
+    }
+
+    @Test
+    public void testCanUpdateAccountComplianceSettings() {
+        AccountComplianceSettings complianceSettings = AccountComplianceSettings.create();
+        complianceSettings.setAccountId("e277c9f9-679f-454f-8367-274b3ff977ff");
+        complianceSettings.setIndustryType("fintech");
+        complianceSettings.setCountryOfIncorporation("GB");
+        complianceSettings.setBusinessWebsiteUrl("https://newsite.com");
+        complianceSettings.setCustomerRisk("medium");
+        complianceSettings.setExpectedMonthlyActivityVolume(200000);
+        complianceSettings.setExpectedMonthlyActivityValue(new BigDecimal("1000000.00"));
+        complianceSettings.setTaxIdentification("TAX123456");
+        complianceSettings.setNationalIdentification("NAT789012");
+        complianceSettings.setCountryOfCitizenship("GB");
+        complianceSettings.setTradingAddressStreet("456 Trading Ave");
+        complianceSettings.setTradingAddressCity("London");
+        complianceSettings.setTradingAddressCountry("GB");
+        complianceSettings.setTradingAddressPostalcode("SW1A 1AA");
+
+        AccountComplianceSettings updatedSettings = client.updateAccountComplianceSettings(complianceSettings);
+        
+        assertThat(updatedSettings, is(notNullValue()));
+        assertThat(updatedSettings.getAccountId(), equalTo("e277c9f9-679f-454f-8367-274b3ff977ff"));
+        assertThat(updatedSettings.getIndustryType(), equalTo("fintech"));
+        assertThat(updatedSettings.getCountryOfIncorporation(), equalTo("GB"));
+        assertThat(updatedSettings.getBusinessWebsiteUrl(), equalTo("https://newsite.com"));
+        assertThat(updatedSettings.getCustomerRisk(), equalTo("medium"));
     }
 }

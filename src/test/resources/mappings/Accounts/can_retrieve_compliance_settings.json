@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/accounts/e277c9f9-679f-454f-8367-274b3ff977ff/compliance_settings",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/7.2.0"
+      },
+      "X-Auth-Token": {
+        "matches": "acad59188ce6ddb54d4043bc4efb5f57"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Mon, 05 Mar 2018 06:36:51 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "450",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2771948673934289804",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"account_id\":\"e277c9f9-679f-454f-8367-274b3ff977ff\",\"industry_type\":\"technology\",\"country_of_incorporation\":\"US\",\"business_website_url\":\"https://example.com\",\"customer_risk\":\"low\",\"expected_monthly_activity_volume\":\"100000\",\"expected_monthly_activity_value\":\"500000.00\",\"expected_transaction_countries\":[\"US\",\"GB\",\"DE\"],\"expected_transaction_currencies\":[\"USD\",\"EUR\",\"GBP\"],\"tax_identification\":\"TAX987654\",\"national_identification\":\"NAT456789\",\"country_of_citizenship\":\"US\",\"trading_address_street\":\"123 Tech St\",\"trading_address_city\":\"San Francisco\",\"trading_address_state\":\"CA\",\"trading_address_postalcode\":\"94102\",\"trading_address_country\":\"US\"}"
+  }
+}

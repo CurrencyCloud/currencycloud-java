@@ -36,6 +36,9 @@ public class Account implements Entity {
     private Date updatedAt;
     private String identificationType;
     private String identificationValue;
+    private String legalEntitySubType;
+    private Date identificationExpiration;
+    private String identificationIssuer;
     private String shortReference;
     private Boolean apiTrading;
     private Boolean onlineTrading;
@@ -183,6 +186,30 @@ public class Account implements Entity {
 
     public void setIdentificationValue(String identificationValue) {
         this.identificationValue = identificationValue;
+    }
+
+    public String getLegalEntitySubType() {
+        return legalEntitySubType;
+    }
+
+    public void setLegalEntitySubType(String legalEntitySubType) {
+        this.legalEntitySubType = legalEntitySubType;
+    }
+
+    public Date getIdentificationExpiration() {
+        return identificationExpiration;
+    }
+
+    public void setIdentificationExpiration(Date identificationExpiration) {
+        this.identificationExpiration = identificationExpiration;
+    }
+
+    public String getIdentificationIssuer() {
+        return identificationIssuer;
+    }
+
+    public void setIdentificationIssuer(String identificationIssuer) {
+        this.identificationIssuer = identificationIssuer;
     }
 
     public String getShortReference() {

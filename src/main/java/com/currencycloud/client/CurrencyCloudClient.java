@@ -5,6 +5,7 @@ import com.currencycloud.client.dirty.ModifiedValueProvider;
 import com.currencycloud.client.exception.CurrencyCloudException;
 import com.currencycloud.client.exception.UnexpectedException;
 import com.currencycloud.client.model.Account;
+import com.currencycloud.client.model.AccountComplianceSettings;
 import com.currencycloud.client.model.AccountPaymentChargesSetting;
 import com.currencycloud.client.model.AccountPaymentChargesSettings;
 import com.currencycloud.client.model.Accounts;
@@ -111,7 +112,7 @@ public class CurrencyCloudClient {
       "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       Pattern.CASE_INSENSITIVE
   );
-  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/7.1.1";
+  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/7.2.0";
 
   private final CurrencyCloud api;
 
@@ -288,27 +289,55 @@ public class CurrencyCloudClient {
   ///// ACCOUNTS ////////////////////////////////////////////////////
 
   public Account createAccount(Account account) throws CurrencyCloudException {
-    return api.createAccount(
-        authToken,
-        userAgent,
-        account.getAccountName(),
-        account.getLegalEntityType(),
-        account.getStreet(),
-        account.getCity(),
-        account.getPostalCode(),
-        account.getCountry(),
-        account.getStateOrProvince(),
-        account.getBrand(),
-        account.getYourReference(),
-        account.getStatus(),
-        account.getSpreadTable(),
-        account.getIdentificationType(),
-        account.getIdentificationValue(),
-        account.getApiTrading(),
-        account.getOnlineTrading(),
-        account.getPhoneTrading(),
-        account.getTermsAndConditionsAccepted()
-    );
+    return createAccount(account, null);
+  }
+
+  public Account createAccount(Account account, AccountComplianceSettings accountComplianceSettings) throws CurrencyCloudException {
+      if (accountComplianceSettings == null) {
+          accountComplianceSettings = AccountComplianceSettings.create();
+      }
+
+      return api.createAccount(
+          authToken,
+          userAgent,
+          account.getAccountName(),
+          account.getLegalEntityType(),
+          account.getStreet(),
+          account.getCity(),
+          account.getPostalCode(),
+          account.getCountry(),
+          account.getStateOrProvince(),
+          account.getBrand(),
+          account.getYourReference(),
+          account.getStatus(),
+          account.getSpreadTable(),
+          account.getIdentificationType(),
+          account.getIdentificationValue(),
+          account.getApiTrading(),
+          account.getOnlineTrading(),
+          account.getPhoneTrading(),
+          account.getTermsAndConditionsAccepted(),
+          account.getLegalEntitySubType(),
+          dateOnly(account.getIdentificationExpiration()),
+          account.getIdentificationIssuer(),
+          accountComplianceSettings.getIndustryType(),
+          accountComplianceSettings.getBusinessWebsiteUrl(),
+          accountComplianceSettings.getCountryOfIncorporation(),
+          accountComplianceSettings.getCountryOfCitizenship(),
+          dateOnly(accountComplianceSettings.getDateOfIncorporation()),
+          accountComplianceSettings.getTradingAddressStreet(),
+          accountComplianceSettings.getTradingAddressCity(),
+          accountComplianceSettings.getTradingAddressState(),
+          accountComplianceSettings.getTradingAddressPostalcode(),
+          accountComplianceSettings.getTradingAddressCountry(),
+          accountComplianceSettings.getTaxIdentification(),
+          accountComplianceSettings.getNationalIdentification(),
+          accountComplianceSettings.getCustomerRisk(),
+          accountComplianceSettings.getExpectedMonthlyActivityVolume(),
+          accountComplianceSettings.getExpectedMonthlyActivityValue(),
+          accountComplianceSettings.getExpectedTransactionCurrencies(),
+          accountComplianceSettings.getExpectedTransactionCountries()
+      );
   }
 
   public Account retrieveAccount(String accountId) throws CurrencyCloudException {
@@ -400,6 +429,39 @@ public class CurrencyCloudClient {
         chargeSettings.getChargeSettingsId(),
         chargeSettings.isEnabled(),
         chargeSettings.isDefault()
+    );
+  }
+
+  public AccountComplianceSettings retrieveAccountComplianceSettings(String accountId) throws CurrencyCloudException {
+    return api.retrieveAccountComplianceSettings(
+        authToken,
+        userAgent,
+        accountId
+    );
+  }
+
+  public AccountComplianceSettings updateAccountComplianceSettings(AccountComplianceSettings settings) throws CurrencyCloudException {
+    return api.updateAccountComplianceSettings(
+        authToken,
+        userAgent,
+        settings.getAccountId(),
+        settings.getIndustryType(),
+        settings.getBusinessWebsiteUrl(),
+        settings.getCountryOfIncorporation(),
+        settings.getCountryOfCitizenship(),
+        dateOnly(settings.getDateOfIncorporation()),
+        settings.getTradingAddressStreet(),
+        settings.getTradingAddressCity(),
+        settings.getTradingAddressState(),
+        settings.getTradingAddressPostalcode(),
+        settings.getTradingAddressCountry(),
+        settings.getTaxIdentification(),
+        settings.getNationalIdentification(),
+        settings.getCustomerRisk(),
+        settings.getExpectedMonthlyActivityVolume(),
+        settings.getExpectedMonthlyActivityValue(),
+        settings.getExpectedTransactionCurrencies(),
+        settings.getExpectedTransactionCountries()
     );
   }
 

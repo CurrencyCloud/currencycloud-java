@@ -2,6 +2,7 @@ package com.currencycloud.client;
 
 import com.currencycloud.client.exception.UnexpectedException;
 import com.currencycloud.client.model.Account;
+import com.currencycloud.client.model.AccountComplianceSettings;
 import org.hamcrest.junit.ExpectedException;
 import org.junit.After;
 import org.junit.Before;
@@ -50,5 +51,31 @@ public class AccountsWithClientReadTimeout extends TestSupportClientReadTimeout 
         account.setIdentificationValue("AE02315508BF");
         account.setTermsAndConditionsAccepted(true);
         client.createAccount(account);
+    }
+
+    @Test
+    public void testCanCreateAccountWithEnhancedData() {
+        expectedException.expect(UnexpectedException.class);
+        expectedException.expectCause(allOf(
+                instanceOf(AwareException.class),
+                hasProperty("message", containsString("java.net.SocketTimeoutException: Read timed out"))));
+
+        Account request = Account.create("Acme Ltd", "company", "12 Steward St", "London", "E1 6FQ", "GB");
+        request.setBrand("currencycloud");
+        request.setYourReference("POS-UID-23523");
+        request.setStatus("enabled");
+        request.setStateOrProvince("City of London");
+        request.setSpreadTable("no_markup");
+        request.setApiTrading(true);
+        request.setOnlineTrading(true);
+        request.setPhoneTrading(true);
+        request.setIdentificationType("passport");
+        request.setIdentificationValue("AE02315508BF");
+        request.setTermsAndConditionsAccepted(true);
+        request.setLegalEntitySubType("limited_company");
+        AccountComplianceSettings accountComplianceSettings = new AccountComplianceSettings();
+        accountComplianceSettings.setIndustryType("technology");
+        accountComplianceSettings.setCustomerRisk("LOW");
+        client.createAccount(request, accountComplianceSettings);
     }
 }
