@@ -1,0 +1,39 @@
+{
+  "request": {
+    "url": "/v2/beneficiaries/account_verification",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/7.3.0"
+      },
+      "X-Auth-Token": {
+        "matches": "4df5b3e5882a412f148dcd08fa4e5b73"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "matches": ".*bank_country=NL.*",
+        "matches": ".*currency=EUR.*",
+        "matches": ".*iban=NL35CCBV9988659199.*",
+        "matches": ".*beneficiary_entity_type=individual.*",
+        "matches": ".*beneficiary_first_name=Test.*",
+        "matches": ".*beneficiary_last_name=User.*",
+        "matches": ".*payment_type=regular.*"
+      }
+    ]
+
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Fri, 19 Apr 2024 12:57:03 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "724",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2777975414238700879",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"answer\":\"confirmed\",\"actual_name\":\"Test User\",\"reason_code\":\"FMCH\",\"reason\":\"Full match\"}"
+  }
+}

@@ -618,7 +618,10 @@ public interface CurrencyCloud {
       @Nullable @FormParam("beneficiary_company_name") String beneficiaryCompanyName,
       @Nullable @FormParam("beneficiary_first_name") String beneficiaryFirstName,
       @Nullable @FormParam("beneficiary_last_name") String beneficiaryLastName,
-      @Nullable @FormParam("secondary_reference_data") String secondaryReferenceData
+      @Nullable @FormParam("secondary_reference_data") String secondaryReferenceData,
+      @Nullable @FormParam("currency") String currency,
+      @Nullable @FormParam("iban") String iban,
+      @Nullable @FormParam("payment_type") String paymentType
   ) throws ResponseException;
 
   ///////////////////////////////////////////////////////////////////
