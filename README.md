@@ -262,6 +262,8 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [7.3.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-7.3.0)
+    * Adds `currency`, `iban` and `payment_type` to POST  /beneficiaries/account_verification
 * [7.2.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-7.2.0)
   * Adds GET /accounts/{id}/compliance_settings
   * Adds POST /accounts/{id}/compliance_settings

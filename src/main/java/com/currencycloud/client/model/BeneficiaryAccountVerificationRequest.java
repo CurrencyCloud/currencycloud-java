@@ -26,6 +26,9 @@ public class BeneficiaryAccountVerificationRequest implements Entity {
     private String beneficiaryLastName;
     private String secondaryReferenceData;
     private String bankCountry;
+    private String currency;
+    private String iban;
+    private String paymentType;
 
     @JsonProperty("routing_code_type_1")
     private String routingCodeType1;
@@ -116,6 +119,30 @@ public class BeneficiaryAccountVerificationRequest implements Entity {
         this.routingCodeValue1 = routingCodeValue1;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
     @Override
     public String toString() {
         final ObjectMapper objectMapper = new ObjectMapper()
@@ -132,6 +159,9 @@ public class BeneficiaryAccountVerificationRequest implements Entity {
         map.put("secondaryReferenceData", secondaryReferenceData);
         map.put("beneficiaryEntityType", beneficiaryEntityType);
         map.put("bankCountry", bankCountry);
+        map.put("currency", currency);
+        map.put("iban", iban);
+        map.put("paymentType", paymentType);
 
         try {
             return objectMapper.writeValueAsString(map);

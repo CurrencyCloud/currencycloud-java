@@ -401,7 +401,7 @@ public class BeneficiariesTest extends TestSupport {
     }
 
     @Test
-    public void testCanVerifyAccount() {
+    public void testCanVerifyAccount_CoP() {
         client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
         BeneficiaryAccountVerificationRequest beneficiary = BeneficiaryAccountVerificationRequest.create();
         beneficiary.setBankCountry("GB");
@@ -410,6 +410,27 @@ public class BeneficiariesTest extends TestSupport {
         beneficiary.setBeneficiaryEntityType("individual");
         beneficiary.setBeneficiaryFirstName("Test");
         beneficiary.setBeneficiaryLastName("User");
+
+        BeneficiaryAccountVerification beneficiaryAccountVerification = client.verifyAccount(beneficiary);
+
+        assertThat(beneficiaryAccountVerification, is(notNullValue()));
+        assertThat(beneficiaryAccountVerification.getAnswer(), equalTo("confirmed"));
+        assertThat(beneficiaryAccountVerification.getActualName(), equalTo("Test User"));
+        assertThat(beneficiaryAccountVerification.getReasonCode(), equalTo("FMCH"));
+        assertThat(beneficiaryAccountVerification.getReason(), equalTo("Full match"));
+    }
+
+    @Test
+    public void testCanVerifyAccount_VoP() {
+        client.setAuthToken("4df5b3e5882a412f148dcd08fa4e5b73");
+        BeneficiaryAccountVerificationRequest beneficiary = BeneficiaryAccountVerificationRequest.create();
+        beneficiary.setBankCountry("NL");
+        beneficiary.setCurrency("EUR");
+        beneficiary.setIban("NL35CCBV9988659199");
+        beneficiary.setBeneficiaryEntityType("individual");
+        beneficiary.setBeneficiaryFirstName("Test");
+        beneficiary.setBeneficiaryLastName("User");
+        beneficiary.setPaymentType("regular");
 
         BeneficiaryAccountVerification beneficiaryAccountVerification = client.verifyAccount(beneficiary);
 

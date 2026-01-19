@@ -112,7 +112,7 @@ public class CurrencyCloudClient {
       "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       Pattern.CASE_INSENSITIVE
   );
-  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/7.2.0";
+  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/7.3.0";
 
   private final CurrencyCloud api;
 
@@ -704,7 +704,10 @@ public class CurrencyCloudClient {
         beneficiary.getBeneficiaryCompanyName(),
         beneficiary.getBeneficiaryFirstName(),
         beneficiary.getBeneficiaryLastName(),
-        beneficiary.getSecondaryReferenceData());
+        beneficiary.getSecondaryReferenceData(),
+        beneficiary.getCurrency(),
+        beneficiary.getIban(),
+        beneficiary.getPaymentType());
   }
 
   ///////////////////////////////////////////////////////////////////

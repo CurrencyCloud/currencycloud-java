@@ -4,7 +4,7 @@
     "method": "GET",
     "headers": {
       "User-Agent": {
-        "matches": "CurrencyCloudSDK/2.0 Java/7.2.0"
+        "matches": "CurrencyCloudSDK/2.0 Java/7.3.0"
       }
     }
   },
