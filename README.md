@@ -1,7 +1,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22) [![CodeQL](https://github.com/CurrencyCloud/currencycloud-java/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/CurrencyCloud/currencycloud-java/actions/workflows/github-code-scanning/codeql)
 
 # Currencycloud API v2 Java client
-## Version: 7.2.0
+## Version: 7.3.1
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -262,6 +262,11 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [7.3.1](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-7.3.1)
+    * Replaces deprecated `PropertyNamingStrategy` with `PropertyNamingStrategies`
+    * Bumps [jackson][jackson] (core, dataformat-yaml) from 2.20.0 -> 2.20.1
+    * Bumps [jackson][jackson] annotations from 2.20 -> 2.21
+    * Bumps [maven][maven] release-plugin from 3.1.1 -> 3.3.1
 * [7.3.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-7.3.0)
     * Adds `currency`, `iban` and `payment_type` to POST  /beneficiaries/account_verification
 * [7.2.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-7.2.0)
