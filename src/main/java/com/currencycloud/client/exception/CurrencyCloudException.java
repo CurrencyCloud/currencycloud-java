@@ -2,7 +2,7 @@ package com.currencycloud.client.exception;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
@@ -13,8 +13,8 @@ import si.mazi.rescu.InvocationAware;
 import si.mazi.rescu.RestInvocation;
 
 import javax.annotation.Nullable;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.QueryParam;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.QueryParam;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.annotation.Annotation;
@@ -26,7 +26,7 @@ import java.util.Map;
  * This is the root of the Currency Cloud Exception hierarchy. It provides some information about the
  * HTTP request and the server response. The {@link #toString()} method returns YAML-formatted data.
  */
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonPropertyOrder({"exceptionType", "platform", "request", "response", "errorCode", "errors"})
 public abstract class CurrencyCloudException extends RuntimeException {
 
@@ -102,7 +102,7 @@ public abstract class CurrencyCloudException extends RuntimeException {
         }
     }
 
-    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
     public static class Request {
 
         /** The parameters that were sent in the request (GET or POST) */

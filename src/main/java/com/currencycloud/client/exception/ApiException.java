@@ -4,7 +4,7 @@ import com.currencycloud.client.Utils;
 import com.currencycloud.client.model.ErrorMessage;
 import com.currencycloud.client.model.ResponseException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import si.mazi.rescu.InvocationAware;
 
@@ -83,7 +83,7 @@ public class ApiException extends CurrencyCloudException {
         return errors;
     }
 
-    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
     @JsonPropertyOrder({"statusCode", "date", "requestId"})
     public static class Response {
 

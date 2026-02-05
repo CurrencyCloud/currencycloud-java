@@ -42,4 +42,8 @@ public enum Utils {
         }
         return t;
     }
+
+    public static boolean isNotEmpty(String str) {
+        return str != null && !str.isBlank();
+    }
 }

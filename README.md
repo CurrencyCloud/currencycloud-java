@@ -12,8 +12,8 @@ CurrencyCloud-Java is a Maven project. We highly recommend using [Apache Maven][
 to build your project. While using Maven is not strictly required 
 it will simplify building the project and handling dependencies.
 
-### 2. JDK 8, 11, 17, 21 or 23
-CurrencyCloud-Java requires at least a Java version 8 compatible JDK.
+### 2. JDK 11, 17, 21 or 23
+CurrencyCloud-Java requires at least a Java version 11 compatible JDK.
 
 ### 3. A valid sandbox login id and api key on the Currencycloud sandbox API environment.
 You can register for a demo API key at [developer.currencycloud.com][developer].
@@ -27,9 +27,11 @@ To use the Currencycloud SDK in a Maven project, add the following dependency to
 <dependency>
     <groupId>com.currencycloud.currencycloud-java</groupId>
     <artifactId>currencycloud-java</artifactId>
-    <version>5.12.0</version>
+    <version>X.Y.Z</version>
 </dependency>
 ```
+Replace `X.Y.Z` with an available version from the `Versions` tab of the [currencycloud-java Sonatype repository][sonatype repository]
+
 ### 2. Using Gradle
 To use the Currencycloud SDK in a Gradle project, add the following dependency to your project's `build.gradle`:
 ```Groovy
@@ -40,38 +42,21 @@ repositories {
 
 dependencies {
 
-    implementation 'com.currencycloud.currencycloud-java:currencycloud-java:5.12.0'
+    implementation 'com.currencycloud.currencycloud-java:currencycloud-java:X.Y.Z'
 }
 ```
 
 ### 3. Manually downloading the jars
 Download the Currencycloud SDK jar:
-1. Open https://oss.sonatype.org/#nexus-search;quick~currencycloud-java
+1. Visit the [currencycloud-java Sonatype repository][sonatype repository]
 2. Navigate to the version of currencycloud-java that you wish to use
-3. Download the currencycloud-java-5.12.0.jar
+3. Download the currencycloud-java-X.Y.Z.jar
 
 Get the list of all dependencies:
 ```Shell
 mvn dependency:list -DincludeScope=runtime
 ```
-As of version 2.0.0, this returns the following list:
-```
-com.google.code.findbugs:jsr305:jar:3.0.2:compile
-com.fasterxml.jackson.core:jackson-annotations:jar:2.19.1:compile
-com.fasterxml.jackson.core:jackson-core:jar:2.19.1:compile
-org.slf4j:slf4j-api:jar:1.7.32:compile
-oauth.signpost:signpost-core:jar:1.2.1.2:compile
-ch.qos.logback:logback-core:jar:1.2.10:compile
-cglib:cglib:jar:3.3.0:compile
-commons-codec:commons-codec:jar:1.3:compile
-com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:jar:2.19.1:compile
-ch.qos.logback:logback-classic:jar:1.2.10:compile
-com.github.mmazi:rescu:jar:2.1.0:compile
-javax.ws.rs:javax.ws.rs-api:jar:2.1.1:compile
-org.ow2.asm:asm:jar:9.2:compile
-javax.ws.rs:jsr311-api:jar:1.1.1:compile
-net.bytebuddy:byte-buddy:1.17.6
-```
+
 You will need to find each of these dependencies and download it from the [Sonatype Nexus][sonatype] as described above.
 
 Finally, include all downloaded jars in your project's classpath.
@@ -213,24 +198,10 @@ devuser@localhost currencycloud-java $ mvn clean install
 Test cases can be run with `mvn test`
 
 ## Dependencies
-```
-com.github.tomakehurst:wiremock-jre8:test
-org.codehaus.groovy:groovy-all:jar:2.4.21:test
-commons-lang:commons-lang:jar:2.4:test
-org.eclipse.jetty:jetty-util:jar:7.3.1.v20110307:test
-org.hamcrest:hamcrest-junit:jar:2.0.0.0:test
-org.hamcrest:java-hamcrest:jar:2.0.0.0:test
-org.eclipse.jetty:jetty-http:jar:7.3.1.v20110307:test
-junit:junit:jar:4.13.2:test
-commons-logging:commons-logging:jar:1.1.1:test
-org.hamcrest:hamcrest-core:jar:1.3:test
-org.eclipse.jetty:jetty-continuation:jar:7.3.1.v20110307:test
-org.yaml:snakeyaml:jar:1.30:test
-org.eclipse.jetty:jetty-server:jar:7.3.1.v20110307:test
-org.eclipse.jetty:jetty-io:jar:7.3.1.v20110307:test
-javax.servlet:servlet-api:jar:2.5:test
-org.apache.httpcomponents:httpclient:jar:4.2.1:test
-org.apache.httpcomponents:httpcore:jar:4.2.1:test
+
+Get the list of all dependencies:
+```Shell
+mvn dependency:list -DincludeScope=test
 ```
 
 ## Contributing
@@ -255,13 +226,24 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 
 ### List of features being deprecated
 ```
-- JDK8 Support
 ```
 
 # Support
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [8.0.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.0.0)
+    * Removes support for JDK8     
+    * Replaces remaining deprecated `PropertyNamingStrategy` with `PropertyNamingStrategies`
+    * Bumps [maven][maven] source-plugin from 3.3.1 -> 3.4.0
+    * Bumps [sonatype][sonatype] central-publishing-maven-plugin from 0.9.0 -> 0.10.0
+    * Bumps [jackson][jackson] (core, dataformat-yaml) from 2.20.1 -> 2.21.0
+    * Bumps [jackson][jackson] databind 2.21.0
+    * Bumps [logback][logback] (classic, core) from 1.3.15 -> 1.5.26
+    * Bumps [rescu][rescu] from 2.1.0 -> 3.1
+    * Adds [bytebuddy][bytebuddy] from 1.17.8 -> 1.18.4
+    * Replaces jsr311-api and javax.ws.rs-api with jakarta.ws.rs-api 3.1.0
+    * Replaces wiremock-jre8 with wiremock 3.13.2
 * [7.3.1](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-7.3.1)
     * Replaces deprecated `PropertyNamingStrategy` with `PropertyNamingStrategies`
     * Bumps [jackson][jackson] (core, dataformat-yaml) from 2.20.0 -> 2.20.1
@@ -413,6 +395,7 @@ Copyright (c) 2015-2019 Currencycloud. See [LICENSE][license] for details.
 [developer]: https://developer.currencycloud.com
 [semver]:    http://semver.org/
 [sonatype]:  https://central.sonatype.com/
+[sonatype repository]: https://central.sonatype.com/artifact/com.currencycloud.currencycloud-java/currencycloud-java
 [ebwj]:      https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
 [license]:   LICENSE.md
 [contr]:     CONTRIBUTING.md
