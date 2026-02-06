@@ -1,6 +1,7 @@
 package com.currencycloud.client;
 
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.slf4j.Logger;
@@ -14,8 +15,10 @@ public class TestSupport extends JsonTestSupport {
 
     @Rule
     public final TestName name = new TestName();
+    @ClassRule
+    public static WireMockClassRule wiremock = new WireMockClassRule(options().port(5555));
     @Rule
-    public WireMockRule wiremock = new WireMockRule(options().port(5555));
+    public WireMockClassRule instanceRule = wiremock;
 
     protected CurrencyCloudClient prepareTestClient(String loginId, String apiKey, String authToken) {
         return prepareTestClient("http://localhost:5555", loginId, apiKey, authToken);

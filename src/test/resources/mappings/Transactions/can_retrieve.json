@@ -4,7 +4,7 @@
     "method": "GET",
     "headers": {
       "User-Agent": {
-        "matches": "CurrencyCloudSDK/2.0 Java/7.3.1"
+        "matches": "CurrencyCloudSDK/2.0 Java/8.0.0"
       },
       "X-Auth-Token": {
         "matches": "334cbfdb9ba9bfb6ffd499b0c6af6b12"

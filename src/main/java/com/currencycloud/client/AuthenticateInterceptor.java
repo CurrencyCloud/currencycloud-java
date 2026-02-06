@@ -1,11 +1,10 @@
 package com.currencycloud.client;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import si.mazi.rescu.Interceptor;
 
-import javax.ws.rs.HeaderParam;
+import jakarta.ws.rs.HeaderParam;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
@@ -31,7 +30,7 @@ abstract class AuthenticateInterceptor implements Interceptor {
                 if (paramAnn instanceof HeaderParam) {
                     if ("X-Auth-Token".equals(((HeaderParam) paramAnn).value())) {
                         args[iParam] = client.getAuthToken();
-                        log.trace("Auth token populated: {}", StringUtils.isNotEmpty(client.getAuthToken()));
+                        log.trace("Auth token populated: {}", Utils.isNotEmpty(client.getAuthToken()));
                         return;
                     }
                 }

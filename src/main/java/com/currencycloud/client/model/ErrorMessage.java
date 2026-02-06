@@ -1,12 +1,12 @@
 package com.currencycloud.client.model;
 
 import com.currencycloud.client.exception.ApiException;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.util.Map;
 
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ErrorMessage {
 
     private String field;

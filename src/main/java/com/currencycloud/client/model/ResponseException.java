@@ -1,6 +1,6 @@
 package com.currencycloud.client.model;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import si.mazi.rescu.HttpResponseAware;
 import si.mazi.rescu.HttpStatusExceptionSupport;
@@ -17,7 +17,7 @@ import java.util.Map;
  * Note that this works because ResponseException is declared on the HTTP API interface methods
  * ({@link com.currencycloud.client.CurrencyCloud}), and it is mapped to json using Jackson annotations.
  */
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ResponseException extends HttpStatusExceptionSupport implements InvocationAware, HttpResponseAware {
 
     private String errorCode;

@@ -4,7 +4,7 @@
     "method": "POST",
     "headers": {
       "User-Agent": {
-        "matches": "CurrencyCloudSDK/2.0 Java/7.3.1"
+        "matches": "CurrencyCloudSDK/2.0 Java/8.0.0"
       },
       "X-Auth-Token": {
         "matches": "acad59188ce6ddb54d4043bc4efb5f57"
