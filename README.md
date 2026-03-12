@@ -12,7 +12,7 @@ CurrencyCloud-Java is a Maven project. We highly recommend using [Apache Maven][
 to build your project. While using Maven is not strictly required 
 it will simplify building the project and handling dependencies.
 
-### 2. JDK 11, 17, 21 or 23
+### 2. JDK 11, 17, 21 or 25
 CurrencyCloud-Java requires at least a Java version 11 compatible JDK.
 
 ### 3. A valid sandbox login id and api key on the Currencycloud sandbox API environment.
@@ -232,6 +232,9 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [8.1.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.0.0)
+    * Adds support for JDK25
+    * Adds `payer_ultimate_account_number` to POST /payments/{create, validate, update}
 * [8.0.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.0.0)
     * Removes support for JDK8     
     * Replaces remaining deprecated `PropertyNamingStrategy` with `PropertyNamingStrategies`

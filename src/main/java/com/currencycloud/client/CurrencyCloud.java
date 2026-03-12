@@ -1005,7 +1005,8 @@ public interface CurrencyCloud {
       @Nullable @FormParam("fee_amount") BigDecimal feeAmount,
       @Nullable @FormParam("fee_currency") String feeCurrency,
       @Nullable @FormParam("invoice_date") java.sql.Date invoiceDate,
-      @Nullable @FormParam("invoice_number") String invoiceNumber
+      @Nullable @FormParam("invoice_number") String invoiceNumber,
+      @Nullable @FormParam("payer_ultimate_account_number") String payerUltimateAccountNumber
   ) throws ResponseException;
 
   /**
@@ -1049,7 +1050,8 @@ public interface CurrencyCloud {
       @Nullable @FormParam("fee_amount") BigDecimal feeAmount,
       @Nullable @FormParam("fee_currency") String feeCurrency,
       @Nullable @FormParam("invoice_date") java.sql.Date invoiceDate,
-      @Nullable @FormParam("invoice_number") String invoiceNumber
+      @Nullable @FormParam("invoice_number") String invoiceNumber,
+      @Nullable @FormParam("payer_ultimate_account_number") String payerUltimateAccountNumber
   ) throws ResponseException;
 
   /**
@@ -1115,7 +1117,8 @@ public interface CurrencyCloud {
       @Nullable @FormParam("fee_amount") BigDecimal feeAmount,
       @Nullable @FormParam("fee_currency") String feeCurrency,
       @Nullable @FormParam("invoice_date") java.sql.Date invoiceDate,
-      @Nullable @FormParam("invoice_number") String invoiceNumber
+      @Nullable @FormParam("invoice_number") String invoiceNumber,
+      @Nullable @FormParam("payer_ultimate_account_number") String payerUltimateAccountNumber
   ) throws ResponseException;
 
   /**

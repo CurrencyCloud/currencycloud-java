@@ -112,7 +112,7 @@ public class CurrencyCloudClient {
       "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       Pattern.CASE_INSENSITIVE
   );
-  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/8.0.0";
+  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/8.1.0";
 
   private final CurrencyCloud api;
 
@@ -1063,7 +1063,8 @@ public class CurrencyCloudClient {
         payment.getFeeAmount(),
         payment.getFeeCurrency(),
         dateOnly(payment.getInvoiceDate()),
-        payment.getInvoiceNumber()
+        payment.getInvoiceNumber(),
+        payer.getUltimateAccountNumber()
     );
   }
 
@@ -1114,7 +1115,8 @@ public class CurrencyCloudClient {
         payment.getFeeAmount(),
         payment.getFeeCurrency(),
         dateOnly(payment.getInvoiceDate()),
-        payment.getInvoiceNumber()
+        payment.getInvoiceNumber(),
+        payer.getUltimateAccountNumber()
     );
   }
 
@@ -1172,7 +1174,8 @@ public class CurrencyCloudClient {
         payment.getFeeAmount(),
         payment.getFeeCurrency(),
         dateOnly(payment.getInvoiceDate()),
-        payment.getInvoiceNumber()
+        payment.getInvoiceNumber(),
+        payer.getUltimateAccountNumber()
     );
   }
 

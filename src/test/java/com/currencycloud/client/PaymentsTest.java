@@ -2,6 +2,7 @@ package com.currencycloud.client;
 
 import com.currencycloud.client.exception.CurrencyCloudException;
 import com.currencycloud.client.model.Pagination;
+import com.currencycloud.client.model.Payer;
 import com.currencycloud.client.model.Payment;
 import com.currencycloud.client.model.PaymentAuthorisation;
 import com.currencycloud.client.model.PaymentAuthorisations;
@@ -173,8 +174,10 @@ public class PaymentsTest extends TestSupport {
         payment.setId("778d2ba2-b2ec-4b39-b54c-0c3410525c97");
         payment.setUltimateBeneficiaryName("Francesco Bianco");
         payment.setChargeType("shared");
+        Payer payer = Payer.create();
+        payer.setUltimateAccountNumber("12345678");
 
-        payment = client.updatePayment(payment, null);
+        payment = client.updatePayment(payment, payer);
 
         assertThat(payment, notNullValue());
         assertThat(payment.getId(), equalTo("778d2ba2-b2ec-4b39-b54c-0c3410525c97"));
