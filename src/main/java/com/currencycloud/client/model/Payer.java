@@ -33,6 +33,7 @@ public class Payer implements Entity {
     private Date dateOfBirth;
     private Date createdAt;
     private Date updatedAt;
+    private String ultimateAccountNumber;
 
     protected Payer() { }
 
@@ -249,6 +250,14 @@ public class Payer implements Entity {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getUltimateAccountNumber() {
+        return ultimateAccountNumber;
+    }
+
+    public void setUltimateAccountNumber(String ultimateAccountNumber) {
+        this.ultimateAccountNumber = ultimateAccountNumber;
     }
 
     @Override
