@@ -232,7 +232,7 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
-* [8.1.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.0.0)
+* [8.1.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.1.0)
     * Adds support for JDK25
     * Adds `payer_ultimate_account_number` to POST /payments/{create, validate, update}
 * [8.0.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.0.0)
