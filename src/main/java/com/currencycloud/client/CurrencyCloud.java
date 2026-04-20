@@ -13,6 +13,7 @@ import com.currencycloud.client.model.Beneficiaries;
 import com.currencycloud.client.model.Beneficiary;
 import com.currencycloud.client.model.BeneficiaryAccountVerification;
 import com.currencycloud.client.model.BeneficiaryRequiredDetails;
+import com.currencycloud.client.model.CompleteCollectionsScreeningResponse;
 import com.currencycloud.client.model.Contact;
 import com.currencycloud.client.model.Contacts;
 import com.currencycloud.client.model.Conversion;
@@ -29,6 +30,7 @@ import com.currencycloud.client.model.Conversions;
 import com.currencycloud.client.model.Currencies;
 import com.currencycloud.client.model.DetailedRate;
 import com.currencycloud.client.model.FundingAccounts;
+import com.currencycloud.client.model.FundingTransaction;
 import com.currencycloud.client.model.MarginBalanceTopUp;
 import com.currencycloud.client.model.Pagination;
 import com.currencycloud.client.model.Payer;
@@ -69,6 +71,7 @@ import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -625,6 +628,24 @@ public interface CurrencyCloud {
   ) throws ResponseException;
 
   ///////////////////////////////////////////////////////////////////
+  ///// COLLECTIONS API ////////////////////////////////////////////////
+
+  /**
+   * Accept or reject inbound transaction
+   */
+  @PUT
+  @Path("collections_screening/{transactionId}/complete")
+  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+  CompleteCollectionsScreeningResponse completeCollectionsScreening(
+      @HeaderParam("X-Auth-Token") String authToken,
+      @HeaderParam("User-Agent") String userAgent,
+      @PathParam("transactionId") String transactionId,
+      @FormParam("accepted") Boolean accepted,
+      @FormParam("reason") String reason
+  ) throws ResponseException;
+
+
+  ///////////////////////////////////////////////////////////////////
   ///// CONTACTS API ////////////////////////////////////////////////
 
   /**
@@ -947,6 +968,17 @@ public interface CurrencyCloud {
       @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
   ) throws ResponseException;
 
+  /**
+   * Get FundingTransaction
+   */
+  @GET
+  @Path("funding_transactions/{id}")
+  FundingTransaction getFundingTransction(
+          @HeaderParam("X-Auth-Token") String authToken,
+          @HeaderParam("User-Agent") String userAgent,
+          @PathParam("id") String id,
+          @Nullable @QueryParam("on_behalf_of") String onBehalfOf
+  ) throws ResponseException;
 
   ///////////////////////////////////////////////////////////////////
   ///// PAYERS API ///////////////////////////////////////////////////

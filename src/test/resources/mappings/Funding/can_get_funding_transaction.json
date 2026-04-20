@@ -1,0 +1,27 @@
+{
+  "request": {
+    "url": "/v2/funding_transactions/b7981972-8e29-485b-8a4a-9643fc6ae3sa",
+    "method": "GET",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/8.2.0"
+      },
+      "X-Auth-Token": {
+        "matches": "acad59188ce6ddb54d4043bc4efb5f57"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Fri, 23 Mar 2018 12:50:53 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "791",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2773776363343519430",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"additional_information\":\"ABCD20231016143117\",\"amount\":1.11,\"completed_at\":\"2022-12-03T10:15:30+00:00\",\"created_at\":\"2022-12-03T10:15:30+00:00\",\"currency\":\"USD\",\"id\":\"4924919a-6c28-11ee-a3e3-63774946bad2\",\"rail\":\"SEPA\",\"receiving_account_iban\":null,\"receiving_account_number\":\"32847346\",\"receiving_account_routing_code\":\"123456789\",\"updated_at\":\"2022-12-03T10:15:30+00:00\",\"value_date\":\"2022-12-03T10:00:00+00:00\",\"sender\":{\"sender_account_number\":\"8119645406\",\"sender_address\":\"Some street\",\"sender_bic\":null,\"sender_country\":\"GB\",\"sender_iban\":null,\"sender_id\":\"5c675fa4-fdf0-4ee6-b5bb-156b36765433\",\"sender_name\":\"Test sender\",\"sender_routing_code\":null}}"
+  }
+}

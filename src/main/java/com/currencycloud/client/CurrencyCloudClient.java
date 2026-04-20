@@ -16,6 +16,7 @@ import com.currencycloud.client.model.Beneficiaries;
 import com.currencycloud.client.model.Beneficiary;
 import com.currencycloud.client.model.BeneficiaryAccountVerification;
 import com.currencycloud.client.model.BeneficiaryAccountVerificationRequest;
+import com.currencycloud.client.model.CompleteCollectionsScreeningResponse;
 import com.currencycloud.client.model.Contact;
 import com.currencycloud.client.model.Contacts;
 import com.currencycloud.client.model.Conversion;
@@ -34,6 +35,7 @@ import com.currencycloud.client.model.Currency;
 import com.currencycloud.client.model.DetailedRate;
 import com.currencycloud.client.model.Entity;
 import com.currencycloud.client.model.FundingAccounts;
+import com.currencycloud.client.model.FundingTransaction;
 import com.currencycloud.client.model.Iban;
 import com.currencycloud.client.model.Ibans;
 import com.currencycloud.client.model.MarginBalanceTopUp;
@@ -112,7 +114,7 @@ public class CurrencyCloudClient {
       "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       Pattern.CASE_INSENSITIVE
   );
-  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/8.1.0";
+  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/8.2.0";
 
   private final CurrencyCloud api;
 
@@ -711,6 +713,19 @@ public class CurrencyCloudClient {
   }
 
   ///////////////////////////////////////////////////////////////////
+  ///// COLLECTIONS /////////////////////////////////////////////////
+
+  public CompleteCollectionsScreeningResponse completeCollectionsScreening(String transactionId, Boolean accepted, String reason) throws CurrencyCloudException {
+    return api.completeCollectionsScreening(
+        authToken,
+        userAgent,
+        transactionId,
+        accepted,
+        reason
+    );
+  }
+
+  ///////////////////////////////////////////////////////////////////
   ///// CONTACTS ////////////////////////////////////////////////////
 
   public Contact createContact(Contact contact) throws CurrencyCloudException {
@@ -993,6 +1008,20 @@ public class CurrencyCloudClient {
         pagination.getPerPage(),
         pagination.getOrder(),
         pagination.getOrderAscDesc()
+    );
+  }
+
+  /**
+   * @param id    The Related Entity UUID for the transaction.
+   * @return The associated Funding Transaction
+   * @throws CurrencyCloudException When an error occurs
+   */
+  public FundingTransaction getFundingTransaction(String id) throws CurrencyCloudException {
+    return api.getFundingTransction(
+            authToken,
+            userAgent,
+            id,
+            getOnBehalfOf()
     );
   }
 

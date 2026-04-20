@@ -2,6 +2,7 @@ package com.currencycloud.client;
 
 import com.currencycloud.client.model.FundingAccount;
 import com.currencycloud.client.model.FundingAccounts;
+import com.currencycloud.client.model.FundingTransaction;
 import com.currencycloud.client.model.Pagination;
 import org.junit.After;
 import org.junit.Before;
@@ -14,6 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
 public class FundingTest extends TestSupport {
     private CurrencyCloudClient client;
@@ -91,6 +93,65 @@ public class FundingTest extends TestSupport {
             assertThat(pagination.getNextPage(), equalTo(-1));
             assertThat(pagination.getOrder(), equalTo("created_at"));
             assertThat(pagination.getOrderAscDesc(), equalTo(Pagination.SortOrder.asc));
+        });
+    }
+
+    @Test
+    public void testCanGetFundingTransaction() {
+        final FundingTransaction fundingTransaction = client.getFundingTransaction("b7981972-8e29-485b-8a4a-9643fc6ae3sa");
+        FundingTransaction.SenderInformation sender = fundingTransaction.getSender();
+        assertThat(fundingTransaction, notNullValue());
+        assertThat(fundingTransaction.getId(), equalTo("4924919a-6c28-11ee-a3e3-63774946bad2"));
+        assertThat(fundingTransaction.getAmount(), equalTo("1.11"));
+        assertThat(fundingTransaction.getCurrency(), equalTo("USD"));
+        assertThat(fundingTransaction.getRail(), equalTo("SEPA"));
+        assertThat(fundingTransaction.getAdditionalInformation(), equalTo("ABCD20231016143117"));
+        assertThat(fundingTransaction.getReceivingAccountRoutingCode(), equalTo("123456789"));
+        assertThat(fundingTransaction.getValueDate(), equalTo(parseDateTime("2022-12-03T10:00:00+00:00")));
+        assertThat(fundingTransaction.getReceivingAccountNumber(), equalTo("32847346"));
+        assertThat(fundingTransaction.getReceivingAccountIban(), nullValue());
+        assertThat(fundingTransaction.getCreatedAt(), equalTo(parseDateTime("2022-12-03T10:15:30+00:00")));
+        assertThat(fundingTransaction.getUpdatedAt(), equalTo(parseDateTime("2022-12-03T10:15:30+00:00")));
+        assertThat(fundingTransaction.getCompletedAt(), equalTo(parseDateTime("2022-12-03T10:15:30+00:00")));
+        assertThat(sender, notNullValue());
+        assertThat(sender.getAccountNumber(), equalTo("8119645406"));
+        assertThat(sender.getAddress(), equalTo("Some street"));
+        assertThat(sender.getBic(), nullValue());
+        assertThat(sender.getCountry(), equalTo("GB"));
+        assertThat(sender.getIban(), nullValue());
+        assertThat(sender.getId(), equalTo("5c675fa4-fdf0-4ee6-b5bb-156b36765433"));
+        assertThat(sender.getName(), equalTo("Test sender"));
+        assertThat(sender.getRoutingCode(), nullValue());
+    }
+
+    @Test
+    public void testCanGetFundingTransactionOnBehalfOf() {
+        final String contact_id = "3b163e5d-2a6e-4f3d-aff8-e8fc161d3f00";
+        client.onBehalfOfDo(contact_id, () -> {
+            final FundingTransaction fundingTransaction = client.getFundingTransaction("b7981972-8e29-485b-8a4a-9643fc6ae3sb");
+            FundingTransaction.SenderInformation sender = fundingTransaction.getSender();
+            assertThat(fundingTransaction, notNullValue());
+            assertThat(fundingTransaction.getId(), equalTo("4924919a-6c28-11ee-a3e3-63774946bad2"));
+            assertThat(fundingTransaction.getAmount(), equalTo("1.11"));
+            assertThat(fundingTransaction.getCurrency(), equalTo("USD"));
+            assertThat(fundingTransaction.getRail(), equalTo("SEPA"));
+            assertThat(fundingTransaction.getAdditionalInformation(), equalTo("ABCD20231016143117"));
+            assertThat(fundingTransaction.getReceivingAccountRoutingCode(), equalTo("123456789"));
+            assertThat(fundingTransaction.getValueDate(), equalTo(parseDateTime("2022-12-03T10:00:00+00:00")));
+            assertThat(fundingTransaction.getReceivingAccountNumber(), equalTo("32847346"));
+            assertThat(fundingTransaction.getReceivingAccountIban(), nullValue());
+            assertThat(fundingTransaction.getCreatedAt(), equalTo(parseDateTime("2022-12-03T10:15:30+00:00")));
+            assertThat(fundingTransaction.getUpdatedAt(), equalTo(parseDateTime("2022-12-03T10:15:30+00:00")));
+            assertThat(fundingTransaction.getCompletedAt(), equalTo(parseDateTime("2022-12-03T10:15:30+00:00")));
+            assertThat(sender, notNullValue());
+            assertThat(sender.getAccountNumber(), equalTo("8119645406"));
+            assertThat(sender.getAddress(), equalTo("Some street"));
+            assertThat(sender.getBic(), nullValue());
+            assertThat(sender.getCountry(), equalTo("GB"));
+            assertThat(sender.getIban(), nullValue());
+            assertThat(sender.getId(), equalTo("5c675fa4-fdf0-4ee6-b5bb-156b36765433"));
+            assertThat(sender.getName(), equalTo("Test sender"));
+            assertThat(sender.getRoutingCode(), nullValue());
         });
     }
 }

@@ -1,7 +1,6 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22) [![CodeQL](https://github.com/CurrencyCloud/currencycloud-java/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/CurrencyCloud/currencycloud-java/actions/workflows/github-code-scanning/codeql)
 
 # Currencycloud API v2 Java client
-## Version: 7.3.1
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
@@ -232,6 +231,9 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [8.2.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.2.0)
+    * Adds GET /funding_transactions/{id}
+    * Adds PUT /collections_screening/{transactionId}/complete
 * [8.1.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.1.0)
     * Adds support for JDK25
     * Adds `payer_ultimate_account_number` to POST /payments/{create, validate, update}

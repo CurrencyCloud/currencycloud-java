@@ -1,0 +1,32 @@
+{
+  "request": {
+    "url": "/v2/collections_screening/bdcca5e6-32fe-45f6-9476-6f8f518e6270/complete",
+    "method": "PUT",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/8.2.0"
+      },
+      "X-Auth-Token": {
+        "matches": "334cbfdb9ba9bfb6ffd499b0c6af6b12"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalTo": "accepted=true&reason=accepted"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Mon, 01 Jan 2018 12:34:56 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "263",
+      "Connection": "keep-alive",
+      "X-Request-Id": "3533986674859068810",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"transaction_id\":\"bdcca5e6-32fe-45f6-9476-6f8f518e6270\",\"account_id\":\"7a116d7d-6310-40ae-8d54-0ffbe41dc1c9\",\"house_account_id\":\"7a116d7d-6310-40ae-8d54-0ffbe41dc1c9\",\"result\":{\"reason\":\"accepted\",\"accepted\":true}}"
+  }
+}
