@@ -90,9 +90,24 @@ public class Beneficiary implements Entity {
     /**
      * Creates a Beneficiary with all the required properties for the create beneficiary method. Note that this
      * is just a simple helper factory method and can be used for any other purpose.
+     * @deprecated bank_account_holder_name is now optional. Use {@link #create(String, String, String)} instead
+     * and set bank_account_holder_name separately if needed.
      */
+    @Deprecated
     public static Beneficiary create(String bankAccountHolderName, String bankCountry, String currency, String name) {
         return new Beneficiary(bankAccountHolderName, bankCountry, currency, name);
+    }
+
+    /**
+     * Creates a Beneficiary with the minimum required properties for the create beneficiary method.
+     * The bank_account_holder_name is now optional and can be set separately if needed.
+     */
+    public static Beneficiary create(String bankCountry, String currency, String name) {
+        Beneficiary beneficiary = new Beneficiary();
+        beneficiary.bankCountry = bankCountry;
+        beneficiary.currency = currency;
+        beneficiary.name = name;
+        return beneficiary;
     }
 
     @Override
