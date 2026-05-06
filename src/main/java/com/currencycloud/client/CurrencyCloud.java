@@ -50,6 +50,7 @@ import com.currencycloud.client.model.PaymentSubmissionInfo;
 import com.currencycloud.client.model.Payments;
 import com.currencycloud.client.model.PaymentTrackingInfo;
 import com.currencycloud.client.model.PaymentValidationResult;
+import com.currencycloud.client.model.Quote;
 import com.currencycloud.client.model.QuotePaymentFee;
 import com.currencycloud.client.model.Rates;
 import com.currencycloud.client.model.ReportRequest;
@@ -428,7 +429,7 @@ public interface CurrencyCloud {
   Beneficiary createBeneficiary(
       @HeaderParam("X-Auth-Token") String authToken,
       @HeaderParam("User-Agent") String userAgent,
-      @FormParam("bank_account_holder_name") String bankAccountHolderName,
+      @Nullable @FormParam("bank_account_holder_name") String bankAccountHolderName,
       @FormParam("bank_country") String bankCountry,
       @FormParam("currency") String currency,
       @FormParam("name") String name,
@@ -788,7 +789,8 @@ public interface CurrencyCloud {
       @Nullable @FormParam("client_sell_amount") BigDecimal clientSellAmount,
       @Nullable @FormParam("reason") String reason,
       @Nullable @FormParam("unique_request_id") String uniqueRequestId,
-      @Nullable @FormParam("conversion_date_preference") String conversionDatePreference
+      @Nullable @FormParam("conversion_date_preference") String conversionDatePreference,
+      @Nullable @FormParam("quote_id") String quoteId
   ) throws ResponseException;
 
   /**
@@ -945,6 +947,28 @@ public interface CurrencyCloud {
       @Nullable @QueryParam("per_page") Integer perPage,
       @Nullable @QueryParam("order") String order,
       @Nullable @QueryParam("order_asc_desc") Pagination.SortOrder orderAscDesc
+  ) throws ResponseException;
+
+  ///////////////////////////////////////////////////////////////////
+  ///// QUOTES API //////////////////////////////////////////////////
+
+  /**
+   * Create a Quote
+   */
+  @POST
+  @Path("quotes/create")
+  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+  Quote createQuote(
+      @HeaderParam("X-Auth-Token") String authToken,
+      @HeaderParam("User-Agent") String userAgent,
+      @FormParam("buy_currency") String buyCurrency,
+      @FormParam("sell_currency") String sellCurrency,
+      @FormParam("fixed_side") String fixedSide,
+      @FormParam("amount") BigDecimal amount,
+      @FormParam("hold_period") String holdPeriod,
+      @Nullable @FormParam("on_behalf_of") String onBehalfOf,
+      @Nullable @FormParam("conversion_date") Date conversionDate,
+      @Nullable @FormParam("conversion_date_preference") String conversionDatePreference
   ) throws ResponseException;
 
   ///////////////////////////////////////////////////////////////////

@@ -4,7 +4,7 @@
     "method": "POST",
     "headers": {
       "User-Agent": {
-        "matches": "CurrencyCloudSDK/2.0 Java/8.2.0"
+        "matches": "CurrencyCloudSDK/2.0 Java/8.3.0"
       },
       "X-Auth-Token": {
         "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
@@ -12,7 +12,7 @@
     },
     "bodyPatterns": [
       {
-        "equalTo": "buy_currency=EUR&sell_currency=GBP&fixed_side=buy&amount=1000&term_agreement=true&conversion_date_preference=earliest"
+        "equalTo": "buy_currency=EUR&sell_currency=GBP&fixed_side=buy&amount=1000&term_agreement=true&conversion_date_preference=earliest&quote_id=3c25ce4a-3552-45bb-869e-406c795052aa"
       }
     ]
   },

@@ -1,0 +1,32 @@
+{
+  "request": {
+    "url": "/v2/quotes/create",
+    "method": "POST",
+    "headers": {
+      "User-Agent": {
+        "matches": "CurrencyCloudSDK/2.0 Java/8.3.0"
+      },
+      "X-Auth-Token": {
+        "matches": "6f5f99d1b860fc47e8a186e3dce0d3f9"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalTo": "buy_currency=EUR&sell_currency=GBP&fixed_side=buy&amount=10000.00&hold_period=30s&conversion_date_preference=default"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Mon, 11 Aug 2025 08:10:21 GMT",
+      "Content-Type": "application/json;charset=utf-8",
+      "Content-Length": "865",
+      "Connection": "keep-alive",
+      "X-Request-Id": "2778807612227406608",
+      "X-Content-Type-Options": "nosniff"
+    },
+    "body": "{\"buy_currency\":\"EUR\",\"sell_currency\":\"GBP\",\"fixed_side\":\"buy\",\"client_buy_amount\":\"10000.00\",\"client_sell_amount\":\"8059.00\",\"client_rate\":\"0.8059\",\"partner_buy_amount\":\"10000.00\",\"partner_sell_amount\":\"8059.00\",\"partner_rate\":\"0.8059\",\"core_rate\":\"0.8059\",\"mid_market_rate\":\"0.8058\",\"currency_pair\":\"EURGBP\",\"deposit_required\":false,\"deposit_amount\":\"0.00\",\"deposit_currency\":\"EUR\",\"created_at\":\"2025-08-11T08:10:21+00:00\",\"expires_at\":\"2025-08-11T08:10:51+00:00\",\"settlement_cut_off_time\":\"2025-08-13T15:30:00+00:00\"}"
+  }
+}

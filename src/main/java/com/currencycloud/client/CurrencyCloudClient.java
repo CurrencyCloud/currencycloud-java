@@ -57,6 +57,7 @@ import com.currencycloud.client.model.PaymentSubmissionInfo;
 import com.currencycloud.client.model.PaymentTrackingInfo;
 import com.currencycloud.client.model.PaymentValidationResult;
 import com.currencycloud.client.model.Payments;
+import com.currencycloud.client.model.Quote;
 import com.currencycloud.client.model.QuotePaymentFee;
 import com.currencycloud.client.model.Rates;
 import com.currencycloud.client.model.ReportRequest;
@@ -114,7 +115,7 @@ public class CurrencyCloudClient {
       "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       Pattern.CASE_INSENSITIVE
   );
-  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/8.2.0";
+  private static final String userAgent = "CurrencyCloudSDK/2.0 Java/8.3.0";
 
   private final CurrencyCloud api;
 
@@ -834,7 +835,8 @@ public class CurrencyCloudClient {
         conversion.getClientSellAmount(),
         conversion.getReason(),
         conversion.getUniqueRequestId(),
-        conversion.getConversionDatePreference()
+        conversion.getConversionDatePreference(),
+        conversion.getQuoteId()
     );
   }
 
@@ -978,6 +980,24 @@ public class CurrencyCloudClient {
         pagination.getPerPage(),
         pagination.getOrder(),
         pagination.getOrderAscDesc()
+    );
+  }
+
+  ///////////////////////////////////////////////////////////////////
+  ///// QUOTES ////////////////////////////////////////////////////////
+
+  public Quote createQuote(Quote quote) throws CurrencyCloudException {
+    return api.createQuote(
+        authToken,
+        userAgent,
+        quote.getBuyCurrency(),
+        quote.getSellCurrency(),
+        quote.getFixedSide(),
+        quote.getAmount(),
+        quote.getHoldPeriod(),
+        getOnBehalfOf(),
+        dateOnly(quote.getConversionDate()),
+        quote.getConversionDatePreference()
     );
   }
 

@@ -40,7 +40,7 @@ public class BeneficiariesTest extends TestSupport {
 
     @Test
     public void testCanCreateBeneficiary() {
-        Beneficiary beneficiary = Beneficiary.create("Test User", "GB", "GBP", "Test User");
+        Beneficiary beneficiary = Beneficiary.create("GB", "GBP", "Test User");
         beneficiary.setEmail("development@currencycloud.com");
         ArrayList<String> beneficiaryAddress = new ArrayList<>();
         beneficiaryAddress.add("12 Steward St, London E1 6FQ");
@@ -72,7 +72,7 @@ public class BeneficiariesTest extends TestSupport {
 
         assertThat(beneficiary, is(notNullValue()));
         assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
-        assertThat(beneficiary.getBankAccountHolderName(), equalTo("Test User"));
+        assertThat(beneficiary.getBankAccountHolderName(), is(nullValue()));
         assertThat(beneficiary.getBankCountry(), equalTo("GB"));
         assertThat(beneficiary.getCurrency(), equalTo("GBP"));
         assertThat(beneficiary.getName(), equalTo("Test User"));

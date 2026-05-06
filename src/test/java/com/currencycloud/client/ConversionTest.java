@@ -265,6 +265,7 @@ public class ConversionTest extends TestSupport {
                 new BigDecimal("1000"),
                 true);
         conversion.setConversionDatePreference("earliest");
+        conversion.setQuoteId("3c25ce4a-3552-45bb-869e-406c795052aa");
         final Conversion createdConversion = client.createConversion(conversion);
         assertThat(createdConversion.getClientSellAmount(), equalTo(new BigDecimal("805.90")));
         assertThat(createdConversion.getConversionDate(), equalTo(parseDateTime("2020-05-19T00:00:00+00:00")));
