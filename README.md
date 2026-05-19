@@ -1,6 +1,6 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.currencycloud.currencycloud-java/currencycloud-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.currencycloud.currencycloud-java%22%20AND%20a:%22currencycloud-java%22) [![CodeQL](https://github.com/CurrencyCloud/currencycloud-java/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/CurrencyCloud/currencycloud-java/actions/workflows/github-code-scanning/codeql)
 
-# Currencycloud API v2 Java client
+# Currencycloud API v2 Java client 
 This is the official Java SDK for the Currencycloud API. Additional documentation for each API endpoint can be found at [developer.currencycloud.com][docs].
 
 If you have any queries please contact our development team at development@currencycloud.com Please quote your login Id in any correspondence as this allows us to locate your account and give you the support you need.
