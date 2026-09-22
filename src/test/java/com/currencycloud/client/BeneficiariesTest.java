@@ -104,6 +104,18 @@ public class BeneficiariesTest extends TestSupport {
     }
 
     @Test
+    public void testCanCreateBeneficiaryWithoutName() {
+        Beneficiary beneficiary = Beneficiary.create("GB", "GBP");
+        beneficiary = client.createBeneficiary(beneficiary);
+
+        assertThat(beneficiary, is(notNullValue()));
+        assertThat(beneficiary.getId(), equalTo("081596c9-02de-483e-9f2a-4cf55dcdf98c"));
+        assertThat(beneficiary.getBankCountry(), equalTo("GB"));
+        assertThat(beneficiary.getCurrency(), equalTo("GBP"));
+        assertThat(beneficiary.getName(), is(nullValue()));
+    }
+
+    @Test
     public void testCanCreateBeneficiaryBusinessNature() {
         Beneficiary beneficiary = Beneficiary.create("Test User", "GB", "GBP", "Test User");
         beneficiary.setEmail("development@currencycloud.com");

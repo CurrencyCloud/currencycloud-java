@@ -227,12 +227,17 @@ Once a feature has been marked as deprecated, we no longer develop the code or i
 ```
 2026-04-29
 Beneficiary.create(String bankAccountHolderName, String bankCountry, String currency, String name)
+
+2026-09-21
+Beneficiary.create(String bankCountry, String currency, String name)
 ```
 
 # Support
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [8.4.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.4.0)
+    * Makes name (beneficiary nickname) optional in /beneficiaries/create
 * [8.3.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.3.0)
     * Adds POST /quotes/create
     * Adds quote_id to /conversions/create

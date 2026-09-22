@@ -432,7 +432,7 @@ public interface CurrencyCloud {
       @Nullable @FormParam("bank_account_holder_name") String bankAccountHolderName,
       @FormParam("bank_country") String bankCountry,
       @FormParam("currency") String currency,
-      @FormParam("name") String name,
+      @Nullable @FormParam("name") String name,
       @Nullable @FormParam("on_behalf_of") String onBehalfOf,
       @Nullable @FormParam("email") String email,
       @Nullable @FormParam("beneficiary_address") String beneficiaryAddress,
