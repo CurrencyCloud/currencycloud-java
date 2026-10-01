@@ -95,6 +95,8 @@ public class AccountsTest extends TestSupport {
         complianceSettings.setBusinessWebsiteUrl("https://acme.com");
         complianceSettings.setExpectedMonthlyActivityVolume(100000);
         complianceSettings.setExpectedMonthlyActivityValue(new BigDecimal("500000.00"));
+        complianceSettings.setExpectedTransactionCurrencies(List.of("GBP"));
+        complianceSettings.setExpectedTransactionCountries(List.of("GB", "US"));
         
         Account created = client.createAccount(account, complianceSettings);
 
@@ -359,6 +361,8 @@ public class AccountsTest extends TestSupport {
         complianceSettings.setTradingAddressCity("London");
         complianceSettings.setTradingAddressCountry("GB");
         complianceSettings.setTradingAddressPostalcode("SW1A 1AA");
+        complianceSettings.setExpectedTransactionCurrencies(List.of("GBP"));
+        complianceSettings.setExpectedTransactionCountries(List.of("GB", "US"));
 
         AccountComplianceSettings updatedSettings = client.updateAccountComplianceSettings(complianceSettings);
         

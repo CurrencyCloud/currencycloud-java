@@ -22,13 +22,22 @@
       },
       {
         "contains": "customer_risk=medium"
+      },
+      {
+        "contains": "expected_transaction_currencies[]=GBP"
+      },
+      {
+        "contains": "expected_transaction_countries[]=GB"
+      },
+      {
+        "contains": "expected_transaction_countries[]=US"
       }
     ]
   },
   "response": {
     "status": 200,
     "headers": {
-      "Server": "nginx", 
+      "Server": "nginx",
       "Date": "Mon, 05 Mar 2018 06:36:51 GMT",
       "Content-Type": "application/json;charset=utf-8",
       "Content-Length": "485",

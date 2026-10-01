@@ -28,6 +28,15 @@
       },
       {
         "contains": "expected_monthly_activity_value=500000.00"
+      },
+      {
+        "contains": "expected_transaction_currencies[]=GBP"
+      },
+      {
+        "contains": "expected_transaction_countries[]=GB"
+      },
+      {
+        "contains": "expected_transaction_countries[]=US"
       }
     ]
   },
