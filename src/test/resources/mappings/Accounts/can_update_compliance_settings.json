@@ -4,7 +4,7 @@
     "method": "POST",
     "headers": {
       "User-Agent": {
-        "matches": "CurrencyCloudSDK/2.0 Java/8.4.0"
+        "matches": "CurrencyCloudSDK/2.0 Java/8.4.1"
       },
       "X-Auth-Token": {
         "matches": "acad59188ce6ddb54d4043bc4efb5f57"
@@ -22,13 +22,19 @@
       },
       {
         "contains": "customer_risk=medium"
+      },
+      {
+        "contains": "expected_transaction_currencies[]=GBP"
+      },
+      {
+        "contains": "expected_transaction_countries[]=GB&expected_transaction_countries[]=FR"
       }
     ]
   },
   "response": {
     "status": 200,
     "headers": {
-      "Server": "nginx", 
+      "Server": "nginx",
       "Date": "Mon, 05 Mar 2018 06:36:51 GMT",
       "Content-Type": "application/json;charset=utf-8",
       "Content-Length": "485",
@@ -36,6 +42,6 @@
       "X-Request-Id": "2771948673934289805",
       "X-Content-Type-Options": "nosniff"
     },
-    "body": "{\"account_id\":\"e277c9f9-679f-454f-8367-274b3ff977ff\",\"industry_type\":\"fintech\",\"country_of_incorporation\":\"GB\",\"business_website_url\":\"https://newsite.com\",\"customer_risk\":\"medium\",\"expected_monthly_activity_volume\":\"200000\",\"expected_monthly_activity_value\":\"1000000.00\",\"tax_identification\":\"TAX123456\",\"national_identification\":\"NAT789012\",\"country_of_citizenship\":\"GB\",\"trading_address_street\":\"456 Trading Ave\",\"trading_address_city\":\"London\",\"trading_address_state\":null,\"trading_address_postalcode\":\"SW1A 1AA\",\"trading_address_country\":\"GB\"}"
+    "body": "{\"account_id\":\"e277c9f9-679f-454f-8367-274b3ff977ff\",\"industry_type\":\"fintech\",\"country_of_incorporation\":\"GB\",\"business_website_url\":\"https://newsite.com\",\"customer_risk\":\"medium\",\"expected_monthly_activity_volume\":\"200000\",\"expected_monthly_activity_value\":\"1000000.00\",\"tax_identification\":\"TAX123456\",\"national_identification\":\"NAT789012\",\"country_of_citizenship\":\"GB\",\"trading_address_street\":\"456 Trading Ave\",\"trading_address_city\":\"London\",\"trading_address_state\":null,\"trading_address_postalcode\":\"SW1A 1AA\",\"trading_address_country\":\"GB\",\"expected_transaction_currencies\":[\"GBP\"],\"expected_transaction_countries\":[\"GB\",\"FR\"]}"
   }
 }
