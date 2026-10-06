@@ -166,8 +166,8 @@ public interface CurrencyCloud {
       @Nullable @FormParam("customer_risk") String customerRisk,
       @Nullable @FormParam("expected_monthly_activity_volume") Integer expectedMonthlyActivityVolume,
       @Nullable @FormParam("expected_monthly_activity_value") BigDecimal expectedMonthlyActivityValue,
-      @Nullable @FormParam("expected_transaction_currencies") List<String> expectedTransactionCurrencies,
-      @Nullable @FormParam("expected_transaction_countries") List<String> expectedTransactionCountries
+      @Nullable @FormParam("expected_transaction_currencies[]") List<String> expectedTransactionCurrencies,
+      @Nullable @FormParam("expected_transaction_countries[]") List<String> expectedTransactionCountries
   ) throws ResponseException;
 
   /**
@@ -328,8 +328,8 @@ public interface CurrencyCloud {
       @Nullable @FormParam("customer_risk") String customerRisk,
       @Nullable @FormParam("expected_monthly_activity_volume") Integer expectedMonthlyActivityVolume,
       @Nullable @FormParam("expected_monthly_activity_value") BigDecimal expectedMonthlyActivityValue,
-      @Nullable @FormParam("expected_transaction_currencies") List<String> expectedTransactionCurrencies,
-      @Nullable @FormParam("expected_transaction_countries") List<String> expectedTransactionCountries
+      @Nullable @FormParam("expected_transaction_currencies[]") List<String> expectedTransactionCurrencies,
+      @Nullable @FormParam("expected_transaction_countries[]") List<String> expectedTransactionCountries
   ) throws ResponseException;
 
   ///////////////////////////////////////////////////////////////////

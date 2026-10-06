@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -95,7 +96,9 @@ public class AccountsTest extends TestSupport {
         complianceSettings.setBusinessWebsiteUrl("https://acme.com");
         complianceSettings.setExpectedMonthlyActivityVolume(100000);
         complianceSettings.setExpectedMonthlyActivityValue(new BigDecimal("500000.00"));
-        
+        complianceSettings.setExpectedTransactionCurrencies(Arrays.asList("USD"));
+        complianceSettings.setExpectedTransactionCountries(Arrays.asList("US", "GB"));
+
         Account created = client.createAccount(account, complianceSettings);
 
         assertThat(created, is(notNullValue()));
@@ -359,14 +362,18 @@ public class AccountsTest extends TestSupport {
         complianceSettings.setTradingAddressCity("London");
         complianceSettings.setTradingAddressCountry("GB");
         complianceSettings.setTradingAddressPostalcode("SW1A 1AA");
+        complianceSettings.setExpectedTransactionCurrencies(Arrays.asList("GBP"));
+        complianceSettings.setExpectedTransactionCountries(Arrays.asList("GB", "FR"));
 
         AccountComplianceSettings updatedSettings = client.updateAccountComplianceSettings(complianceSettings);
-        
+
         assertThat(updatedSettings, is(notNullValue()));
         assertThat(updatedSettings.getAccountId(), equalTo("e277c9f9-679f-454f-8367-274b3ff977ff"));
         assertThat(updatedSettings.getIndustryType(), equalTo("fintech"));
         assertThat(updatedSettings.getCountryOfIncorporation(), equalTo("GB"));
         assertThat(updatedSettings.getBusinessWebsiteUrl(), equalTo("https://newsite.com"));
         assertThat(updatedSettings.getCustomerRisk(), equalTo("medium"));
+        assertThat(updatedSettings.getExpectedTransactionCurrencies(), equalTo(Arrays.asList("GBP")));
+        assertThat(updatedSettings.getExpectedTransactionCountries(), equalTo(Arrays.asList("GB", "FR")));
     }
 }
