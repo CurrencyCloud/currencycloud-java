@@ -236,6 +236,8 @@ Beneficiary.create(String bankCountry, String currency, String name)
 We actively support the latest version of the SDK. We support the immediate previous version on best-efforts basis. All other versions are no longer supported nor maintained.
 
 # Release History
+* [8.5.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.5.0)
+    * Adds `instruction_identification` to `payment_events` on GET /payments/{id}/tracking_info response
 * [8.4.1](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.4.1)
     * Resolves issue where `expected_transaction_currencies` and `expected_transaction_countries` in `POST /accounts/create` and `POST accounts/{account_id}/compliance_settings` were not being sent as arrays
 * [8.4.0](https://github.com/CurrencyCloud/currencycloud-java/releases/tag/currencycloud-java-8.4.0)
