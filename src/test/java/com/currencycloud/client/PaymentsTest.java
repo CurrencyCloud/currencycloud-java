@@ -489,6 +489,8 @@ public class PaymentsTest extends TestSupport {
         assertThat(paymentEvent7.getChargeAmount(), empty());
         assertThat(paymentEvent7.getChargeType(), equalTo("shared"));
         assertThat(paymentEvent7.getForeignExchangeDetails(), nullValue());
+        assertThat(paymentEvent6.getInstructionIdentification(), equalTo("ABC123"));
+        assertThat(paymentEvent7.getInstructionIdentification(), nullValue());
         assertThat(paymentEvent7.getLastUpdateTime(), equalTo(parseDateTime("2019-07-09T13:20:50+00:00")));
     }
 

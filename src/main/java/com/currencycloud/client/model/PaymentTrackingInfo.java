@@ -137,6 +137,7 @@ public class PaymentTrackingInfo {
         private List<Amount> chargeAmount;
         private String chargeType;
         private ForeignExchangeDetails foreignExchangeDetails;
+        private String instructionIdentification;
         private Date lastUpdateTime;
 
         public String getTrackerEventType() {
@@ -273,6 +274,14 @@ public class PaymentTrackingInfo {
 
         public void setForeignExchangeDetails(ForeignExchangeDetails foreignExchangeDetails) {
             this.foreignExchangeDetails = foreignExchangeDetails;
+        }
+
+        public String getInstructionIdentification() {
+            return instructionIdentification;
+        }
+
+        public void setInstructionIdentification(String instructionIdentification) {
+            this.instructionIdentification = instructionIdentification;
         }
 
         public Date getLastUpdateTime() {
